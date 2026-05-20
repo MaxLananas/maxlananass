@@ -3,198 +3,193 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mentions Légales — MaxLananas</title>
+<title>Mentions L&eacute;gales &mdash; MaxLananas</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 @font-face {
     font-family: 'FFFlauta';
     src: url('FFFlauta-200.otf') format('opentype');
+    font-display: block;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
     --black: #080808;
-    --off:   #e8e4dc;
-    --gray1: #111111;
-    --gray2: #181818;
-    --gray3: #252525;
+    --off: #e8e4dc;
+    --g1: #0f0f0f;
+    --g2: #161616;
+    --g3: #202020;
+    --g4: #2c2c2c;
     --discord: #5865F2;
+    --green: #3ddc84;
 }
 
-html { font-size:16px; }
+html { font-size: 16px; scroll-behavior: auto; }
 
 body {
-    background:var(--black);
-    color:var(--off);
-    font-family:'Space Mono',monospace;
-    overflow-x:hidden;
-    cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair;
+    background: var(--black); color: var(--off);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair;
+    -webkit-font-smoothing: antialiased;
 }
 
-a, button { cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair; color:inherit; text-decoration:none; }
-::selection { background:var(--off); color:var(--black); }
-::-webkit-scrollbar { width:3px; }
-::-webkit-scrollbar-track { background:var(--black); }
-::-webkit-scrollbar-thumb { background:var(--gray3); }
-html.lenis { height:auto; }
-.lenis.lenis-smooth { scroll-behavior:auto !important; }
+a, button { cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair; color: inherit; text-decoration: none; }
+::selection { background: var(--off); color: var(--black); }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--g4); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 nav {
-    position:fixed; top:0; left:0; right:0; z-index:900;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:30px 52px;
-    background:rgba(8,8,8,.93);
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 30px 56px;
+    background: rgba(8,8,8,.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 .nav-logo {
-    font-family:'FFFlauta',monospace;
-    font-size:12px; letter-spacing:.06em; opacity:.9;
+    font-family: 'FFFlauta', monospace; font-size: 11px; letter-spacing: .07em;
+    transition: opacity .3s;
 }
+.nav-logo:hover { opacity: .5; }
 .nav-back {
-    font-family:'Space Mono',monospace;
-    font-size:12px; display:flex; align-items:center; gap:10px;
-    color:rgba(232,228,220,.5);
-    text-decoration:underline; text-underline-offset:4px;
-    text-decoration-color:rgba(232,228,220,.2);
-    transition:color .25s;
+    font-size: 11px; letter-spacing: .05em;
+    display: flex; align-items: center; gap: 10px;
+    color: rgba(232,228,220,.4);
+    text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: rgba(232,228,220,.15);
+    transition: color .25s;
 }
-.nav-back:hover { color:var(--off); }
+.nav-back:hover { color: var(--off); }
 
 .ml-hero {
-    min-height:52vh;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    padding:0 52px 60px;
-    border-bottom:1px solid var(--gray3);
+    min-height: 55vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 56px 56px;
+    border-bottom: 1px solid var(--g3);
+    position: relative; overflow: hidden;
 }
-.ml-hero-label {
-    font-size:9px; letter-spacing:.22em; text-transform:uppercase;
-    color:rgba(232,228,220,.28); margin-bottom:24px;
-    overflow:hidden;
-}
-.ml-hero-label span { display:block; transform:translateY(120%); }
 
-.ml-hero-title {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(52px,9vw,128px);
-    line-height:1.06; letter-spacing:-.015em;
+.ml-eyebrow {
+    font-size: 8px; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(232,228,220,.25); margin-bottom: 28px; overflow: hidden;
 }
-.ml-hero-title .line { overflow:hidden; display:block; }
-.ml-hero-title .line-inner { display:block; transform:translateY(112%); }
+.ml-eyebrow span { display: block; transform: translateY(130%); }
 
-.ml-hero-sub {
-    margin-top:28px; font-size:11px;
-    color:rgba(232,228,220,.35); letter-spacing:.04em;
-    opacity:0; transform:translateY(14px);
+.ml-title {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(54px, 9.5vw, 134px);
+    line-height: 1.05; letter-spacing: -.02em;
 }
+.ml-title .line { display: block; overflow: hidden; }
+.ml-title .li { display: block; transform: translateY(115%); }
+
+.ml-meta {
+    margin-top: 30px;
+    display: flex; align-items: center; gap: 32px;
+    font-size: 9px; color: rgba(232,228,220,.22);
+    letter-spacing: .08em;
+    opacity: 0; transform: translateY(14px);
+}
+.ml-meta span { display: flex; align-items: center; gap: 8px; }
+.ml-meta i { font-size: 8px; color: var(--discord); }
 
 .ml-content {
-    max-width:860px;
-    margin:0 auto;
-    padding:100px 52px 140px;
+    max-width: 900px; margin: 0 auto;
+    padding: 96px 56px 140px;
 }
 
 .ml-block {
-    margin-bottom:72px;
-    opacity:0; transform:translateY(40px);
+    margin-bottom: 68px;
+    opacity: 0; transform: translateY(42px);
 }
 
 .ml-block-num {
-    font-family:'FFFlauta',monospace;
-    font-size:9px; letter-spacing:.14em;
-    color:rgba(88,101,242,.7);
-    margin-bottom:20px; display:block;
-    text-transform:uppercase;
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    letter-spacing: .14em; color: rgba(88,101,242,.65);
+    margin-bottom: 18px; display: block; text-transform: uppercase;
 }
 
 .ml-block h2 {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(18px,2.5vw,28px);
-    line-height:1.3; margin-bottom:22px;
-    letter-spacing:-.01em;
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(16px, 2.2vw, 26px);
+    line-height: 1.3; margin-bottom: 20px; letter-spacing: -.01em;
 }
 
-.ml-block p, .ml-block li {
-    font-size:12px; line-height:2;
-    color:rgba(232,228,220,.55);
-    margin-bottom:14px;
+.ml-block p {
+    font-size: 11px; line-height: 2.1;
+    color: rgba(232,228,220,.52); margin-bottom: 14px;
 }
 
-.ml-block strong { color:var(--off); font-weight:700; }
+.ml-block strong { color: var(--off); font-weight: 700; }
 
-.ml-block ul {
-    list-style:none; margin-top:8px;
-}
+.ml-block ul { list-style: none; margin-top: 10px; }
 .ml-block ul li {
-    display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;
+    font-size: 11px; line-height: 2.1;
+    color: rgba(232,228,220,.48);
+    display: flex; align-items: flex-start; gap: 12px; margin-bottom: 6px;
 }
 .ml-block ul li::before {
-    content:'▸';
-    color:var(--discord); flex-shrink:0;
-    margin-top:2px;
-}
-
-.ml-divider {
-    width:100%; height:1px;
-    background:var(--gray3);
-    margin-bottom:72px;
-    opacity:0; transform:scaleX(0);
-    transform-origin:left;
+    content: '&#9656;'; color: var(--discord); flex-shrink: 0; margin-top: 2px;
+    font-size: 9px;
 }
 
 .ml-block a {
-    color:var(--discord);
-    text-decoration:underline;
-    text-underline-offset:3px;
-    transition:opacity .2s;
+    color: var(--discord);
+    text-decoration: underline; text-underline-offset: 3px;
+    transition: opacity .2s;
 }
-.ml-block a:hover { opacity:.6; }
+.ml-block a:hover { opacity: .6; }
 
-.ml-contact-cards {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:3px; margin-top:32px;
+.ml-div {
+    width: 100%; height: 1px; background: var(--g3);
+    margin-bottom: 68px;
+    opacity: 0; transform: scaleX(0); transform-origin: left;
 }
-.ml-contact-card {
-    background:var(--gray1); padding:32px 28px;
-    display:flex; flex-direction:column; gap:10px;
+
+.ml-contact-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 28px;
 }
-.ml-contact-card span:first-child {
-    font-family:'FFFlauta',monospace;
-    font-size:10px; color:rgba(232,228,220,.3);
-    text-transform:uppercase; letter-spacing:.1em;
+.ml-c-block {
+    background: var(--g1); padding: 28px 24px;
+    display: flex; flex-direction: column; gap: 8px;
+    transition: background .4s;
 }
-.ml-contact-card span:last-child {
-    font-size:11px; color:rgba(232,228,220,.6);
+.ml-c-block:hover { background: var(--g3); }
+.ml-c-label {
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    color: rgba(232,228,220,.28); text-transform: uppercase; letter-spacing: .1em;
 }
+.ml-c-val { font-size: 10px; color: rgba(232,228,220,.55); }
 
 footer {
-    padding:36px 52px;
-    border-top:1px solid var(--gray2);
-    display:flex; align-items:center; justify-content:space-between;
+    padding: 34px 56px;
+    border-top: 1px solid var(--g2);
+    display: flex; align-items: center; justify-content: space-between;
 }
-.f-logo {
-    font-family:'FFFlauta',monospace;
-    font-size:10px; color:rgba(232,228,220,.22); letter-spacing:.06em;
-}
-.f-links { display:flex; gap:36px; list-style:none; }
+.f-logo { font-family: 'FFFlauta', monospace; font-size: 9px; color: rgba(232,228,220,.18); letter-spacing: .06em; }
+.f-links { display: flex; gap: 32px; list-style: none; }
 .f-links a {
-    font-size:10px; color:rgba(232,228,220,.22);
-    text-decoration:underline; text-underline-offset:3px;
-    letter-spacing:.04em; transition:color .2s;
+    font-size: 9px; color: rgba(232,228,220,.18);
+    text-decoration: underline; text-underline-offset: 3px;
+    letter-spacing: .04em; transition: color .2s;
 }
-.f-links a:hover { color:var(--off); }
+.f-links a:hover { color: var(--off); }
 
-@media(max-width:768px){
-    nav { padding:22px 24px; }
-    .ml-hero { padding:0 24px 48px; }
-    .ml-content { padding:72px 24px 100px; }
-    .ml-contact-cards { grid-template-columns:1fr; }
-    footer { padding:28px 24px; flex-direction:column; gap:16px; text-align:center; }
+@media(max-width: 768px) {
+    nav { padding: 22px 24px; }
+    .ml-hero { padding: 0 24px 44px; }
+    .ml-content { padding: 68px 24px 100px; }
+    .ml-contact-row { grid-template-columns: 1fr; }
+    footer { padding: 26px 24px; flex-direction: column; gap: 14px; text-align: center; }
 }
 </style>
 </head>
@@ -208,98 +203,99 @@ footer {
 </nav>
 
 <div class="ml-hero">
-    <div class="ml-hero-label">
-        <span>&#9632;&nbsp; Informations légales</span>
-    </div>
-    <h1 class="ml-hero-title">
-        <div class="line"><span class="line-inner">MENTIONS</span></div>
-        <div class="line"><span class="line-inner">LÉGALES.</span></div>
+    <div class="ml-eyebrow"><span>&#9632;&ensp;Informations l&eacute;gales</span></div>
+    <h1 class="ml-title">
+        <div class="line"><span class="li">MENTIONS</span></div>
+        <div class="line"><span class="li">L&Eacute;GALES.</span></div>
     </h1>
-    <p class="ml-hero-sub">Dernière mise à jour &mdash; Juin 2025</p>
+    <div class="ml-meta">
+        <span><i class="fa-regular fa-calendar"></i> Mise &agrave; jour &mdash; Juin 2025</span>
+        <span><i class="fa-solid fa-location-dot"></i> Guadeloupe, France</span>
+        <span><i class="fa-brands fa-cloudflare"></i> H&eacute;berg&eacute; Cloudflare &amp; GitHub</span>
+    </div>
 </div>
 
 <div class="ml-content">
 
     <div class="ml-block">
-        <span class="ml-block-num">01 &mdash; Éditeur du site</span>
+        <span class="ml-block-num">01 &mdash; &Eacute;diteur</span>
         <h2>Responsable de publication</h2>
-        <p>Ce site est édité à titre personnel par <strong>MaxLananas</strong>, développeur indépendant et passionné Minecraft, résidant en <strong>Guadeloupe</strong>, France.</p>
+        <p>Ce site est &eacute;dit&eacute; &agrave; titre personnel par <strong>MaxLananas</strong>, d&eacute;veloppeur ind&eacute;pendant et passionn&eacute; Minecraft, r&eacute;sidant en <strong>Guadeloupe</strong>, France.</p>
         <ul>
-            <li>Pseudo : <strong>MaxLananas</strong></li>
-            <li>Statut : Particulier &mdash; activité non commerciale</li>
-            <li>Localisation : Guadeloupe, France (971)</li>
-            <li>Contact : via Discord ou GitHub (voir section Contact)</li>
+            <li>Pseudo&nbsp;: <strong>MaxLananas</strong></li>
+            <li>Statut&nbsp;: Particulier &mdash; activit&eacute; non commerciale</li>
+            <li>Localisation&nbsp;: Guadeloupe, France (971)</li>
+            <li>Contact&nbsp;: via Discord ou GitHub ci-dessous</li>
         </ul>
     </div>
 
-    <div class="ml-divider"></div>
+    <div class="ml-div"></div>
 
     <div class="ml-block">
-        <span class="ml-block-num">02 &mdash; Hébergement</span>
-        <h2>Hébergeur du site</h2>
-        <p>Ce site est hébergé par un prestataire tiers. Les informations relatives à l'hébergeur sont les suivantes :</p>
+        <span class="ml-block-num">02 &mdash; H&eacute;bergement</span>
+        <h2>Infrastructure technique</h2>
+        <p>Ce site est h&eacute;berg&eacute; et distribu&eacute; via deux services tiers :</p>
         <ul>
-            <li>Hébergeur : <strong>À compléter selon votre hébergeur</strong></li>
-            <li>Adresse : À compléter</li>
-            <li>Site : <a href="#">à compléter</a></li>
+            <li><strong>GitHub Pages</strong> &mdash; GitHub, Inc. &mdash; 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA &mdash; <a href="https://github.com" target="_blank">github.com</a></li>
+            <li><strong>Cloudflare</strong> &mdash; Cloudflare, Inc. &mdash; 101 Townsend Street, San Francisco, CA 94107, USA &mdash; <a href="https://cloudflare.com" target="_blank">cloudflare.com</a></li>
         </ul>
+        <p>Ces services peuvent collecter des donn&eacute;es techniques (adresses IP, logs) conform&eacute;ment &agrave; leurs propres politiques de confidentialit&eacute;.</p>
     </div>
 
-    <div class="ml-divider"></div>
+    <div class="ml-div"></div>
 
     <div class="ml-block">
-        <span class="ml-block-num">03 &mdash; Propriété intellectuelle</span>
+        <span class="ml-block-num">03 &mdash; Propri&eacute;t&eacute; intellectuelle</span>
         <h2>Droits d'auteur &amp; contenus</h2>
-        <p>L'ensemble des contenus présents sur ce site — textes, captures d'écran Minecraft, créations visuelles, code source — sont la propriété exclusive de <strong>MaxLananas</strong>, sauf mention contraire explicite.</p>
-        <p>Toute reproduction, distribution, modification ou utilisation de ces contenus sans autorisation préalable écrite est strictement interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+        <p>L'ensemble des contenus pr&eacute;sents sur ce site &mdash; textes, captures d'&eacute;cran Minecraft, cr&eacute;ations visuelles, code source &mdash; sont la propri&eacute;t&eacute; exclusive de <strong>MaxLananas</strong>, sauf mention contraire explicite.</p>
+        <p>Toute reproduction, distribution ou utilisation sans autorisation pr&eacute;alable &eacute;crite est strictement interdite et constitue une contrefa&ccedil;on sanctionn&eacute;e par le Code de la propri&eacute;t&eacute; intellectuelle.</p>
         <ul>
-            <li>Builds Minecraft : captures personnelles, réalisées par MaxLananas</li>
-            <li>Code source des projets : propriété de MaxLananas sauf projets open-source</li>
-            <li>Police FFFlauta : utilisée conformément à sa licence</li>
-            <li>Images tierces (Unsplash) : utilisées sous licence libre</li>
+            <li>Builds Minecraft&nbsp;: captures personnelles, r&eacute;alis&eacute;es par MaxLananas</li>
+            <li>Code source&nbsp;: propri&eacute;t&eacute; de MaxLananas sauf projets open-source (voir GitHub)</li>
+            <li>Police FFFlauta&nbsp;: utilis&eacute;e conform&eacute;ment &agrave; sa licence</li>
+            <li>Collaborations&nbsp;: contenus Fight4Glory &amp; BTE France utilis&eacute;s avec accord</li>
         </ul>
     </div>
 
-    <div class="ml-divider"></div>
+    <div class="ml-div"></div>
 
     <div class="ml-block">
-        <span class="ml-block-num">04 &mdash; Données personnelles</span>
-        <h2>Protection des données (RGPD)</h2>
-        <p>Ce site ne collecte <strong>aucune donnée personnelle</strong> via des formulaires ou systèmes de tracking. Aucun cookie analytique n'est déposé sans consentement.</p>
-        <p>Les liens vers des plateformes tierces (Discord, GitHub, Instagram, YouTube) sont soumis aux politiques de confidentialité de ces plateformes. MaxLananas ne saurait être tenu responsable des pratiques de ces services.</p>
+        <span class="ml-block-num">04 &mdash; Donn&eacute;es personnelles</span>
+        <h2>Protection des donn&eacute;es (RGPD)</h2>
+        <p>Ce site ne collecte <strong>aucune donn&eacute;e personnelle</strong> via des formulaires ou syst&egrave;mes de tracking actifs. Aucun cookie analytique n'est d&eacute;pos&eacute; sans consentement.</p>
         <ul>
-            <li>Cookies : uniquement techniques, nécessaires au fonctionnement</li>
-            <li>Analytique : aucune collecte active</li>
-            <li>Données de contact : traitées uniquement à des fins de réponse</li>
+            <li>Cookies&nbsp;: uniquement techniques, n&eacute;cessaires au fonctionnement</li>
+            <li>Analytique&nbsp;: aucune collecte active c&ocirc;t&eacute; application</li>
+            <li>Liens tiers&nbsp;: Discord, GitHub, Instagram, YouTube ont leurs propres politiques</li>
+            <li>Infrastructure&nbsp;: Cloudflare peut logger des donn&eacute;es r&eacute;seau (IP, etc.)</li>
         </ul>
-        <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez via Discord.</p>
+        <p>Conform&eacute;ment au RGPD et &agrave; la loi Informatique et Libert&eacute;s, vous disposez d'un droit d'acc&egrave;s, de rectification et de suppression. Contactez via Discord.</p>
     </div>
 
-    <div class="ml-divider"></div>
+    <div class="ml-div"></div>
 
     <div class="ml-block">
-        <span class="ml-block-num">05 &mdash; Responsabilité</span>
-        <h2>Limitation de responsabilité</h2>
-        <p>MaxLananas s'efforce de maintenir les informations de ce site aussi précises et à jour que possible. Toutefois, aucune garantie n'est donnée quant à l'exactitude, l'exhaustivité ou l'actualité des contenus publiés.</p>
-        <p>MaxLananas ne saurait être tenu responsable de tout dommage direct ou indirect résultant de l'utilisation de ce site ou des informations qu'il contient, ni des liens hypertextes pointant vers des sites tiers.</p>
+        <span class="ml-block-num">05 &mdash; Responsabilit&eacute;</span>
+        <h2>Limitation de responsabilit&eacute;</h2>
+        <p>MaxLananas s'efforce de maintenir les informations de ce site aussi pr&eacute;cises que possible. Toutefois, aucune garantie n'est donn&eacute;e quant &agrave; l'exactitude ou l'actualit&eacute; des contenus publi&eacute;s.</p>
+        <p>MaxLananas ne saurait &ecirc;tre tenu responsable de tout dommage r&eacute;sultant de l'utilisation de ce site ou des liens hypertextes pointant vers des sites tiers.</p>
     </div>
 
-    <div class="ml-divider"></div>
+    <div class="ml-div"></div>
 
     <div class="ml-block">
         <span class="ml-block-num">06 &mdash; Droit applicable</span>
-        <h2>Juridiction &amp; droit applicable</h2>
-        <p>Les présentes mentions légales sont soumises au <strong>droit français</strong>. En cas de litige, les tribunaux compétents de <strong>Guadeloupe</strong> seront seuls compétents.</p>
-        <p>Pour toute question relative à ce site, vous pouvez me contacter via les canaux suivants :</p>
-        <div class="ml-contact-cards">
-            <div class="ml-contact-card">
-                <span>Discord</span>
-                <span>MaxLananas#0000</span>
-            </div>
-            <div class="ml-contact-card">
-                <span>GitHub</span>
-                <span>github.com/MaxLananas</span>
-            </div>
+        <h2>Juridiction &amp; contacts</h2>
+        <p>Les pr&eacute;sentes mentions l&eacute;gales sont soumises au <strong>droit fran&ccedil;ais</strong>. En cas de litige, les tribunaux comp&eacute;tents de <strong>Guadeloupe</strong> seront seuls comp&eacute;tents.</p>
+        <div class="ml-contact-row">
+            <a href="https://discord.gg/BhWNkyTpdR" target="_blank" class="ml-c-block">
+                <span class="ml-c-label">Discord</span>
+                <span class="ml-c-val">discord.gg/BhWNkyTpdR</span>
+            </a>
+            <a href="https://github.com/MaxLananas" target="_blank" class="ml-c-block">
+                <span class="ml-c-label">GitHub</span>
+                <span class="ml-c-val">github.com/MaxLananas</span>
+            </a>
         </div>
     </div>
 
@@ -308,14 +304,14 @@ footer {
 <footer>
     <span class="f-logo">MAXLANANAS &copy; 2025</span>
     <ul class="f-links">
-        <li><a href="mentions-legales.html">Mentions légales</a></li>
-        <li><a href="https://discord.gg/tonlien" target="_blank">Discord</a></li>
+        <li><a href="mentions-legales.html">Mentions l&eacute;gales</a></li>
+        <li><a href="https://discord.gg/BhWNkyTpdR" target="_blank">Discord</a></li>
     </ul>
 </footer>
 
 <script>
 const lenis = new Lenis({
-    duration: 1.4,
+    duration: 1.45,
     easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     smoothWheel: true,
 });
@@ -324,34 +320,21 @@ lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-gsap.to('.ml-hero-title .line-inner', {
-    y: 0, duration: 1.2, stagger: 0.12,
-    ease: 'power4.out', delay: 0.2
-});
-gsap.to('.ml-hero-label span', {
-    y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1
-});
-gsap.to('.ml-hero-sub', {
-    opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85
-});
+gsap.to('.ml-eyebrow span', { y: 0, duration: 1, ease: 'power4.out', delay: .1 });
+gsap.to('.ml-title .li', { y: 0, duration: 1.25, stagger: .13, ease: 'power4.out', delay: .25 });
+gsap.to('.ml-meta', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: .95 });
 
-document.querySelectorAll('.ml-block').forEach((el, i) => {
+document.querySelectorAll('.ml-block').forEach(el => {
     gsap.to(el, {
-        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el, start: 'top 88%',
-            toggleActions: 'play none none none'
-        }
+        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
     });
 });
 
-document.querySelectorAll('.ml-divider').forEach(el => {
+document.querySelectorAll('.ml-div').forEach(el => {
     gsap.to(el, {
-        opacity: 1, scaleX: 1, duration: 1, ease: 'power3.out',
-        scrollTrigger: {
-            trigger: el, start: 'top 90%',
-            toggleActions: 'play none none none'
-        }
+        opacity: 1, scaleX: 1, duration: 1.1, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
     });
 });
 </script>
