@@ -5,476 +5,539 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MaxLananas — Dev & Minecraft</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 @font-face {
     font-family: 'FFFlauta';
     src: url('FFFlauta-200.otf') format('opentype');
+    font-display: block;
 }
 
-*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-    --black:   #080808;
-    --off:     #e8e4dc;
-    --gray1:   #111111;
-    --gray2:   #181818;
-    --gray3:   #252525;
+    --black: #080808;
+    --off: #e8e4dc;
+    --g1: #0f0f0f;
+    --g2: #161616;
+    --g3: #202020;
+    --g4: #2c2c2c;
     --discord: #5865F2;
-    --insta:   #E1306C;
-    --yt:      #FF0000;
-    --green:   #3ddc84;
-    --purple:  #A78BFA;
+    --insta: #E1306C;
+    --yt: #FF0000;
+    --green: #3ddc84;
 }
 
-html { font-size:16px; scroll-behavior:auto; }
+html { font-size: 16px; scroll-behavior: auto; }
 
 body {
-    background:var(--black);
-    color:var(--off);
-    font-family:'Space Mono',monospace;
-    overflow-x:hidden;
-    cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair;
+    background: var(--black);
+    color: var(--off);
+    font-family: 'Space Mono', monospace;
+    overflow-x: hidden;
+    cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair;
+    -webkit-font-smoothing: antialiased;
 }
 
-a, button { cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair; color:inherit; text-decoration:none; }
-::selection { background:var(--off); color:var(--black); }
-img { display:block; width:100%; height:100%; object-fit:cover; }
-::-webkit-scrollbar { width:3px; }
-::-webkit-scrollbar-track { background:var(--black); }
-::-webkit-scrollbar-thumb { background:var(--gray3); }
-html.lenis { height:auto; }
-.lenis.lenis-smooth { scroll-behavior:auto !important; }
+a, button { cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair; color: inherit; text-decoration: none; }
+::selection { background: var(--off); color: var(--black); }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+::-webkit-scrollbar { width: 2px; }
+::-webkit-scrollbar-track { background: var(--black); }
+::-webkit-scrollbar-thumb { background: var(--g4); }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
 
 nav {
-    position:fixed; top:0; left:0; right:0; z-index:900;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:30px 52px;
-    transition:background .5s cubic-bezier(.25,.46,.45,.94), backdrop-filter .5s;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 900;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 32px 56px;
+    transition: padding .5s cubic-bezier(.25,.46,.45,.94), background .5s, backdrop-filter .5s;
 }
 nav.scrolled {
-    background:rgba(8,8,8,.93);
-    backdrop-filter:blur(20px);
-    -webkit-backdrop-filter:blur(20px);
+    padding: 20px 56px;
+    background: rgba(8,8,8,.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
 }
 .nav-logo {
-    font-family:'FFFlauta',monospace;
-    font-size:12px;
-    letter-spacing:.06em;
-    opacity:.9;
+    font-family: 'FFFlauta', monospace;
+    font-size: 11px; letter-spacing: .07em;
+    transition: opacity .3s;
 }
-.nav-links { display:flex; gap:48px; list-style:none; }
+.nav-logo:hover { opacity: .5; }
+.nav-links { display: flex; gap: 48px; list-style: none; }
 .nav-links a {
-    font-family:'Space Mono',monospace;
-    font-size:12px;
-    text-decoration:underline;
-    text-underline-offset:4px;
-    text-decoration-color:rgba(232,228,220,.25);
-    letter-spacing:.04em;
-    transition:opacity .25s, text-decoration-color .25s;
+    font-size: 11px; letter-spacing: .05em;
+    text-decoration: underline; text-underline-offset: 4px;
+    text-decoration-color: rgba(232,228,220,.2);
+    transition: opacity .25s, text-decoration-color .25s;
 }
-.nav-links a:hover { opacity:.4; text-decoration-color:var(--off); }
+.nav-links a:hover { opacity: .38; text-decoration-color: var(--off); }
 
 #hero {
-    min-height:100vh;
-    display:flex; flex-direction:column; justify-content:flex-end;
-    padding:0 52px;
-    overflow:hidden; position:relative;
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 56px; overflow: hidden; position: relative;
+}
+
+.hero-aside {
+    position: absolute; right: 56px; top: 50%;
+    transform: translateY(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+    opacity: 0;
+}
+.aside-line {
+    width: 1px; height: 70px;
+    background: linear-gradient(to bottom, transparent, var(--g4), transparent);
+}
+.aside-year {
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    letter-spacing: .14em; color: rgba(232,228,220,.2);
+    writing-mode: vertical-rl; text-orientation: mixed;
 }
 
 .hero-eyebrow {
-    font-size:9px; letter-spacing:.22em; text-transform:uppercase;
-    color:rgba(232,228,220,.3); margin-bottom:24px; overflow:hidden;
+    font-size: 8px; letter-spacing: .26em; text-transform: uppercase;
+    color: rgba(232,228,220,.25); margin-bottom: 30px; overflow: hidden;
 }
-.hero-eyebrow span { display:block; transform:translateY(120%); }
+.hero-eyebrow .ei { display: block; transform: translateY(130%); }
 
 .hero-top {
-    display:flex; align-items:flex-end; justify-content:space-between;
-    padding-bottom:18px;
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding-bottom: 22px;
 }
 
 .hero-title {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(52px,9.8vw,136px);
-    line-height:1.06; letter-spacing:-.015em;
-    position:relative;
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(58px, 10.8vw, 152px);
+    line-height: 1.04; letter-spacing: -.02em;
 }
-.hero-title .line { display:block; overflow:hidden; }
-.hero-title .line-inner { display:block; transform:translateY(112%); }
-
-.hero-title-img {
-    position:absolute; inset:0;
-    background:url('untitled3.jpg') center/cover no-repeat;
-    -webkit-background-clip:text; background-clip:text;
-    color:transparent;
-    z-index:1;
+.hero-title .line { display: block; overflow: hidden; }
+.hero-title .li { display: block; transform: translateY(115%); }
+.hero-title .line:nth-child(2) .li {
+    background: url('untitled3.jpg') center 30%/cover no-repeat;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
 }
 
-.hero-right {
-    display:flex; flex-direction:column; align-items:flex-end; gap:18px;
-    margin-bottom:8px;
-}
-.hero-badge {
-    display:inline-flex; align-items:center; gap:10px;
-    border:1px solid var(--gray3);
-    padding:8px 18px; font-size:9px; letter-spacing:.14em;
-    text-transform:uppercase; color:rgba(232,228,220,.38);
-    opacity:0; transform:translateY(18px);
-}
-.hero-badge .dot {
-    width:6px; height:6px; background:var(--green);
-    border-radius:50%; animation:pulse 2s ease infinite;
-}
 .hero-sub {
-    max-width:195px; font-size:11px; line-height:1.95;
-    color:rgba(232,228,220,.5); text-align:right;
-    opacity:0; transform:translateY(18px);
-}
-
-@keyframes pulse {
-    0%,100%{ opacity:1; transform:scale(1); }
-    50%{ opacity:.35; transform:scale(.65); }
+    max-width: 175px; font-size: 10px; line-height: 2.05;
+    color: rgba(232,228,220,.38); text-align: right;
+    opacity: 0; transform: translateY(22px);
 }
 
 .marquee-wrap {
-    border-top:1px solid var(--gray3);
-    padding:12px 0 0; overflow:hidden; opacity:0;
+    overflow: hidden; opacity: 0;
+    border-top: 1px solid var(--g3); padding-top: 14px;
 }
-.marquee-inner { display:flex; width:max-content; animation:mq 24s linear infinite; }
-.marquee-inner .m-item {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(44px,7.8vw,108px);
-    white-space:nowrap; padding-right:72px;
-    letter-spacing:-.015em;
-    color:transparent;
-    -webkit-text-stroke:1px rgba(232,228,220,.13);
+.marquee-inner { display: flex; width: max-content; animation: mq 28s linear infinite; }
+.mi {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(46px, 8.4vw, 116px);
+    white-space: nowrap; padding-right: 80px; letter-spacing: -.02em;
+    color: transparent; -webkit-text-stroke: 1px rgba(232,228,220,.1);
 }
-.marquee-inner .m-item.on { color:var(--off); -webkit-text-stroke:0; }
-@keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+.mi.on { color: var(--off); -webkit-text-stroke: 0; }
+@keyframes mq { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-section { padding:140px 52px; }
+section { padding: 150px 56px; }
 
-.s-label {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(58px,11.5vw,158px);
-    line-height:1; letter-spacing:-.02em; margin-bottom:72px;
-    overflow:hidden;
+.sl {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(62px, 12.5vw, 172px);
+    line-height: 1; letter-spacing: -.025em;
+    overflow: hidden;
 }
-.s-label span { display:block; transform:translateY(110%); }
+.sl .si { display: block; transform: translateY(112%); }
 
-.mc-grid {
-    display:grid; grid-template-columns:1fr 1fr; gap:3px;
-}
-.mc-grid .card-span { grid-column:1/-1; }
+#work { padding: 160px 56px 0; }
 
-.proj-card {
-    position:relative; overflow:hidden;
-    background:var(--gray1); aspect-ratio:16/9;
+.work-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    padding-bottom: 32px; border-bottom: 1px solid var(--g3); margin-bottom: 0;
 }
-.card-span { aspect-ratio:21/8; }
-
-.proj-card img {
-    transition:transform .85s cubic-bezier(.25,.46,.45,.94), filter .5s;
-    filter:brightness(.72); will-change:transform;
+.work-header-right {
+    text-align: right; padding-bottom: 4px;
 }
-.proj-card:hover img { transform:scale(1.06); filter:brightness(.95); }
-
-.proj-overlay {
-    position:absolute; inset:0;
-    background:linear-gradient(to top, rgba(8,8,8,.78) 0%, transparent 55%);
-    pointer-events:none;
+.work-header-desc {
+    font-size: 10px; line-height: 2; color: rgba(232,228,220,.38);
+    max-width: 260px; margin-bottom: 10px;
 }
-.proj-meta { position:absolute; bottom:0; left:0; padding:30px 34px; }
-.proj-meta strong {
-    font-family:'FFFlauta',monospace; font-size:12px;
-    display:block; margin-bottom:6px; letter-spacing:.04em;
-}
-.proj-meta span {
-    font-size:9px; color:rgba(232,228,220,.42);
-    text-transform:uppercase; letter-spacing:.1em;
-}
-.proj-num {
-    position:absolute; top:28px; right:28px;
-    font-family:'FFFlauta',monospace; font-size:9px;
-    color:rgba(232,228,220,.25); letter-spacing:.08em;
+.work-header-count {
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    letter-spacing: .14em; color: rgba(232,228,220,.18);
 }
 
-.dev-grid {
-    display:grid; grid-template-columns:repeat(3,1fr);
-    gap:3px; margin-top:3px;
+.mc-bento {
+    display: grid;
+    grid-template-columns: 1.65fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px; margin-top: 3px;
 }
-.dev-card {
-    background:var(--gray1); padding:42px 36px 38px;
-    min-height:310px; display:flex; flex-direction:column;
-    justify-content:space-between; position:relative; overflow:hidden;
+.mc-item {
+    position: relative; overflow: hidden; background: var(--g1);
 }
-.dev-card::before {
-    content:''; position:absolute; inset:0;
-    background:var(--discord); opacity:0;
-    transition:opacity .42s cubic-bezier(.25,.46,.45,.94);
-    pointer-events:none;
-}
-.dev-card:hover::before { opacity:1; }
-.dev-card > * { position:relative; z-index:1; }
+.mc-item:nth-child(1) { grid-column: 1; grid-row: 1 / 3; }
+.mc-item:nth-child(2) { grid-column: 2; grid-row: 1; }
+.mc-item:nth-child(3) { grid-column: 3; grid-row: 1; }
+.mc-item:nth-child(4) { grid-column: 2; grid-row: 2; }
+.mc-item:nth-child(5) { grid-column: 3; grid-row: 2; }
 
-.dc-num {
-    font-family:'FFFlauta',monospace; font-size:9px;
-    color:rgba(232,228,220,.18); letter-spacing:.08em;
+.mc-item img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    transition: transform .95s cubic-bezier(.25,.46,.45,.94), filter .6s;
+    filter: brightness(.65); will-change: transform;
 }
-.dc-title {
-    font-family:'FFFlauta',monospace; font-size:19px;
-    line-height:1.45; margin-top:20px;
+.mc-item:hover img { transform: scale(1.07); filter: brightness(.9); }
+
+.mc-item-inner {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column; justify-content: flex-end;
 }
-.dc-desc {
-    font-size:10px; line-height:1.95;
-    color:rgba(232,228,220,.52); margin-top:14px; flex:1;
+
+.mc-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(8,8,8,.85) 0%, rgba(8,8,8,.2) 40%, transparent 65%);
+    pointer-events: none;
 }
-.dc-tech { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+
+.mc-meta { padding: 24px 26px; position: relative; z-index: 1; }
+.mc-meta strong {
+    font-family: 'FFFlauta', monospace; font-size: 11px;
+    display: block; margin-bottom: 5px; letter-spacing: .03em;
+}
+.mc-meta span {
+    font-size: 8px; color: rgba(232,228,220,.38);
+    text-transform: uppercase; letter-spacing: .12em;
+}
+.mc-num {
+    position: absolute; top: 22px; left: 22px;
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    color: rgba(232,228,220,.2); letter-spacing: .08em; z-index: 1;
+}
+.mc-tag {
+    position: absolute; top: 22px; right: 22px;
+    font-size: 7px; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(232,228,220,.45); border: 1px solid rgba(232,228,220,.12);
+    padding: 4px 10px; z-index: 1;
+    background: rgba(8,8,8,.35); backdrop-filter: blur(6px);
+    opacity: 0; transform: translateY(-5px);
+    transition: opacity .35s, transform .35s;
+}
+.mc-item:hover .mc-tag { opacity: 1; transform: translateY(0); }
+
+.mc-item { aspect-ratio: unset; }
+.mc-item:nth-child(1) { min-height: 520px; }
+.mc-item:nth-child(2),
+.mc-item:nth-child(3),
+.mc-item:nth-child(4),
+.mc-item:nth-child(5) { min-height: 258px; }
+
+.dev-section { padding: 120px 56px; }
+
+.dev-header {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 60px; align-items: end; margin-bottom: 56px;
+}
+.dev-header-desc {
+    font-size: 11px; line-height: 2; color: rgba(232,228,220,.38);
+}
+
+.dev-list { display: flex; flex-direction: column; gap: 2px; }
+
+.dev-row {
+    display: grid;
+    grid-template-columns: 90px 1fr 1fr 48px;
+    align-items: center; gap: 28px;
+    padding: 26px 36px;
+    background: var(--g1);
+    position: relative; overflow: hidden;
+    transition: background .4s;
+    text-decoration: none; color: var(--off);
+}
+.dev-row::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--discord);
+    transform: translateX(-100%);
+    transition: transform .55s cubic-bezier(.77,0,.175,1);
+    z-index: 0;
+}
+.dev-row:hover::after { transform: translateX(0); }
+.dev-row > * { position: relative; z-index: 1; }
+
+.dr-num {
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    color: rgba(232,228,220,.18); letter-spacing: .08em;
+    transition: color .4s;
+}
+.dev-row:hover .dr-num { color: rgba(255,255,255,.35); }
+
+.dr-title {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(16px, 2vw, 26px); letter-spacing: -.01em;
+}
+
+.dr-desc {
+    font-size: 10px; line-height: 1.85;
+    color: rgba(232,228,220,.4);
+    transition: color .4s;
+}
+.dev-row:hover .dr-desc { color: rgba(255,255,255,.6); }
+
+.dr-tech {
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;
+}
 .badge {
-    font-size:8px; border:1px solid rgba(232,228,220,.2);
-    padding:5px 12px; color:rgba(232,228,220,.42);
-    text-transform:uppercase; letter-spacing:.08em;
-    transition:border-color .3s, color .3s;
+    font-size: 7px; border: 1px solid rgba(232,228,220,.16);
+    padding: 4px 9px; color: rgba(232,228,220,.35);
+    text-transform: uppercase; letter-spacing: .08em;
+    transition: border-color .35s, color .35s;
 }
-.dev-card:hover .badge { border-color:rgba(255,255,255,.35); color:rgba(255,255,255,.8); }
-.dc-arrow {
-    position:absolute; bottom:36px; right:36px; font-size:16px;
-    opacity:0; transform:translate(6px,6px);
-    transition:opacity .35s, transform .35s; z-index:1;
-}
-.dev-card:hover .dc-arrow { opacity:1; transform:translate(0,0); }
+.dev-row:hover .badge { border-color: rgba(255,255,255,.28); color: rgba(255,255,255,.7); }
 
-#about { padding:140px 52px; }
-.about-inner {
-    display:grid; grid-template-columns:1fr 1.1fr;
-    gap:100px; align-items:start;
+.dr-arrow {
+    font-size: 13px; color: rgba(232,228,220,.2);
+    opacity: 0; transform: translateX(-8px);
+    transition: opacity .4s, transform .4s, color .4s;
+    justify-self: end;
+}
+.dev-row:hover .dr-arrow { opacity: 1; transform: translateX(0); color: #fff; }
+
+.collab-section { padding: 0 56px 160px; }
+
+.collab-strip {
+    display: flex; align-items: center;
+    border-top: 1px solid var(--g3); border-bottom: 1px solid var(--g3);
+    margin-bottom: 60px;
+}
+.collab-logo-block {
+    flex: 1; padding: 34px 48px;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid var(--g3);
+    transition: opacity .4s, filter .4s;
+    filter: grayscale(1) brightness(10);
+    opacity: .18;
+}
+.collab-logo-block:last-child { border-right: none; }
+.collab-logo-block:hover { opacity: .75; filter: grayscale(0) brightness(1); }
+.collab-logo-block img { height: 34px; width: auto; object-fit: contain; }
+
+.collab-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
+
+.collab-card { background: var(--g1); overflow: hidden; display: flex; flex-direction: column; }
+.cc-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0; }
+.cc-img img {
+    transition: transform .9s cubic-bezier(.25,.46,.45,.94), filter .6s;
+    filter: brightness(.62);
+}
+.collab-card:hover .cc-img img { transform: scale(1.07); filter: brightness(.85); }
+.cc-body { padding: 26px 24px 30px; flex: 1; display: flex; flex-direction: column; }
+.cc-partner {
+    font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
+    color: var(--discord); display: block; margin-bottom: 9px;
+}
+.cc-title {
+    font-family: 'FFFlauta', monospace; font-size: 14px;
+    line-height: 1.45; margin-bottom: 11px;
+}
+.cc-desc {
+    font-size: 10px; line-height: 1.95; color: rgba(232,228,220,.42);
+    margin-bottom: 22px; flex: 1;
+}
+.cc-foot {
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--g3); padding-top: 14px; margin-top: auto;
+}
+.cc-date { font-size: 8px; color: rgba(232,228,220,.2); letter-spacing: .06em; }
+.cc-link {
+    font-size: 8px; letter-spacing: .08em; text-transform: uppercase;
+    color: rgba(232,228,220,.35); display: flex; align-items: center; gap: 7px;
+    transition: color .25s;
+}
+.cc-link:hover { color: var(--off); }
+
+#about { padding: 0 56px 160px; }
+
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+
+.about-left {
+    background: var(--g1); padding: 68px 58px;
+    display: flex; flex-direction: column;
 }
 .about-bio {
-    font-size:13px; line-height:2.1;
-    color:rgba(232,228,220,.6); margin-bottom:44px;
+    font-size: 13px; line-height: 2.2; color: rgba(232,228,220,.56);
+    margin-bottom: 40px; flex: 1;
 }
-.about-bio strong { color:var(--off); font-weight:700; }
-.about-line { width:100%; height:1px; background:var(--gray3); margin:36px 0; }
-.about-availability {
-    font-size:9px; letter-spacing:.16em; text-transform:uppercase;
-    color:rgba(232,228,220,.28); display:flex; align-items:center; gap:12px;
+.about-bio strong { color: var(--off); font-weight: 700; }
+.about-avail {
+    font-size: 8px; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(232,228,220,.22); display: flex; align-items: center; gap: 12px;
+    padding-top: 36px; border-top: 1px solid var(--g3);
 }
-.about-availability .dot {
-    width:6px; height:6px; background:var(--green);
-    border-radius:50%; animation:pulse 2s ease infinite;
+.dot-g {
+    width: 6px; height: 6px; background: var(--green);
+    border-radius: 50%; animation: pulse 2.4s ease infinite; flex-shrink: 0;
 }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.28;transform:scale(.58)} }
 
-.skills-wrap { display:grid; grid-template-columns:1fr 1fr; gap:3px; }
-.skill-block { background:var(--gray1); padding:30px 28px; }
+.about-right { display: flex; flex-direction: column; gap: 3px; }
+.skill-block { background: var(--g1); padding: 32px 28px; }
 .skill-block h4 {
-    font-family:'FFFlauta',monospace; font-size:9px;
-    color:rgba(88,101,242,.8); margin-bottom:18px;
-    letter-spacing:.1em; text-transform:uppercase;
+    font-family: 'FFFlauta', monospace; font-size: 8px;
+    color: rgba(88,101,242,.72); margin-bottom: 18px;
+    letter-spacing: .1em; text-transform: uppercase;
 }
-.skill-block ul { list-style:none; }
+.skill-block ul { list-style: none; }
 .skill-block li {
-    font-size:10px; line-height:2.5; color:rgba(232,228,220,.52);
-    display:flex; align-items:center; gap:10px;
+    font-size: 10px; line-height: 2.6; color: rgba(232,228,220,.46);
+    display: flex; align-items: center; gap: 10px;
 }
-.skill-block li i { color:var(--discord); font-size:8px; width:12px; }
+.skill-block li i { color: var(--discord); font-size: 7px; width: 10px; }
 
-.collab-section { padding:0 52px 140px; }
-.collab-section .s-label { margin-bottom:56px; }
-
-.collab-intro-text {
-    font-size:12px; line-height:2; color:rgba(232,228,220,.5);
-    max-width:600px; margin-bottom:56px;
+.facts-strip {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 3px; margin-top: 3px;
 }
-.collab-intro-text strong { color:var(--off); }
-
-.collab-logos-row {
-    display:flex; align-items:center; gap:32px;
-    margin-bottom:64px; padding:32px 0;
-    border-top:1px solid var(--gray3);
-    border-bottom:1px solid var(--gray3);
+.fact-b {
+    background: var(--g1); padding: 44px 36px;
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 160px;
 }
-.collab-logo-item {
-    height:44px; width:auto; opacity:.5;
-    transition:opacity .3s;
-    filter:grayscale(1) brightness(2);
-    object-fit:contain;
-    flex-shrink:0;
+.fact-b::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+    background: var(--discord); transform: scaleY(0); transform-origin: bottom;
+    transition: transform .6s cubic-bezier(.25,.46,.45,.94);
 }
-.collab-logo-item:hover { opacity:.9; }
-
-.collab-cards { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
-.collab-card {
-    background:var(--gray1); overflow:hidden;
-    position:relative; transition:background .3s;
+.fact-b:hover::after { transform: scaleY(1); }
+.fact-top {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(28px,3.5vw,48px);
+    line-height: 1; color: var(--off);
 }
-.collab-card-img {
-    width:100%; aspect-ratio:16/9; overflow:hidden;
+.fact-bot {
+    font-size: 9px; color: rgba(232,228,220,.28);
+    text-transform: uppercase; letter-spacing: .14em;
+    margin-top: 16px;
 }
-.collab-card-img img {
-    transition:transform .8s cubic-bezier(.25,.46,.45,.94), filter .5s;
-    filter:brightness(.7);
-}
-.collab-card:hover .collab-card-img img { transform:scale(1.06); filter:brightness(.9); }
-.collab-card-body { padding:28px 26px 32px; }
-.collab-partner {
-    font-size:9px; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--discord); display:block; margin-bottom:10px;
-}
-.collab-title {
-    font-family:'FFFlauta',monospace; font-size:14px;
-    line-height:1.5; margin-bottom:12px;
-}
-.collab-desc {
-    font-size:10px; line-height:1.9; color:rgba(232,228,220,.48);
-    margin-bottom:22px;
-}
-.collab-meta {
-    display:flex; align-items:center; justify-content:space-between;
-    border-top:1px solid var(--gray3); padding-top:16px;
-}
-.collab-date { font-size:9px; color:rgba(232,228,220,.25); letter-spacing:.06em; }
-.collab-link {
-    font-size:9px; letter-spacing:.08em; text-transform:uppercase;
-    color:rgba(232,228,220,.45); display:flex; align-items:center; gap:8px;
-    transition:color .25s;
-}
-.collab-link:hover { color:var(--off); }
-
-.stats-row {
-    display:grid; grid-template-columns:repeat(3,1fr);
-    gap:3px; padding:0 52px;
-}
-.stat-b {
-    background:var(--gray1); padding:48px 36px; text-align:center;
-    position:relative; overflow:hidden;
-}
-.stat-b::after {
-    content:''; position:absolute; bottom:0; left:0; right:0; height:2px;
-    background:var(--discord); transform:scaleX(0);
-    transition:transform .5s cubic-bezier(.25,.46,.45,.94);
-    transform-origin:left;
-}
-.stat-b:hover::after { transform:scaleX(1); }
-.stat-n {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(34px,4.5vw,58px);
-    display:block; margin-bottom:12px;
-}
-.stat-l {
-    font-size:9px; color:rgba(232,228,220,.32);
-    text-transform:uppercase; letter-spacing:.14em;
+.fact-sub {
+    font-size: 9px; color: rgba(232,228,220,.18);
+    letter-spacing: .04em; margin-top: 4px; line-height: 1.6;
 }
 
-#contact { padding-bottom:80px; }
+#contact { padding: 0 56px 80px; }
+
 .contact-grid {
-    display:grid; grid-template-columns:1fr 1fr;
-    gap:3px; margin-top:56px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3px; margin-top: 64px;
 }
 .c-card {
-    min-height:270px; padding:46px 44px;
-    display:flex; flex-direction:column; justify-content:space-between;
-    position:relative; overflow:hidden;
-    background:var(--gray1);
-    transition:background .48s cubic-bezier(.25,.46,.45,.94);
+    min-height: 275px; padding: 48px 46px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    position: relative; overflow: hidden; background: var(--g1);
+    transition: background .5s cubic-bezier(.25,.46,.45,.94);
 }
-.c-card.discord:hover { background:#5865F2; }
-.c-card.github:hover  { background:#24292e; }
-.c-card.insta:hover   { background:#E1306C; }
-.c-card.yt:hover      { background:#FF0000; }
-
-.c-card-icon {
-    position:absolute; right:38px; top:38px;
-    font-size:68px; color:rgba(232,228,220,.05);
-    transition:color .45s, transform .5s cubic-bezier(.25,.46,.45,.94);
-    line-height:1;
+.c-card.discord:hover { background: #5865F2; }
+.c-card.github:hover  { background: #1a1f2e; }
+.c-card.insta:hover   { background: #E1306C; }
+.c-card.yt:hover      { background: #FF0000; }
+.c-icon {
+    position: absolute; right: 38px; top: 38px; font-size: 70px;
+    color: rgba(232,228,220,.04); line-height: 1;
+    transition: color .5s, transform .55s cubic-bezier(.25,.46,.45,.94);
 }
-.c-card:hover .c-card-icon {
-    color:rgba(255,255,255,.1);
-    transform:scale(1.18) rotate(-6deg);
-}
+.c-card:hover .c-icon { color: rgba(255,255,255,.08); transform: scale(1.22) rotate(-9deg); }
 .c-label {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(20px,3vw,36px);
-    color:rgba(232,228,220,.52);
-    transition:color .38s; z-index:1; position:relative;
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(22px,3.3vw,42px);
+    color: rgba(232,228,220,.45); transition: color .42s;
+    position: relative; z-index: 1;
 }
-.c-card:hover .c-label { color:rgba(255,255,255,.72); }
+.c-card:hover .c-label { color: rgba(255,255,255,.68); }
 .c-bottom {
-    display:flex; align-items:center; justify-content:space-between;
-    z-index:1; position:relative;
+    display: flex; align-items: center; justify-content: space-between;
+    position: relative; z-index: 1;
 }
-.c-val {
-    font-size:11px; color:rgba(232,228,220,.38);
-    transition:color .38s;
+.c-val { font-size: 10px; color: rgba(232,228,220,.32); transition: color .42s; }
+.c-card:hover .c-val { color: rgba(255,255,255,.65); }
+.c-arr {
+    font-size: 11px; color: rgba(232,228,220,.18);
+    opacity: 0; transform: translateX(-10px);
+    transition: opacity .4s, transform .4s, color .4s;
 }
-.c-card:hover .c-val { color:rgba(255,255,255,.7); }
-.c-arrow {
-    font-size:12px; color:rgba(232,228,220,.2);
-    transform:translateX(-8px); opacity:0;
-    transition:transform .35s, opacity .35s, color .35s;
-}
-.c-card:hover .c-arrow { transform:translateX(0); opacity:1; color:rgba(255,255,255,.6); }
+.c-card:hover .c-arr { opacity: 1; transform: translateX(0); color: rgba(255,255,255,.6); }
 
-.cta-section { padding:40px 52px 100px; text-align:right; overflow:hidden; }
-.cta-big {
-    font-family:'FFFlauta',monospace;
-    font-size:clamp(26px,4.2vw,60px); line-height:1.35;
+.cta-section {
+    padding: 110px 56px 130px;
+    border-top: 1px solid var(--g3);
+    display: flex; flex-direction: column; align-items: flex-end;
+    position: relative; overflow: hidden;
 }
-.cta-sub {
-    font-style:italic; color:rgba(232,228,220,.42);
-    font-size:clamp(22px,3.6vw,50px);
-    display:block; margin-top:6px; overflow:hidden;
+.cta-line-1 {
+    font-family: 'FFFlauta', monospace;
+    font-size: clamp(30px, 5vw, 72px);
+    line-height: 1.15; text-align: right; overflow: hidden;
 }
-.cta-sub span { display:block; transform:translateY(110%); }
+.cta-line-1 span { display: block; transform: translateY(115%); }
+.cta-line-2 {
+    font-family: 'Space Mono', monospace;
+    font-style: italic;
+    font-size: clamp(22px, 3.8vw, 54px);
+    color: rgba(232,228,220,.35); text-align: right;
+    overflow: hidden; margin-top: 8px;
+}
+.cta-line-2 span { display: block; transform: translateY(115%); }
 
 footer {
-    padding:36px 52px;
-    border-top:1px solid var(--gray2);
-    display:flex; align-items:center; justify-content:space-between;
+    padding: 34px 56px;
+    border-top: 1px solid var(--g2);
+    display: flex; align-items: center; justify-content: space-between;
 }
-.f-logo {
-    font-family:'FFFlauta',monospace; font-size:10px;
-    color:rgba(232,228,220,.22); letter-spacing:.06em;
-}
-.f-links { display:flex; gap:36px; list-style:none; }
+.f-logo { font-family: 'FFFlauta', monospace; font-size: 9px; color: rgba(232,228,220,.18); letter-spacing: .06em; }
+.f-links { display: flex; gap: 32px; list-style: none; }
 .f-links a {
-    font-size:10px; color:rgba(232,228,220,.22);
-    text-decoration:underline; text-underline-offset:3px;
-    letter-spacing:.04em; transition:color .2s;
+    font-size: 9px; color: rgba(232,228,220,.18);
+    text-decoration: underline; text-underline-offset: 3px;
+    letter-spacing: .04em; transition: color .2s;
 }
-.f-links a:hover { color:var(--off); }
+.f-links a:hover { color: var(--off); }
 
-.reveal-block { overflow:hidden; }
-.reveal-block .rb-inner { display:block; transform:translateY(110%); }
+.rw { overflow: hidden; }
+.rw .ri { display: block; transform: translateY(115%); }
+.fu { opacity: 0; transform: translateY(46px); }
 
-@media(max-width:960px){
-    nav { padding:22px 28px; }
-    section { padding:90px 28px; }
-    #hero { padding:0 28px; }
-    .hero-top { flex-direction:column; align-items:flex-start; gap:20px; }
-    .hero-right { align-items:flex-start; }
-    .hero-sub { text-align:left; }
-    .mc-grid { grid-template-columns:1fr; }
-    .mc-grid .card-span { grid-column:1; }
-    .dev-grid { grid-template-columns:1fr; }
-    .about-inner { grid-template-columns:1fr; gap:52px; }
-    .skills-wrap { grid-template-columns:1fr; }
-    .collab-cards { grid-template-columns:1fr; }
-    .stats-row { grid-template-columns:1fr; padding:0 28px; }
-    .contact-grid { grid-template-columns:1fr; }
-    .cta-section { padding:40px 28px 80px; }
-    .collab-section { padding:0 28px 100px; }
-    footer { padding:28px; flex-direction:column; gap:16px; text-align:center; }
+@media(max-width:1024px) {
+    nav, nav.scrolled { padding-left: 28px; padding-right: 28px; }
+    #hero, section, .dev-section, .collab-section, #about, #contact { padding-left: 28px; padding-right: 28px; }
+    #work { padding: 120px 28px 0; }
+    .cta-section { padding: 80px 28px 100px; }
+    .mc-bento { grid-template-columns: 1fr 1fr; }
+    .mc-item:nth-child(1) { grid-column: 1/-1; grid-row: 1; min-height: 300px; }
+    .mc-item:nth-child(2), .mc-item:nth-child(3) { grid-row: 2; min-height: 220px; }
+    .mc-item:nth-child(4), .mc-item:nth-child(5) { grid-row: 3; min-height: 220px; }
+    .dev-row { grid-template-columns: 70px 1fr 48px; }
+    .dr-desc { display: none; }
+    .collab-grid { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; }
+    .facts-strip { grid-template-columns: 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .dev-header { grid-template-columns: 1fr; gap: 20px; }
+    .work-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .work-header-right { text-align: left; }
+    footer { padding: 26px 28px; flex-direction: column; gap: 14px; text-align: center; }
+    .hero-aside { display: none; }
 }
 </style>
 </head>
 <body>
 
-<nav id="navbar">
-    <span class="nav-logo">MaxLananas Portfolio</span>
+<nav id="nav">
+    <a href="#hero" class="nav-logo">MaxLananas Portfolio</a>
     <ul class="nav-links">
         <li><a href="#work">Work</a></li>
         <li><a href="#about">About</a></li>
@@ -483,491 +546,409 @@ footer {
 </nav>
 
 <section id="hero">
-    <div class="hero-eyebrow">
-        <span>&#9632;&nbsp; Développeur &amp; Builder Minecraft &middot; 16 ans &middot; Guadeloupe</span>
+    <div class="hero-aside">
+        <div class="aside-line"></div>
+        <span class="aside-year">2025</span>
+        <div class="aside-line"></div>
     </div>
+
+    <div class="hero-eyebrow">
+        <span class="ei">&#9632;&ensp;Dev &middot; Builder Minecraft &middot; Guadeloupe</span>
+    </div>
+
     <div class="hero-top">
         <h1 class="hero-title" id="heroTitle">
-            <div class="line"><span class="line-inner">CODING</span></div>
-            <div class="line"><span class="line-inner" style="background:url('untitled3.jpg') center/cover;-webkit-background-clip:text;background-clip:text;color:transparent;">WORLDS.</span></div>
+            <div class="line"><span class="li">CODING</span></div>
+            <div class="line"><span class="li">WORLDS.</span></div>
         </h1>
-        <div class="hero-right">
-            <div class="hero-badge">
-                <div class="dot"></div>
-                Disponible pour missions
-            </div>
-            <p class="hero-sub">
-                Dev full-stack, low-level<br>
-                &amp; builder Minecraft.<br>
-                Du kernel aux blocs,<br>
-                je construis l'extraordinaire.
-            </p>
-        </div>
+        <p class="hero-sub">
+            Full-stack, low-level<br>
+            &amp; builder Minecraft 1:1.<br>
+            Du kernel aux blocs,<br>
+            je forge l'extraordinaire.
+        </p>
     </div>
+
     <div class="marquee-wrap">
         <div class="marquee-inner">
-            <span class="m-item on">building legends&nbsp;</span>
-            <span class="m-item">building legends&nbsp;</span>
-            <span class="m-item on">building legends&nbsp;</span>
-            <span class="m-item">building legends&nbsp;</span>
-            <span class="m-item on">building legends&nbsp;</span>
-            <span class="m-item">building legends&nbsp;</span>
-            <span class="m-item on">building legends&nbsp;</span>
-            <span class="m-item">building legends&nbsp;</span>
+            <span class="mi on">building legends&emsp;</span>
+            <span class="mi">building legends&emsp;</span>
+            <span class="mi on">building legends&emsp;</span>
+            <span class="mi">building legends&emsp;</span>
+            <span class="mi on">building legends&emsp;</span>
+            <span class="mi">building legends&emsp;</span>
+            <span class="mi on">building legends&emsp;</span>
+            <span class="mi">building legends&emsp;</span>
         </div>
     </div>
 </section>
 
 <section id="work">
-    <div class="s-label reveal-block"><span class="rb-inner">WORK</span></div>
-
-    <div class="mc-grid">
-        <div class="proj-card card-span">
-            <img src="untitled3.jpg" alt="Fort Napoléon">
-            <div class="proj-overlay"></div>
-            <div class="proj-meta">
-                <strong>FORT NAPOLÉON</strong>
-                <span>1:1 &mdash; Guadeloupe</span>
-            </div>
-            <span class="proj-num">01</span>
+    <div class="work-header">
+        <div class="sl rw"><span class="ri si">WORK</span></div>
+        <div class="work-header-right">
+            <p class="work-header-desc">Builds Minecraft &amp; projets dev &mdash;<br>chaque cr&eacute;ation repousse les limites.</p>
+            <p class="work-header-count">05 BUILDS &ensp;&middot;&ensp; 04 PROJETS DEV</p>
         </div>
-        <div class="proj-card">
+    </div>
+
+    <div class="mc-bento">
+        <div class="mc-item fu">
+            <img src="untitled3.jpg" alt="Fort Napoleon">
+            <div class="mc-item-inner">
+                <div class="mc-grad"></div>
+                <span class="mc-num">01</span>
+                <span class="mc-tag">1:1 &mdash; Guadeloupe</span>
+                <div class="mc-meta">
+                    <strong>FORT NAP&Ocirc;LE&Ocirc;N</strong>
+                    <span>Build historique</span>
+                </div>
+            </div>
+        </div>
+        <div class="mc-item fu">
             <img src="2025-04-17_21.24.15.png" alt="Immeuble Brutalistique">
-            <div class="proj-overlay"></div>
-            <div class="proj-meta">
-                <strong>IMMEUBLE BRUTALISTIQUE</strong>
-                <span>Build &mdash; Nuages</span>
+            <div class="mc-item-inner">
+                <div class="mc-grad"></div>
+                <span class="mc-num">02</span>
+                <span class="mc-tag">Brutalistique</span>
+                <div class="mc-meta">
+                    <strong>IMMEUBLE BRUTALIST</strong>
+                    <span>Build conceptuel</span>
+                </div>
             </div>
-            <span class="proj-num">02</span>
         </div>
-        <div class="proj-card">
-            <img src="2025-01-27_20.55.35.png" alt="Bâtiment Parisien">
-            <div class="proj-overlay"></div>
-            <div class="proj-meta">
-                <strong>BÂTIMENT HAUSSMANNIEN</strong>
-                <span>Build &mdash; Style Parisien</span>
+        <div class="mc-item fu">
+            <img src="2025-01-27_20.55.35.png" alt="Batiment Haussmannien">
+            <div class="mc-item-inner">
+                <div class="mc-grad"></div>
+                <span class="mc-num">03</span>
+                <span class="mc-tag">Haussmannien</span>
+                <div class="mc-meta">
+                    <strong>B&Agrave;TIMENT PARISIEN</strong>
+                    <span>Style architectural</span>
+                </div>
             </div>
-            <span class="proj-num">03</span>
         </div>
-    </div>
-
-    <div class="mc-grid" style="margin-top:3px;">
-        <div class="proj-card">
+        <div class="mc-item fu">
             <img src="potfleur.png" alt="Organique Fleurs">
-            <div class="proj-overlay"></div>
-            <div class="proj-meta">
-                <strong>ORGANIQUE FLEURS</strong>
-                <span>Build &mdash; Organique</span>
+            <div class="mc-item-inner">
+                <div class="mc-grad"></div>
+                <span class="mc-num">04</span>
+                <span class="mc-tag">Organique</span>
+                <div class="mc-meta">
+                    <strong>ORGANIQUE FLEURS</strong>
+                    <span>Build naturel</span>
+                </div>
             </div>
-            <span class="proj-num">04</span>
         </div>
-        <div class="proj-card">
+        <div class="mc-item fu">
             <img src="maisonbois.png" alt="Maison en Bois">
-            <div class="proj-overlay"></div>
-            <div class="proj-meta">
-                <strong>MAISON EN BOIS</strong>
-                <span>Build &mdash; Médiéval</span>
-            </div>
-            <span class="proj-num">05</span>
-        </div>
-    </div>
-
-    <div class="dev-grid" style="margin-top:64px;">
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 01</span>
-                <div class="dc-title">MaxOS</div>
-                <p class="dc-desc">Noyau OS from scratch — bootloader MBR, drivers VGA &amp; clavier, terminal interactif. Pur C &amp; x86 Assembly.</p>
-                <div class="dc-tech">
-                    <span class="badge">C</span>
-                    <span class="badge">x86 ASM</span>
-                    <span class="badge">NASM</span>
-                    <span class="badge">QEMU</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 02</span>
-                <div class="dc-title">GwadloupAlert</div>
-                <p class="dc-desc">Plateforme civic tech de signalement citoyen pour la Guadeloupe — Supabase, Leaflet.js, Brevo SMTP.</p>
-                <div class="dc-tech">
-                    <span class="badge">JavaScript</span>
-                    <span class="badge">Supabase</span>
-                    <span class="badge">Leaflet</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 03</span>
-                <div class="dc-title">PineappleUI</div>
-                <p class="dc-desc">Transpileur HTML/CSS → Java Swing. Syntaxe .pineui custom, roadmap JavaFX &amp; Android XML.</p>
-                <div class="dc-tech">
-                    <span class="badge">Java</span>
-                    <span class="badge">Parser</span>
-                    <span class="badge">Swing</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 04</span>
-                <div class="dc-title">GwadaBot</div>
-                <p class="dc-desc">Bot OSM — import automatique IGN BD TOPO&reg;. OAuth2, WFS/WMS, bâtiments &amp; hydrographie.</p>
-                <div class="dc-tech">
-                    <span class="badge">Python</span>
-                    <span class="badge">OSM</span>
-                    <span class="badge">GDAL</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 05</span>
-                <div class="dc-title">Plugin Minecraft</div>
-                <p class="dc-desc">Plugin Spigot/Paper sur mesure — économie, quêtes, GUI interactifs, systèmes custom complets.</p>
-                <div class="dc-tech">
-                    <span class="badge">Java</span>
-                    <span class="badge">Spigot</span>
-                    <span class="badge">Maven</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-        <div class="dev-card">
-            <div>
-                <span class="dc-num">DEV &mdash; 06</span>
-                <div class="dc-title">Bot Discord</div>
-                <p class="dc-desc">Bot complet — modération auto, tickets, stats Minecraft live, commandes slash &amp; intégrations API.</p>
-                <div class="dc-tech">
-                    <span class="badge">Node.js</span>
-                    <span class="badge">Discord.js</span>
-                    <span class="badge">MongoDB</span>
-                </div>
-            </div>
-            <i class="fa-solid fa-arrow-right dc-arrow"></i>
-        </div>
-    </div>
-</section>
-
-<section class="collab-section" id="collaborations">
-    <div class="s-label reveal-block"><span class="rb-inner">COLLABS</span></div>
-
-    <p class="collab-intro-text">
-        J'ai collaboré avec des serveurs et organisations de premier plan dans l'univers Minecraft.<br>
-        <strong>BuildTheEarth France, Fight4Glory</strong> — chaque projet pousse les limites du possible.
-    </p>
-
-    <div class="collab-logos-row">
-        <img src="image_v2-Photoroom.png" alt="Fight4Glory" class="collab-logo-item">
-        <img src="Logo_BTE_France-3632312792.png" alt="BTE France" class="collab-logo-item">
-    </div>
-
-    <div class="collab-cards">
-        <div class="collab-card">
-            <div class="collab-card-img">
-                <img src="spawnfight4glory.jpg" alt="Spawn Fight4Glory">
-            </div>
-            <div class="collab-card-body">
-                <span class="collab-partner">Fight4Glory</span>
-                <h3 class="collab-title">Spawn Fight4Glory</h3>
-                <p class="collab-desc">Spawn personnalisé pour un événement Jump/Speedrun — immersion visuelle &amp; fonctionnalité optimale en accord avec la thématique dynamique.</p>
-                <div class="collab-meta">
-                    <span class="collab-date">Janvier 2025</span>
-                    <a href="#" class="collab-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="collab-card">
-            <div class="collab-card-img">
-                <img src="circuit24hdumans.jpg" alt="Circuit Bugatti">
-            </div>
-            <div class="collab-card-body">
-                <span class="collab-partner">BTE France</span>
-                <h3 class="collab-title">Circuit Bugatti</h3>
-                <p class="collab-desc">Reconstruction fidèle et grande échelle du circuit des 24h du Mans — précision géographique &amp; expérience immersive.</p>
-                <div class="collab-meta">
-                    <span class="collab-date">Janvier 2024</span>
-                    <a href="#" class="collab-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </div>
-        </div>
-        <div class="collab-card">
-            <div class="collab-card-img">
-                <img src="larresingle.jpg" alt="Larressingle">
-            </div>
-            <div class="collab-card-body">
-                <span class="collab-partner">BTE France</span>
-                <h3 class="collab-title">Larressingle</h3>
-                <p class="collab-desc">Cité fortifiée médiévale à l'échelle 1:1, Gers &mdash; Occitanie. Reconstruction architecturale précise et fidèle au patrimoine.</p>
-                <div class="collab-meta">
-                    <span class="collab-date">Février 2024</span>
-                    <a href="#" class="collab-link">En savoir plus <i class="fas fa-arrow-right"></i></a>
+            <div class="mc-item-inner">
+                <div class="mc-grad"></div>
+                <span class="mc-num">05</span>
+                <span class="mc-tag">M&eacute;di&eacute;val</span>
+                <div class="mc-meta">
+                    <strong>MAISON EN BOIS</strong>
+                    <span>Build m&eacute;di&eacute;val</span>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="about">
-    <div class="s-label reveal-block"><span class="rb-inner">ABOUT</span></div>
-    <div class="about-inner">
-        <div>
-            <p class="about-bio">
-                Je suis <strong>MaxLananas</strong> — 16 ans, Guadeloupe. Développeur autodidacte passionné de systèmes bas-niveau, civic tech, géospatial et Minecraft.<br><br>
-                Je construis des <strong>kernels OS en C &amp; x86 ASM</strong>, des plateformes <strong>civic tech</strong> pour ma région, des outils <strong>géospatiaux OSM</strong> et des <strong>builds Minecraft</strong> épiques à l'échelle 1:1.<br><br>
-                Contributeur actif <strong>BuildTheEarth France</strong>. Chaque projet est une obsession — je m'investis à 100&thinsp;% pour un rendu irréprochable.
-            </p>
-            <div class="about-line"></div>
-            <div class="about-availability">
-                <div class="dot"></div>
-                Disponible &mdash; freelance &amp; collaborations
-            </div>
-        </div>
-        <div class="skills-wrap">
-            <div class="skill-block">
-                <h4>Systems &amp; Low-level</h4>
-                <ul>
-                    <li><i class="fa-solid fa-chevron-right"></i>C / x86 Assembly</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Linux / QEMU</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>NASM / Make</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Kernels / Bootloaders</li>
-                </ul>
-            </div>
-            <div class="skill-block">
-                <h4>Web &amp; Backend</h4>
-                <ul>
-                    <li><i class="fa-solid fa-chevron-right"></i>JS / TS / Node.js</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>React / Next.js</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Python / Flask</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Supabase / Postgres</li>
-                </ul>
-            </div>
-            <div class="skill-block">
-                <h4>Géospatial</h4>
-                <ul>
-                    <li><i class="fa-solid fa-chevron-right"></i>OpenStreetMap</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>IGN BD TOPO&reg;</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Leaflet.js / GDAL</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>WFS / WMS / PROJ</li>
-                </ul>
-            </div>
-            <div class="skill-block">
-                <h4>Minecraft</h4>
-                <ul>
-                    <li><i class="fa-solid fa-chevron-right"></i>Plugins Spigot/Paper</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>WorldEdit / FAWE</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Builds 1:1</li>
-                    <li><i class="fa-solid fa-chevron-right"></i>Velocity / Bungee</li>
-                </ul>
-            </div>
-        </div>
+<div class="dev-section">
+    <div class="dev-header">
+        <div class="sl rw"><span class="ri si">DEV</span></div>
+        <p class="dev-header-desc">
+            Syst&egrave;mes bas-niveau, civic tech,<br>
+            g&eacute;ospatial &amp; outils Minecraft.<br>
+            Chaque projet &mdash; une obsession.
+        </p>
     </div>
-</section>
-
-<div class="stats-row">
-    <div class="stat-b">
-        <span class="stat-n" data-target="8">0</span>
-        <span class="stat-l">Builds réalisés</span>
-    </div>
-    <div class="stat-b">
-        <span class="stat-n" data-target="6">0</span>
-        <span class="stat-l">Projets dev</span>
-    </div>
-    <div class="stat-b">
-        <span class="stat-n" data-target="2">0</span>
-        <span class="stat-l">Collaborations</span>
+    <div class="dev-list">
+        <a href="https://github.com/MaxLananas/MaxOS" target="_blank" class="dev-row fu">
+            <span class="dr-num">01 &mdash; OS</span>
+            <span class="dr-title">MaxOS</span>
+            <span class="dr-desc">Kernel from scratch &mdash; bootloader MBR, drivers VGA &amp; clavier, terminal interactif. C &amp; x86 ASM pur.</span>
+            <div class="dr-tech">
+                <span class="badge">C</span>
+                <span class="badge">x86 ASM</span>
+                <span class="badge">NASM</span>
+            </div>
+            <i class="fa-solid fa-arrow-right dr-arrow"></i>
+        </a>
+        <a href="https://gwadloup.onrender.com/" target="_blank" class="dev-row fu">
+            <span class="dr-num">02 &mdash; CIVIC</span>
+            <span class="dr-title">GwadloupAlert</span>
+            <span class="dr-desc">Plateforme de signalement citoyen pour la Guadeloupe &mdash; Supabase, Leaflet.js, Brevo SMTP.</span>
+            <div class="dr-tech">
+                <span class="badge">JS</span>
+                <span class="badge">Supabase</span>
+                <span class="badge">Leaflet</span>
+            </div>
+            <i class="fa-solid fa-arrow-right dr-arrow"></i>
+        </a>
+        <a href="https://github.com/MaxLananas/PineappleUI" target="_blank" class="dev-row fu">
+            <span class="dr-num">03 &mdash; TOOL</span>
+            <span class="dr-title">PineappleUI</span>
+            <span class="dr-desc">Transpileur HTML/CSS &rarr; Java Swing. Syntaxe .pineui custom, roadmap JavaFX &amp; Android XML.</span>
+            <div class="dr-tech">
+                <span class="badge">Java</span>
+                <span class="badge">Parser</span>
+                <span class="badge">Swing</span>
+            </div>
+            <i class="fa-solid fa-arrow-right dr-arrow"></i>
+        </a>
+        <a href="https://github.com/MaxLananas/gwadabot" target="_blank" class="dev-row fu">
+            <span class="dr-num">04 &mdash; GEO</span>
+            <span class="dr-title">GwadaBot</span>
+            <span class="dr-desc">Import OSM automatis&eacute; &mdash; IGN BD TOPO&reg;, OAuth2, WFS/WMS, b&acirc;timents &amp; hydrographie.</span>
+            <div class="dr-tech">
+                <span class="badge">Python</span>
+                <span class="badge">OSM</span>
+                <span class="badge">GDAL</span>
+            </div>
+            <i class="fa-solid fa-arrow-right dr-arrow"></i>
+        </a>
     </div>
 </div>
 
+<div class="collab-section">
+    <div class="sl rw" style="margin-bottom:52px;"><span class="ri si">COLLABS</span></div>
+
+    <div class="collab-strip">
+        <div class="collab-logo-block">
+            <img src="image_v2-Photoroom.png" alt="Fight4Glory">
+        </div>
+        <div class="collab-logo-block">
+            <img src="Logo_BTE_France-3632312792.png" alt="BTE France">
+        </div>
+    </div>
+
+    <div class="collab-grid">
+        <div class="collab-card fu">
+            <div class="cc-img"><img src="spawnfight4glory.jpg" alt="Spawn Fight4Glory"></div>
+            <div class="cc-body">
+                <span class="cc-partner">Fight4Glory</span>
+                <h3 class="cc-title">Spawn Fight4Glory</h3>
+                <p class="cc-desc">Spawn personnalis&eacute; pour un &eacute;v&eacute;nement Jump/Speedrun &mdash; immersion visuelle &amp; fonctionnalit&eacute; optimale en accord avec la th&eacute;matique dynamique.</p>
+                <div class="cc-foot">
+                    <span class="cc-date">Janvier 2025</span>
+                    <span class="cc-link">Fight4Glory <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="collab-card fu">
+            <div class="cc-img"><img src="circuit24hdumans.jpg" alt="Circuit Bugatti"></div>
+            <div class="cc-body">
+                <span class="cc-partner">BTE France</span>
+                <h3 class="cc-title">Circuit Bugatti</h3>
+                <p class="cc-desc">Reconstruction fid&egrave;le grande &eacute;chelle du circuit des 24h du Mans &mdash; pr&eacute;cision g&eacute;ographique &amp; exp&eacute;rience immersive.</p>
+                <div class="cc-foot">
+                    <span class="cc-date">Janvier 2024</span>
+                    <span class="cc-link">BTE France <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+        <div class="collab-card fu">
+            <div class="cc-img"><img src="larresingle.jpg" alt="Larressingle"></div>
+            <div class="cc-body">
+                <span class="cc-partner">BTE France</span>
+                <h3 class="cc-title">Larressingle</h3>
+                <p class="cc-desc">Cit&eacute; fortifi&eacute;e m&eacute;di&eacute;vale 1:1, Gers &mdash; Occitanie. Reconstruction architecturale fid&egrave;le au patrimoine.</p>
+                <div class="cc-foot">
+                    <span class="cc-date">F&eacute;vrier 2024</span>
+                    <span class="cc-link">BTE France <i class="fas fa-arrow-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section id="about">
+    <div class="sl rw" style="margin-bottom:52px;"><span class="ri si">ABOUT</span></div>
+
+    <div class="about-grid">
+        <div class="about-left fu">
+            <p class="about-bio">
+                Je suis <strong>MaxLananas</strong> &mdash; 16 ans, Guadeloupe.<br><br>
+                D&eacute;veloppeur autodidacte passionn&eacute; de syst&egrave;mes bas-niveau, civic tech, g&eacute;ospatial et Minecraft. Je construis des <strong>kernels en C &amp; x86 ASM</strong>, des <strong>plateformes citoyennes</strong>, des <strong>outils OSM</strong> et des <strong>builds 1:1</strong>.<br><br>
+                Contributeur actif <strong>BuildTheEarth France</strong>.<br>Chaque projet est une obsession &mdash; 100&thinsp;% investi.
+            </p>
+            <div class="about-avail">
+                <div class="dot-g"></div>
+                Freelance &amp; collaborations &mdash; ouvert
+            </div>
+        </div>
+        <div class="about-right">
+            <div class="skill-block fu">
+                <h4>Systems &amp; Low-level</h4>
+                <ul>
+                    <li><i class="fa-solid fa-chevron-right"></i>C / x86 Assembly / NASM</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>Linux / QEMU / Make</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>Kernels &amp; Bootloaders</li>
+                </ul>
+            </div>
+            <div class="skill-block fu">
+                <h4>Web &amp; Backend</h4>
+                <ul>
+                    <li><i class="fa-solid fa-chevron-right"></i>JS / TS / Node.js / Python</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>React / Next.js / Flask</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>Supabase / Postgres</li>
+                </ul>
+            </div>
+            <div class="skill-block fu">
+                <h4>G&eacute;ospatial &amp; Minecraft</h4>
+                <ul>
+                    <li><i class="fa-solid fa-chevron-right"></i>OSM / IGN BD TOPO / Leaflet</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>GDAL / WFS / WMS / PROJ</li>
+                    <li><i class="fa-solid fa-chevron-right"></i>Spigot / WorldEdit / Velocity</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="facts-strip">
+        <div class="fact-b fu">
+            <div>
+                <div class="fact-top">05</div>
+                <div class="fact-bot">Builds Minecraft</div>
+                <div class="fact-sub">Fort Napol&eacute;on, Haussmann,<br>Brutalist, Bois, Fleurs</div>
+            </div>
+        </div>
+        <div class="fact-b fu">
+            <div>
+                <div class="fact-top">04</div>
+                <div class="fact-bot">Projets Dev</div>
+                <div class="fact-sub">MaxOS, GwadloupAlert,<br>PineappleUI, GwadaBot</div>
+            </div>
+        </div>
+        <div class="fact-b fu">
+            <div>
+                <div class="fact-top">02</div>
+                <div class="fact-bot">Collaborations</div>
+                <div class="fact-sub">Fight4Glory, BTE France<br>&mdash; builds &agrave; l'&eacute;chelle 1:1</div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="contact">
-    <div class="s-label reveal-block"><span class="rb-inner">CONTACT</span></div>
+    <div class="sl rw"><span class="ri si">CONTACT</span></div>
     <div class="contact-grid">
-        <a href="https://discord.gg/tonlien" target="_blank" class="c-card discord">
-            <i class="fa-brands fa-discord c-card-icon"></i>
+        <a href="https://discord.gg/BhWNkyTpdR" target="_blank" class="c-card discord fu">
+            <i class="fa-brands fa-discord c-icon"></i>
             <span class="c-label">DISCORD_</span>
             <div class="c-bottom">
-                <span class="c-val">MaxLananas#0000</span>
-                <i class="fa-solid fa-arrow-right c-arrow"></i>
+                <span class="c-val">discord.gg/BhWNkyTpdR</span>
+                <i class="fa-solid fa-arrow-right c-arr"></i>
             </div>
         </a>
-        <a href="https://github.com/MaxLananas" target="_blank" class="c-card github">
-            <i class="fa-brands fa-github c-card-icon"></i>
+        <a href="https://github.com/MaxLananas" target="_blank" class="c-card github fu">
+            <i class="fa-brands fa-github c-icon"></i>
             <span class="c-label">GITHUB_</span>
             <div class="c-bottom">
                 <span class="c-val">github.com/MaxLananas</span>
-                <i class="fa-solid fa-arrow-right c-arrow"></i>
+                <i class="fa-solid fa-arrow-right c-arr"></i>
             </div>
         </a>
-        <a href="https://instagram.com/MaxLananas" target="_blank" class="c-card insta">
-            <i class="fa-brands fa-instagram c-card-icon"></i>
+        <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" class="c-card insta fu">
+            <i class="fa-brands fa-instagram c-icon"></i>
             <span class="c-label">INSTAGRAM_</span>
             <div class="c-bottom">
-                <span class="c-val">@MaxLananas</span>
-                <i class="fa-solid fa-arrow-right c-arrow"></i>
+                <span class="c-val">@maxlananas.builds</span>
+                <i class="fa-solid fa-arrow-right c-arr"></i>
             </div>
         </a>
-        <a href="https://youtube.com/@MaxLananas" target="_blank" class="c-card yt">
-            <i class="fa-brands fa-youtube c-card-icon"></i>
+        <a href="https://www.youtube.com/@MaxLanana" target="_blank" class="c-card yt fu">
+            <i class="fa-brands fa-youtube c-icon"></i>
             <span class="c-label">YOUTUBE_</span>
             <div class="c-bottom">
-                <span class="c-val">@MaxLananas</span>
-                <i class="fa-solid fa-arrow-right c-arrow"></i>
+                <span class="c-val">@MaxLanana</span>
+                <i class="fa-solid fa-arrow-right c-arr"></i>
             </div>
         </a>
     </div>
 </section>
 
 <div class="cta-section">
-    <div class="reveal-block">
-        <p class="cta-big"><span class="rb-inner">UN PROJET EN T&Ecirc;TE&thinsp;?</span></p>
-    </div>
-    <div class="cta-sub reveal-block">
-        <span class="rb-inner">&laquo;&thinsp;Parlons-en.&thinsp;&raquo;</span>
-    </div>
+    <div class="cta-line-1 rw"><span class="ri">UN PROJET EN T&Ecirc;TE&nbsp;?</span></div>
+    <div class="cta-line-2 rw"><span class="ri">&laquo;&thinsp;Parlons-en.&thinsp;&raquo;</span></div>
 </div>
 
 <footer>
     <span class="f-logo">MAXLANANAS &copy; 2025</span>
     <ul class="f-links">
-        <li><a href="mentions-legales.html">Mentions légales</a></li>
-        <li><a href="https://discord.gg/tonlien" target="_blank">Discord</a></li>
+        <li><a href="mentions-legales.html">Mentions l&eacute;gales</a></li>
+        <li><a href="https://github.com/MaxLananas" target="_blank">GitHub</a></li>
+        <li><a href="https://discord.gg/BhWNkyTpdR" target="_blank">Discord</a></li>
     </ul>
 </footer>
 
 <script>
 const lenis = new Lenis({
-    duration: 1.4,
+    duration: 1.45,
     easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    orientation: 'vertical',
     smoothWheel: true,
 });
-
 gsap.registerPlugin(ScrollTrigger);
 lenis.on('scroll', ScrollTrigger.update);
 gsap.ticker.add(time => lenis.raf(time * 1000));
 gsap.ticker.lagSmoothing(0);
 
-const navbar = document.getElementById('navbar');
-lenis.on('scroll', ({ scroll }) => {
-    navbar.classList.toggle('scrolled', scroll > 60);
-});
+const nav = document.getElementById('nav');
+lenis.on('scroll', ({ scroll }) => nav.classList.toggle('scrolled', scroll > 48));
 
-gsap.to('#heroTitle .line-inner', {
-    y: 0, duration: 1.2, stagger: 0.12,
-    ease: 'power4.out', delay: 0.25
-});
-gsap.to('.hero-eyebrow span', {
-    y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1
-});
-gsap.to('.hero-sub', {
-    opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85
-});
-gsap.to('.hero-badge', {
-    opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.65
-});
-gsap.to('.marquee-wrap', {
-    opacity: 1, duration: 1, ease: 'power3.out', delay: 1.1
-});
+gsap.to('.hero-eyebrow .ei', { y: 0, duration: 1, ease: 'power4.out', delay: .1 });
+gsap.to('#heroTitle .li', { y: 0, duration: 1.25, stagger: .13, ease: 'power4.out', delay: .25 });
+gsap.to('.hero-sub', { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: .95 });
+gsap.to('.marquee-wrap', { opacity: 1, duration: 1.2, ease: 'power3.out', delay: 1.2 });
+gsap.to('.hero-aside', { opacity: 1, duration: 1, ease: 'power3.out', delay: 1.35 });
 
-document.querySelectorAll('.reveal-block').forEach(block => {
-    const inner = block.querySelector('.rb-inner');
+document.querySelectorAll('.rw').forEach(el => {
+    const inner = el.querySelector('.ri');
     if (!inner) return;
     gsap.to(inner, {
-        y: 0, duration: 1.05, ease: 'power4.out',
-        scrollTrigger: {
-            trigger: block, start: 'top 88%',
-            toggleActions: 'play none none none'
-        }
+        y: 0, duration: 1.1, ease: 'power4.out',
+        scrollTrigger: { trigger: el, start: 'top 90%', toggleActions: 'play none none none' }
     });
 });
 
-const fadeItems = [
-    ...document.querySelectorAll('.proj-card'),
-    ...document.querySelectorAll('.dev-card'),
-    ...document.querySelectorAll('.c-card'),
-    ...document.querySelectorAll('.stat-b'),
-    ...document.querySelectorAll('.skill-block'),
-    ...document.querySelectorAll('.collab-card'),
-    ...document.querySelectorAll('.collab-logo-item'),
-    document.querySelector('.about-bio'),
-    document.querySelector('.about-line'),
-    document.querySelector('.about-availability'),
-    document.querySelector('.collab-intro-text'),
-];
-
-fadeItems.forEach((el, i) => {
-    if (!el) return;
-    gsap.fromTo(el,
-        { opacity: 0, y: 52 },
-        {
-            opacity: 1, y: 0, duration: 0.88,
-            ease: 'power3.out',
-            delay: (i % 3) * 0.065,
-            scrollTrigger: {
-                trigger: el, start: 'top 91%',
-                toggleActions: 'play none none none'
-            }
-        }
-    );
+document.querySelectorAll('.fu').forEach((el, i) => {
+    gsap.to(el, {
+        opacity: 1, y: 0, duration: .9, ease: 'power3.out',
+        delay: (i % 3) * .065,
+        scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none none' }
+    });
 });
 
-gsap.utils.toArray('.proj-card img').forEach(img => {
+document.querySelectorAll('.cta-line-1 .ri, .cta-line-2 .ri').forEach((el, i) => {
+    gsap.to(el, {
+        y: 0, duration: 1.15, ease: 'power4.out', delay: i * .13,
+        scrollTrigger: { trigger: el, start: 'top 92%', toggleActions: 'play none none none' }
+    });
+});
+
+gsap.utils.toArray('.mc-item img, .cc-img img').forEach(img => {
     gsap.fromTo(img,
-        { yPercent: -5 },
+        { yPercent: -6 },
         {
-            yPercent: 5, ease: 'none',
+            yPercent: 6, ease: 'none',
             scrollTrigger: {
-                trigger: img.closest('.proj-card'),
+                trigger: img.closest('.mc-item, .collab-card'),
                 start: 'top bottom', end: 'bottom top', scrub: true
             }
         }
     );
 });
 
-gsap.utils.toArray('.collab-card-img img').forEach(img => {
-    gsap.fromTo(img,
-        { yPercent: -5 },
-        {
-            yPercent: 5, ease: 'none',
-            scrollTrigger: {
-                trigger: img.closest('.collab-card'),
-                start: 'top bottom', end: 'bottom top', scrub: true
-            }
-        }
-    );
-});
-
-gsap.utils.toArray('.s-label').forEach(el => {
+gsap.utils.toArray('.sl').forEach(el => {
     gsap.fromTo(el,
-        { x: -50 },
-        {
-            x: 0, ease: 'none',
-            scrollTrigger: {
-                trigger: el, start: 'top bottom',
-                end: 'center center', scrub: 1.8
-            }
+        { x: -44 },
+        { x: 0, ease: 'none',
+          scrollTrigger: { trigger: el, start: 'top bottom', end: 'center center', scrub: 2 }
         }
     );
-});
-
-document.querySelectorAll('.stat-n[data-target]').forEach(el => {
-    const target = +el.dataset.target;
-    ScrollTrigger.create({
-        trigger: el, start: 'top 85%', once: true,
-        onEnter: () => {
-            const obj = { val: 0 };
-            gsap.to(obj, {
-                val: target, duration: 1.8, ease: 'power2.out',
-                onUpdate() { el.textContent = '+' + Math.round(obj.val); }
-            });
-        }
-    });
 });
 </script>
 </body>
