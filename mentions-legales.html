@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions Légales — MaxLananas</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+@font-face {
+    font-family: 'FFFlauta';
+    src: url('FFFlauta-200.otf') format('opentype');
+}
+
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+:root {
+    --black: #080808;
+    --off:   #e8e4dc;
+    --gray1: #111111;
+    --gray2: #181818;
+    --gray3: #252525;
+    --discord: #5865F2;
+}
+
+html { font-size:16px; }
+
+body {
+    background:var(--black);
+    color:var(--off);
+    font-family:'Space Mono',monospace;
+    overflow-x:hidden;
+    cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair;
+}
+
+a, button { cursor:url('Diamond Pickaxe - Alternate select.cur'),crosshair; color:inherit; text-decoration:none; }
+::selection { background:var(--off); color:var(--black); }
+::-webkit-scrollbar { width:3px; }
+::-webkit-scrollbar-track { background:var(--black); }
+::-webkit-scrollbar-thumb { background:var(--gray3); }
+html.lenis { height:auto; }
+.lenis.lenis-smooth { scroll-behavior:auto !important; }
+
+nav {
+    position:fixed; top:0; left:0; right:0; z-index:900;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:30px 52px;
+    background:rgba(8,8,8,.93);
+    backdrop-filter:blur(20px);
+    -webkit-backdrop-filter:blur(20px);
+}
+.nav-logo {
+    font-family:'FFFlauta',monospace;
+    font-size:12px; letter-spacing:.06em; opacity:.9;
+}
+.nav-back {
+    font-family:'Space Mono',monospace;
+    font-size:12px; display:flex; align-items:center; gap:10px;
+    color:rgba(232,228,220,.5);
+    text-decoration:underline; text-underline-offset:4px;
+    text-decoration-color:rgba(232,228,220,.2);
+    transition:color .25s;
+}
+.nav-back:hover { color:var(--off); }
+
+.ml-hero {
+    min-height:52vh;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 52px 60px;
+    border-bottom:1px solid var(--gray3);
+}
+.ml-hero-label {
+    font-size:9px; letter-spacing:.22em; text-transform:uppercase;
+    color:rgba(232,228,220,.28); margin-bottom:24px;
+    overflow:hidden;
+}
+.ml-hero-label span { display:block; transform:translateY(120%); }
+
+.ml-hero-title {
+    font-family:'FFFlauta',monospace;
+    font-size:clamp(52px,9vw,128px);
+    line-height:1.06; letter-spacing:-.015em;
+}
+.ml-hero-title .line { overflow:hidden; display:block; }
+.ml-hero-title .line-inner { display:block; transform:translateY(112%); }
+
+.ml-hero-sub {
+    margin-top:28px; font-size:11px;
+    color:rgba(232,228,220,.35); letter-spacing:.04em;
+    opacity:0; transform:translateY(14px);
+}
+
+.ml-content {
+    max-width:860px;
+    margin:0 auto;
+    padding:100px 52px 140px;
+}
+
+.ml-block {
+    margin-bottom:72px;
+    opacity:0; transform:translateY(40px);
+}
+
+.ml-block-num {
+    font-family:'FFFlauta',monospace;
+    font-size:9px; letter-spacing:.14em;
+    color:rgba(88,101,242,.7);
+    margin-bottom:20px; display:block;
+    text-transform:uppercase;
+}
+
+.ml-block h2 {
+    font-family:'FFFlauta',monospace;
+    font-size:clamp(18px,2.5vw,28px);
+    line-height:1.3; margin-bottom:22px;
+    letter-spacing:-.01em;
+}
+
+.ml-block p, .ml-block li {
+    font-size:12px; line-height:2;
+    color:rgba(232,228,220,.55);
+    margin-bottom:14px;
+}
+
+.ml-block strong { color:var(--off); font-weight:700; }
+
+.ml-block ul {
+    list-style:none; margin-top:8px;
+}
+.ml-block ul li {
+    display:flex; align-items:flex-start; gap:12px; margin-bottom:10px;
+}
+.ml-block ul li::before {
+    content:'▸';
+    color:var(--discord); flex-shrink:0;
+    margin-top:2px;
+}
+
+.ml-divider {
+    width:100%; height:1px;
+    background:var(--gray3);
+    margin-bottom:72px;
+    opacity:0; transform:scaleX(0);
+    transform-origin:left;
+}
+
+.ml-block a {
+    color:var(--discord);
+    text-decoration:underline;
+    text-underline-offset:3px;
+    transition:opacity .2s;
+}
+.ml-block a:hover { opacity:.6; }
+
+.ml-contact-cards {
+    display:grid; grid-template-columns:1fr 1fr;
+    gap:3px; margin-top:32px;
+}
+.ml-contact-card {
+    background:var(--gray1); padding:32px 28px;
+    display:flex; flex-direction:column; gap:10px;
+}
+.ml-contact-card span:first-child {
+    font-family:'FFFlauta',monospace;
+    font-size:10px; color:rgba(232,228,220,.3);
+    text-transform:uppercase; letter-spacing:.1em;
+}
+.ml-contact-card span:last-child {
+    font-size:11px; color:rgba(232,228,220,.6);
+}
+
+footer {
+    padding:36px 52px;
+    border-top:1px solid var(--gray2);
+    display:flex; align-items:center; justify-content:space-between;
+}
+.f-logo {
+    font-family:'FFFlauta',monospace;
+    font-size:10px; color:rgba(232,228,220,.22); letter-spacing:.06em;
+}
+.f-links { display:flex; gap:36px; list-style:none; }
+.f-links a {
+    font-size:10px; color:rgba(232,228,220,.22);
+    text-decoration:underline; text-underline-offset:3px;
+    letter-spacing:.04em; transition:color .2s;
+}
+.f-links a:hover { color:var(--off); }
+
+@media(max-width:768px){
+    nav { padding:22px 24px; }
+    .ml-hero { padding:0 24px 48px; }
+    .ml-content { padding:72px 24px 100px; }
+    .ml-contact-cards { grid-template-columns:1fr; }
+    footer { padding:28px 24px; flex-direction:column; gap:16px; text-align:center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html" class="nav-logo">MaxLananas Portfolio</a>
+    <a href="index.html" class="nav-back">
+        <i class="fa-solid fa-arrow-left"></i> Retour
+    </a>
+</nav>
+
+<div class="ml-hero">
+    <div class="ml-hero-label">
+        <span>&#9632;&nbsp; Informations légales</span>
+    </div>
+    <h1 class="ml-hero-title">
+        <div class="line"><span class="line-inner">MENTIONS</span></div>
+        <div class="line"><span class="line-inner">LÉGALES.</span></div>
+    </h1>
+    <p class="ml-hero-sub">Dernière mise à jour &mdash; Juin 2025</p>
+</div>
+
+<div class="ml-content">
+
+    <div class="ml-block">
+        <span class="ml-block-num">01 &mdash; Éditeur du site</span>
+        <h2>Responsable de publication</h2>
+        <p>Ce site est édité à titre personnel par <strong>MaxLananas</strong>, développeur indépendant et passionné Minecraft, résidant en <strong>Guadeloupe</strong>, France.</p>
+        <ul>
+            <li>Pseudo : <strong>MaxLananas</strong></li>
+            <li>Statut : Particulier &mdash; activité non commerciale</li>
+            <li>Localisation : Guadeloupe, France (971)</li>
+            <li>Contact : via Discord ou GitHub (voir section Contact)</li>
+        </ul>
+    </div>
+
+    <div class="ml-divider"></div>
+
+    <div class="ml-block">
+        <span class="ml-block-num">02 &mdash; Hébergement</span>
+        <h2>Hébergeur du site</h2>
+        <p>Ce site est hébergé par un prestataire tiers. Les informations relatives à l'hébergeur sont les suivantes :</p>
+        <ul>
+            <li>Hébergeur : <strong>À compléter selon votre hébergeur</strong></li>
+            <li>Adresse : À compléter</li>
+            <li>Site : <a href="#">à compléter</a></li>
+        </ul>
+    </div>
+
+    <div class="ml-divider"></div>
+
+    <div class="ml-block">
+        <span class="ml-block-num">03 &mdash; Propriété intellectuelle</span>
+        <h2>Droits d'auteur &amp; contenus</h2>
+        <p>L'ensemble des contenus présents sur ce site — textes, captures d'écran Minecraft, créations visuelles, code source — sont la propriété exclusive de <strong>MaxLananas</strong>, sauf mention contraire explicite.</p>
+        <p>Toute reproduction, distribution, modification ou utilisation de ces contenus sans autorisation préalable écrite est strictement interdite et constitue une contrefaçon sanctionnée par le Code de la propriété intellectuelle.</p>
+        <ul>
+            <li>Builds Minecraft : captures personnelles, réalisées par MaxLananas</li>
+            <li>Code source des projets : propriété de MaxLananas sauf projets open-source</li>
+            <li>Police FFFlauta : utilisée conformément à sa licence</li>
+            <li>Images tierces (Unsplash) : utilisées sous licence libre</li>
+        </ul>
+    </div>
+
+    <div class="ml-divider"></div>
+
+    <div class="ml-block">
+        <span class="ml-block-num">04 &mdash; Données personnelles</span>
+        <h2>Protection des données (RGPD)</h2>
+        <p>Ce site ne collecte <strong>aucune donnée personnelle</strong> via des formulaires ou systèmes de tracking. Aucun cookie analytique n'est déposé sans consentement.</p>
+        <p>Les liens vers des plateformes tierces (Discord, GitHub, Instagram, YouTube) sont soumis aux politiques de confidentialité de ces plateformes. MaxLananas ne saurait être tenu responsable des pratiques de ces services.</p>
+        <ul>
+            <li>Cookies : uniquement techniques, nécessaires au fonctionnement</li>
+            <li>Analytique : aucune collecte active</li>
+            <li>Données de contact : traitées uniquement à des fins de réponse</li>
+        </ul>
+        <p>Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification et de suppression de vos données. Pour exercer ce droit, contactez via Discord.</p>
+    </div>
+
+    <div class="ml-divider"></div>
+
+    <div class="ml-block">
+        <span class="ml-block-num">05 &mdash; Responsabilité</span>
+        <h2>Limitation de responsabilité</h2>
+        <p>MaxLananas s'efforce de maintenir les informations de ce site aussi précises et à jour que possible. Toutefois, aucune garantie n'est donnée quant à l'exactitude, l'exhaustivité ou l'actualité des contenus publiés.</p>
+        <p>MaxLananas ne saurait être tenu responsable de tout dommage direct ou indirect résultant de l'utilisation de ce site ou des informations qu'il contient, ni des liens hypertextes pointant vers des sites tiers.</p>
+    </div>
+
+    <div class="ml-divider"></div>
+
+    <div class="ml-block">
+        <span class="ml-block-num">06 &mdash; Droit applicable</span>
+        <h2>Juridiction &amp; droit applicable</h2>
+        <p>Les présentes mentions légales sont soumises au <strong>droit français</strong>. En cas de litige, les tribunaux compétents de <strong>Guadeloupe</strong> seront seuls compétents.</p>
+        <p>Pour toute question relative à ce site, vous pouvez me contacter via les canaux suivants :</p>
+        <div class="ml-contact-cards">
+            <div class="ml-contact-card">
+                <span>Discord</span>
+                <span>MaxLananas#0000</span>
+            </div>
+            <div class="ml-contact-card">
+                <span>GitHub</span>
+                <span>github.com/MaxLananas</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    <span class="f-logo">MAXLANANAS &copy; 2025</span>
+    <ul class="f-links">
+        <li><a href="mentions-legales.html">Mentions légales</a></li>
+        <li><a href="https://discord.gg/tonlien" target="_blank">Discord</a></li>
+    </ul>
+</footer>
+
+<script>
+const lenis = new Lenis({
+    duration: 1.4,
+    easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    smoothWheel: true,
+});
+gsap.registerPlugin(ScrollTrigger);
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add(time => lenis.raf(time * 1000));
+gsap.ticker.lagSmoothing(0);
+
+gsap.to('.ml-hero-title .line-inner', {
+    y: 0, duration: 1.2, stagger: 0.12,
+    ease: 'power4.out', delay: 0.2
+});
+gsap.to('.ml-hero-label span', {
+    y: 0, duration: 0.9, ease: 'power3.out', delay: 0.1
+});
+gsap.to('.ml-hero-sub', {
+    opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85
+});
+
+document.querySelectorAll('.ml-block').forEach((el, i) => {
+    gsap.to(el, {
+        opacity: 1, y: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: {
+            trigger: el, start: 'top 88%',
+            toggleActions: 'play none none none'
+        }
+    });
+});
+
+document.querySelectorAll('.ml-divider').forEach(el => {
+    gsap.to(el, {
+        opacity: 1, scaleX: 1, duration: 1, ease: 'power3.out',
+        scrollTrigger: {
+            trigger: el, start: 'top 90%',
+            toggleActions: 'play none none none'
+        }
+    });
+});
+</script>
+</body>
+</html>
