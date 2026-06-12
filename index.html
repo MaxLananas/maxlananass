@@ -102,34 +102,24 @@ nav.scrolled {
     text-align: center;
 }
 
-/* subtle grid bg */
-#hero::before {
-    content: '';
+/* Vidéo background */
+.hero-video-bg {
     position: absolute; inset: 0;
-    background-image:
-        linear-gradient(var(--border) 1px, transparent 1px),
-        linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 60px 60px;
-    mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
-    pointer-events: none;
+    z-index: 0; overflow: hidden;
+}
+.hero-video-bg video {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: brightness(.28) grayscale(.6);
+}
+.hero-video-overlay {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 90% 80% at 50% 50%, rgba(17,17,19,.35) 0%, rgba(17,17,19,.82) 70%, var(--black) 100%);
+    z-index: 1;
 }
 
-.hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 7px 18px;
-    border-radius: 99px;
-    background: var(--card);
-    border: 1px solid var(--border2);
-    font-size: 9px; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 38px;
-    opacity: 0; transform: translateY(14px);
-}
-.hero-badge .dot {
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--green);
-    animation: pulse 2.4s ease infinite;
-}
+/* Tout le contenu hero passe au-dessus */
+#hero > *:not(.hero-video-bg) { position: relative; z-index: 2; }
 
 .hero-title {
     font-family: 'FFFlauta', monospace;
@@ -154,7 +144,9 @@ nav.scrolled {
 .hero-card {
     display: inline-flex; align-items: center; gap: 24px;
     padding: 18px 24px;
-    background: var(--card);
+    background: rgba(34,34,38,.72);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border2);
     border-radius: var(--radius);
     margin-bottom: 56px;
@@ -187,17 +179,30 @@ nav.scrolled {
 }
 .hcb:hover { background: var(--border2); border-color: var(--border2); color: var(--off); transform: translateY(-2px); }
 
+/* Bouton son vidéo */
+.video-mute-btn {
+    position: absolute; top: 28px; left: 28px; z-index: 10;
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(34,34,38,.72);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--muted);
+    transition: color .25s, background .25s;
+    cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair;
+}
+.video-mute-btn:hover { color: var(--off); background: var(--card2); }
+
 .scroll-hint {
     position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%);
     display: flex; flex-direction: column; align-items: center; gap: 8px;
     font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
     color: var(--muted2);
-    opacity: 0;
-    animation: bounce-hint 2s ease infinite;
+    opacity: 0; z-index: 2;
 }
-.scroll-hint i { font-size: 11px; }
-@keyframes bounce-hint {
-    0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(5px)}
+.scroll-hint i { font-size: 11px; animation: bounce-arr 2s ease infinite; }
+@keyframes bounce-arr {
+    0%,100%{ transform:translateY(0) } 50%{ transform:translateY(5px) }
 }
 
 /* ── MARQUEE ── */
@@ -240,7 +245,6 @@ nav.scrolled {
 .work-header-desc { font-size: 10px; line-height: 2; color: var(--muted); max-width: 260px; margin-bottom: 8px; }
 .work-header-count { font-family: 'FFFlauta', monospace; font-size: 8px; letter-spacing: .14em; color: var(--muted2); }
 
-/* Bento — arrondi style RiskyMH */
 .mc-bento {
     display: grid;
     grid-template-columns: 1.65fr 1fr 1fr;
@@ -260,11 +264,9 @@ nav.scrolled {
 .mc-item:nth-child(5){ grid-column:3; grid-row:2; }
 
 .mc-item img {
-    position: absolute; inset: 0;
-    width:100%; height:100%;
+    position: absolute; inset: 0; width:100%; height:100%;
     transition: transform .95s cubic-bezier(.25,.46,.45,.94), filter .6s;
-    filter: brightness(.6);
-    will-change: transform;
+    filter: brightness(.6); will-change: transform;
     border-radius: var(--radius);
 }
 .mc-item:hover img { transform: scale(1.07); filter: brightness(.88); }
@@ -290,10 +292,9 @@ nav.scrolled {
     transition: opacity .35s, transform .35s;
 }
 .mc-item:hover .mc-tag { opacity: 1; transform: translateY(0); }
-
 .mc-item:nth-child(1){ min-height:520px; }
-.mc-item:nth-child(2), .mc-item:nth-child(3),
-.mc-item:nth-child(4), .mc-item:nth-child(5){ min-height:258px; }
+.mc-item:nth-child(2),.mc-item:nth-child(3),
+.mc-item:nth-child(4),.mc-item:nth-child(5){ min-height:258px; }
 
 /* ── DEV ── */
 .dev-section { padding: 110px 48px; }
@@ -301,10 +302,9 @@ nav.scrolled {
 .dev-header-desc { font-size: 11px; line-height: 2; color: var(--muted); }
 .dev-list { display: flex; flex-direction: column; gap: 3px; }
 
-/* Card style RiskyMH pour les projets dev */
 .dev-row {
     display: grid;
-    grid-template-columns: 80px auto 1fr auto 40px;
+    grid-template-columns: 80px 44px auto 1fr auto 40px;
     align-items: center; gap: 24px;
     padding: 22px 28px;
     background: var(--card);
@@ -314,11 +314,7 @@ nav.scrolled {
     text-decoration: none; color: var(--off);
     transition: background .35s, border-color .35s, transform .25s;
 }
-.dev-row:hover {
-    background: var(--card2);
-    border-color: var(--border2);
-    transform: translateX(4px);
-}
+.dev-row:hover { background: var(--card2); border-color: var(--border2); transform: translateX(4px); }
 .dev-row > * { position: relative; z-index: 1; }
 
 .dr-num { font-family: 'FFFlauta', monospace; font-size: 8px; color: var(--muted2); letter-spacing: .08em; }
@@ -337,8 +333,7 @@ nav.scrolled {
     font-size: 7px; border: 1px solid var(--border2);
     padding: 4px 9px; color: var(--muted);
     text-transform: uppercase; letter-spacing: .08em;
-    border-radius: 5px;
-    background: var(--surface);
+    border-radius: 5px; background: var(--surface);
     transition: border-color .3s, color .3s;
 }
 .dev-row:hover .badge { border-color: rgba(232,228,220,.25); color: rgba(232,228,220,.7); }
@@ -360,16 +355,13 @@ nav.scrolled {
     display: flex; align-items: center; justify-content: center;
     border-right: 1px solid var(--border);
     transition: opacity .4s, filter .4s, background .3s;
-    filter: grayscale(1) brightness(10);
-    opacity: .16;
+    filter: grayscale(1) brightness(10); opacity: .16;
 }
 .collab-logo-block:last-child { border-right: none; }
 .collab-logo-block:hover { opacity: .7; filter: grayscale(0) brightness(1); background: var(--card2); }
 .collab-logo-block img { height: 32px; width: auto; object-fit: contain; }
 
-/* Project cards style RiskyMH */
 .collab-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 4px; }
-
 .collab-card {
     background: var(--card); overflow: hidden;
     display: flex; flex-direction: column;
@@ -378,28 +370,20 @@ nav.scrolled {
 }
 .collab-card:hover { border-color: var(--border2); transform: translateY(-3px); }
 .cc-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; flex-shrink: 0; }
-.cc-img img {
-    transition: transform .9s cubic-bezier(.25,.46,.45,.94), filter .6s;
-    filter: brightness(.65);
-}
+.cc-img img { transition: transform .9s cubic-bezier(.25,.46,.45,.94), filter .6s; filter: brightness(.65); }
 .collab-card:hover .cc-img img { transform: scale(1.06); filter: brightness(.9); }
 .cc-body { padding: 22px 20px 24px; flex: 1; display: flex; flex-direction: column; }
 .cc-partner { font-size: 8px; letter-spacing: .16em; text-transform: uppercase; color: var(--discord); display: block; margin-bottom: 8px; }
 .cc-title { font-family: 'FFFlauta', monospace; font-size: 14px; line-height: 1.45; margin-bottom: 10px; }
 .cc-desc { font-size: 10px; line-height: 1.95; color: var(--muted); margin-bottom: 18px; flex: 1; }
-.cc-foot {
-    display: flex; align-items: center; justify-content: space-between;
-    border-top: 1px solid var(--border); padding-top: 12px; margin-top: auto;
-}
+.cc-foot { display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); padding-top: 12px; margin-top: auto; }
 .cc-date { font-size: 8px; color: var(--muted2); letter-spacing: .06em; }
 .cc-link { font-size: 8px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 7px; transition: color .25s; }
 .cc-link:hover { color: var(--off); }
 
 /* ── ABOUT ── */
 #about { padding: 0 48px 140px; }
-
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-
 .about-left {
     background: var(--card); padding: 56px 48px;
     display: flex; flex-direction: column;
@@ -407,13 +391,6 @@ nav.scrolled {
 }
 .about-bio { font-size: 12px; line-height: 2.2; color: rgba(232,228,220,.55); margin-bottom: 36px; flex: 1; }
 .about-bio strong { color: var(--off); }
-.about-avail {
-    font-size: 8px; letter-spacing: .16em; text-transform: uppercase;
-    color: var(--muted2); display: flex; align-items: center; gap: 12px;
-    padding-top: 28px; border-top: 1px solid var(--border);
-}
-.dot-g { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2.4s ease infinite; flex-shrink: 0; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.28;transform:scale(.58)} }
 
 .about-right { display: flex; flex-direction: column; gap: 4px; }
 .skill-block {
@@ -435,10 +412,8 @@ nav.scrolled {
 .fact-b {
     background: var(--card); padding: 36px 30px;
     border-radius: var(--radius-sm); border: 1px solid var(--border);
-    position: relative; overflow: hidden;
     display: flex; flex-direction: column; justify-content: space-between;
-    min-height: 150px;
-    transition: border-color .35s, background .35s;
+    min-height: 150px; transition: border-color .35s, background .35s;
 }
 .fact-b:hover { border-color: var(--discord); background: var(--card2); }
 .fact-top { font-family: 'FFFlauta', monospace; font-size: clamp(28px,3.5vw,48px); line-height: 1; color: var(--off); }
@@ -447,9 +422,7 @@ nav.scrolled {
 
 /* ── CONTACT ── */
 #contact { padding: 0 48px 80px; }
-
 .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 56px; }
-
 .c-card {
     min-height: 240px; padding: 40px 36px;
     display: flex; flex-direction: column; justify-content: space-between;
@@ -486,8 +459,7 @@ nav.scrolled {
     position: relative; overflow: hidden;
 }
 .cta-section::before {
-    content: '';
-    position: absolute; inset: 0;
+    content: ''; position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(88,101,242,.06), transparent 70%);
     pointer-events: none;
 }
@@ -531,7 +503,7 @@ footer {
     .mc-item:nth-child(1){ grid-column:1/-1; grid-row:1; min-height:280px; }
     .mc-item:nth-child(2),.mc-item:nth-child(3){ grid-row:2; min-height:200px; }
     .mc-item:nth-child(4),.mc-item:nth-child(5){ grid-row:3; min-height:200px; }
-    .dev-row { grid-template-columns: 44px 1fr auto; }
+    .dev-row { grid-template-columns: 44px auto auto; gap: 14px; }
     .dr-num,.dr-desc { display: none; }
     .collab-grid { grid-template-columns: 1fr; }
     .about-grid { grid-template-columns: 1fr; }
@@ -544,6 +516,7 @@ footer {
     .hero-card-info { text-align: center; }
     .hero-card-btns { margin-left: 0; }
     footer { padding: 22px 24px; flex-direction: column; gap: 12px; text-align: center; }
+    .video-mute-btn { top: 16px; left: 16px; }
 }
 @media(max-width: 600px) {
     .facts-strip { grid-template-columns: 1fr; }
@@ -564,10 +537,18 @@ footer {
 
 <!-- HERO -->
 <section id="hero">
-    <div class="hero-badge">
-        <span class="dot"></span>
-        Dev &middot; Builder Minecraft &middot; Guadeloupe
+    <!-- Vidéo background -->
+    <div class="hero-video-bg">
+        <video id="heroBg" autoplay loop muted playsinline>
+            <source src="мило материшься.mp4" type="video/mp4">
+        </video>
+        <div class="hero-video-overlay"></div>
     </div>
+
+    <!-- Bouton mute/unmute -->
+    <button class="video-mute-btn" id="muteBtn" title="Son">
+        <i class="fa-solid fa-volume-xmark" id="muteIcon"></i>
+    </button>
 
     <h1 class="hero-title" id="heroTitle">
         <div class="line"><span class="li">CODING</span></div>
@@ -586,7 +567,7 @@ footer {
         </div>
         <div class="hero-card-info">
             <div class="hero-card-name">MaxLananas</div>
-            <div class="hero-card-desc">Dev &amp; Builder &mdash; Guadeloupe, FR<br>Kernel · Civic · Geospatial · MC 1:1</div>
+            <div class="hero-card-desc">Builder Council @ BTE &nbsp;·&nbsp; Gwada<br>Builder &nbsp;·&nbsp; Dev &nbsp;·&nbsp; Open-source</div>
         </div>
         <div class="hero-card-btns">
             <a href="https://github.com/MaxLananas" target="_blank" class="hcb" title="GitHub"><i class="fa-brands fa-github"></i></a>
@@ -597,7 +578,7 @@ footer {
     </div>
 
     <div class="scroll-hint" id="scrollHint">
-        Scroll to projects!<i class="fa-solid fa-arrow-down"></i>
+        Scroll to projects!&ensp;<i class="fa-solid fa-arrow-down"></i>
     </div>
 </section>
 
@@ -825,12 +806,9 @@ footer {
             <p class="about-bio">
                 Je suis <strong>MaxLananas</strong> &mdash; 16 ans, Guadeloupe.<br><br>
                 Développeur autodidacte passionné de systèmes bas-niveau, civic tech, géospatial et Minecraft. Je construis des <strong>kernels en C &amp; x86 ASM</strong>, des <strong>plateformes citoyennes</strong>, des <strong>outils OSM</strong> et des <strong>builds 1:1</strong>.<br><br>
-                Contributeur actif <strong>BuildTheEarth France</strong>.<br>Chaque projet est une obsession &mdash; 100&thinsp;% investi.
+                Contributeur actif <strong>BuildTheEarth France</strong>.<br>
+                Chaque projet est une obsession &mdash; 100&thinsp;% investi.
             </p>
-            <div class="about-avail">
-                <div class="dot-g"></div>
-                Freelance &amp; collaborations &mdash; ouvert
-            </div>
         </div>
         <div class="about-right">
             <div class="skill-block fu">
@@ -927,9 +905,9 @@ footer {
     </div>
 </section>
 
-<!-- CTA -->
+<!-- CTA — intouchable -->
 <div class="cta-section">
-    <div class="cta-line-1 rw"><span class="ri">UN PROJET EN TÊTE&nbsp;?</span></div>
+    <div class="cta-line-1 rw"><span class="ri">UN PROJET EN T&Ecirc;TE&nbsp;?</span></div>
     <div class="cta-line-2 rw"><span class="ri">&laquo;&thinsp;Parlons-en.&thinsp;&raquo;</span></div>
 </div>
 
@@ -943,7 +921,7 @@ footer {
 </footer>
 
 <script>
-/* ── Lenis smooth scroll ── */
+/* ── Lenis ── */
 const lenis = new Lenis({
     duration: 1.45,
     easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -958,13 +936,29 @@ gsap.ticker.lagSmoothing(0);
 const nav = document.getElementById('nav');
 lenis.on('scroll', ({ scroll }) => nav.classList.toggle('scrolled', scroll > 48));
 
+/* ── Mute/Unmute vidéo ── */
+const video    = document.getElementById('heroBg');
+const muteBtn  = document.getElementById('muteBtn');
+const muteIcon = document.getElementById('muteIcon');
+
+muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    muteIcon.className = video.muted
+        ? 'fa-solid fa-volume-xmark'
+        : 'fa-solid fa-volume-high';
+});
+
 /* ── Hero entrance ── */
-gsap.to('.hero-badge',    { opacity:1, y:0, duration:1, ease:'power3.out', delay:.1 });
 gsap.to('#heroTitle .li', { y:0, duration:1.25, stagger:.13, ease:'power4.out', delay:.3 });
-gsap.to('.hero-sub',      { opacity:1, y:0, duration:1, ease:'power3.out', delay:.9 });
-gsap.to('.hero-card',     { opacity:1, y:0, duration:1, ease:'power3.out', delay:1.05 });
-gsap.to('.marquee-wrap',  { opacity:1, duration:1.2, ease:'power3.out', delay:1.25 });
-gsap.to('#scrollHint',    { opacity:1, duration:1.2, ease:'power3.out', delay:1.5 });
+gsap.to('.hero-sub',      { opacity:1, y:0, duration:1,   ease:'power3.out', delay:.85 });
+gsap.to('.hero-card',     { opacity:1, y:0, duration:1,   ease:'power3.out', delay:1.0 });
+gsap.to('.marquee-wrap',  { opacity:1, duration:1.2,       ease:'power3.out', delay:1.2 });
+gsap.to('#scrollHint',    { opacity:1, duration:1.2,       ease:'power3.out', delay:1.45 });
+
+/* ── Scroll hint disparaît ── */
+lenis.on('scroll', ({ scroll }) => {
+    if (scroll > 80) gsap.to('#scrollHint', { opacity:0, duration:.4 });
+});
 
 /* ── Section titles ── */
 document.querySelectorAll('.rw').forEach(el => {
@@ -976,7 +970,7 @@ document.querySelectorAll('.rw').forEach(el => {
     });
 });
 
-/* ── Fade-up elements ── */
+/* ── Fade-up ── */
 document.querySelectorAll('.fu').forEach((el, i) => {
     gsap.to(el, {
         opacity:1, y:0, duration:.85, ease:'power3.out',
@@ -986,14 +980,14 @@ document.querySelectorAll('.fu').forEach((el, i) => {
 });
 
 /* ── CTA lines ── */
-document.querySelectorAll('.cta-line-1 .ri, .cta-line-2 .ri').forEach((el,i) => {
+document.querySelectorAll('.cta-line-1 .ri, .cta-line-2 .ri').forEach((el, i) => {
     gsap.to(el, {
         y:0, duration:1.15, ease:'power4.out', delay: i * .13,
         scrollTrigger:{ trigger:el, start:'top 92%', toggleActions:'play none none none' }
     });
 });
 
-/* ── Parallax on images ── */
+/* ── Parallax images ── */
 gsap.utils.toArray('.mc-item img, .cc-img img').forEach(img => {
     gsap.fromTo(img,
         { yPercent:-6 },
@@ -1014,11 +1008,6 @@ gsap.utils.toArray('.sl').forEach(el => {
           scrollTrigger:{ trigger:el, start:'top bottom', end:'center center', scrub:2 }
         }
     );
-});
-
-/* ── Hide scroll hint on first scroll ── */
-lenis.on('scroll', ({ scroll }) => {
-    if (scroll > 80) gsap.to('#scrollHint', { opacity:0, duration:.4 });
 });
 </script>
 </body>
