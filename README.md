@@ -21,7 +21,7 @@ Personal portfolio of **MaxLananas** — 16, Guadeloupe.
 
 Self-taught developer & Minecraft builder. I write kernels in C & x86 ASM, build 1:1 cities block by block, and ship civic tech nobody asked for — yet.
 
-**Builder Council @ BuildTheEarth France.**
+**Builder Council @ BuildTheEarth.**
 
 ---
 
