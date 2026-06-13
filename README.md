@@ -38,33 +38,6 @@ Self-taught developer & Minecraft builder. I write kernels in C & x86 ASM, build
 
 ---
 
-## Structure
-
-```
-📁 root
-├── index.html               ← Main portfolio
-├── mentions-legales.html    ← Legal notice
-├── 404.html                 ← Custom 404
-├── FFFlauta-200.otf         ← Custom pixel font
-├── Diamond Pickaxe - Alternate select.cur  ← Custom cursor
-├── max.jpg                  ← Profile photo
-├── мило материшься.mp4      ← Hero background video
-├── untitled3.jpg            ← Fort Napoléon
-├── 2025-04-17_21.24.15.png  ← Brutalist build
-├── 2025-01-27_20.55.35.png  ← Haussmannian build
-├── potfleur.png             ← Organic flowers
-├── maisonbois.png           ← Medieval house
-├── spawnfight4glory.jpg     ← Fight4Glory collab
-├── circuit24hdumans.jpg     ← BTE Circuit Bugatti
-├── larresingle.jpg          ← BTE Larressingle
-├── image_v2-Photoroom.png   ← Fight4Glory logo
-├── Logo_BTE_France-*.png    ← BTE France logo
-├── robots.txt
-└── sitemap.xml
-```
-
----
-
 ## Projects featured
 
 | # | Name | Stack | Link |
