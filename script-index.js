@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
       .to('.hero-sub',       { opacity: 1, y: 0, duration: 1 }, '-=.7')
       .to('.hero-card',      { opacity: 1, y: 0, duration: 1 }, '-=.65')
       .to('#scrollHint',     { opacity: 1, duration: 1 },       '-=.5')
-      .to('.ticker-wrap',    { opacity: 1, duration: 1 },       '-=.4')
+      .to('.logos-wrap',     { opacity: 1, duration: 1 },       '-=.4')
       .to('.video-mute-btn', { opacity: 1, duration: 0.6 },     '-=.8');
 
     lenis.on('scroll', function (e) {
