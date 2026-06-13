@@ -295,42 +295,90 @@ nav.scrolled {
     50% { transform: translateY(6px); }
 }
 
-.ticker-wrap {
+.logos-wrap {
     overflow: hidden;
     border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
     background: var(--surface);
     opacity: 0;
     position: relative;
+    padding: 0;
 }
 
-.ticker-inner {
+.logos-wrap::before,
+.logos-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+}
+.logos-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, var(--surface), transparent);
+}
+.logos-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, var(--surface), transparent);
+}
+
+.logos-inner {
     display: flex;
     width: max-content;
-    animation: ticker 60s linear infinite;
+    animation: logos-scroll 55s linear infinite;
 }
 
-.ticker-item {
+.logos-inner:hover { animation-play-state: paused; }
+
+.logos-track {
     display: flex;
     align-items: center;
-    white-space: nowrap;
-    padding: 18px 0;
+    gap: 0;
+    padding: 20px 0;
 }
 
-.ticker-word {
+.logo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 0 28px;
+    border-right: 1px solid var(--border);
+    transition: background .25s;
+    cursor: default;
+}
+
+.logo-item:last-child { border-right: none; }
+
+.logo-item img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    display: block;
+    filter: grayscale(1) brightness(0.5);
+    transition: filter .35s, transform .35s;
+}
+
+.logo-item:hover img {
+    filter: grayscale(0) brightness(1);
+    transform: translateY(-3px) scale(1.15);
+}
+
+.logo-item span {
     font-family: 'FFFlauta', monospace;
-    font-size: clamp(11px, 1.3vw, 16px);
+    font-size: 7px;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--muted2);
-    padding: 0 24px;
+    white-space: nowrap;
+    transition: color .35s;
 }
 
-.ticker-word.accent { color: var(--off); }
-.ticker-word.brand { color: var(--discord); }
-.ticker-sep { color: rgba(232, 228, 220, .1); font-size: 9px; flex-shrink: 0; }
+.logo-item:hover span { color: var(--off); }
 
-@keyframes ticker {
+@keyframes logos-scroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
 }
