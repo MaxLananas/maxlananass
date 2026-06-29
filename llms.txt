@@ -1,0 +1,38 @@
+# MaxLananas Portfolio
+
+> Personal portfolio of MaxLananas — 16-year-old developer and Minecraft 1:1 builder from Guadeloupe, France.
+
+## About
+MaxLananas is a self-taught full-stack developer specializing in kernel development (C, x86 Assembly), Minecraft 1:1 scale building (Builder Council at BuildTheEarth France), civic tech, and open-source projects.
+
+## Key Projects
+- **MaxOS**: Operating system kernel from scratch (C, x86 ASM, NASM). GitHub: https://github.com/MaxLananas/MaxOS
+- **GwadloupAlert**: Citizen reporting platform for Guadeloupe (JS, Supabase, Leaflet.js). URL: https://gwadloup.onrender.com/
+- **PineappleUI**: HTML/CSS to Java Swing transpiler (Java). GitHub: https://github.com/MaxLananas/PineappleUI
+- **GwadaBot**: Automated OpenStreetMap import for Guadeloupe (Python, GDAL). GitHub: https://github.com/MaxLananas/gwadabot
+
+## Minecraft Builds
+- Fort Napoléon (1:1 Guadeloupe)
+- Brutalist Building (conceptual)
+- Parisian Building (Haussmannian style)
+- Organic Flowers (natural build)
+- Wooden House (medieval)
+- Circuit Bugatti Le Mans (BTE France, 20+ builders)
+- Larressingle medieval city (BTE France, 20+ builders)
+
+## Technologies
+C, x86 ASM, NASM, C++, C#, Rust, Java, JavaScript, TypeScript, Python, Dart, React, Next.js, Vue, Nuxt, Node.js, Flask, FastAPI, Django, Flutter, Electron, Linux, Docker, AWS, Azure, GCP, Cloudflare, Vercel, Netlify, Nginx, PostgreSQL, MongoDB, Redis, MySQL, Supabase, Firebase, SQLite, OpenStreetMap, Leaflet.js, GDAL, Figma, Blender, Photoshop, Illustrator, Premiere Pro, After Effects, Git, GitHub, Postman.
+
+## Contact
+- Discord: https://discord.gg/pnJhKuU2QK (MyPineapple server)
+- GitHub: https://github.com/MaxLananas
+- Instagram: https://www.instagram.com/maxlananas.builds/
+- YouTube: https://www.youtube.com/@MaxLanana
+- Portfolio: https://maxlananas.is-a.dev/
+
+## Commissions
+Available for commissions: web development, Java plugins, Minecraft builds, custom tools. Open a ticket on Discord.
+
+## Links
+- Homepage: https://maxlananas.is-a.dev/
+- Legal Notice: https://maxlananas.is-a.dev/mentions-legales.html
