@@ -1,517 +1,1074 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MaxLananas — Dev & Minecraft</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style-index.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
-<script src="script-index.js" defer></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MaxLananas — Full-Stack Developer &amp; Minecraft 1:1 Builder | Kernel Dev, Java, Civic Tech Portfolio</title>
+    <meta name="description" content="MaxLananas — 16-year-old developer from Guadeloupe. Kernel dev in C &amp; x86 ASM, Minecraft 1:1 builder (BTE France Builder Council), civic tech &amp; open-source projects. View builds, dev work &amp; commissions.">
+    <meta name="keywords" content="MaxLananas, developer, full-stack, Minecraft builder, 1:1 scale, BTE France, BuildTheEarth, kernel developer, C programming, x86 Assembly, Java developer, portfolio, Guadeloupe, open-source, civic tech, Minecraft commissions, web developer, MaxOS, Gwadloup, PineappleUI, Minecraft builds, fort napoléon, haussmannian, builder council, frontend, backend, React, Next.js, Python, low-level programming, OS development, Minecraft 1:1 reconstruction">
+    <meta name="author" content="MaxLananas">
+    <meta name="creator" content="MaxLananas">
+    <meta name="publisher" content="MaxLananas">
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+    <meta name="googlebot" content="index, follow, max-video-preview:-1, max-image-preview:large, max-snippet:-1">
+    <meta name="bingbot" content="index, follow">
+    <link rel="canonical" href="https://maxlananas.is-a.dev/">
+
+    <meta name="geo.region" content="GP">
+    <meta name="geo.placename" content="Guadeloupe">
+    <meta name="geo.position" content="16.2650;-61.5510">
+    <meta name="ICBM" content="16.2650, -61.5510">
+    <meta name="language" content="English">
+    <meta name="revisit-after" content="3 days">
+    <meta name="rating" content="general">
+    <meta name="distribution" content="global">
+
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://maxlananas.is-a.dev/">
+    <meta property="og:title" content="MaxLananas — Full-Stack Developer & Minecraft 1:1 Builder">
+    <meta property="og:description" content="16yo developer from Guadeloupe 🇬🇵 — Kernel dev (C, x86 ASM), Minecraft 1:1 builder (BTE France Builder Council), civic tech &amp; open-source. View my builds, projects &amp; commissions.">
+    <meta property="og:image" content="https://maxlananas.is-a.dev/og-image.jpg">
+    <meta property="og:image:secure_url" content="https://maxlananas.is-a.dev/og-image.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="MaxLananas Portfolio — Developer and Minecraft Builder">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="fr_FR">
+    <meta property="og:site_name" content="MaxLananas Portfolio">
+
+    <meta property="profile:first_name" content="Max">
+    <meta property="profile:username" content="MaxLananas">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://maxlananas.is-a.dev/">
+    <meta name="twitter:title" content="MaxLananas — Full-Stack Developer & Minecraft 1:1 Builder">
+    <meta name="twitter:description" content="16yo dev from Guadeloupe. Kernel (C, x86 ASM), Minecraft 1:1 builder, civic tech &amp; open-source. Portfolio, builds &amp; commissions.">
+    <meta name="twitter:image" content="https://maxlananas.is-a.dev/og-image.jpg">
+    <meta name="twitter:image:alt" content="MaxLananas Portfolio">
+    <meta name="twitter:creator" content="@MaxLananas">
+
+    <meta itemprop="name" content="MaxLananas — Full-Stack Developer & Minecraft 1:1 Builder">
+    <meta itemprop="description" content="16yo developer from Guadeloupe. Kernel dev, Minecraft 1:1 builder, civic tech &amp; open-source.">
+    <meta itemprop="image" content="https://maxlananas.is-a.dev/og-image.jpg">
+    
+    <meta name="theme-color" content="#1a1a1c">
+    <meta name="color-scheme" content="dark">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="MaxLananas">
+    <meta name="application-name" content="MaxLananas Portfolio">
+    <meta name="msapplication-TileColor" content="#1a1a1c">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#EAB308">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://cdn.simpleicons.org">
+    <link rel="preconnect" href="https://github-readme-stats-two-pearl-68.vercel.app">
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="dns-prefetch" href="https://discord.gg">
+    <link rel="dns-prefetch" href="https://www.youtube.com">
+    <link rel="dns-prefetch" href="https://www.instagram.com">
+    <link rel="dns-prefetch" href="https://github-readme-streak-stats.herokuapp.com">
+
+    <link rel="me" href="https://github.com/MaxLananas">
+    <link rel="me" href="https://www.instagram.com/maxlananas.builds/">
+    <link rel="me" href="https://www.youtube.com/@MaxLanana">
+    <link rel="author" href="https://maxlananas.is-a.dev/#about">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-index.css">
+
+    <meta name="google-site-verification" content="l9cboevgfOesdqe5S5lO7BqU_MB6XB1UIwmlr8EDCr0" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+    <script src="script-index.js" defer></script>
+    <style>
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "@id": "https://maxlananas.is-a.dev/#person",
+        "name": "MaxLananas",
+        "alternateName": ["Max", "MaxLanana"],
+        "url": "https://maxlananas.is-a.dev",
+        "image": "https://maxlananas.is-a.dev/max.jpg",
+        "description": "16-year-old developer from Guadeloupe specializing in kernel development (C, x86 ASM), Minecraft 1:1 scale building, civic tech, and open-source projects. Builder Council member at BuildTheEarth France.",
+        "jobTitle": "Full-Stack Developer & Minecraft 1:1 Builder",
+        "birthDate": "2009",
+        "nationality": "French",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Guadeloupe",
+            "addressRegion": "GP",
+            "addressCountry": "FR"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 16.2650,
+            "longitude": -61.5510
+        },
+        "sameAs": [
+            "https://github.com/MaxLananas",
+            "https://discord.gg/BhWNkyTpdR",
+            "https://www.instagram.com/maxlananas.builds/",
+            "https://www.youtube.com/@MaxLanana"
+        ],
+        "knowsAbout": [
+            "C Programming",
+            "x86 Assembly",
+            "Kernel Development",
+            "Operating System Development",
+            "Java",
+            "JavaScript",
+            "TypeScript",
+            "Python",
+            "Rust",
+            "React",
+            "Next.js",
+            "Vue.js",
+            "Node.js",
+            "Minecraft Building",
+            "Minecraft 1:1 Scale",
+            "OpenStreetMap",
+            "Geospatial Development",
+            "Civic Technology",
+            "Open-Source Software",
+            "Full-Stack Development",
+            "Front-End Development",
+            "Back-End Development",
+            "Cloud Infrastructure",
+            "Docker",
+            "PostgreSQL",
+            "Supabase"
+        ],
+        "knowsLanguage": [
+            { "@type": "Language", "name": "French" },
+            { "@type": "Language", "name": "English" }
+        ],
+        "memberOf": [
+            {
+                "@type": "Organization",
+                "name": "BuildTheEarth France",
+                "description": "1:1 scale Minecraft Earth reconstruction project",
+                "url": "https://buildtheearth.net"
+            }
+        ],
+        "hasOccupation": [
+            {
+                "@type": "Occupation",
+                "name": "Software Developer",
+                "occupationalCategory": "15-1252.00"
+            },
+            {
+                "@type": "Occupation",
+                "name": "Minecraft Builder",
+                "occupationalCategory": "Creative"
+            }
+        ],
+        "award": "Builder Council @ BuildTheEarth France",
+        "alumniOf": {
+            "@type": "Organization",
+            "name": "Self-taught"
+        },
+        "seeks": {
+            "@type": "Demand",
+            "name": "Commission work — dev and Minecraft builds"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": "https://maxlananas.is-a.dev/#website",
+        "name": "MaxLananas Portfolio",
+        "alternateName": "MaxLananas — Developer & Minecraft Builder",
+        "url": "https://maxlananas.is-a.dev",
+        "description": "Portfolio of MaxLananas — Full-stack developer, kernel dev, Minecraft 1:1 builder, and open-source contributor from Guadeloupe.",
+        "inLanguage": ["en", "fr"],
+        "author": {
+            "@id": "https://maxlananas.is-a.dev/#person"
+        },
+        "publisher": {
+            "@id": "https://maxlananas.is-a.dev/#person"
+        },
+        "datePublished": "2024-01-01",
+        "dateModified": "2025-06-10",
+        "copyrightYear": 2025,
+        "copyrightHolder": {
+            "@id": "https://maxlananas.is-a.dev/#person"
+        },
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://maxlananas.is-a.dev/?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+        }
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://maxlananas.is-a.dev/"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Minecraft Builds",
+                "item": "https://maxlananas.is-a.dev/#work"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Dev Projects",
+                "item": "https://maxlananas.is-a.dev/#dev"
+            },
+            {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "Collaborations",
+                "item": "https://maxlananas.is-a.dev/#collabs"
+            },
+            {
+                "@type": "ListItem",
+                "position": 5,
+                "name": "About",
+                "item": "https://maxlananas.is-a.dev/#about"
+            },
+            {
+                "@type": "ListItem",
+                "position": 6,
+                "name": "Contact",
+                "item": "https://maxlananas.is-a.dev/#contact"
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "MaxLananas Open-Source Projects",
+        "description": "Full-stack and low-level development projects by MaxLananas",
+        "url": "https://maxlananas.is-a.dev/#dev",
+        "numberOfItems": 4,
+        "itemListElement": [
+            {
+                "@type": "SoftwareSourceCode",
+                "position": 1,
+                "name": "MaxOS",
+                "description": "Operating system kernel from scratch — MBR bootloader, VGA and keyboard drivers, interactive terminal. Pure C and x86 Assembly.",
+                "url": "https://github.com/MaxLananas/MaxOS",
+                "codeRepository": "https://github.com/MaxLananas/MaxOS",
+                "programmingLanguage": ["C", "x86 Assembly", "NASM"],
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "license": "https://opensource.org/licenses/MIT"
+            },
+            {
+                "@type": "WebApplication",
+                "position": 2,
+                "name": "GwadloupAlert",
+                "description": "Citizen reporting platform for Guadeloupe — Supabase, Leaflet.js, Brevo SMTP, real-time interactive map.",
+                "url": "https://gwadloup.onrender.com/",
+                "applicationCategory": "CivicTech",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" }
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "position": 3,
+                "name": "PineappleUI",
+                "description": "HTML/CSS to Java Swing transpiler. Custom .pineui syntax, JavaFX and Android XML roadmap.",
+                "url": "https://github.com/MaxLananas/PineappleUI",
+                "codeRepository": "https://github.com/MaxLananas/PineappleUI",
+                "programmingLanguage": ["Java"],
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" }
+            },
+            {
+                "@type": "SoftwareSourceCode",
+                "position": 4,
+                "name": "GwadaBot",
+                "description": "Automated OpenStreetMap import — IGN BD TOPO, OAuth2, WFS/WMS, buildings and hydrography data for Guadeloupe.",
+                "url": "https://github.com/MaxLananas/gwadabot",
+                "codeRepository": "https://github.com/MaxLananas/gwadabot",
+                "programmingLanguage": ["Python"],
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "name": "MaxLananas Minecraft Builds — 1:1 Scale",
+        "description": "Minecraft 1:1 scale builds and creative constructions by MaxLananas, BTE France Builder Council member.",
+        "numberOfItems": 5,
+        "itemListElement": [
+            {
+                "@type": "CreativeWork",
+                "position": 1,
+                "name": "Fort Napoléon",
+                "description": "Historical 1:1 scale Minecraft reconstruction of Fort Napoléon, Guadeloupe.",
+                "image": "https://maxlananas.is-a.dev/untitled3.jpg",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "genre": "Historical Architecture"
+            },
+            {
+                "@type": "CreativeWork",
+                "position": 2,
+                "name": "Brutalist Building",
+                "description": "Conceptual brutalist architecture build in Minecraft.",
+                "image": "https://maxlananas.is-a.dev/2025-04-17_21.24.15.png",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "genre": "Modern Architecture"
+            },
+            {
+                "@type": "CreativeWork",
+                "position": 3,
+                "name": "Parisian Building — Haussmannian Style",
+                "description": "Haussmannian Parisian building reconstructed in Minecraft.",
+                "image": "https://maxlananas.is-a.dev/2025-01-27_20.55.35.png",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "genre": "Haussmannian Architecture"
+            },
+            {
+                "@type": "CreativeWork",
+                "position": 4,
+                "name": "Organic Flowers",
+                "description": "Natural organic flower build in Minecraft.",
+                "image": "https://maxlananas.is-a.dev/potfleur.png",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "genre": "Organic Build"
+            },
+            {
+                "@type": "CreativeWork",
+                "position": 5,
+                "name": "Wooden House — Medieval Build",
+                "description": "Medieval wooden house build in Minecraft.",
+                "image": "https://maxlananas.is-a.dev/maisonbois.png",
+                "author": { "@id": "https://maxlananas.is-a.dev/#person" },
+                "genre": "Medieval Architecture"
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "@type": "Question",
+                "name": "Who is MaxLananas?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "MaxLananas is a 16-year-old developer from Guadeloupe who specializes in kernel development (C & x86 ASM), Minecraft 1:1 scale building, civic tech, and open-source software. He is a Builder Council member at BuildTheEarth France."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What programming languages does MaxLananas use?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "MaxLananas works with C, x86 Assembly (NASM), C++, C#, Rust, Java, JavaScript, TypeScript, Python, Dart, and more. He specializes in low-level systems programming and full-stack web development."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is MaxOS?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "MaxOS is an operating system kernel built from scratch by MaxLananas. It features an MBR bootloader, VGA and keyboard drivers, and an interactive terminal — written in pure C and x86 Assembly."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What Minecraft builds has MaxLananas created?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "MaxLananas has created several Minecraft builds including a 1:1 scale Fort Napoléon (Guadeloupe), Haussmannian Parisian buildings, brutalist architecture, and medieval constructions. He has also collaborated on the Bugatti circuit (Le Mans) and Larressingle medieval city with BTE France."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "What is BuildTheEarth France?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "BuildTheEarth (BTE) France is a community project that aims to recreate the entire Earth in Minecraft at 1:1 scale. MaxLananas is a Builder Council member and active contributor, having worked with 40+ builders on projects like the Bugatti circuit and Larressingle."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "How to commission MaxLananas?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "You can commission MaxLananas for dev work (web apps, Java plugins, tools) or Minecraft builds through his Discord server. Join at discord.gg/BhWNkyTpdR and open a ticket in the commissions channel."
+                }
+            }
+        ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": "https://maxlananas.is-a.dev/#organization",
+        "name": "MyPineapple",
+        "url": "https://maxlananas.is-a.dev",
+        "logo": "https://maxlananas.is-a.dev/max.jpg",
+        "description": "MyPineapple — MaxLananas' creative hub for development, Minecraft building and commissions.",
+        "founder": { "@id": "https://maxlananas.is-a.dev/#person" },
+        "sameAs": [
+            "https://discord.gg/BhWNkyTpdR",
+            "https://github.com/MaxLananas"
+        ]
+    }
+    </script>
+
 </head>
-<body>
 
-<button class="video-mute-btn" id="muteBtn" title="Toggle sound">
-    <i class="fa-solid fa-volume-high" id="muteIcon"></i>
-</button>
+<body itemscope itemtype="https://schema.org/WebPage">
+    <h1 class="sr-only">MaxLananas — Full-Stack Developer, Kernel Dev in C and x86 ASM, Minecraft 1:1 Scale Builder, BTE France Builder Council, Civic Tech and Open-Source Portfolio from Guadeloupe</h1>
 
-<nav id="nav">
-    <a href="#hero" class="nav-logo">MaxLananas</a>
-    <ul class="nav-links">
-        <li><a href="#work">Builds</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
-</nav>
-
-<section id="hero">
-    <div class="hero-video-bg">
-        <video id="heroBg" autoplay loop playsinline preload="auto" muted>
-            <source src="мило материшься.mp4" type="video/mp4">
-        </video>
-        <div class="hero-video-overlay"></div>
-    </div>
-
-    <h1 class="hero-title" id="heroTitle">
-        <div class="line"><span class="li">CODING</span></div>
-        <div class="line"><span class="li">BUILDING.</span></div>
-    </h1>
-
-    <p class="hero-sub">
-        Full-stack, low-level &amp; Minecraft builder 1:1.<br>
-        From kernel to blocks &mdash; I forge the extraordinary.
-    </p>
-
-    <div class="hero-card">
-        <div class="hero-card-avatar">
-            <img src="max.jpg" alt="MaxLananas">
+    <!-- SEO: Noscript fallback — search engines read this -->
+    <noscript>
+        <div style="padding:40px;background:#1a1a1c;color:#fff;font-family:monospace;text-align:center;">
+            <h2>MaxLananas — Developer &amp; Minecraft Builder Portfolio</h2>
+            <p>Full-stack developer from Guadeloupe. Kernel dev in C &amp; x86 ASM, Minecraft 1:1 builder (BTE France), civic tech, open-source.</p>
+            <p><a href="https://github.com/MaxLananas" style="color:#EAB308;">GitHub</a> |
+               <a href="https://discord.gg/BhWNkyTpdR" style="color:#EAB308;">Discord</a> |
+               <a href="https://www.instagram.com/maxlananas.builds/" style="color:#EAB308;">Instagram</a> |
+               <a href="https://www.youtube.com/@MaxLanana" style="color:#EAB308;">YouTube</a></p>
+            <p><a href="https://maxlananas.is-a.dev/#work">Minecraft Builds</a> |
+               <a href="https://maxlananas.is-a.dev/#dev">Dev Projects</a> |
+               <a href="https://maxlananas.is-a.dev/#about">About</a> |
+               <a href="https://maxlananas.is-a.dev/#contact">Contact</a></p>
         </div>
-        <div class="hero-card-info">
-            <div class="hero-card-name">MaxLananas</div>
-            <div class="hero-card-desc">
-                Builder Council @ BTE &nbsp;&middot;&nbsp; Gwada<br>
-                Builder &nbsp;&middot;&nbsp; Dev &nbsp;&middot;&nbsp; Open-source
+    </noscript>
+    <button class="video-mute-btn" id="muteBtn" title="Toggle sound" aria-label="Toggle background video sound">
+        <i class="fa-solid fa-volume-high" id="muteIcon" aria-hidden="true"></i>
+    </button>
+
+    <nav id="nav" role="navigation" aria-label="Main navigation">
+        <a href="#hero" class="nav-logo" aria-label="MaxLananas home">MaxLananas</a>
+        <ul class="nav-links">
+            <li><a href="#work">Builds</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    
+    <main role="main" id="main-content">
+        <section id="hero" aria-labelledby="hero-heading" role="banner">
+            <div class="hero-video-bg">
+                <video id="heroBg" autoplay loop playsinline preload="auto" muted aria-hidden="true">
+                    <source src="мило материшься.mp4" type="video/mp4">
+                </video>
+                <div class="hero-video-overlay"></div>
             </div>
-        </div>
-        <div class="hero-card-btns">
-            <a href="https://github.com/MaxLananas" target="_blank" class="hcb" title="GitHub"><i class="fa-brands fa-github"></i></a>
-            <a href="https://discord.gg/BhWNkyTpdR" target="_blank" class="hcb" title="Discord"><i class="fa-brands fa-discord"></i></a>
-            <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" class="hcb" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://www.youtube.com/@MaxLanana" target="_blank" class="hcb" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        </div>
-    </div>
+            <h2 class="hero-title" id="heroTitle" id="hero-heading">
+                <div class="line"><span class="li">CODING</span></div>
+                <div class="line"><span class="li">BUILDING.</span></div>
+            </h2>
 
-    <div class="scroll-hint" id="scrollHint">
-        Scroll to projects
-        <i class="fa-solid fa-arrow-down"></i>
-    </div>
-</section>
+            <p class="hero-sub">
+                Full-stack, low-level &amp; Minecraft builder 1:1.<br>
+                From kernel to blocks &mdash; I forge the extraordinary.
+            </p>
 
-<div class="logos-wrap">
-    <div class="logos-inner">
-        <div class="logos-track">
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C" title="C"><span>C</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/assemblyscript/EAB308" alt="x86 ASM" title="x86 ASM"><span>x86 ASM</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/rust/ffffff" alt="Rust" title="Rust"><span>Rust</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" title="Python"><span>Python</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" title="JavaScript"><span>JavaScript</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" title="TypeScript"><span>TypeScript</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/java/ED8B00" alt="Java" title="Java"><span>Java</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" title="React"><span>React</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js" title="Next.js"><span>Next.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" title="Vue"><span>Vue</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nuxtdotjs/00DC82" alt="Nuxt" title="Nuxt"><span>Nuxt</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" title="Node.js"><span>Node.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/flask/ffffff" alt="Flask" title="Flask"><span>Flask</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI" title="FastAPI"><span>FastAPI</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/django/092E20" alt="Django" title="Django"><span>Django</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/flutter/02569B" alt="Flutter" title="Flutter"><span>Flutter</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/electron/47848F" alt="Electron" title="Electron"><span>Electron</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux" title="Linux"><span>Linux</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" title="Docker"><span>Docker</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS" title="AWS"><span>AWS</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure" title="Azure"><span>Azure</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="GCP" title="GCP"><span>GCP</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare" title="Cloudflare"><span>Cloudflare</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel" title="Vercel"><span>Vercel</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="Netlify" title="Netlify"><span>Netlify</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx" title="Nginx"><span>Nginx</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" title="PostgreSQL"><span>PostgreSQL</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB" title="MongoDB"><span>MongoDB</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis" title="Redis"><span>Redis</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" title="MySQL"><span>MySQL</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase" title="Supabase"><span>Supabase</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase" title="Firebase"><span>Firebase</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" title="SQLite"><span>SQLite</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/openstreetmap/7EBC6F" alt="OpenStreetMap" title="OpenStreetMap"><span>OpenStreetMap</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/leaflet/199900" alt="Leaflet.js" title="Leaflet.js"><span>Leaflet.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma" title="Figma"><span>Figma</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/blender/E87D0D" alt="Blender" title="Blender"><span>Blender</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop" title="Photoshop"><span>Photoshop</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Illustrator" title="Illustrator"><span>Illustrator</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro" title="Premiere Pro"><span>Premiere Pro</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects" title="After Effects"><span>After Effects</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git" title="Git"><span>Git</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" title="GitHub"><span>GitHub</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman" title="Postman"><span>Postman</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" title="C++"><span>C++</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/csharp/239120" alt="C#" title="C#"><span>C#</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/dart/0175C2" alt="Dart" title="Dart"><span>Dart</span></div>
-        </div>
-        <div class="logos-track" aria-hidden="true">
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C" title="C"><span>C</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/assemblyscript/EAB308" alt="x86 ASM" title="x86 ASM"><span>x86 ASM</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/rust/ffffff" alt="Rust" title="Rust"><span>Rust</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" title="Python"><span>Python</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" title="JavaScript"><span>JavaScript</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" title="TypeScript"><span>TypeScript</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/java/ED8B00" alt="Java" title="Java"><span>Java</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React" title="React"><span>React</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js" title="Next.js"><span>Next.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue" title="Vue"><span>Vue</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nuxtdotjs/00DC82" alt="Nuxt" title="Nuxt"><span>Nuxt</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js" title="Node.js"><span>Node.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/flask/ffffff" alt="Flask" title="Flask"><span>Flask</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI" title="FastAPI"><span>FastAPI</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/django/092E20" alt="Django" title="Django"><span>Django</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/flutter/02569B" alt="Flutter" title="Flutter"><span>Flutter</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/electron/47848F" alt="Electron" title="Electron"><span>Electron</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux" title="Linux"><span>Linux</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker" title="Docker"><span>Docker</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS" title="AWS"><span>AWS</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure" title="Azure"><span>Azure</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="GCP" title="GCP"><span>GCP</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare" title="Cloudflare"><span>Cloudflare</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel" title="Vercel"><span>Vercel</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="Netlify" title="Netlify"><span>Netlify</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx" title="Nginx"><span>Nginx</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" title="PostgreSQL"><span>PostgreSQL</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB" title="MongoDB"><span>MongoDB</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis" title="Redis"><span>Redis</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" title="MySQL"><span>MySQL</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase" title="Supabase"><span>Supabase</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase" title="Firebase"><span>Firebase</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite" title="SQLite"><span>SQLite</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/openstreetmap/7EBC6F" alt="OpenStreetMap" title="OpenStreetMap"><span>OpenStreetMap</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/leaflet/199900" alt="Leaflet.js" title="Leaflet.js"><span>Leaflet.js</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma" title="Figma"><span>Figma</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/blender/E87D0D" alt="Blender" title="Blender"><span>Blender</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop" title="Photoshop"><span>Photoshop</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Illustrator" title="Illustrator"><span>Illustrator</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro" title="Premiere Pro"><span>Premiere Pro</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects" title="After Effects"><span>After Effects</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git" title="Git"><span>Git</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" title="GitHub"><span>GitHub</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman" title="Postman"><span>Postman</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" title="C++"><span>C++</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/csharp/239120" alt="C#" title="C#"><span>C#</span></div>
-            <div class="logo-item"><img src="https://cdn.simpleicons.org/dart/0175C2" alt="Dart" title="Dart"><span>Dart</span></div>
-        </div>
-    </div>
-</div>
-
-<section id="work">
-    <div class="work-header">
-        <div class="sl rw"><span class="ri si">MC BUILDS</span></div>
-    </div>
-    <div class="masonry-grid">
-        <div class="masonry-item fu">
-            <span class="masonry-num">01</span>
-            <img src="untitled3.jpg" alt="Fort Napoléon">
-            <div class="masonry-overlay">
-                <div class="masonry-title">FORT NAP&Ocirc;LE&Ocirc;N</div>
-                <div class="masonry-sub">Historical &mdash; 1:1 Guadeloupe</div>
-            </div>
-        </div>
-        <div class="masonry-item fu">
-            <span class="masonry-num">02</span>
-            <img src="2025-04-17_21.24.15.png" alt="Brutalist Building">
-            <div class="masonry-overlay">
-                <div class="masonry-title">BRUTALIST BUILDING</div>
-                <div class="masonry-sub">Conceptual build</div>
-            </div>
-        </div>
-        <div class="masonry-item fu">
-            <span class="masonry-num">03</span>
-            <img src="2025-01-27_20.55.35.png" alt="Parisian Building">
-            <div class="masonry-overlay">
-                <div class="masonry-title">PARISIAN BUILDING</div>
-                <div class="masonry-sub">Haussmannian style</div>
-            </div>
-        </div>
-        <div class="masonry-item fu">
-            <span class="masonry-num">04</span>
-            <img src="potfleur.png" alt="Organic Flowers">
-            <div class="masonry-overlay">
-                <div class="masonry-title">ORGANIC FLOWERS</div>
-                <div class="masonry-sub">Natural build</div>
-            </div>
-        </div>
-        <div class="masonry-item fu">
-            <span class="masonry-num">05</span>
-            <img src="maisonbois.png" alt="Wooden House">
-            <div class="masonry-overlay">
-                <div class="masonry-title">WOODEN HOUSE</div>
-                <div class="masonry-sub">Medieval build</div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div class="dev-section">
-    <div class="dev-header">
-        <div class="sl rw"><span class="ri si">DEV</span></div>
-    </div>
-    <div class="dev-grid">
-        <a href="https://github.com/MaxLananas/MaxOS" target="_blank" class="dev-card fu">
-            <div class="dev-card-top">
-                <div class="dev-card-icon"><i class="fa-solid fa-microchip"></i></div>
-                <span class="dev-card-num">01 &mdash; OS</span>
-            </div>
-            <div class="dev-card-title">MaxOS</div>
-            <div class="dev-card-desc">Kernel from scratch &mdash; MBR bootloader, VGA &amp; keyboard drivers, interactive terminal. Pure C &amp; x86 ASM.</div>
-            <div class="dev-card-foot">
-                <div class="dev-card-tech">
-                    <span class="badge">C</span><span class="badge">x86 ASM</span><span class="badge">NASM</span>
+            <div class="hero-card" itemscope itemtype="https://schema.org/Person">
+                <div class="hero-card-avatar">
+                    <img src="max.jpg" alt="MaxLananas — 16-year-old developer and Minecraft 1:1 builder from Guadeloupe" width="80" height="80" fetchpriority="high" itemprop="image">
                 </div>
-                <i class="fa-solid fa-arrow-right dev-card-arrow"></i>
-            </div>
-        </a>
-        <a href="https://gwadloup.onrender.com/" target="_blank" class="dev-card fu">
-            <div class="dev-card-top">
-                <div class="dev-card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                <span class="dev-card-num">02 &mdash; CIVIC</span>
-            </div>
-            <div class="dev-card-title">GwadloupAlert</div>
-            <div class="dev-card-desc">Citizen reporting platform for Guadeloupe &mdash; Supabase, Leaflet.js, Brevo SMTP, real-time map.</div>
-            <div class="dev-card-foot">
-                <div class="dev-card-tech">
-                    <span class="badge">JS</span><span class="badge">Supabase</span><span class="badge">Leaflet</span>
+                <div class="hero-card-info">
+                    <div class="hero-card-name" itemprop="name">MaxLananas</div>
+                    <div class="hero-card-desc" itemprop="jobTitle">
+                        Builder Council @ BTE &nbsp;&middot;&nbsp; Gwada<br>
+                        Builder &nbsp;&middot;&nbsp; Dev &nbsp;&middot;&nbsp; Open-source
+                    </div>
+                    <meta itemprop="url" content="https://maxlananas.is-a.dev">
                 </div>
-                <i class="fa-solid fa-arrow-right dev-card-arrow"></i>
-            </div>
-        </a>
-        <a href="https://github.com/MaxLananas/PineappleUI" target="_blank" class="dev-card fu">
-            <div class="dev-card-top">
-                <div class="dev-card-icon"><i class="fa-solid fa-code"></i></div>
-                <span class="dev-card-num">03 &mdash; TOOL</span>
-            </div>
-            <div class="dev-card-title">PineappleUI</div>
-            <div class="dev-card-desc">HTML/CSS &rarr; Java Swing transpiler. Custom .pineui syntax, JavaFX &amp; Android XML roadmap.</div>
-            <div class="dev-card-foot">
-                <div class="dev-card-tech">
-                    <span class="badge">Java</span><span class="badge">Parser</span><span class="badge">Swing</span>
-                </div>
-                <i class="fa-solid fa-arrow-right dev-card-arrow"></i>
-            </div>
-        </a>
-        <a href="https://github.com/MaxLananas/gwadabot" target="_blank" class="dev-card fu">
-            <div class="dev-card-top">
-                <div class="dev-card-icon"><i class="fa-solid fa-earth-americas"></i></div>
-                <span class="dev-card-num">04 &mdash; GEO</span>
-            </div>
-            <div class="dev-card-title">GwadaBot</div>
-            <div class="dev-card-desc">Automated OSM import &mdash; IGN BD TOPO&reg;, OAuth2, WFS/WMS, buildings &amp; hydrography.</div>
-            <div class="dev-card-foot">
-                <div class="dev-card-tech">
-                    <span class="badge">Python</span><span class="badge">OSM</span><span class="badge">GDAL</span>
-                </div>
-                <i class="fa-solid fa-arrow-right dev-card-arrow"></i>
-            </div>
-        </a>
-    </div>
-</div>
-
-<div class="collab-section">
-    <div class="collab-header">
-        <div class="sl rw"><span class="ri si">COLLABS</span></div>
-    </div>
-    <div class="collab-partners fu">
-        <div class="partner-badge">
-            <div class="partner-logo-wrap">
-                <img src="image_v2-Photoroom.png" alt="Fight4Glory">
-            </div>
-            <div>
-                <div class="partner-name">Fight4Glory</div>
-                <div class="partner-role">Spawn build &mdash; Jump / Speedrun event</div>
-            </div>
-        </div>
-        <div class="partner-badge">
-            <div class="partner-logo-wrap">
-                <img src="Logo_BTE_France-3632312792.png" alt="BTE France">
-            </div>
-            <div>
-                <div class="partner-name">BuildTheEarth France</div>
-                <div class="partner-role">1:1 scale reconstruction &mdash; active contributor</div>
-            </div>
-        </div>
-    </div>
-    <div class="collab-layout">
-        <div class="collab-item tall fu">
-            <img src="spawnfight4glory.jpg" alt="Spawn Fight4Glory">
-            <div class="collab-item-body">
-                <span class="collab-item-partner">Fight4Glory</span>
-                <div class="collab-item-title">Spawn Fight4Glory</div>
-                <div class="collab-item-desc">Custom spawn for a Jump/Speedrun event, with the help of 6tern, Skynigh1 and Indy.</div>
-            </div>
-            <span class="collab-item-date">January 2025</span>
-        </div>
-        <div class="collab-item fu">
-            <img src="circuit24hdumans.jpg" alt="Circuit Bugatti">
-            <div class="collab-item-body">
-                <span class="collab-item-partner">BTE France</span>
-                <div class="collab-item-title">Circuit Bugatti</div>
-                <div class="collab-item-desc">Faithful 1:1 reconstruction of the Bugatti circuit in Le Mans, on BuildTheEarth France with 20+ people.</div>
-            </div>
-            <span class="collab-item-date">January 2024</span>
-        </div>
-        <div class="collab-item fu">
-            <img src="larresingle.jpg" alt="Larressingle">
-            <div class="collab-item-body">
-                <span class="collab-item-partner">BTE France</span>
-                <div class="collab-item-title">Larressingle</div>
-                <div class="collab-item-desc">Medieval fortified city 1:1, Gers &mdash; rebuilt on BuildTheEarth France with 20+ people for an event.</div>
-            </div>
-            <span class="collab-item-date">February 2024</span>
-        </div>
-    </div>
-</div>
-
-<section id="about">
-    <div class="about-header">
-        <div class="sl rw"><span class="ri si">ABOUT</span></div>
-    </div>
-
-    <div class="about-row1">
-        <div class="about-big-text fu">
-            <em>I'm</em> <strong>MaxLananas</strong> &mdash;<br>
-            16, from <strong>Guadeloupe</strong>.<br><br>
-            I write <span class="hl">kernels</span> in C&nbsp;&amp;&nbsp;x86&nbsp;ASM,<br>
-            build <span class="hl">cities</span> block by block,<br>
-            and ship <span class="hl">civic&nbsp;tech</span><br>
-            nobody asked for &mdash; yet.
-        </div>
-
-        <div class="about-right-col fu">
-            <div class="about-tag-row">
-                <span class="about-tag on"><i class="fa-solid fa-microchip" style="margin-right:6px;font-size:9px;color:var(--discord)"></i>Kernel Dev</span>
-                <span class="about-tag on"><i class="fa-brands fa-github" style="margin-right:6px;font-size:9px;color:var(--discord)"></i>Open-source</span>
-                <span class="about-tag"><i class="fa-solid fa-cube" style="margin-right:6px;font-size:9px"></i>MC Builder 1:1</span>
-                <span class="about-tag"><i class="fa-solid fa-map" style="margin-right:6px;font-size:9px"></i>Geospatial</span>
-                <span class="about-tag"><i class="fa-solid fa-city" style="margin-right:6px;font-size:9px"></i>Civic Tech</span>
-                <span class="about-tag"><i class="fa-solid fa-location-dot" style="margin-right:6px;font-size:9px"></i>Gwada</span>
-            </div>
-            <div class="about-mini-info">
-                <div class="about-info-line">
-                    <i class="fa-solid fa-award"></i>
-                    <span><strong>Builder Council</strong> @ BuildTheEarth France</span>
-                </div>
-                <div class="about-info-line">
-                    <i class="fa-solid fa-users"></i>
-                    <span>Worked with <strong>40+</strong> builders on BTE projects</span>
-                </div>
-                <div class="about-info-line">
-                    <i class="fa-solid fa-code-branch"></i>
-                    <span><strong>+10</strong> open-source projects on GitHub</span>
-                </div>
-                <div class="about-info-line">
-                    <i class="fa-solid fa-bolt"></i>
-                    <span>Self-taught &mdash; <strong>100% autonomous</strong></span>
+                <div class="hero-card-btns">
+                    <a href="https://github.com/MaxLananas" target="_blank" rel="noopener noreferrer" class="hcb" title="GitHub — MaxLananas" aria-label="Visit MaxLananas GitHub profile"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                    <a href="https://discord.gg/BhWNkyTpdR" target="_blank" rel="noopener noreferrer" class="hcb" title="Discord — MyPineapple" aria-label="Join MaxLananas Discord server"><i class="fa-brands fa-discord" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener noreferrer" class="hcb" title="Instagram — MaxLananas Builds" aria-label="Follow MaxLananas on Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/@MaxLanana" target="_blank" rel="noopener noreferrer" class="hcb" title="YouTube — MaxLanana" aria-label="Subscribe to MaxLanana on YouTube"><i class="fa-brands fa-youtube" aria-hidden="true"></i></a>
                 </div>
             </div>
-            <div class="about-cv-line">
-                <i class="fa-solid fa-file-lines"></i>
-                <span>Curriculum Vitae &mdash; <strong>coming soon</strong></span>
-            </div>
-        </div>
-    </div>
 
-    <div class="fu">
-        <div class="about-skills-title">Stack &amp; Skills</div>
-        <div class="skills-free">
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-solid fa-microchip" style="font-size:9px"></i> Systems</span>
-                <div class="skill-pills-row">
-                    <span class="sp hot">C</span><span class="sp hot">x86 ASM</span><span class="sp hot">NASM</span>
-                    <span class="sp">C++</span><span class="sp">C#</span><span class="sp">Rust</span>
-                    <span class="sp">Java</span><span class="sp">Linux</span><span class="sp">QEMU</span>
-                    <span class="sp">Make</span><span class="sp">Bash</span><span class="sp">PowerShell</span>
-                </div>
+            <div class="scroll-hint" id="scrollHint" aria-hidden="true">
+                Scroll to projects
+                <i class="fa-solid fa-arrow-down"></i>
             </div>
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-solid fa-globe" style="font-size:9px"></i> Web</span>
-                <div class="skill-pills-row">
-                    <span class="sp hot">JS / TS</span><span class="sp hot">Python</span>
-                    <span class="sp">React</span><span class="sp">Next.js</span><span class="sp">Vue</span>
-                    <span class="sp">Nuxt</span><span class="sp">Angular</span><span class="sp">Node.js</span>
-                    <span class="sp">Flask</span><span class="sp">FastAPI</span><span class="sp">Django</span>
-                    <span class="sp">Express</span><span class="sp">Flutter</span><span class="sp">Electron</span>
-                    <span class="sp">Dart</span><span class="sp">Ruby</span>
+        </section>
+        <div class="logos-wrap" role="marquee" aria-label="Technologies and programming languages used by MaxLananas: C, x86 ASM, Rust, Python, JavaScript, TypeScript, Java, React, Next.js, Vue, Nuxt, Node.js, Flask, FastAPI, Django, Flutter, Electron, Linux, Docker, AWS, Azure, GCP, Cloudflare, Vercel, Netlify, Nginx, PostgreSQL, MongoDB, Redis, MySQL, Supabase, Firebase, SQLite, OpenStreetMap, Leaflet.js, Figma, Blender, Photoshop, Illustrator, Premiere Pro, After Effects, Git, GitHub, Postman, C++, C#, Dart">
+            <div class="logos-inner">
+                <div class="logos-track">
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C programming language" title="C"><span>C</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/assemblyscript/EAB308" alt="x86 Assembly language" title="x86 ASM"><span>x86 ASM</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/rust/ffffff" alt="Rust programming language" title="Rust"><span>Rust</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python programming language" title="Python"><span>Python</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" title="JavaScript"><span>JavaScript</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript" title="TypeScript"><span>TypeScript</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/java/ED8B00" alt="Java programming language" title="Java"><span>Java</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React framework" title="React"><span>React</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js framework" title="Next.js"><span>Next.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue.js framework" title="Vue"><span>Vue</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nuxtdotjs/00DC82" alt="Nuxt framework" title="Nuxt"><span>Nuxt</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js runtime" title="Node.js"><span>Node.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/flask/ffffff" alt="Flask Python framework" title="Flask"><span>Flask</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI Python framework" title="FastAPI"><span>FastAPI</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/django/092E20" alt="Django Python framework" title="Django"><span>Django</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/flutter/02569B" alt="Flutter mobile framework" title="Flutter"><span>Flutter</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/electron/47848F" alt="Electron desktop framework" title="Electron"><span>Electron</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux operating system" title="Linux"><span>Linux</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker containerization" title="Docker"><span>Docker</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="Amazon Web Services" title="AWS"><span>AWS</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Microsoft Azure" title="Azure"><span>Azure</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="Google Cloud Platform" title="GCP"><span>GCP</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare CDN" title="Cloudflare"><span>Cloudflare</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel hosting" title="Vercel"><span>Vercel</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="Netlify hosting" title="Netlify"><span>Netlify</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx web server" title="Nginx"><span>Nginx</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL database" title="PostgreSQL"><span>PostgreSQL</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB database" title="MongoDB"><span>MongoDB</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis cache" title="Redis"><span>Redis</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL database" title="MySQL"><span>MySQL</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase backend" title="Supabase"><span>Supabase</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase backend" title="Firebase"><span>Firebase</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite database" title="SQLite"><span>SQLite</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/openstreetmap/7EBC6F" alt="OpenStreetMap" title="OpenStreetMap"><span>OpenStreetMap</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/leaflet/199900" alt="Leaflet.js mapping library" title="Leaflet.js"><span>Leaflet.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma design tool" title="Figma"><span>Figma</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/blender/E87D0D" alt="Blender 3D software" title="Blender"><span>Blender</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Adobe Photoshop" title="Photoshop"><span>Photoshop</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Adobe Illustrator" title="Illustrator"><span>Illustrator</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Adobe Premiere Pro" title="Premiere Pro"><span>Premiere Pro</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="Adobe After Effects" title="After Effects"><span>After Effects</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git version control" title="Git"><span>Git</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub" title="GitHub"><span>GitHub</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman API tool" title="Postman"><span>Postman</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++ programming language" title="C++"><span>C++</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/csharp/239120" alt="C# programming language" title="C#"><span>C#</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/dart/0175C2" alt="Dart programming language" title="Dart"><span>Dart</span></div>
                 </div>
-            </div>
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-brands fa-aws" style="font-size:9px"></i> Cloud</span>
-                <div class="skill-pills-row">
-                    <span class="sp">AWS</span><span class="sp">Azure</span><span class="sp">GCP</span>
-                    <span class="sp hot">Cloudflare</span><span class="sp">Vercel</span>
-                    <span class="sp">Netlify</span><span class="sp">Render</span><span class="sp">Docker</span>
-                    <span class="sp">Nginx</span><span class="sp">Apache</span><span class="sp">OVH</span><span class="sp">Oracle</span>
-                </div>
-            </div>
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-solid fa-database" style="font-size:9px"></i> Data</span>
-                <div class="skill-pills-row">
-                    <span class="sp hot">Supabase</span><span class="sp hot">PostgreSQL</span>
-                    <span class="sp">MySQL</span><span class="sp">MariaDB</span>
-                    <span class="sp">MongoDB</span><span class="sp">Redis</span>
-                    <span class="sp">SQLite</span><span class="sp">Firebase</span>
-                </div>
-            </div>
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-solid fa-map" style="font-size:9px"></i> Geo</span>
-                <div class="skill-pills-row">
-                    <span class="sp hot">OpenStreetMap</span><span class="sp hot">Leaflet.js</span>
-                    <span class="sp">IGN BD TOPO®</span><span class="sp">GDAL</span>
-                    <span class="sp">PROJ</span><span class="sp">WFS / WMS</span>
-                </div>
-            </div>
-            <div class="skill-cat">
-                <span class="skill-cat-label"><i class="fa-solid fa-paintbrush" style="font-size:9px"></i> Design</span>
-                <div class="skill-pills-row">
-                    <span class="sp">Figma</span><span class="sp">Blender</span>
-                    <span class="sp">Photoshop</span><span class="sp">Illustrator</span>
-                    <span class="sp">Premiere Pro</span><span class="sp">After Effects</span><span class="sp">Canva</span>
+                <div class="logos-track" aria-hidden="true">
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/c/A8B9CC" alt="C"><span>C</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/assemblyscript/EAB308" alt="x86 ASM"><span>x86 ASM</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/rust/ffffff" alt="Rust"><span>Rust</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/python/3776AB" alt="Python"><span>Python</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript"><span>JavaScript</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/typescript/3178C6" alt="TypeScript"><span>TypeScript</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/java/ED8B00" alt="Java"><span>Java</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/react/61DAFB" alt="React"><span>React</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nextdotjs/ffffff" alt="Next.js"><span>Next.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/vuedotjs/4FC08D" alt="Vue"><span>Vue</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nuxtdotjs/00DC82" alt="Nuxt"><span>Nuxt</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nodedotjs/339933" alt="Node.js"><span>Node.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/flask/ffffff" alt="Flask"><span>Flask</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/fastapi/009688" alt="FastAPI"><span>FastAPI</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/django/092E20" alt="Django"><span>Django</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/flutter/02569B" alt="Flutter"><span>Flutter</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/electron/47848F" alt="Electron"><span>Electron</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/linux/ffffff" alt="Linux"><span>Linux</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/docker/2496ED" alt="Docker"><span>Docker</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/amazonaws/FF9900" alt="AWS"><span>AWS</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/microsoftazure/0078D4" alt="Azure"><span>Azure</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/googlecloud/4285F4" alt="GCP"><span>GCP</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/cloudflare/F38020" alt="Cloudflare"><span>Cloudflare</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/vercel/ffffff" alt="Vercel"><span>Vercel</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/netlify/00C7B7" alt="Netlify"><span>Netlify</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/nginx/009639" alt="Nginx"><span>Nginx</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL"><span>PostgreSQL</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/mongodb/47A248" alt="MongoDB"><span>MongoDB</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/redis/FF4438" alt="Redis"><span>Redis</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL"><span>MySQL</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase"><span>Supabase</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/firebase/FFCA28" alt="Firebase"><span>Firebase</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/sqlite/003B57" alt="SQLite"><span>SQLite</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/openstreetmap/7EBC6F" alt="OpenStreetMap"><span>OpenStreetMap</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/leaflet/199900" alt="Leaflet.js"><span>Leaflet.js</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/figma/F24E1E" alt="Figma"><span>Figma</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/blender/E87D0D" alt="Blender"><span>Blender</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobephotoshop/31A8FF" alt="Photoshop"><span>Photoshop</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeillustrator/FF9A00" alt="Illustrator"><span>Illustrator</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobepremierepro/9999FF" alt="Premiere Pro"><span>Premiere Pro</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/adobeaftereffects/9999FF" alt="After Effects"><span>After Effects</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/git/F05032" alt="Git"><span>Git</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/github/ffffff" alt="GitHub"><span>GitHub</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/postman/FF6C37" alt="Postman"><span>Postman</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++"><span>C++</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/csharp/239120" alt="C#"><span>C#</span></div>
+                    <div class="logo-item"><img src="https://cdn.simpleicons.org/dart/0175C2" alt="Dart"><span>Dart</span></div>
                 </div>
             </div>
         </div>
-    </div>
+        <section id="work" aria-labelledby="builds-heading">
+            <div class="work-header">
+                <div class="sl rw"><span class="ri si">MC BUILDS</span></div>
+            </div>
+            <h2 id="builds-heading" class="sr-only">Minecraft 1:1 Scale Builds by MaxLananas</h2>
+            <div class="masonry-grid">
+                <article class="masonry-item fu">
+                    <span class="masonry-num">01</span>
+                    <img src="untitled3.jpg" alt="Fort Napoléon — Minecraft 1:1 historical reconstruction of Guadeloupe fortress by MaxLananas" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">FORT NAP&Ocirc;LE&Ocirc;N</h3>
+                        <div class="masonry-sub">Historical &mdash; 1:1 Guadeloupe</div>
+                    </div>
+                </article>
+                <article class="masonry-item fu">
+                    <span class="masonry-num">02</span>
+                    <img src="2025-04-17_21.24.15.png" alt="Brutalist architecture building — conceptual Minecraft build by MaxLananas" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">BRUTALIST BUILDING</h3>
+                        <div class="masonry-sub">Conceptual build</div>
+                    </div>
+                </article>
+                <article class="masonry-item fu">
+                    <span class="masonry-num">03</span>
+                    <img src="2025-01-27_20.55.35.png" alt="Parisian Haussmannian building — Minecraft 1:1 reconstruction by MaxLananas" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">PARISIAN BUILDING</h3>
+                        <div class="masonry-sub">Haussmannian style</div>
+                    </div>
+                </article>
+                <article class="masonry-item fu">
+                    <span class="masonry-num">04</span>
+                    <img src="potfleur.png" alt="Organic flowers — natural Minecraft build by MaxLananas" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">ORGANIC FLOWERS</h3>
+                        <div class="masonry-sub">Natural build</div>
+                    </div>
+                </article>
+                <article class="masonry-item fu">
+                    <span class="masonry-num">05</span>
+                    <img src="maisonbois.png" alt="Medieval wooden house — Minecraft build by MaxLananas" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="masonry-overlay">
+                        <h3 class="masonry-title">WOODEN HOUSE</h3>
+                        <div class="masonry-sub">Medieval build</div>
+                    </div>
+                </article>
+            </div>
+        </section>
+        <section id="dev" class="dev-section" aria-labelledby="dev-heading">
+            <div class="dev-header">
+                <div class="sl rw"><span class="ri si">DEV</span></div>
+            </div>
+            <h2 id="dev-heading" class="sr-only">Development Projects by MaxLananas — Kernel, Civic Tech, Tools &amp; Geo</h2>
+            <div class="dev-grid">
+                <article>
+                    <a href="https://github.com/MaxLananas/MaxOS" target="_blank" rel="noopener noreferrer" class="dev-card fu" aria-label="MaxOS — Operating system kernel from scratch in C and x86 Assembly">
+                        <div class="dev-card-top">
+                            <div class="dev-card-icon"><i class="fa-solid fa-microchip" aria-hidden="true"></i></div>
+                            <span class="dev-card-num">01 &mdash; OS</span>
+                        </div>
+                        <h3 class="dev-card-title">MaxOS</h3>
+                        <div class="dev-card-desc">Kernel from scratch &mdash; MBR bootloader, VGA &amp; keyboard drivers, interactive terminal. Pure C &amp; x86 ASM.</div>
+                        <div class="dev-card-foot">
+                            <div class="dev-card-tech">
+                                <span class="badge">C</span><span class="badge">x86 ASM</span><span class="badge">NASM</span>
+                            </div>
+                            <i class="fa-solid fa-arrow-right dev-card-arrow" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </article>
+                <article>
+                    <a href="https://gwadloup.onrender.com/" target="_blank" rel="noopener noreferrer" class="dev-card fu" aria-label="GwadloupAlert — Citizen reporting platform for Guadeloupe">
+                        <div class="dev-card-top">
+                            <div class="dev-card-icon"><i class="fa-solid fa-map-location-dot" aria-hidden="true"></i></div>
+                            <span class="dev-card-num">02 &mdash; CIVIC</span>
+                        </div>
+                        <h3 class="dev-card-title">GwadloupAlert</h3>
+                        <div class="dev-card-desc">Citizen reporting platform for Guadeloupe &mdash; Supabase, Leaflet.js, Brevo SMTP, real-time map.</div>
+                        <div class="dev-card-foot">
+                            <div class="dev-card-tech">
+                                <span class="badge">JS</span><span class="badge">Supabase</span><span class="badge">Leaflet</span>
+                            </div>
+                            <i class="fa-solid fa-arrow-right dev-card-arrow" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </article>
+                <article>
+                    <a href="https://github.com/MaxLananas/PineappleUI" target="_blank" rel="noopener noreferrer" class="dev-card fu" aria-label="PineappleUI — HTML CSS to Java Swing transpiler">
+                        <div class="dev-card-top">
+                            <div class="dev-card-icon"><i class="fa-solid fa-code" aria-hidden="true"></i></div>
+                            <span class="dev-card-num">03 &mdash; TOOL</span>
+                        </div>
+                        <h3 class="dev-card-title">PineappleUI</h3>
+                        <div class="dev-card-desc">HTML/CSS &rarr; Java Swing transpiler. Custom .pineui syntax, JavaFX &amp; Android XML roadmap.</div>
+                        <div class="dev-card-foot">
+                            <div class="dev-card-tech">
+                                <span class="badge">Java</span><span class="badge">Parser</span><span class="badge">Swing</span>
+                            </div>
+                            <i class="fa-solid fa-arrow-right dev-card-arrow" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </article>
+                <article>
+                    <a href="https://github.com/MaxLananas/gwadabot" target="_blank" rel="noopener noreferrer" class="dev-card fu" aria-label="GwadaBot — Automated OpenStreetMap import tool for Guadeloupe">
+                        <div class="dev-card-top">
+                            <div class="dev-card-icon"><i class="fa-solid fa-earth-americas" aria-hidden="true"></i></div>
+                            <span class="dev-card-num">04 &mdash; GEO</span>
+                        </div>
+                        <h3 class="dev-card-title">GwadaBot</h3>
+                        <div class="dev-card-desc">Automated OSM import &mdash; IGN BD TOPO&reg;, OAuth2, WFS/WMS, buildings &amp; hydrography.</div>
+                        <div class="dev-card-foot">
+                            <div class="dev-card-tech">
+                                <span class="badge">Python</span><span class="badge">OSM</span><span class="badge">GDAL</span>
+                            </div>
+                            <i class="fa-solid fa-arrow-right dev-card-arrow" aria-hidden="true"></i>
+                        </div>
+                    </a>
+                </article>
+            </div>
+        </section>
+        <section id="collabs" class="collab-section" aria-labelledby="collabs-heading">
+            <div class="collab-header">
+                <div class="sl rw"><span class="ri si">COLLABS</span></div>
+            </div>
+            <h2 id="collabs-heading" class="sr-only">Minecraft Collaborations — BTE France &amp; Fight4Glory</h2>
+            <div class="collab-partners fu">
+                <div class="partner-badge" itemscope itemtype="https://schema.org/Organization">
+                    <div class="partner-logo-wrap">
+                        <img src="image_v2-Photoroom.png" alt="Fight4Glory — Minecraft event server logo" width="60" height="60" loading="lazy" decoding="async">
+                    </div>
+                    <div>
+                        <div class="partner-name" itemprop="name">Fight4Glory</div>
+                        <div class="partner-role">Spawn build &mdash; Jump / Speedrun event</div>
+                    </div>
+                </div>
+                <div class="partner-badge" itemscope itemtype="https://schema.org/Organization">
+                    <div class="partner-logo-wrap">
+                        <img src="Logo_BTE_France-3632312792.png" alt="BuildTheEarth France — Minecraft 1:1 Earth reconstruction project" width="60" height="60" loading="lazy" decoding="async">
+                    </div>
+                    <div>
+                        <div class="partner-name" itemprop="name">BuildTheEarth France</div>
+                        <div class="partner-role">1:1 scale reconstruction &mdash; active contributor</div>
+                    </div>
+                </div>
+            </div>
+            <div class="collab-layout">
+                <article class="collab-item tall fu">
+                    <img src="spawnfight4glory.jpg" alt="Fight4Glory spawn — Minecraft jump and speedrun event build by MaxLananas and team" width="600" height="800" loading="lazy" decoding="async">
+                    <div class="collab-item-body">
+                        <span class="collab-item-partner">Fight4Glory</span>
+                        <h3 class="collab-item-title">Spawn Fight4Glory</h3>
+                        <div class="collab-item-desc">Custom spawn for a Jump/Speedrun event, with the help of 6tern, Skynigh1 and Indy.</div>
+                    </div>
+                    <span class="collab-item-date"><time datetime="2025-01">January 2025</time></span>
+                </article>
+                <article class="collab-item fu">
+                    <img src="circuit24hdumans.jpg" alt="Bugatti circuit Le Mans — Minecraft 1:1 reconstruction on BuildTheEarth France" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="collab-item-body">
+                        <span class="collab-item-partner">BTE France</span>
+                        <h3 class="collab-item-title">Circuit Bugatti</h3>
+                        <div class="collab-item-desc">Faithful 1:1 reconstruction of the Bugatti circuit in Le Mans, on BuildTheEarth France with 20+ people.</div>
+                    </div>
+                    <span class="collab-item-date"><time datetime="2024-01">January 2024</time></span>
+                </article>
+                <article class="collab-item fu">
+                    <img src="larresingle.jpg" alt="Larressingle medieval fortified city — Minecraft 1:1 reconstruction on BuildTheEarth France" width="600" height="400" loading="lazy" decoding="async">
+                    <div class="collab-item-body">
+                        <span class="collab-item-partner">BTE France</span>
+                        <h3 class="collab-item-title">Larressingle</h3>
+                        <div class="collab-item-desc">Medieval fortified city 1:1, Gers &mdash; rebuilt on BuildTheEarth France with 20+ people for an event.</div>
+                    </div>
+                    <span class="collab-item-date"><time datetime="2024-02">February 2024</time></span>
+                </article>
+            </div>
+        </section>
+        <section id="about" aria-labelledby="about-heading">
+            <div class="about-header">
+                <div class="sl rw"><span class="ri si">ABOUT</span></div>
+            </div>
+            <h2 id="about-heading" class="sr-only">About MaxLananas — Developer, Minecraft Builder, Open-Source from Guadeloupe</h2>
 
-    <div class="github-area fu">
-        <div class="github-area-title">GitHub Stats</div>
-        <div class="github-imgs">
-            <img src="https://github-readme-stats-two-pearl-68.vercel.app/api?username=maxlananas&show_icons=true&include_all_commits=true&count_private=true&cache_seconds=1800&theme=tokyonight&hide_border=true&bg_color=1a1a1c&title_color=EAB308&icon_color=EAB308&text_color=c9d1d9&rank_icon=github" alt="GitHub Stats" loading="lazy">
-            <img src="https://github-readme-streak-stats.herokuapp.com?user=maxlananas&theme=tokyonight&hide_border=true&background=1a1a1c&ring=EAB308&fire=EAB308&currStreakLabel=EAB308&sideLabels=EAB308&dates=555555" alt="GitHub Streak" loading="lazy">
-            <img class="langs" src="https://github-readme-stats-two-pearl-68.vercel.app/api/top-langs/?username=maxlananas&layout=compact&include_all_commits=true&count_private=true&cache_seconds=1800&langs_count=50&theme=tokyonight&hide_border=true&bg_color=1a1a1c&title_color=EAB308&text_color=c9d1d9" alt="Top Languages" loading="lazy">
+            <div class="about-row1">
+                <div class="about-big-text fu">
+                    <em>I'm</em> <strong>MaxLananas</strong> &mdash;<br>
+                    16, from <strong>Guadeloupe</strong>.<br><br>
+                    I write <span class="hl">kernels</span> in C&nbsp;&amp;&nbsp;x86&nbsp;ASM,<br>
+                    build <span class="hl">cities</span> block by block,<br>
+                    and ship <span class="hl">civic&nbsp;tech</span><br>
+                    nobody asked for &mdash; yet.
+                </div>
+
+                <div class="about-right-col fu">
+                    <div class="about-tag-row">
+                        <span class="about-tag on"><i class="fa-solid fa-microchip" style="margin-right:6px;font-size:9px;color:var(--discord)" aria-hidden="true"></i>Kernel Dev</span>
+                        <span class="about-tag on"><i class="fa-brands fa-github" style="margin-right:6px;font-size:9px;color:var(--discord)" aria-hidden="true"></i>Open-source</span>
+                        <span class="about-tag"><i class="fa-solid fa-cube" style="margin-right:6px;font-size:9px" aria-hidden="true"></i>MC Builder 1:1</span>
+                        <span class="about-tag"><i class="fa-solid fa-map" style="margin-right:6px;font-size:9px" aria-hidden="true"></i>Geospatial</span>
+                        <span class="about-tag"><i class="fa-solid fa-city" style="margin-right:6px;font-size:9px" aria-hidden="true"></i>Civic Tech</span>
+                        <span class="about-tag"><i class="fa-solid fa-location-dot" style="margin-right:6px;font-size:9px" aria-hidden="true"></i>Gwada</span>
+                    </div>
+                    <div class="about-mini-info">
+                        <div class="about-info-line">
+                            <i class="fa-solid fa-award" aria-hidden="true"></i>
+                            <span><strong>Builder Council</strong> @ BuildTheEarth France</span>
+                        </div>
+                        <div class="about-info-line">
+                            <i class="fa-solid fa-users" aria-hidden="true"></i>
+                            <span>Worked with <strong>40+</strong> builders on BTE projects</span>
+                        </div>
+                        <div class="about-info-line">
+                            <i class="fa-solid fa-code-branch" aria-hidden="true"></i>
+                            <span><strong>+10</strong> open-source projects on GitHub</span>
+                        </div>
+                        <div class="about-info-line">
+                            <i class="fa-solid fa-bolt" aria-hidden="true"></i>
+                            <span>Self-taught &mdash; <strong>100% autonomous</strong></span>
+                        </div>
+                    </div>
+                    <div class="about-cv-line">
+                        <i class="fa-solid fa-file-lines" aria-hidden="true"></i>
+                        <span>Curriculum Vitae &mdash; <strong>coming soon</strong></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="fu">
+                <h3 class="about-skills-title">Stack &amp; Skills</h3>
+                <div class="skills-free">
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-solid fa-microchip" style="font-size:9px" aria-hidden="true"></i> Systems</span>
+                        <div class="skill-pills-row">
+                            <span class="sp hot">C</span><span class="sp hot">x86 ASM</span><span class="sp hot">NASM</span>
+                            <span class="sp">C++</span><span class="sp">C#</span><span class="sp">Rust</span>
+                            <span class="sp">Java</span><span class="sp">Linux</span><span class="sp">QEMU</span>
+                            <span class="sp">Make</span><span class="sp">Bash</span><span class="sp">PowerShell</span>
+                        </div>
+                    </div>
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-solid fa-globe" style="font-size:9px" aria-hidden="true"></i> Web</span>
+                        <div class="skill-pills-row">
+                            <span class="sp hot">JS / TS</span><span class="sp hot">Python</span>
+                            <span class="sp">React</span><span class="sp">Next.js</span><span class="sp">Vue</span>
+                            <span class="sp">Nuxt</span><span class="sp">Angular</span><span class="sp">Node.js</span>
+                            <span class="sp">Flask</span><span class="sp">FastAPI</span><span class="sp">Django</span>
+                            <span class="sp">Express</span><span class="sp">Flutter</span><span class="sp">Electron</span>
+                            <span class="sp">Dart</span><span class="sp">Ruby</span>
+                        </div>
+                    </div>
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-brands fa-aws" style="font-size:9px" aria-hidden="true"></i> Cloud</span>
+                        <div class="skill-pills-row">
+                            <span class="sp">AWS</span><span class="sp">Azure</span><span class="sp">GCP</span>
+                            <span class="sp hot">Cloudflare</span><span class="sp">Vercel</span>
+                            <span class="sp">Netlify</span><span class="sp">Render</span><span class="sp">Docker</span>
+                            <span class="sp">Nginx</span><span class="sp">Apache</span><span class="sp">OVH</span><span class="sp">Oracle</span>
+                        </div>
+                    </div>
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-solid fa-database" style="font-size:9px" aria-hidden="true"></i> Data</span>
+                        <div class="skill-pills-row">
+                            <span class="sp hot">Supabase</span><span class="sp hot">PostgreSQL</span>
+                            <span class="sp">MySQL</span><span class="sp">MariaDB</span>
+                            <span class="sp">MongoDB</span><span class="sp">Redis</span>
+                            <span class="sp">SQLite</span><span class="sp">Firebase</span>
+                        </div>
+                    </div>
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-solid fa-map" style="font-size:9px" aria-hidden="true"></i> Geo</span>
+                        <div class="skill-pills-row">
+                            <span class="sp hot">OpenStreetMap</span><span class="sp hot">Leaflet.js</span>
+                            <span class="sp">IGN BD TOPO&reg;</span><span class="sp">GDAL</span>
+                            <span class="sp">PROJ</span><span class="sp">WFS / WMS</span>
+                        </div>
+                    </div>
+                    <div class="skill-cat">
+                        <span class="skill-cat-label"><i class="fa-solid fa-paintbrush" style="font-size:9px" aria-hidden="true"></i> Design</span>
+                        <div class="skill-pills-row">
+                            <span class="sp">Figma</span><span class="sp">Blender</span>
+                            <span class="sp">Photoshop</span><span class="sp">Illustrator</span>
+                            <span class="sp">Premiere Pro</span><span class="sp">After Effects</span>
+                            <span class="sp">Canva</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="github-area fu" aria-label="GitHub statistics for MaxLananas">
+                <h3 class="github-area-title">GitHub Stats</h3>
+                <div class="github-imgs">
+                    <img src="https://github-readme-stats-two-pearl-68.vercel.app/api?username=maxlananas&show_icons=true&include_all_commits=true&count_private=true&cache_seconds=1800&theme=tokyonight&hide_border=true&bg_color=1a1a1c&title_color=EAB308&icon_color=EAB308&text_color=c9d1d9&rank_icon=github" alt="MaxLananas GitHub stats — contributions, repositories, and rank" width="495" height="195" loading="lazy" decoding="async">
+                    <img src="https://github-readme-streak-stats.herokuapp.com?user=maxlananas&theme=tokyonight&hide_border=true&background=1a1a1c&ring=EAB308&fire=EAB308&currStreakLabel=EAB308&sideLabels=EAB308&dates=555555" alt="MaxLananas GitHub streak — consecutive days of coding contributions" width="495" height="195" loading="lazy" decoding="async">
+                    <img class="langs" src="https://github-readme-stats-two-pearl-68.vercel.app/api/top-langs/?username=maxlananas&layout=compact&include_all_commits=true&count_private=true&cache_seconds=1800&langs_count=50&theme=tokyonight&hide_border=true&bg_color=1a1a1c&title_color=EAB308&text_color=c9d1d9" alt="MaxLananas top programming languages — C, Python, JavaScript, Java and more" width="495" height="195" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" aria-labelledby="faq-heading" class="faq-section" style="padding:80px 5%;max-width:900px;margin:0 auto;">
+            <div style="text-align:center;margin-bottom:48px;">
+                <div class="sl rw"><span class="ri si">FAQ</span></div>
+            </div>
+            <h2 id="faq-heading" class="sr-only">Frequently Asked Questions about MaxLananas</h2>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;" open>
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    Who is MaxLananas?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    MaxLananas is a 16-year-old developer from <strong style="color:#EAB308">Guadeloupe</strong> who specializes in
+                    <strong style="color:#EAB308">kernel development</strong> (C &amp; x86 Assembly), <strong style="color:#EAB308">Minecraft 1:1 scale building</strong>,
+                    civic tech, and open-source software. He is a <strong style="color:#EAB308">Builder Council member</strong> at BuildTheEarth France
+                    and has worked with 40+ builders on large-scale Earth reconstruction projects.
+                </p>
+            </details>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;">
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    What programming languages does MaxLananas use?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    MaxLananas works with a wide range of languages including <strong style="color:#EAB308">C</strong>,
+                    <strong style="color:#EAB308">x86 Assembly (NASM)</strong>, C++, C#, Rust, <strong style="color:#EAB308">Java</strong>,
+                    JavaScript, TypeScript, <strong style="color:#EAB308">Python</strong>, and Dart. His primary focus is low-level systems programming
+                    and full-stack web development.
+                </p>
+            </details>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;">
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    What is MaxOS?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    <strong style="color:#EAB308">MaxOS</strong> is an <strong style="color:#EAB308">operating system kernel built from scratch</strong>
+                    by MaxLananas. It features an MBR bootloader, VGA and keyboard drivers, and an interactive terminal —
+                    all written in pure <strong style="color:#EAB308">C and x86 Assembly</strong>.
+                    The project is open-source on <a href="https://github.com/MaxLananas/MaxOS" style="color:#EAB308;" rel="noopener noreferrer">GitHub</a>.
+                </p>
+            </details>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;">
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    What Minecraft builds has MaxLananas created?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    MaxLananas has created several <strong style="color:#EAB308">Minecraft builds</strong> including a
+                    <strong style="color:#EAB308">1:1 scale Fort Napoléon</strong> (Guadeloupe), Haussmannian Parisian buildings,
+                    brutalist architecture, and medieval constructions. He has also collaborated on the
+                    <strong style="color:#EAB308">Bugatti circuit</strong> (Le Mans) and <strong style="color:#EAB308">Larressingle medieval city</strong>
+                    with BuildTheEarth France.
+                </p>
+            </details>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;">
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    What is BuildTheEarth France?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    <strong style="color:#EAB308">BuildTheEarth (BTE) France</strong> is a community project that aims to
+                    <strong style="color:#EAB308">recreate the entire Earth in Minecraft at 1:1 scale</strong>.
+                    MaxLananas is a <strong style="color:#EAB308">Builder Council member</strong> and active contributor,
+                    having worked with 40+ builders on projects like the Bugatti circuit and the medieval city of Larressingle.
+                </p>
+            </details>
+
+            <details style="border-bottom:1px solid #2a2a2c;padding:20px 0;">
+                <summary style="cursor:pointer;font-family:'Space Mono',monospace;font-size:1rem;color:#fff;font-weight:700;">
+                    How can I commission MaxLananas?
+                </summary>
+                <p style="margin-top:12px;color:#999;font-size:0.9rem;line-height:1.7;">
+                    You can commission MaxLananas for <strong style="color:#EAB308">dev work</strong> (web apps, Java plugins, tools)
+                    or <strong style="color:#EAB308">Minecraft builds</strong> through his Discord server.
+                    <a href="https://discord.gg/BhWNkyTpdR" style="color:#EAB308;" rel="noopener noreferrer">Join the Discord</a>
+                    and open a ticket in the commissions channel. Tariffs are transparent and project tracking is provided.
+                </p>
+            </details>
+        </section>
+        <section id="contact" aria-labelledby="contact-heading">
+            <div class="contact-header">
+                <div class="sl rw"><span class="ri si">CONTACT</span></div>
+            </div>
+            <h2 id="contact-heading" class="sr-only">Contact MaxLananas — Discord, GitHub, Instagram, YouTube</h2>
+            <div class="contact-grid">
+                <a href="https://discord.gg/BhWNkyTpdR" target="_blank" rel="noopener noreferrer" class="c-card discord fu" aria-label="Join MaxLananas Discord server MyPineapple">
+                    <i class="fa-brands fa-discord c-icon" aria-hidden="true"></i>
+                    <span class="c-label">DISCORD_</span>
+                    <div class="c-bottom">
+                        <span class="c-val">discord.gg/BhWNkyTpdR</span>
+                        <i class="fa-solid fa-arrow-right c-arr" aria-hidden="true"></i>
+                    </div>
+                </a>
+                <a href="https://github.com/MaxLananas" target="_blank" rel="noopener noreferrer" class="c-card github fu" aria-label="View MaxLananas GitHub profile and open-source projects">
+                    <i class="fa-brands fa-github c-icon" aria-hidden="true"></i>
+                    <span class="c-label">GITHUB_</span>
+                    <div class="c-bottom">
+                        <span class="c-val">github.com/MaxLananas</span>
+                        <i class="fa-solid fa-arrow-right c-arr" aria-hidden="true"></i>
+                    </div>
+                </a>
+                <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener noreferrer" class="c-card insta fu" aria-label="Follow MaxLananas Minecraft builds on Instagram">
+                    <i class="fa-brands fa-instagram c-icon" aria-hidden="true"></i>
+                    <span class="c-label">INSTAGRAM_</span>
+                    <div class="c-bottom">
+                        <span class="c-val">@maxlananas.builds</span>
+                        <i class="fa-solid fa-arrow-right c-arr" aria-hidden="true"></i>
+                    </div>
+                </a>
+                <a href="https://www.youtube.com/@MaxLanana" target="_blank" rel="noopener noreferrer" class="c-card yt fu" aria-label="Watch MaxLanana videos on YouTube">
+                    <i class="fa-brands fa-youtube c-icon" aria-hidden="true"></i>
+                    <span class="c-label">YOUTUBE_</span>
+                    <div class="c-bottom">
+                        <span class="c-val">@MaxLanana</span>
+                        <i class="fa-solid fa-arrow-right c-arr" aria-hidden="true"></i>
+                    </div>
+                </a>
+            </div>
+        </section>
+        <div class="cta-section" role="complementary" aria-label="Call to action">
+            <div class="cta-line-1 rw"><span class="ri">GOT A PROJECT IN MIND&nbsp;?</span></div>
+            <div class="cta-line-2 rw"><span class="ri">&ldquo;&thinsp;Let&rsquo;s talk about it.&thinsp;&rdquo;</span></div>
         </div>
-    </div>
-</section>
 
-<section id="contact">
-    <div class="contact-header">
-        <div class="sl rw"><span class="ri si">CONTACT</span></div>
-    </div>
-    <div class="contact-grid">
-        <a href="https://discord.gg/BhWNkyTpdR" target="_blank" class="c-card discord fu">
-            <i class="fa-brands fa-discord c-icon"></i>
-            <span class="c-label">DISCORD_</span>
-            <div class="c-bottom">
-                <span class="c-val">https://discord.gg/8j7MkJH5Va</span>
-                <i class="fa-solid fa-arrow-right c-arr"></i>
-            </div>
-        </a>
-        <a href="https://github.com/MaxLananas" target="_blank" class="c-card github fu">
-            <i class="fa-brands fa-github c-icon"></i>
-            <span class="c-label">GITHUB_</span>
-            <div class="c-bottom">
-                <span class="c-val">github.com/MaxLananas</span>
-                <i class="fa-solid fa-arrow-right c-arr"></i>
-            </div>
-        </a>
-        <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" class="c-card insta fu">
-            <i class="fa-brands fa-instagram c-icon"></i>
-            <span class="c-label">INSTAGRAM_</span>
-            <div class="c-bottom">
-                <span class="c-val">@maxlananas.builds</span>
-                <i class="fa-solid fa-arrow-right c-arr"></i>
-            </div>
-        </a>
-        <a href="https://www.youtube.com/@MaxLanana" target="_blank" class="c-card yt fu">
-            <i class="fa-brands fa-youtube c-icon"></i>
-            <span class="c-label">YOUTUBE_</span>
-            <div class="c-bottom">
-                <span class="c-val">@MaxLanana</span>
-                <i class="fa-solid fa-arrow-right c-arr"></i>
-            </div>
-        </a>
-    </div>
-</section>
-
-<div class="cta-section">
-    <div class="cta-line-1 rw"><span class="ri">GOT A PROJECT IN MIND&nbsp;?</span></div>
-    <div class="cta-line-2 rw"><span class="ri">&ldquo;&thinsp;Let&rsquo;s talk about it.&thinsp;&rdquo;</span></div>
-</div>
-
-<footer>
-    <span class="f-logo">MAXLANANAS &copy; 2026</span>
-    <ul class="f-links">
-        <li><a href="mentions-legales.html">Legal notice</a></li>
-        <li><a href="https://github.com/MaxLananas" target="_blank">GitHub</a></li>
-        <li><a href="https://discord.gg/8j7MkJH5Va" target="_blank">Discord</a></li>
-    </ul>
-</footer>
+    </main>
+    <footer role="contentinfo">
+        <span class="f-logo">MAXLANANAS &copy; 2026</span>
+        <ul class="f-links">
+            <li><a href="mentions-legales.html">Legal notice</a></li>
+            <li><a href="https://github.com/MaxLananas" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://discord.gg/8j7MkJH5Va" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        </ul>
+        <p class="sr-only">
+            MaxLananas — Developer from Guadeloupe. Specializing in kernel development, Minecraft 1:1 scale building,
+            BuildTheEarth France, civic technology, open-source projects, Java, C, x86 Assembly, Python, JavaScript,
+            TypeScript, React, Next.js, Vue, Supabase, PostgreSQL, OpenStreetMap, Leaflet.js. Available for commissions.
+        </p>
+    </footer>
 
 </body>
 </html>
