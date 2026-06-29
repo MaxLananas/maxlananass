@@ -1,0 +1,80 @@
+{
+    "name": "MaxLananas — Full-Stack Developer & Minecraft 1:1 Builder",
+    "short_name": "MaxLananas",
+    "description": "Portfolio of MaxLananas — kernel dev in C & x86 ASM, Minecraft 1:1 builder (BTE France), civic tech & open-source from Guadeloupe.",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "any",
+    "background_color": "#111113",
+    "theme_color": "#1a1a1c",
+    "lang": "en",
+    "dir": "ltr",
+    "categories": ["portfolio", "developer", "technology", "education"],
+    "icons": [
+        {
+            "src": "favicon-16x16.png",
+            "sizes": "16x16",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-32x32.png",
+            "sizes": "32x32",
+            "type": "image/png"
+        },
+        {
+            "src": "apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png"
+        },
+        {
+            "src": "favicon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "favicon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "og-image.jpg",
+            "sizes": "1200x630",
+            "type": "image/jpeg",
+            "form_factor": "wide",
+            "label": "MaxLananas Portfolio — Developer & Minecraft Builder"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Minecraft Builds",
+            "short_name": "Builds",
+            "url": "/#work",
+            "description": "View Minecraft 1:1 scale builds"
+        },
+        {
+            "name": "Dev Projects",
+            "short_name": "Dev",
+            "url": "/#dev",
+            "description": "View development projects"
+        },
+        {
+            "name": "About",
+            "short_name": "About",
+            "url": "/#about",
+            "description": "About MaxLananas"
+        },
+        {
+            "name": "Contact",
+            "short_name": "Contact",
+            "url": "/#contact",
+            "description": "Contact & social links"
+        }
+    ],
+    "related_applications": [],
+    "prefer_related_applications": false
+}
