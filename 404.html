@@ -3,1225 +3,727 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>404 - DÉLIRE TOTAL</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>404 — Page Not Found | MaxLananas</title>
+    <meta name="description" content="Error 404 — This page doesn't exist. Go back to MaxLananas portfolio — Full-stack developer, kernel dev, Minecraft 1:1 builder from Guadeloupe.">
+    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+    <meta name="googlebot" content="noindex, nofollow">
+    <meta name="bingbot" content="noindex, nofollow">
+    <link rel="canonical" href="https://maxlananas.is-a.dev/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maxlananas.is-a.dev/404.html">
+    <meta property="og:title" content="404 — Page Not Found | MaxLananas">
+    <meta property="og:description" content="This page doesn't exist. Go back to MaxLananas portfolio.">
+    <meta property="og:image" content="https://maxlananas.is-a.dev/og-image.jpg">
+    <meta property="og:site_name" content="MaxLananas Portfolio">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="404 — Page Not Found | MaxLananas">
+    <meta name="twitter:description" content="This page doesn't exist. Go back to MaxLananas portfolio.">
+
+    <meta name="theme-color" content="#1a1a1c">
+    <meta name="color-scheme" content="dark">
+    <meta name="apple-mobile-web-app-title" content="MaxLananas">
+
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://github.com">
+    <link rel="dns-prefetch" href="https://discord.gg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": "https://maxlananas.is-a.dev/404.html#webpage",
+        "url": "https://maxlananas.is-a.dev/404.html",
+        "name": "404 — Page Not Found | MaxLananas",
+        "description": "Error 404 page for MaxLananas portfolio.",
+        "inLanguage": "fr",
+        "isPartOf": {
+            "@type": "WebSite",
+            "@id": "https://maxlananas.is-a.dev/#website",
+            "name": "MaxLananas Portfolio",
+            "url": "https://maxlananas.is-a.dev"
+        },
+        "author": {
+            "@type": "Person",
+            "@id": "https://maxlananas.is-a.dev/#person",
+            "name": "MaxLananas",
+            "url": "https://maxlananas.is-a.dev"
+        },
+        "dateModified": "2025-06-12",
+        "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Accueil",
+                    "item": "https://maxlananas.is-a.dev/"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "404 — Page Not Found",
+                    "item": "https://maxlananas.is-a.dev/404.html"
+                }
+            ]
+        },
+        "potentialAction": {
+            "@type": "ReadAction",
+            "target": "https://maxlananas.is-a.dev/"
+        }
+    }
+    </script>
+
     <style>
-        * {
+        @font-face {
+            font-family: 'FFFlauta';
+            src: url('FFFlauta-200.otf') format('opentype');
+            font-display: swap;
+        }
+
+        *, *::before, *::after {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        @font-face {
-            font-family: 'GlitchFont';
-            src: url('data:application/font-woff;charset=utf-8;base64,d09GRgABAAAAABJIAA0AAAAAHsQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABGRlRNAAASOAAAABoAAAAcigBEZE9TLzIAAAGgAAAARQAAAGAQdV1jY21hcAAAAhwAAABLAAABSgzeRsljdnQgAAACaAAAAAQAAAAEABEBRGdhc3AAABIwAAAACAAAAAj//wADZ2x5ZgAAAswAAA2cAAATHNxXm6NoZWFkAAABMAAAADEAAAA2FENVVWhoZWEAAAFkAAAAIAAAACQIPwoUaG10eAAAAewAAABFAAAATkZQCntsb2NhAAACbAAAACwAAAAsDfIOFm1heHAAAAGEAAAAHwAAACAAXQIGbmFtZQAAEGgAAAEjAAACOqAOcXVwb3N0AAARjAAAAHUAAADa63+ufXjaY2BkYGAA4gesJrfj+W2+MnCzMIDAtesTRxH0/wYWBuYGIJeDgQkkCgA36AjdAHjaY2BkYGBu+N/AEMPCAAJAkpEBFfACAEcTAnV42mNgZGBgEGVIZmBnAAEmIOYCQgaG/2A+AwARGAF1AHjaY2BkXsA4gYGVgYGpi2kPAwNDD4RmfMBgyMgEFGVgZWYAAUYBBgQISHNNYWhgUPh/gPkFQwxzA4MDUJgRJAcAFhgLrwB42mNhgADGUAjNBMQsDDEMbAx+QOzFwALkAQCCvQN1AAAAeNpjYGBgZoBgGQZGBhBwAfIYwXwWBg0gzQakGRmYGBQYKv7/B/LB/P//H0iUo1p7hsFBRkqG8f9b/3f+73h06eHJB/sf7AMA4GQUqAAAABEBRAAAACoAKgAqACoAWgCEAQQBcgGwAgQCNgJmArQC+gMoA0IDYAN4A+QECAQyBEYEqATuBUYFrAYGBnoG1gc0B2AHqggiCFQIgAkSCW4J1ApECnIK0AsECzYLWAuCC7AL0gwCDB4MVAyIDLQM1A04DaIOLA5mDpAO7A9ED3YPthAqEGwQiBEUEUgRhBHmEkx42nVXfWwT5xU/5z729ne+9+VzHH/F58R27GDHdogdJyEOxCF8BEJSwod+kYYuIXxJdE1RgKlFQ6vYKGpFGdqQ1jLKgLINbZraP0iT1j/WsXbTtHbq/hhtqiZ10tStkap17e+9d05IWGm7c3K+7r3ve+95v3PPcxwTvMxwTEp/yl3NpblqLnYr54UeQRBEYVjoBaEl/XRa8iZKQopJ8QnO3sRPccFM1uUtXEjxQgLj4j4hI4iiDAgJWc7KHt8+OSD7klJADgT2yAG/EJQD6YCYkTMyzVtOy1JKPp4wc90nzV3s5j4OORe+sI22Y/yxGJ5xnYTr3T73NHeE+wZ3h5tF7XLcXi4I2UtxoigCWwCGgLV0UooJHh6CfqlXSoj9Qi+oi30Yn+BsqXQXQ2A7RPvdWwG3e90uKClmsGTCLYmiMCCAH+J99qDggT4hIU5gWI73YV4s3ou5oCSKAWAPDiBK9NkDNvZAL91OepFQgH6LoA+IpXQSt5PpbqBRiMkimIPKBVGMAWsxB0mRQ6FPEFsGpV46LfXaTgPuMV40rSDVT6dKKZeXG+i1e1u8PXKfjH0UZ4BF6gBsIKTrJN9pNjQwMHiQRW/7uDkDcsfHLZs5MjFX8Nf76ytqKnT/xER/bXV9vf/ExLhuKL66PjO6r7sLgO7udg7rj/bvG40nkwN7weCBZDwGp9gYj8oP9Dvj+4fDPT3hQwfpo3Ro0KgbtAYHp/v62E8gXG/AXNzDo+HB2dnB8MBW6eDM4uxM+OBB2fHn6FDv4Nyc82MKp4e4vwp1YF6Z4HW0oY7jxChXw0W4BDdzLkcCSRIDPPEkESaVY1YAe+SsJPNHJIJr8vgFcIZATpKpFNwTG6DWB3+FWzY+m9bYhqbYgVQvU6/dvWAe3bJ9AiD5iw3XeRFnrGumQ1eueM9Mw2TztmufTG7bkszmnZ+6E5OTCbPo74dBMj6Zmrxmpax6ODt40owGGzcaPLZ+XShj+U8bH3/4f6Pz5zk/5uN2kq3E4SKeJEYVLwwIaTE1LGXwOC/L6YSYEYZFpjyQcXDJFErE9rEUuYmlrGKLcwNIu7ADHiOLQgvMSfRZSRtrgm1oAZRW0QMLPmQXmONIqYg5ehjkPTwM0GkYFOO9WMqS3FjohblbxpqHtRQJDI/n2WoZg/4vM7XAEf3gQRgoP3LGGzLI2JBKMAJg1JnXZUXlB12v3cJx9dTQl5UF5A/hhF97rKfLOKSrIWN7Xl+S6RfhYEZX1Zzf8HdUg+b3y8w/2YO+sKoEk0EoKtVL2Yay5HPl5XL5j+FpX1TJYm2lXFfWQjVBOK+E6vzQoMFh5jyXxxr7HVXB9SqI8+u42TXOqxCp0UKaUqepkTotpmpavCZbQOKsGpR1X66Ik2PuXqYXN+8QR7ssjrAVF/GGq+bNhBxgq3hRwUVK8XBbS3Q1JxoV5LFSqvKDOCelKqAZO4dSg0VQM9owu1yMiRgvluBFWNmxTzwE32aHU+QgGbOhJ48cieKJ48MkDr7ecWLscGQ4kkxGDh+LGPO3Wmc0NQK+CHlWiUYfzT16E5dw/kGuiSviKrkmjlvgODtmTq7HMTvGAiRjYyIHK1pxBM3gajRiITLPCltaM5lWdlpdKr7a2Li6uMSkCwSXAD5fXFwacjIi++GBMFbRGlUoZ77IpBRllnmdDhRlXVlZZoZsLn+S03dT05y37rU9B3oHenp6Dxw4UDM1NVXzwwu/vdQ8XFfb3NzSUlM3PPzmpQsvW8J4/R8uvNFW09zc0lJbHxvq7x/qi40u9CU3JzctrPSNLPb3LI729SW3bEx2jI2kUiMdY7FY7KWFwaGllZGRlWtrC5PrQbEQcb0v0qukWMJ64VCpUoMWVKfBIXbQgEOs4BANXKRBjQ5q5FXDVo0vf2Xl3kgxUvyDY4QXKm9FiQcP1KcP4DHUT5HZX6nplR1RLdpXiPh9oRc6+9qrwGe2FmDZpzZUReoHE2q1pTRoWBsVKdtW1YPtUAupbQcxYptVYsf8JTFVtPPRsDcfBVfezEcL0byZadlW9b81pM1uA2n/aq/D1G2qmqy/pL9dS5fJGLxN38FTlpjPZNS5bQRSqL2bk38n35THkOi6uUbucCfCLe4uKQHDqLARGywkICvYPUGHLCcyCU7EiBVEGzCXFqXAXt7VjbHYnpzIxoEtNpkdJ7KLcYkuxvPQw26ZxuW6xCi7/TFctMPuB31sTGKjrdN+nRYbKwB2i8aPu5vB8/lxV+uu42vgOYXbrqb9ZL9rvt8Tqq11u3dZjxs+y7yLh9Y45bWn2Zx2Ln7yA+3Rn8+RDvg3xJ6xz+YMNsafnS8eEbh3z1CiXHuXNJBH3KdOW+2JuXYbNn9SvIcxW29Z/ZV8lXyWnGc9LoS12y4NwlnnsUVFvvjAflwJm7nGRjTkw1wD7OwgSYxrxHsN5hrGYxeUiXvh8pTHJTzEe5kFNg8wJMYtMQMrAxgGxXirMODe/V5ZUWqKOlROqK21xC3rIeT0MuSDL8LZokYsq1ZGLB9Mwmk0GEXKhGtVwSx0YkGVcjcLQF1u6XQI2hAeUNTi+8E21vLWwZxWrUB+YFxTlUwmjGulykq0R0XTgXV3Lr/X4fgzY/fUl9eGbGbG2MF5nK+7i+wd5MZdw2Ie+JzSZvJEQVFXGcJR2pTHptGSw8Vc27BxqzDDXIvTGHg8nMdXxfYsQ3F7DgtFtXFjAkVZbW4tP2+ZyxXnuRl9N07UfXvNX7lrOcHXnZ2z3wFuxzY7AznmZXEzQFt4tI/D1XZ3OzdYWYZqYYmZkD0dsKcDDq4DNrBVQLbEUYEtdFRIiIkM32tfuG2dTbS+zb7o2tpaPTwBczVwaWbmbC2LZ78Ae7jDmDeXZ2OJZPIwzHLRJLwJZ5P/5GYez8AH3CG8FQYZp/FsNd7YEszzGcGOiURFICfTMPLNq4KUQJWMuuHj/WLcVZRBPJXxQvKACBTxXu+ACGIC38J4oUXgQyBlvQA+ES+wLbxfe+lHu6G5a3uXOZ2ent0+vW17l9HVZcDQ9DQpQnI6q7+fvjdtgKEZc8+2vc9OdXwwM/3BC+0bMCeUVkPZtmM8PUP/9P7fvv7s0NODfX0HhwafPvRspDLY9OuF8Tc7fnJo4e31zWbJVG1VbV1dRcrsPD4IjfNve4Ifn/nzO9sG+7d1mZ2dnZ3bsKL5XbTxF1wjN8V9nXjTYk+R3GBOMNu2wgJjWIjA7yETr/aAwIe9EBePeFMC77ZLm2XAJCVOYEy83SL6xITo80GpZ8BGxZBAn5BK9Q4NZBn6sHu9r7vJSBk77UNE+3w/5s0jGBfS/aMp03xZeY+0qIqcRx1/oLfIHvXZlnyfqZkq/KWwJP2tZVvhlDJiqmGzvOAvb1c7Tl3OdB7+I1yTfQ05U1s10ykLlYV5FZqOTK2YYd37vMT0lMdmOmfUBkz17ddfM0P1CvTXX3ux3mxa+Zxq+mZFLQxWBc3Vm7iT5OLcn7mvcz+x0Y4JNvJ4LNhobR+0B/cXtm8PdLdjtB2jvZ3TyHSxd3fCGBmW2rG72Z5F53jXLgxf7x4Wn0I0ZHdT0Ey3O/EY0T+JOTzfsITsPQPw6xfgI1z5F194oXvHjsF9+PjhY+gQvpY+J9+Tj4DfS6/SH9EVCP0Kfodfr+J31KvOdzpHj0rsU5dKnyujfzrhXuICNmZgf+UrMJZJ5VKClE7a2CSXTuRYGknkU45ccCXw5GN2Y1K0eSdpw/SBh2h7LI3fkrMkmdoxK+w/dGj/zg6AjnOvXb70fYDvXbr82rmODoBQJLKBNl/c/5OhEMDQqWe+vZP+ht5+t7dXmZ2dlY1qM/zaa2BEf0qvSXvJbGRTM8XrIrxHzvGRRudj7dxz6I/Oo+dYpwjSdnvZ8pHpyMjrZPEJPbT6N/rRRx9hVTqyegP9UYdtyvBJxLKZSw+F2AvQK7oFcjndvZVGt9DEWlzrWtxyWRfeHb+vp8eZi/R0dfGLDz65f9Mb5/btK9fVGo9QqqvpRUVTtUcVgUcKRePVPKlq+YteV1Tr8ThPY4vI66rm8Tgv4zzYXwQmG6vmfaNq3pPn3cZjlT3rVdFztfVY3RFVPaI+6fH0Jjo6Or52o1RRXV0B/6qqqQE4wF97xQBHf+/l+LIqMOWvFi1gDwdxZ2twuCZUwHvnHu4LXCPeW2kufLtjdmzhSfZMxTPH07V6/ZUP31sAv1+v14+L9a9dGRs5tSPS3uFV3/Iq7fFNnR9+99tXP1vXu/PLJD5DRjnM1Nk5brB/8WWXT9LmCmYLWPtZi+ttzVpsT9+H99AfLd+fJJ/QPNnKWuzw0qfvwftrgNaGr9Kf0qtsJ/s5/E4er2z1s59fX2H4a97Y7+c2/gf7SdVUeNqFkc1qwkAUhc/4By1S2lVdztJFcJFxULG4ECHqwoUbF9LVJKPjkEzIZAL1FfoC3fUJ+iB9jJ6JC1toITP3nO/ce+cC2McXPKy/DwccWRu0OLGucYRz64T0hXVGT7Fuoz+zbqF3aCuTQfSudQ/vxHlH9MG6j1f0Dx5meFIUCnjTNiJQY4YVIgpucIeEeolbzOkJFizKGbPHTh1EMqaIkbHrMudECSrUXGLuNcuYVQ5lpYKOpYiQIMQQIWtTDjjfQdhxbMh29OXsJFwp5lJ2xFrJE07ND7WhKi8Sxey4qEQZxkkczbMkLOKkyOZJmn9JcVQkYTr6j9VrqWgUFSJVE6UDPHrFLP/NWjiVKBVVLbqy8a7Z/NGsFCbNxnX5UEcyxYy7WA/+MPUDx9oZPgB42mNgZgCD/1sZjBgwATsALMsBCXjaRc07DoJAFAXQeYIhoNbGxsKKmm9j4SewcCnuQmsrV+IKbChgAlMYE8/Jy70DQAhCyKBZmCJF16QSNZL0KHnLLPSSs+HV/sYsOYX38qZVygz8QcgQG0TiL0qpFm/u2nlqjSs/wD+Y3Z/3uMiLAp/6Tfce+VnWrLJVG5NUzF0WfQCSDCQ4AAAAeNpjYGI+ysDBwMrKwtTExMwmXMTEUJSak2+jpGRiwBKRNDW3MDRSYGW+c0QpNDQAqvZMENE5DZTfwcBQUVXBXVWRk7W4rKgAqtfE4srKzMDhJcXMkJN6NwvIYF5tZGRCgGIHAITLI1A=') format('woff');
-            font-weight: normal;
-            font-style: normal;
+        :root {
+            --black: #111113;
+            --surface: #1a1a1c;
+            --card: #222226;
+            --card2: #28282d;
+            --border: rgba(255, 255, 255, .07);
+            --border2: rgba(255, 255, 255, .13);
+            --off: #e8e4dc;
+            --muted: rgba(232, 228, 220, .38);
+            --muted2: rgba(232, 228, 220, .18);
+            --discord: #5865F2;
+            --gold: #EAB308;
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        html {
+            font-size: 16px;
         }
 
         body {
-            background-color: #000;
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            overflow: hidden;
-            perspective: 1000px;
-            height: 100vh;
-            margin: 0;
-            cursor: none;
-        }
-
-        #cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255,0,255,1) 0%, rgba(0,255,255,1) 100%);
-            pointer-events: none;
-            z-index: 9999;
-            mix-blend-mode: difference;
-            box-shadow: 0 0 20px 10px rgba(255,0,255,0.5);
-            transform: translate(-50%, -50%);
-        }
-
-        #cursor-trail {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9998;
-        }
-
-        .rainbow-text {
-            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: rainbow-move 2s linear infinite;
-        }
-
-        @keyframes rainbow-move {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 100% 50%; }
-        }
-
-        .container {
-            position: relative;
-            height: 100vh;
-            width: 100vw;
+            background: var(--black);
+            color: var(--off);
+            font-family: 'Space Mono', monospace;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transform-style: preserve-3d;
-            animation: container-spin 20s infinite linear;
-            z-index: 10;
         }
 
-        @keyframes container-spin {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--card2); border-radius: 2px; }
+        * { scrollbar-width: thin; scrollbar-color: var(--card2) var(--black); }
+
+        ::selection { background: var(--off); color: var(--black); }
+
+        a, button {
+            cursor: url('Diamond Pickaxe - Alternate select.cur'), crosshair;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 48px;
+            background: rgba(17, 17, 19, .9);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-logo {
+            font-family: 'FFFlauta', monospace;
+            font-size: 11px;
+            letter-spacing: .07em;
+            transition: opacity .3s;
+        }
+        .nav-logo:hover { opacity: .5; }
+
+        .nav-links {
+            display: flex;
+            gap: 6px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 10px;
+            letter-spacing: .04em;
+            padding: 7px 16px;
+            border-radius: 8px;
+            border: 1px solid transparent;
+            color: var(--muted);
+            transition: background .25s, border-color .25s, color .25s;
+        }
+        .nav-links a:hover {
+            background: var(--card);
+            border-color: var(--border2);
+            color: var(--off);
+        }
+
+        .page-404 {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 120px 48px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-404::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 70% 55% at 50% 45%, rgba(88, 101, 242, .04), transparent 70%);
+            pointer-events: none;
+        }
+
+        .glitch-wrap {
+            position: relative;
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(30px);
         }
 
         .error-code {
-            font-size: 30vw;
-            font-weight: bold;
+            font-family: 'FFFlauta', monospace;
+            font-size: clamp(100px, 22vw, 280px);
+            line-height: 1;
+            letter-spacing: -.04em;
+            color: var(--off);
             position: relative;
-            font-family: 'GlitchFont', sans-serif;
-            animation: glitch 0.3s infinite alternate, floating 5s ease-in-out infinite;
-            text-shadow: 
-                0 0 10px #ff00ff,
-                0 0 20px #00ffff,
-                0 0 40px #ff00ff,
-                0 0 80px #00ffff;
-            transform-style: preserve-3d;
         }
 
-        .error-shadow {
+        .error-code::before,
+        .error-code::after {
+            content: '404';
             position: absolute;
             top: 0;
             left: 0;
-            font-size: 30vw;
-            font-weight: bold;
-            color: transparent;
-            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8);
-            animation: shadow-float 5s ease-in-out infinite;
-            filter: blur(20px);
-            z-index: -1;
+            right: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
 
-        @keyframes shadow-float {
-            0%, 100% { transform: translateY(0) scale(1); }
-            50% { transform: translateY(30px) scale(1.1); }
+        .error-code::before {
+            color: var(--discord);
+            clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+            transform: translateX(-3px);
+            animation: glitch-top 4s ease-in-out infinite;
         }
 
-        @keyframes glitch {
-            0% {
-                color: #ff00ff;
-                transform: translateX(-2px) translateY(2px);
-                text-shadow: 
-                    2px 0 #00ffff,
-                    -2px 0 #ff00ff,
-                    0 2px #00ffff,
-                    0 -2px #ff00ff;
-            }
-            25% {
-                color: #00ffff;
-                transform: translateX(2px) translateY(-2px);
-                text-shadow: 
-                    -2px 0 #ff00ff,
-                    2px 0 #00ffff,
-                    0 -2px #ff00ff,
-                    0 2px #00ffff;
-            }
-            50% {
-                color: #ff00ff;
-                transform: translateX(-1px) translateY(1px);
-                text-shadow: 
-                    1px 0 #00ffff,
-                    -1px 0 #ff00ff,
-                    0 1px #00ffff,
-                    0 -1px #ff00ff;
-            }
-            75% {
-                color: #00ffff;
-                transform: translateX(1px) translateY(-1px);
-                text-shadow: 
-                    -1px 0 #ff00ff,
-                    1px 0 #00ffff,
-                    0 -1px #ff00ff,
-                    0 1px #00ffff;
-            }
-            100% {
-                color: #ff00ff;
-                transform: translateX(2px) translateY(2px);
-                text-shadow: 
-                    -2px 0 #00ffff,
-                    2px 0 #ff00ff,
-                    0 -2px #00ffff,
-                    0 2px #ff00ff;
-            }
+        .error-code::after {
+            color: var(--gold);
+            clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+            transform: translateX(3px);
+            animation: glitch-bottom 4s ease-in-out infinite;
+            animation-delay: .15s;
         }
 
-        @keyframes floating {
-            0%, 100% { transform: translateY(0) rotate(0); }
-            33% { transform: translateY(-20px) rotate(5deg); }
-            66% { transform: translateY(20px) rotate(-5deg); }
+        @keyframes glitch-top {
+            0%, 88%, 100% { transform: translateX(0); opacity: 0; }
+            89% { transform: translateX(-4px); opacity: .6; }
+            90% { transform: translateX(3px); opacity: .4; }
+            91% { transform: translateX(-2px); opacity: 0; }
         }
 
-        .message {
-            font-size: 2rem;
-            margin-top: 2rem;
-            text-align: center;
-            max-width: 90%;
-            animation: message-float 3s ease-in-out infinite alternate, color-cycle 10s infinite;
-            text-shadow: 0 0 10px currentColor;
-            position: relative;
+        @keyframes glitch-bottom {
+            0%, 90%, 100% { transform: translateX(0); opacity: 0; }
+            91% { transform: translateX(4px); opacity: .6; }
+            92% { transform: translateX(-3px); opacity: .4; }
+            93% { transform: translateX(2px); opacity: 0; }
         }
 
-        @keyframes message-float {
-            0% { transform: scale(1) rotate(0); }
-            100% { transform: scale(1.1) rotate(5deg); }
+        .error-label {
+            font-size: 8px;
+            letter-spacing: .28em;
+            text-transform: uppercase;
+            color: var(--muted2);
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        @keyframes color-cycle {
-            0% { color: #ff00ff; }
-            20% { color: #ff0000; }
-            40% { color: #ffff00; }
-            60% { color: #00ff00; }
-            80% { color: #00ffff; }
-            100% { color: #ff00ff; }
+        .error-message {
+            font-family: 'FFFlauta', monospace;
+            font-size: clamp(18px, 3vw, 32px);
+            line-height: 1.4;
+            letter-spacing: -.01em;
+            max-width: 600px;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(20px);
         }
 
-        .crazy-button {
-            margin-top: 3rem;
-            padding: 1rem 2rem;
-            font-size: 1.5rem;
-            border: none;
-            border-radius: 50px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+        .error-sub {
+            font-size: 11px;
+            line-height: 2;
+            color: var(--muted);
+            max-width: 440px;
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .error-sub a {
+            color: var(--discord);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            transition: opacity .2s;
+        }
+        .error-sub a:hover { opacity: .6; }
+
+        .error-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: var(--discord);
             color: #fff;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(0deg);
-            transition: transform 0.3s;
-            animation: button-pulse 2s infinite alternate;
-            z-index: 100;
-        }
-
-        .crazy-button:hover {
-            transform: perspective(1000px) rotateX(30deg) scale(1.2);
-            animation: button-crazy 0.5s infinite alternate;
-        }
-
-        @keyframes button-pulse {
-            0% { box-shadow: 0 0 10px 5px rgba(255, 0, 255, 0.7); }
-            100% { box-shadow: 0 0 20px 10px rgba(0, 255, 255, 0.7); }
-        }
-
-        @keyframes button-crazy {
-            0% { transform: perspective(1000px) rotateX(10deg) rotateY(10deg) scale(1.1); }
-            25% { transform: perspective(1000px) rotateX(-10deg) rotateY(10deg) scale(1.2); }
-            50% { transform: perspective(1000px) rotateX(10deg) rotateY(-10deg) scale(1.3); }
-            75% { transform: perspective(1000px) rotateX(-10deg) rotateY(-10deg) scale(1.2); }
-            100% { transform: perspective(1000px) rotateX(10deg) rotateY(10deg) scale(1.1); }
-        }
-
-        #matrix-rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-        }
-
-        #vortex {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.5;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%);
-            animation: vortex-spin 10s infinite linear;
-        }
-
-        @keyframes vortex-spin {
-            0% { transform: rotate(0deg) scale(1); }
-            50% { transform: rotate(180deg) scale(1.5); }
-            100% { transform: rotate(360deg) scale(1); }
-        }
-
-        .floating-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            font-size: 3rem;
-            animation: float-around 15s infinite linear;
-            color: rgba(255, 255, 255, 0.8);
-            text-shadow: 0 0 10px currentColor;
-        }
-
-        @keyframes float-around {
-            0% {
-                transform: translateX(0) translateY(0) rotate(0deg);
-            }
-            25% {
-                transform: translateX(calc(50vw - 50px)) translateY(calc(20vh - 50px)) rotate(90deg);
-            }
-            50% {
-                transform: translateX(calc(100vw - 100px)) translateY(calc(50vh - 50px)) rotate(180deg);
-            }
-            75% {
-                transform: translateX(calc(50vw - 50px)) translateY(calc(80vh - 50px)) rotate(270deg);
-            }
-            100% {
-                transform: translateX(0) translateY(0) rotate(360deg);
-            }
-        }
-
-        .crazy-grid {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: 
-                linear-gradient(90deg, rgba(255,0,255,0.3) 1px, transparent 1px) 0 0,
-                linear-gradient(0deg, rgba(0,255,255,0.3) 1px, transparent 1px) 0 0;
-            background-size: 50px 50px;
-            perspective: 1000px;
-            transform-style: preserve-3d;
-            animation: grid-animate 10s infinite linear;
-        }
-
-        @keyframes grid-animate {
-            0% { transform: rotateX(80deg) translateZ(-100px) translateY(0); }
-            100% { transform: rotateX(80deg) translateZ(-100px) translateY(100px); }
-        }
-
-        .explosion {
-            position: fixed;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            pointer-events: none;
-            animation: explode 0.5s forwards;
-        }
-
-        @keyframes explode {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(50);
-                opacity: 0;
-            }
-        }
-
-        .game-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 300px;
-            height: 200px;
-            border: 2px solid #ff00ff;
+            border: 1px solid var(--discord);
             border-radius: 10px;
-            overflow: hidden;
-            transform-style: preserve-3d;
-            transform: perspective(1000px) rotateX(10deg) rotateY(10deg);
-            animation: game-float 3s infinite alternate;
-            z-index: 100;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .04em;
+            transition: background .3s, transform .3s, box-shadow .3s;
         }
-
-        @keyframes game-float {
-            0% { transform: perspective(1000px) rotateX(10deg) rotateY(10deg) translateZ(0); }
-            100% { transform: perspective(1000px) rotateX(20deg) rotateY(15deg) translateZ(20px); }
+        .btn-home:hover {
+            background: #4752c4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(88, 101, 242, .25);
         }
+        .btn-home i { font-size: 12px; }
 
-        .game-player {
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 28px;
+            background: transparent;
+            color: var(--muted);
+            border: 1px solid var(--border2);
+            border-radius: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 11px;
+            letter-spacing: .04em;
+            transition: background .3s, color .3s, border-color .3s, transform .3s;
+        }
+        .btn-ghost:hover {
+            background: var(--card);
+            color: var(--off);
+            border-color: var(--border2);
+            transform: translateY(-2px);
+        }
+        .btn-ghost i { font-size: 12px; }
+
+        .error-coords {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #00ffff;
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            bottom: 32px;
+            left: 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transform: translateY(10px);
         }
 
-        .game-ball {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background-color: #ff00ff;
-            border-radius: 50%;
-        }
-
-        .upsidedown-text {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            font-size: 1rem;
-            transform: rotate(180deg);
-            animation: rotate-text 5s infinite alternate;
-            color: #00ffff;
-        }
-
-        @keyframes rotate-text {
-            0% { transform: rotate(180deg) scale(1); }
-            100% { transform: rotate(540deg) scale(1.5); }
-        }
-
-        .tv-static {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><filter id="noiseFilter"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noiseFilter)"/></svg>');
-            opacity: 0.1;
-            pointer-events: none;
-            z-index: 5;
-            mix-blend-mode: overlay;
-        }
-
-        .glitch-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,0,0,0.1), rgba(0,255,255,0.1));
-            animation: glitch-overlay 0.2s infinite alternate;
-            pointer-events: none;
-            z-index: 4;
-            mix-blend-mode: overlay;
-        }
-
-        @keyframes glitch-overlay {
-            0% { opacity: 0; transform: translateX(-10px); }
-            25% { opacity: 0.05; transform: translateX(0); }
-            50% { opacity: 0; transform: translateX(10px); }
-            75% { opacity: 0.05; transform: translateX(0); }
-            100% { opacity: 0; transform: translateX(-10px); }
-        }
-
-        .spinning-cube {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            transform-style: preserve-3d;
-            animation: spin-cube 10s infinite linear;
-        }
-
-        .cube-face {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            background: rgba(255, 0, 255, 0.3);
-            border: 2px solid #00ffff;
+        .coord-line {
+            font-size: 8px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted2);
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            text-shadow: 0 0 10px currentColor;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5) inset;
+            gap: 8px;
         }
 
-        .face-front { transform: translateZ(50px); }
-        .face-back { transform: rotateY(180deg) translateZ(50px); }
-        .face-right { transform: rotateY(90deg) translateZ(50px); }
-        .face-left { transform: rotateY(-90deg) translateZ(50px); }
-        .face-top { transform: rotateX(90deg) translateZ(50px); }
-        .face-bottom { transform: rotateX(-90deg) translateZ(50px); }
-
-        @keyframes spin-cube {
-            0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
-            100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
-        }
-
-        /* Flèches qui volent partout */
-        .flying-arrow {
-            position: absolute;
-            font-size: 2rem;
-            animation: fly-arrow 5s linear infinite;
-            color: #ff00ff;
-            text-shadow: 0 0 10px currentColor;
-            z-index: 20;
-        }
-
-        @keyframes fly-arrow {
-            0% {
-                transform: translateX(-100px) translateY(calc(100vh * var(--y-pos))) rotate(0deg);
-            }
-            100% {
-                transform: translateX(calc(100vw + 100px)) translateY(calc(100vh * var(--y-pos))) rotate(1080deg);
-            }
-        }
-
-        #warning-popup {
-            position: fixed;
-            width: 300px;
-            background: #ff0000;
-            color: #fff;
-            padding: 20px;
-            border-radius: 10px;
+        .coord-line i {
+            color: var(--discord);
+            font-size: 8px;
+            width: 12px;
             text-align: center;
-            font-weight: bold;
-            animation: popup-bounce 0.5s infinite alternate;
-            z-index: 1000;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
-            display: none;
         }
 
-        @keyframes popup-bounce {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-        #spinning-menu {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #ff00ff, #00ffff);
+        .error-time {
+            position: absolute;
+            bottom: 32px;
+            right: 48px;
+            font-size: 8px;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--muted2);
+            opacity: 0;
+            transform: translateY(10px);
             display: flex;
             align-items: center;
-            justify-content: center;
-            animation: spin-menu 5s infinite linear;
-            z-index: 100;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+            gap: 8px;
         }
 
-        @keyframes spin-menu {
-            0% { transform: rotate(0); }
-            100% { transform: rotate(360deg); }
+        .error-time i {
+            color: var(--gold);
+            font-size: 8px;
         }
 
-        .sound-wave {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            z-index: 3;
-        }
-
-        .wave-bar {
+        .block-grid {
             position: absolute;
-            bottom: 0;
-            width: 10px;
-            background: linear-gradient(to top, #ff00ff, #00ffff);
-            border-radius: 10px 10px 0 0;
-            animation: wave-animate 0.5s infinite alternate;
-        }
-
-        @keyframes wave-animate {
-            0% { height: 10px; }
-            100% { height: var(--height); }
-        }
-
-        /* Styles pour les chiffres 3D qui tournent */
-        .number-3d {
-            position: absolute;
-            font-size: 100px;
-            font-weight: bold;
-            color: #ff00ff;
-            text-shadow: 
-                0 0 10px #ff00ff,
-                0 0 20px #00ffff;
-            animation: rotate-3d 8s infinite linear;
-            transform-style: preserve-3d;
-        }
-
-        @keyframes rotate-3d {
-            0% { transform: rotateY(0) rotateX(0); }
-            100% { transform: rotateY(360deg) rotateX(360deg); }
-        }
-
-        .portal {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: radial-gradient(circle, #000 30%, #ff00ff 40%, #00ffff 50%, transparent 70%);
-            box-shadow: 0 0 50px 20px rgba(255, 0, 255, 0.7);
-            animation: portal-pulse 2s infinite alternate;
-            z-index: -1;
-        }
-
-        @keyframes portal-pulse {
-            0% { transform: translate(-50%, -50%) scale(1); }
-            100% { transform: translate(-50%, -50%) scale(3); }
-        }
-
-        .rain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            inset: 0;
             pointer-events: none;
-            z-index: 2;
-        }
-
-        .rain-drop {
-            position: absolute;
-            width: 2px;
-            height: 20px;
-            background: linear-gradient(to bottom, transparent, #00ffff);
-            animation: rain-fall linear infinite;
-        }
-
-        @keyframes rain-fall {
-            0% { transform: translateY(-20px); }
-            100% { transform: translateY(100vh); }
-        }
-
-        .fractal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -3;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg"><filter id="fractalFilter"><feTurbulence type="fractalNoise" baseFrequency="0.01" numOctaves="5"/><feDisplacementMap in="SourceGraphic" scale="100"/></filter><rect width="100%" height="100%" filter="url(%23fractalFilter)"/></svg>');
-            opacity: 0.3;
-            animation: fractal-shift 20s infinite alternate;
-        }
-
-        @keyframes fractal-shift {
-            0% { transform: scale(1) rotate(0); }
-            100% { transform: scale(1.5) rotate(10deg); }
-        }
-
-        /* Générateur de chaos total */
-        .chaos {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .chaos-element {
-            position: absolute;
-            animation: chaos-move 10s infinite linear;
-            opacity: 0.7;
-            mix-blend-mode: screen;
-        }
-
-        @keyframes chaos-move {
-            0% { transform: translate(var(--start-x), var(--start-y)) rotate(0deg); }
-            100% { transform: translate(var(--end-x), var(--end-y)) rotate(3600deg); }
-        }
-
-        /* Mini-jeu dans la page 404 */
-        #mini-game {
-            position: fixed;
-            bottom: 140px;
-            right: 20px;
-            width: 300px;
-            height: 200px;
-            border: 2px solid #00ffff;
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 100;
             overflow: hidden;
-            display: none;
+            opacity: 0;
         }
 
-        #game-player {
+        .grid-block {
             position: absolute;
-            width: 20px;
-            height: 20px;
-            background: #ff00ff;
-            border-radius: 50%;
-            bottom: 10px;
-            left: 140px;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 2s;
         }
 
-        .game-obstacle {
-            position: absolute;
-            width: 30px;
-            height: 20px;
-            background: #00ffff;
-            border-radius: 5px;
-            top: -20px;
+        footer {
+            padding: 26px 48px;
+            border-top: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        #game-score {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            color: #ffffff;
-            font-size: 14px;
+        .f-logo {
+            font-family: 'FFFlauta', monospace;
+            font-size: 9px;
+            color: var(--muted2);
+            letter-spacing: .06em;
         }
 
-        /* Effet de reflets spéculaires */
-        .specular {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at var(--x) var(--y), rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 6;
-            mix-blend-mode: overlay;
+        .f-links {
+            display: flex;
+            gap: 28px;
+            list-style: none;
         }
 
-        /* Section pour les textes qui tombent */
-        .falling-letters {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 7;
+        .f-links a {
+            font-size: 9px;
+            color: var(--muted2);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            letter-spacing: .04em;
+            transition: color .2s;
+        }
+        .f-links a:hover { color: var(--off); }
+
+        @media (max-width: 768px) {
+            nav { padding: 18px 24px; }
+            .nav-links { display: none; }
+            .page-404 { padding: 100px 24px 60px; }
+            .error-code { font-size: clamp(80px, 30vw, 200px); }
+            .error-actions { flex-direction: column; width: 100%; max-width: 300px; }
+            .btn-home, .btn-ghost { justify-content: center; width: 100%; }
+            .error-coords { left: 24px; bottom: 20px; }
+            .error-time { right: 24px; bottom: 20px; }
+            footer { padding: 22px 24px; flex-direction: column; gap: 12px; text-align: center; }
         }
 
-        .falling-letter {
-            position: absolute;
-            font-size: 3rem;
-            font-weight: bold;
-            color: #00ffff;
-            text-shadow: 0 0 10px #ff00ff;
-            animation: fall-rotate linear infinite;
+        @media (max-width: 480px) {
+            .page-404 { padding: 80px 16px 50px; }
+            .error-coords, .error-time { display: none; }
+            .glitch-wrap { margin-bottom: 28px; }
+            .error-message { font-size: clamp(16px, 5vw, 24px); }
+            footer { padding: 18px 16px; }
+            .f-links { gap: 18px; flex-wrap: wrap; justify-content: center; }
         }
 
-        @keyframes fall-rotate {
-            0% {
-                transform: translateY(-50px) rotate(0);
-                opacity: 1;
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation: none !important;
+                transition: none !important;
             }
-            100% {
-                transform: translateY(100vh) rotate(360deg);
-                opacity: 0;
+            .glitch-wrap,
+            .error-label,
+            .error-message,
+            .error-sub,
+            .error-actions,
+            .error-coords,
+            .error-time,
+            .block-grid {
+                opacity: 1 !important;
+                transform: none !important;
             }
-        }
-
-        /* Boutons flottants aléatoires */
-        .random-button {
-            position: absolute;
-            padding: 10px 20px;
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            font-weight: bold;
-            cursor: pointer;
-            animation: button-float 5s infinite alternate;
-            z-index: 50;
-        }
-
-        @keyframes button-float {
-            0% { transform: translate(0, 0) rotate(0); }
-            100% { transform: translate(var(--x-move), var(--y-move)) rotate(var(--rotation)); }
-        }
-        
-        /* Effet d'inversion de couleurs au survol */
-        .invert-hover:hover {
-            filter: invert(1);
-            transition: filter 0.2s;
+            .error-code::before,
+            .error-code::after {
+                display: none;
+            }
         }
     </style>
 </head>
+
 <body>
-    <div id="cursor"></div>
-    <div id="cursor-trail"></div>
-    <div class="tv-static"></div>
-    <div class="glitch-overlay"></div>
-    <div class="crazy-grid"></div>
-    <div id="matrix-rain"></div>
-    <div id="vortex"></div>
-    <div class="portal"></div>
-    <div class="fractal"></div>
-    <div class="specular"></div>
 
-    <div class="container">
-        <div class="error-code">404</div>
-        <div class="error-shadow">404</div>
-        <div class="message">
-            <span class="rainbow-text">OMG! CETTE PAGE N'EXISTE PAS DANS NOTRE DIMENSION!</span>
+    <h1 class="sr-only">Erreur 404 — Page introuvable. Retournez au portfolio de MaxLananas — développeur full-stack et builder Minecraft 1:1.</h1>
+
+    <noscript>
+        <div style="padding:40px;background:#1a1a1c;color:#e8e4dc;font-family:monospace;text-align:center;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+            <h2 style="font-size:80px;margin-bottom:20px;color:#5865F2;">404</h2>
+            <p style="margin-bottom:30px;">Cette page n'existe pas. Retournez au <a href="/" style="color:#5865F2;">portfolio de MaxLananas</a>.</p>
+            <p><a href="/" style="color:#EAB308;">← Retour à l'accueil</a></p>
         </div>
-        <button class="crazy-button invert-hover" id="crazy-home-button">RETOUR À LA RÉALITÉ</button>
-    </div>
+    </noscript>
 
-    <div class="spinning-cube">
-        <div class="cube-face face-front">404</div>
-        <div class="cube-face face-back">ERROR</div>
-        <div class="cube-face face-right">OOPS</div>
-        <div class="cube-face face-left">LOST</div>
-        <div class="cube-face face-top">NOPE</div>
-        <div class="cube-face face-bottom">HELP!</div>
-    </div>
+    <nav role="navigation" aria-label="Main navigation">
+        <a href="index.html" class="nav-logo" aria-label="MaxLananas — Home">MaxLananas</a>
+        <ul class="nav-links">
+            <li><a href="index.html#work">Builds</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-    <div class="floating-elements" id="floating-elements"></div>
-    <div class="rain" id="rain"></div>
-    <div class="falling-letters" id="falling-letters"></div>
-    <div class="chaos" id="chaos"></div>
+    <main role="main" class="page-404">
 
-    <div class="upsidedown-text">Si tu peux lire ceci, tu es à l'envers!</div>
+        <div class="block-grid" aria-hidden="true" id="blockGrid"></div>
 
-    <div id="warning-popup">ATTENTION: TROP DE FOLIE DÉTECTÉE!!!</div>
-    <div id="spinning-menu"></div>
+        <div class="glitch-wrap">
+            <div class="error-code" aria-hidden="true">404</div>
+        </div>
 
-    <div class="sound-wave" id="sound-wave"></div>
+        <div class="error-label">Page not found</div>
 
-    <div id="mini-game">
-        <div id="game-player"></div>
-        <div id="game-score">Score: 0</div>
-    </div>
+        <h2 class="error-message">
+            This block doesn't exist<br>in this dimension.
+        </h2>
 
+        <p class="error-sub">
+            The page you're looking for was moved, deleted, or never placed.<br>
+            Like a missing block in a 1:1 build &mdash; it happens.<br>
+            <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener noreferrer">Report it on Discord</a> if you think it's a bug.
+        </p>
+
+        <div class="error-actions">
+            <a href="index.html" class="btn-home" aria-label="Return to MaxLananas portfolio homepage">
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+                Back to portfolio
+            </a>
+            <a href="index.html#contact" class="btn-ghost" aria-label="Contact MaxLananas">
+                <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                Contact me
+            </a>
+        </div>
+
+        <div class="error-coords" aria-hidden="true">
+            <div class="coord-line">
+                <i class="fa-solid fa-location-dot"></i>
+                Lost in Guadeloupe — 16.26°N, 61.55°W
+            </div>
+            <div class="coord-line">
+                <i class="fa-solid fa-cube"></i>
+                Chunk not loaded
+            </div>
+        </div>
+
+        <div class="error-time" aria-hidden="true" id="errorTime">
+            <i class="fa-regular fa-clock"></i>
+            <span id="timeText"></span>
+        </div>
+
+    </main>
+
+    <footer role="contentinfo">
+        <span class="f-logo">MAXLANANAS &copy; 2025</span>
+        <ul class="f-links">
+            <li><a href="mentions-legales.html">Legal notice</a></li>
+            <li><a href="https://github.com/MaxLananas" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            <li><a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener noreferrer">Discord</a></li>
+        </ul>
+        <p class="sr-only">
+            Erreur 404 — page introuvable. Portfolio de MaxLananas, développeur full-stack, kernel dev C et x86 ASM, builder Minecraft 1:1, BuildTheEarth France, Guadeloupe.
+        </p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script>
-        // Créer un curseur personnalisé
-        const cursor = document.getElementById('cursor');
-        const cursorTrail = document.getElementById('cursor-trail');
-        
-        document.addEventListener('mousemove', (e) => {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            
-            // Créer un effet de traînée
-            const trail = document.createElement('div');
-            trail.className = 'cursor-trail-dot';
-            trail.style.width = '10px';
-            trail.style.height = '10px';
-            trail.style.borderRadius = '50%';
-            trail.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 70%)`;
-            trail.style.position = 'absolute';
-            trail.style.left = e.clientX + 'px';
-            trail.style.top = e.clientY + 'px';
-            trail.style.pointerEvents = 'none';
-            trail.style.zIndex = '9998';
-            
-            cursorTrail.appendChild(trail);
-            
-            // Animation de la disparition de la traînée
-            setTimeout(() => {
-                trail.style.transition = 'transform 0.5s, opacity 0.5s';
-                trail.style.transform = 'scale(0.5)';
-                trail.style.opacity = '0';
-                
-                setTimeout(() => {
-                    trail.remove();
-                }, 500);
-            }, 10);
-        });
-        
-        // Effet de pluie Matrix
-        const matrixRain = document.getElementById('matrix-rain');
-        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()';
-        
-        for (let i = 0; i < 100; i++) {
-            const column = document.createElement('div');
-            column.className = 'matrix-column';
-            column.style.position = 'absolute';
-            column.style.left = `${Math.random() * 100}%`;
-            column.style.top = `-${Math.random() * 100}%`;
-            column.style.color = '#0f0';
-            column.style.fontSize = '1.5rem';
-            column.style.fontFamily = 'monospace';
-            column.style.whiteSpace = 'nowrap';
-            column.style.textShadow = '0 0 5px #0f0';
-            column.style.zIndex = '-1';
-            
-            let columnContent = '';
-            const columnLength = Math.floor(Math.random() * 40) + 10;
-            
-            for (let j = 0; j < columnLength; j++) {
-                columnContent += characters.charAt(Math.floor(Math.random() * characters.length)) + '<br>';
-            }
-            
-            column.innerHTML = columnContent;
-            column.style.animation = `matrix-fall ${Math.random() * 20 + 10}s linear infinite`;
-            column.style.animationDelay = `${Math.random() * 10}s`;
-            
-            matrixRain.appendChild(column);
-        }
-        
-        // Ajouter une feuille de style pour les animations
-        const style = document.createElement('style');
-        style.innerHTML = `
-            @keyframes matrix-fall {
-                0% { transform: translateY(-100%); }
-                100% { transform: translateY(${window.innerHeight + 100}px); }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Créer des éléments flottants
-        const floatingElements = document.getElementById('floating-elements');
-        const symbols = ['💀', '👾', '🤖', '👽', '🔥', '⚡', '💣', '🚀', '🌈', '🦄', '🌌', '🎮', '🎲', '🎯', '🎧', '🎸', '🎹', '🎬', '📱', '💻', '⌨️', '🖱️', '💾', '💿', '🧠'];
-        
-        for (let i = 0; i < 20; i++) {
-            const floatingElement = document.createElement('div');
-            floatingElement.className = 'floating-element';
-            floatingElement.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-            floatingElement.style.left = `${Math.random() * 90}%`;
-            floatingElement.style.top = `${Math.random() * 90}%`;
-            floatingElement.style.animationDelay = `${Math.random() * 10}s`;
-            floatingElement.style.animationDuration = `${Math.random() * 20 + 10}s`;
-            floatingElements.appendChild(floatingElement);
-        }
-        
-        // Créer des flèches volantes
-        for (let i = 0; i < 10; i++) {
-            const arrow = document.createElement('div');
-            arrow.className = 'flying-arrow';
-            arrow.textContent = '→';
-            arrow.style.setProperty('--y-pos', Math.random());
-            arrow.style.animationDelay = `${Math.random() * 5}s`;
-            document.body.appendChild(arrow);
-        }
-        
-        // Créer des nombres 3D qui tournent
-        for (let i = 0; i < 4; i++) {
-            const number = document.createElement('div');
-            number.className = 'number-3d';
-            number.textContent = '404';
-            number.style.left = `${Math.random() * 80 + 10}%`;
-            number.style.top = `${Math.random() * 80 + 10}%`;
-            number.style.opacity = '0.3';
-            number.style.animationDelay = `${Math.random() * 5}s`;
-            document.body.appendChild(number);
-        }
-        
-        // Ajouter des effets de pluie
-        const rain = document.getElementById('rain');
-        for (let i = 0; i < 100; i++) {
-            const raindrop = document.createElement('div');
-            raindrop.className = 'rain-drop';
-            raindrop.style.left = `${Math.random() * 100}%`;
-            raindrop.style.animationDuration = `${Math.random() * 2 + 1}s`;
-            raindrop.style.animationDelay = `${Math.random() * 2}s`;
-            rain.appendChild(raindrop);
-        }
-        
-        // Ajouter des lettres qui tombent
-        const fallingLetters = document.getElementById('falling-letters');
-        const letters = ['E', 'R', 'R', 'O', 'R', '4', '0', '4', 'N', 'O', 'P', 'E', '!', '?', 'X'];
-        
-        for (let i = 0; i < 20; i++) {
-            const letter = document.createElement('div');
-            letter.className = 'falling-letter';
-            letter.textContent = letters[Math.floor(Math.random() * letters.length)];
-            letter.style.left = `${Math.random() * 100}%`;
-            letter.style.animationDuration = `${Math.random() * 5 + 3}s`;
-            letter.style.animationDelay = `${Math.random() * 5}s`;
-            fallingLetters.appendChild(letter);
-        }
-        
-        // Créer des éléments de chaos
-        const chaos = document.getElementById('chaos');
-        for (let i = 0; i < 30; i++) {
-            const chaosElement = document.createElement('div');
-            chaosElement.className = 'chaos-element';
-            
-            // Formes aléatoires
-            const size = Math.random() * 100 + 50;
-            chaosElement.style.width = `${size}px`;
-            chaosElement.style.height = `${size}px`;
-            chaosElement.style.borderRadius = Math.random() > 0.5 ? '50%' : `${Math.random() * 30}%`;
-            
-            // Couleurs aléatoires
-            chaosElement.style.background = `radial-gradient(circle, 
-                hsl(${Math.random() * 360}, 100%, 70%), 
-                hsl(${Math.random() * 360}, 100%, 50%))`;
-            
-            // Position et mouvement aléatoires
-            chaosElement.style.setProperty('--start-x', `${Math.random() * 100}vw`);
-            chaosElement.style.setProperty('--start-y', `${Math.random() * 100}vh`);
-            chaosElement.style.setProperty('--end-x', `${Math.random() * 100}vw`);
-            chaosElement.style.setProperty('--end-y', `${Math.random() * 100}vh`);
-            
-            chaosElement.style.animationDuration = `${Math.random() * 20 + 10}s`;
-            chaosElement.style.animationDelay = `${Math.random() * 5}s`;
-            
-            chaos.appendChild(chaosElement);
-        }
-        
-        // Créer l'effet d'onde sonore
-        const soundWave = document.getElementById('sound-wave');
-        for (let i = 0; i < 50; i++) {
-            const waveBar = document.createElement('div');
-            waveBar.className = 'wave-bar';
-            waveBar.style.left = `${i * 20}px`;
-            waveBar.style.setProperty('--height', `${Math.random() * 80 + 20}px`);
-            waveBar.style.animationDelay = `${Math.random() * 0.5}s`;
-            soundWave.appendChild(waveBar);
-        }
-        
-        // Effet de click explosif
-        document.addEventListener('click', (e) => {
-            const explosion = document.createElement('div');
-            explosion.className = 'explosion';
-            explosion.style.left = `${e.clientX}px`;
-            explosion.style.top = `${e.clientY}px`;
-            explosion.style.background = `radial-gradient(circle, 
-                hsl(${Math.random() * 360}, 100%, 70%), 
-                hsl(${Math.random() * 360}, 100%, 50%))`;
-            document.body.appendChild(explosion);
-            
-            setTimeout(() => {
-                explosion.remove();
-            }, 500);
-        });
-        
-        // Générateur de popups aléatoires
-        function randomPopup() {
-            const popup = document.getElementById('warning-popup');
-            popup.style.left = `${Math.random() * (window.innerWidth - 300)}px`;
-            popup.style.top = `${Math.random() * (window.innerHeight - 100)}px`;
-            popup.style.display = 'block';
-            
-            // Messages aléatoires
-            const messages = [
-                'ATTENTION: TROP DE FOLIE DÉTECTÉE!!!',
-                'ERREUR CRITIQUE: RÉALITÉ CORROMPUE!',
-                'ALERTE: PAGE INTROUVABLE DANS L\'UNIVERS!',
-                'DANGER: PORTAIL DIMENSIONNEL DÉTECTÉ!',
-                'SYSTÈME SURCHARGÉ: TROP DE 404!'
-            ];
-            
-            popup.textContent = messages[Math.floor(Math.random() * messages.length)];
-            
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 2000);
-        }
-        
-        // Déclencher des popups aléatoires
-        setInterval(randomPopup, 5000);
-        
-        // Ajouter des boutons flottants aléatoires
-        for (let i = 0; i < 5; i++) {
-            const button = document.createElement('button');
-            button.className = 'random-button invert-hover';
-            button.textContent = ['PANIQUE!', 'ERREUR!', 'CLIQUE-MOI!', 'OH NON!', 'HELP!'][i];
-            button.style.left = `${Math.random() * 70 + 10}%`;
-            button.style.top = `${Math.random() * 70 + 10}%`;
-            button.style.setProperty('--x-move', `${Math.random() * 200 - 100}px`);
-            button.style.setProperty('--y-move', `${Math.random() * 200 - 100}px`);
-            button.style.setProperty('--rotation', `${Math.random() * 40 - 20}deg`);
-            
-            button.addEventListener('click', () => {
-                const body = document.body;
-                body.style.animation = 'color-shift 0.5s';
-                body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
-                
-                setTimeout(() => {
-                    body.style.animation = '';
-                }, 500);
-            });
-            
-            document.body.appendChild(button);
-        }
-        
-        // Générateur d'effet spéculaire suivant la souris
-        const specular = document.querySelector('.specular');
-        document.addEventListener('mousemove', (e) => {
-            specular.style.setProperty('--x', e.clientX + 'px');
-            specular.style.setProperty('--y', e.clientY + 'px');
-        });
-        
-        // Mini-jeu dans la page 404
-        const miniGame = document.getElementById('mini-game');
-        const gamePlayer = document.getElementById('game-player');
-        let gameScore = 0;
-        let gameInterval;
-        let gameActive = false;
-        
-        function startGame() {
-            if (gameActive) return;
-            
-            miniGame.style.display = 'block';
-            gameActive = true;
-            gameScore = 0;
-            document.getElementById('game-score').textContent = 'Score: 0';
-            
-            // Déplacer le joueur avec la souris
-            miniGame.addEventListener('mousemove', (e) => {
-                const rect = miniGame.getBoundingClientRect();
-                const x = e.clientX - rect.left - 10; // 10 est la moitié de la largeur du joueur
-                
-                if (x >= 0 && x <= 280) {
-                    gamePlayer.style.left = x + 'px';
-                }
-            });
-            
-            // Générer des obstacles
-            gameInterval = setInterval(() => {
-                const obstacle = document.createElement('div');
-                obstacle.className = 'game-obstacle';
-                obstacle.style.left = Math.random() * 270 + 'px';
-                miniGame.appendChild(obstacle);
-                
-                // Animation de descente
-                let top = -20;
-                const fall = setInterval(() => {
-                    top += 5;
-                    obstacle.style.top = top + 'px';
-                    
-                    // Vérifier collision
-                    const playerRect = gamePlayer.getBoundingClientRect();
-                    const obstacleRect = obstacle.getBoundingClientRect();
-                    
-                    if (
-                        playerRect.left < obstacleRect.right &&
-                        playerRect.right > obstacleRect.left &&
-                        playerRect.top < obstacleRect.bottom &&
-                        playerRect.bottom > obstacleRect.top
-                    ) {
-                        clearInterval(fall);
-                        obstacle.style.background = '#ff0000';
-                        
-                        setTimeout(() => {
-                            obstacle.remove();
-                        }, 300);
-                    }
-                    
-                    // Vérifier si l'obstacle a atteint le bas
-                    if (top > 200) {
-                        clearInterval(fall);
-                        obstacle.remove();
-                        gameScore++;
-                        document.getElementById('game-score').textContent = 'Score: ' + gameScore;
-                    }
-                }, 50);
-            }, 1000);
-        }
-        
-        function stopGame() {
-            clearInterval(gameInterval);
-            gameActive = false;
-            miniGame.style.display = 'none';
-            
-            // Supprimer tous les obstacles
-            const obstacles = document.querySelectorAll('.game-obstacle');
-            obstacles.forEach(obstacle => obstacle.remove());
-        }
-        
-        // Démarrer le jeu au clic sur le menu tournant
-        document.getElementById('spinning-menu').addEventListener('click', () => {
-            if (gameActive) {
-                stopGame();
-            } else {
-                startGame();
-            }
-        });
-        
-        // Crazy home button
-        document.getElementById('crazy-home-button').addEventListener('click', () => {
-            // Effet de distorsion avant de rediriger
-            document.body.style.animation = 'crazy-distort 1s';
-            
-            // Ajouter l'animation CSS
-            const distortStyle = document.createElement('style');
-            distortStyle.innerHTML = `
-                @keyframes crazy-distort {
-                    0% { transform: scale(1); filter: blur(0); }
-                    50% { transform: scale(1.5) rotate(5deg); filter: blur(10px) hue-rotate(180deg); }
-                    100% { transform: scale(0); filter: blur(20px); }
-                }
-            `;
-            document.head.appendChild(distortStyle);
-            
-            // Rediriger après l'animation
-            setTimeout(() => {
-                window.location.href = '/';
-            }, 1000);
-        });
-        
-        // Effet de glitch aléatoire
-        function randomGlitch() {
-            document.body.style.animation = 'glitch-effect 0.2s';
-            
-            const glitchStyle = document.createElement('style');
-            glitchStyle.innerHTML = `
-                @keyframes glitch-effect {
-                    0% { transform: translate(0); filter: none; }
-                    20% { transform: translate(-10px, 5px); filter: hue-rotate(90deg) saturate(200%); }
-                    40% { transform: translate(10px, -5px); filter: hue-rotate(180deg) saturate(300%); }
-                    60% { transform: translate(-5px, -10px); filter: hue-rotate(270deg) saturate(200%); }
-                    80% { transform: translate(5px, 10px); filter: hue-rotate(360deg) saturate(300%); }
-                    100% { transform: translate(0); filter: none; }
-                }
-            `;
-            document.head.appendChild(glitchStyle);
-            
-            setTimeout(() => {
-                document.body.style.animation = '';
-            }, 200);
-        }
-        
-        // Appliquer l'effet de glitch périodiquement
-        setInterval(randomGlitch, 3000);
+        document.addEventListener('DOMContentLoaded', function () {
 
-        // Audio context pour des sons fous
-        let audioCtx;
-        
-        function initAudio() {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            
-            // Jouer un son fou
-            function playWeirdSound() {
-                const oscillator = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                
-                oscillator.type = ['sine', 'square', 'sawtooth', 'triangle'][Math.floor(Math.random() * 4)];
-                oscillator.frequency.setValueAtTime(Math.random() * 400 + 200, audioCtx.currentTime);
-                oscillator.frequency.exponentialRampToValueAtTime(Math.random() * 1000 + 500, audioCtx.currentTime + 0.3);
-                
-                gainNode.gain.setValueAtTime(0.1, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                
-                oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.3);
+            var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            var timeText = document.getElementById('timeText');
+            function updateTime() {
+                var now = new Date();
+                var h = String(now.getHours()).padStart(2, '0');
+                var m = String(now.getMinutes()).padStart(2, '0');
+                var s = String(now.getSeconds()).padStart(2, '0');
+                if (timeText) timeText.textContent = h + ':' + m + ':' + s + ' local';
             }
-            
-            // Jouer des sons aléatoires
-            document.addEventListener('click', playWeirdSound);
-            
-            // Sons périodiques
-            setInterval(() => {
-                if (Math.random() > 0.7) {
-                    playWeirdSound();
+            updateTime();
+            setInterval(updateTime, 1000);
+
+            var blockGrid = document.getElementById('blockGrid');
+            if (blockGrid && !prefersReducedMotion.matches) {
+                var cols = Math.floor(window.innerWidth / 80);
+                var rows = Math.floor(window.innerHeight / 80);
+                var totalBlocks = Math.min(cols * rows, 60);
+
+                for (var i = 0; i < totalBlocks; i++) {
+                    var block = document.createElement('div');
+                    block.className = 'grid-block';
+                    var size = Math.random() * 30 + 20;
+                    block.style.width = size + 'px';
+                    block.style.height = size + 'px';
+                    block.style.left = (Math.random() * 100) + '%';
+                    block.style.top = (Math.random() * 100) + '%';
+                    block.style.transform = 'rotate(' + (Math.random() * 45 - 22) + 'deg)';
+                    block.style.animationDelay = (Math.random() * 8) + 's';
+                    blockGrid.appendChild(block);
                 }
-            }, 3000);
-        }
-        
-        // Initialiser l'audio au premier clic
-        document.addEventListener('click', () => {
-            if (!audioCtx) {
-                initAudio();
+
+                gsap.to(blockGrid, { opacity: 1, duration: 2, delay: 0.5 });
+                var blocks = blockGrid.querySelectorAll('.grid-block');
+                for (var b = 0; b < blocks.length; b++) {
+                    (function (el, index) {
+                        gsap.to(el, {
+                            opacity: Math.random() * 0.12 + 0.03,
+                            duration: 1.5,
+                            delay: 0.8 + (index * 0.04),
+                            ease: 'power2.out'
+                        });
+                    })(blocks[b], b);
+                }
+
+                // Subtle floating on blocks
+                for (var f = 0; f < blocks.length; f++) {
+                    (function (el) {
+                        gsap.to(el, {
+                            y: Math.random() * 20 - 10,
+                            x: Math.random() * 10 - 5,
+                            duration: Math.random() * 6 + 4,
+                            ease: 'sine.inOut',
+                            yoyo: true,
+                            repeat: -1,
+                            delay: Math.random() * 3
+                        });
+                    })(blocks[f]);
+                }
             }
-        }, { once: true });
-        
-        // Mettre à jour les vagues sonores
-        function updateSoundWaves() {
-            const waves = document.querySelectorAll('.wave-bar');
-            waves.forEach(wave => {
-                wave.style.setProperty('--height', `${Math.random() * 80 + 20}px`);
+
+            if (!prefersReducedMotion.matches && typeof gsap !== 'undefined') {
+                var tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+                tl.to('.glitch-wrap', { opacity: 1, y: 0, duration: 1.2, delay: 0.1 })
+                  .to('.error-label', { opacity: 1, y: 0, duration: 0.9 }, '-=.7')
+                  .to('.error-message', { opacity: 1, y: 0, duration: 0.9 }, '-=.6')
+                  .to('.error-sub', { opacity: 1, y: 0, duration: 0.9 }, '-=.6')
+                  .to('.error-actions', { opacity: 1, y: 0, duration: 0.9 }, '-=.5')
+                  .to('.error-coords', { opacity: 1, y: 0, duration: 0.8 }, '-=.4')
+                  .to('.error-time', { opacity: 1, y: 0, duration: 0.8 }, '-=.6');
+            } else {
+                // Show everything immediately
+                var els = document.querySelectorAll('.glitch-wrap, .error-label, .error-message, .error-sub, .error-actions, .error-coords, .error-time');
+                for (var e = 0; e < els.length; e++) {
+                    els[e].style.opacity = '1';
+                    els[e].style.transform = 'none';
+                }
+            }
+
+            if (window.matchMedia('(hover: hover)').matches && !prefersReducedMotion.matches) {
+                var glitchWrap = document.querySelector('.glitch-wrap');
+                var errorCode = document.querySelector('.error-code');
+
+                document.addEventListener('mousemove', function (e) {
+                    var x = (e.clientX / window.innerWidth - 0.5) * 2;
+                    var y = (e.clientY / window.innerHeight - 0.5) * 2;
+
+                    if (glitchWrap) {
+                        glitchWrap.style.transform = 'translateY(0) translate(' + (x * 8) + 'px, ' + (y * 5) + 'px)';
+                    }
+                    if (errorCode) {
+                        errorCode.style.textShadow =
+                            (x * -3) + 'px ' + (y * -2) + 'px 0 rgba(88,101,242,.12), ' +
+                            (x * 3) + 'px ' + (y * 2) + 'px 0 rgba(234,179,8,.08)';
+                    }
+                }, { passive: true });
+            }
+
+            var clickCount = 0;
+            var messageEl = document.querySelector('.error-message');
+
+            document.querySelector('.error-code').addEventListener('click', function () {
+                clickCount++;
+
+                if (clickCount === 10) {
+                    if (messageEl) {
+                        messageEl.innerHTML = 'You found the secret. 🍍<br>Still a 404 though.';
+                    }
+                    clickCount = 0;
+                } else if (clickCount >= 7) {
+                    if (messageEl) {
+                        messageEl.innerHTML = 'Keep clicking... 🍍<br>(' + (10 - clickCount) + ' more)';
+                    }
+                }
+
+                if (typeof gsap !== 'undefined' && !prefersReducedMotion.matches) {
+                    gsap.fromTo('.error-code', { scale: 1 }, {
+                        scale: 1.03,
+                        duration: 0.15,
+                        yoyo: true,
+                        repeat: 1,
+                        ease: 'power2.out'
+                    });
+                }
             });
-        }
-        
-        setInterval(updateSoundWaves, 100);
+
+        });
     </script>
 </body>
 </html>
