@@ -7,7 +7,7 @@
 **`CODING · BUILDING · GWADA`**
 
 [![GitHub Pages](https://img.shields.io/badge/Live-maxlananas.github.io-EAB308?style=for-the-badge&logo=github&logoColor=black)](https://maxlananas.github.io)
-[![Discord](https://img.shields.io/badge/Discord-BhWNkyTpdR-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/8j7MkJH5Va)
+[![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)]([https://discord.gg/8j7MkJH5Va](https://discord.gg/pnJhKuU2QK))
 [![Instagram](https://img.shields.io/badge/Instagram-maxlananas.builds-E1306C?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/maxlananas.builds/)
 [![YouTube](https://img.shields.io/badge/YouTube-MaxLanana-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/@MaxLanana)
 
