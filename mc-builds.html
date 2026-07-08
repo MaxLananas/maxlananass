@@ -676,19 +676,6 @@
             <button class="filter-btn" data-filter="bte" aria-pressed="false">BTE France</button>
         </div>
 
-        <div class="add-build-banner" aria-hidden="true" id="devHelper">
-            <i class="fa-solid fa-hammer" aria-hidden="true"></i>
-            <div class="add-build-banner-text">
-                <div class="add-build-banner-title">Adding a new build is easy!</div>
-                <div class="add-build-banner-desc">
-                    Just duplicate any <code>&lt;article class="gallery-item"&gt;</code> block in the HTML,
-                    update the image, title, tag and <code>data-category</code> attribute.
-                    The filter system and lightbox work automatically.
-                    <br>Remove this banner by deleting the <code>#devHelper</code> element.
-                </div>
-            </div>
-        </div>
-
         <section class="gallery-section" aria-labelledby="gallery-heading">
             <h2 id="gallery-heading" class="sr-only">Minecraft Build Gallery</h2>
 
@@ -850,40 +837,36 @@
                 </article>
 
                 <!--
-                ═══════════════════════════════════════════════════════
-                  ↓↓↓ ADD YOUR NEW BUILDS BELOW THIS LINE ↓↓↓
-                  TEMPLATE — copy, paste, edit and you're done!
-
+                  BUILD 06 — little-bridge
+                -->
                 <article
                     class="gallery-item fade-in"
-                    data-category="CATEGORY_HERE"
-                    data-title="BUILD TITLE"
-                    data-sub="Build subtitle / style"
-                    data-img="your-image.jpg"
+                    data-category="Bridge"
+                    data-title="Little Bridge in France"
+                    data-sub="Little Bridge"
+                    data-img="little-bridge.png"
                     role="listitem"
                     tabindex="0"
-                    aria-label="Build Title — click to enlarge"
+                    aria-label="Little Bridge — click to enlarge"
                 >
                     <span class="gallery-num">06</span>
-                    <span class="gallery-tag tag-CATEGORY_HERE">Category</span>
+                    <span class="gallery-tag tag-medieval">Reproduction</span>
                     <picture>
-                        <source srcset="your-image.avif" type="image/avif">
-                        <source srcset="your-image.webp" type="image/webp">
+                        <source srcset="little-bridge.avif" type="image/avif">
+                        <source srcset="little-bridge.webp" type="image/webp">
                         <img
-                            src="your-image.jpg"
-                            alt="Description of the build"
+                            src="little-bridge.png"
+                            alt="Little Bridge in France — Minecraft build by MaxLananas and zx"
                             loading="lazy"
                             decoding="async"
                         >
                     </picture>
                     <div class="gallery-overlay">
-                        <div class="gallery-title">BUILD TITLE</div>
-                        <div class="gallery-sub">Build subtitle</div>
+                        <div class="gallery-title">Little Bridge in France</div>
+                        <div class="gallery-sub">Reproduction</div>
                     </div>
                 </article>
 
-                ═══════════════════════════════════════════════════════
-                -->
 
             </div>
             <div class="gallery-empty" id="galleryEmpty" role="status" aria-live="polite">
