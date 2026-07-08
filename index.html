@@ -632,6 +632,39 @@
                     </div>
                 </article>
             </div>
+            <!-- Ajouter juste après </div> de .masonry-grid -->
+<div style="
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+    padding-bottom: 80px;
+">
+    <a
+        href="mc-builds.html"
+        style="
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            padding: 14px 32px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,.13);
+            background: #222226;
+            color: rgba(232,228,220,.65);
+            text-decoration: none;
+            transition: background .25s, border-color .25s, color .25s, transform .25s;
+        "
+        onmouseover="this.style.background='#28282d';this.style.borderColor='rgba(88,101,242,.4)';this.style.color='#e8e4dc';this.style.transform='translateY(-2px)'"
+        onmouseout="this.style.background='#222226';this.style.borderColor='rgba(255,255,255,.13)';this.style.color='rgba(232,228,220,.65)';this.style.transform='translateY(0)'"
+        aria-label="See all Minecraft builds gallery"
+    >
+        See more builds
+        <i class="fa-solid fa-arrow-right" style="font-size:11px" aria-hidden="true"></i>
+    </a>
+</div>
         </section>
 
         <section id="dev" class="dev-section" aria-labelledby="dev-heading">
