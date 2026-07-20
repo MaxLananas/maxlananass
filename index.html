@@ -6,8 +6,10 @@
 <title>MaxLananas — Portfolio</title>
 <meta name="description" content="Portfolio de MaxLananas — builds Minecraft 1:1 et créations.">
 <meta name="theme-color" content="#101012">
+<meta name="color-scheme" content="dark">
 <link rel="preconnect" href="https://wsrv.nl">
 <link rel="preconnect" href="https://github.com">
+<link rel="preload" href="FFFlauta-200.otf" as="font" type="font/otf" crossorigin>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,20 +32,67 @@
 <main class="masonry" id="masonry"></main>
 
 <div class="lightbox" id="lightbox">
-  <button class="lb-close" id="lbClose">&times;</button>
-  <button class="lb-arrow lb-prev" id="lbPrev">&lsaquo;</button>
+  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Précédent">&lsaquo;</button>
   <img class="lb-img" id="lbImg" alt="">
   <div class="lb-caption" id="lbCaption"></div>
-  <button class="lb-arrow lb-next" id="lbNext">&rsaquo;</button>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Suivant">&rsaquo;</button>
 </div>
 
 <section class="cta">
+  <span class="cta-eyebrow">Disponible pour commissions</span>
   <h2>Want a build?</h2>
-  <p>Contact me directly on Discord</p>
-  <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="cta-btn">Contact me</a>
+  <p>Builds sur-mesure, reconstructions 1:1, outils de dev.</p>
+  <button class="cta-btn" id="openCommission">Contact me</button>
 </section>
 
 <footer class="footer">MaxLananas &copy; 2026</footer>
+
+<div class="modal-overlay" id="commissionModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
+
+    <span class="modal-eyebrow">Commissions ouvertes</span>
+    <h2 id="modalTitle">Construisons quelque chose ensemble</h2>
+    <p class="modal-lead">Builds Minecraft sur-mesure et développement. Réponse sous 24 à 48h.</p>
+
+    <div class="modal-services">
+      <div class="service">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+        <span class="service-name">1:1 Scale</span>
+        <span class="service-desc">Reconstruction fidèle de lieux réels</span>
+      </div>
+      <div class="service">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+        <span class="service-name">Spawn / Event</span>
+        <span class="service-desc">Zones de jeu, lobbies, maps d'événement</span>
+      </div>
+      <div class="service">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 4 9 4 14a8 8 0 0 0 16 0c0-5-4-8-8-12Z"/></svg>
+        <span class="service-name">Organique</span>
+        <span class="service-desc">Terraforming, nature, environnements</span>
+      </div>
+      <div class="service">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
+        <span class="service-name">Dev / Outils</span>
+        <span class="service-desc">Sites, plugins, outils sur-mesure</span>
+      </div>
+    </div>
+
+    <div class="modal-process">
+      <div class="step"><span class="step-num">01</span><span class="step-label">Brief</span></div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-num">02</span><span class="step-label">Devis</span></div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-num">03</span><span class="step-label">Build</span></div>
+      <div class="step-line"></div>
+      <div class="step"><span class="step-num">04</span><span class="step-label">Livraison</span></div>
+    </div>
+
+    <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="modal-cta">Ouvrir un ticket Discord</a>
+    <p class="modal-note">Devis gratuit &middot; Tarifs transparents &middot; Suivi de projet</p>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
