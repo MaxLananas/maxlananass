@@ -18,6 +18,12 @@ const CREDITS = {
     linkText: "Fight4Glory",
     linkUrl: null,
     logo: "image_v2-Photoroom.png"
+  },
+  mrbeast: {
+    text: "Collaboration de 10 builders représentant la France dans une vidéo de",
+    linkText: "MrBeast",
+    linkUrl: "https://www.youtube.com/watch?v=qTMKHZelGAs",
+    logo: "1701523229mr-beast-logo-transparent-background-2847774365.png"
   }
 };
 
@@ -67,15 +73,15 @@ const FILES = [
   { name: "2025-10-27_17.32.34.png" },
   { name: "2025-10-27_17.56.40.png" },
   { name: "2025-10-27_17.56.53.png" },
-  { name: "2025-10-29_17.00.15.png" },
-  { name: "2025-10-29_17.47.57.png" },
+  { name: "2025-10-29_17.00.15.png", credit: "mrbeast" },
+  { name: "2025-10-29_17.47.57.png", credit: "mrbeast" },
   { name: "2025-10-30_21.38.03.png" },
   { name: "2025-10-31_17.24.05.png" },
   { name: "2025-11-02_21.24.44.png" },
   { name: "2025-11-02_21.24.53.png" },
   { name: "2025-11-02_22.00.18.png" },
-  { name: "2025-11-16_14.56.40.png" },
-  { name: "2025-11-16_15.08.49.png" },
+  { name: "2025-11-16_14.56.40.png", credit: "mrbeast" },
+  { name: "2025-11-16_15.08.49.png", credit: "mrbeast" },
   { name: "2025-11-22_11.02.49.png" },
   { name: "2025-11-22_11.04.22.png" },
   { name: "2025-12-09_18.58.54.png" },
@@ -107,8 +113,8 @@ const FILES = [
   { name: "Shot_03.1.jpg", credit: "endorah" },
   { name: "Shot_03.jpg", credit: "endorah" },
   { name: "Shot_06.2.png", credit: "endorah" },
-  { name: "Slide_1.png" },
-  { name: "Slide_2.png" },
+  { name: "Slide_1.png", credit: "mrbeast" },
+  { name: "Slide_2.png", credit: "mrbeast" },
   { name: "spawnfight4glory.jpg", credit: "fight4glory" },
   { name: "Streaming-768x432.jpg", credit: "endorah" },
   { name: "untitled-2.jpg", credit: "bte" },
@@ -173,7 +179,6 @@ const observer = new IntersectionObserver((entries) => {
 items.forEach((item, index) => {
   const tile = document.createElement("div");
   tile.className = "tile";
-  if (item.credit) tile.classList.add("has-credit");
 
   const img = document.createElement("img");
   img.className = "lqip";
