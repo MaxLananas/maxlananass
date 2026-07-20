@@ -131,14 +131,24 @@ const FILES = [
   { name: "untitled18.jpg", credit: "bte" }
 ];
 
-function buildImageUrl(filename, width, quality) {
+let IMG_FORMAT = "webp";
+
+function detectAvif() {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(true);
+    img.onerror = () => resolve(false);
+    img.src = "data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAABcAAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAIAAAACAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQAMAAAAABNjb2xybmNseAACAAIABoAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAACVtZGF0EgAKCBgABogQEDQgMgkQAAAAB8dSLfI=";
+  });
+}
+
+function buildImageUrl(filename, width, quality, forceFormat) {
   const source = RELEASE_BASE + encodeURIComponent(filename);
   const params = new URLSearchParams({
     url: source,
     w: width,
-    output: "webp",
-    q: quality,
-    we: 1
+    output: forceFormat || IMG_FORMAT,
+    q: quality
   });
   return "https://wsrv.nl/?" + params.toString();
 }
@@ -152,6 +162,7 @@ function shuffle(arr) {
 }
 
 const items = shuffle([...FILES]);
+const loadedIndexes = new Set();
 
 const masonry = document.getElementById("masonry");
 const lightbox = document.getElementById("lightbox");
@@ -161,48 +172,110 @@ const lbClose = document.getElementById("lbClose");
 const lbPrev = document.getElementById("lbPrev");
 const lbNext = document.getElementById("lbNext");
 
+const modal = document.getElementById("commissionModal");
+const openModalBtn = document.getElementById("openCommission");
+const modalClose = document.getElementById("modalClose");
+
 let currentIndex = 0;
+let observer;
 
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach((entry) => {
-    if (!entry.isIntersecting) return;
-    const img = entry.target;
-    const item = items[Number(img.dataset.index)];
-    const full = new Image();
-    full.src = buildImageUrl(item.name, 640, 80);
-    full.onload = () => {
-      img.src = full.src;
-      img.classList.remove("lqip");
-      img.classList.add("loaded");
-    };
-    full.onerror = () => {
-      img.src = RELEASE_BASE + encodeURIComponent(item.name);
-      img.classList.remove("lqip");
-      img.classList.add("loaded");
-    };
-    observer.unobserve(img);
+function tileWidth(el) {
+  const w = el.getBoundingClientRect().width || 250;
+  return Math.min(900, Math.round(w * (window.devicePixelRatio || 1) / 50) * 50);
+}
+
+function upgradeTile(img, item, baseWidth) {
+  const hiWidth = Math.min(1000, baseWidth * 2);
+  const hi = new Image();
+  hi.onload = () => { img.src = hi.src; };
+  hi.src = buildImageUrl(item.name, hiWidth, 88);
+}
+
+function scheduleIdleUpgrades() {
+  const conn = navigator.connection;
+  if (conn && (conn.saveData || conn.effectiveType === "2g" || conn.effectiveType === "slow-2g")) return;
+
+  const run = () => {
+    const idx = [...loadedIndexes].shift();
+    if (idx === undefined) return;
+    loadedIndexes.delete(idx);
+    const tile = masonry.children[idx];
+    if (!tile) return scheduleIdleUpgrades();
+    const rect = tile.getBoundingClientRect();
+    if (rect.bottom < -800 || rect.top > window.innerHeight + 800) return scheduleIdleUpgrades();
+    const img = tile.querySelector("img");
+    upgradeTile(img, items[idx], tileWidth(tile));
+    scheduleIdleUpgrades();
+  };
+
+  if ("requestIdleCallback" in window) {
+    requestIdleCallback(run, { timeout: 2000 });
+  } else {
+    setTimeout(run, 500);
+  }
+}
+
+function initObserver() {
+  observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const img = entry.target;
+      const index = Number(img.dataset.index);
+      const item = items[index];
+      const w = tileWidth(img.closest(".tile"));
+      const full = new Image();
+      full.src = buildImageUrl(item.name, w, 80);
+      full.onload = () => {
+        img.src = full.src;
+        img.classList.remove("lqip");
+        img.classList.add("loaded");
+        loadedIndexes.add(index);
+      };
+      full.onerror = () => {
+        img.src = RELEASE_BASE + encodeURIComponent(item.name);
+        img.classList.remove("lqip");
+        img.classList.add("loaded");
+      };
+      observer.unobserve(img);
+    });
+  }, { rootMargin: "500px 0px" });
+}
+
+function buildGrid() {
+  const fragment = document.createDocumentFragment();
+
+  items.forEach((item, index) => {
+    const tile = document.createElement("div");
+    tile.className = "tile";
+
+    const img = document.createElement("img");
+    img.className = "lqip";
+    img.alt = "";
+    img.decoding = "async";
+    img.dataset.index = index;
+    img.fetchPriority = index < 6 ? "high" : "auto";
+    img.src = buildImageUrl(item.name, 24, 35);
+
+    tile.appendChild(img);
+    tile.addEventListener("click", () => openLightbox(index));
+    fragment.appendChild(tile);
   });
-}, { rootMargin: "400px 0px" });
 
-items.forEach((item, index) => {
-  const tile = document.createElement("div");
-  tile.className = "tile";
+  masonry.appendChild(fragment);
+  document.querySelectorAll(".tile img").forEach((img) => observer.observe(img));
 
-  const img = document.createElement("img");
-  img.className = "lqip";
-  img.alt = "";
-  img.dataset.index = index;
-  img.src = buildImageUrl(item.name, 30, 40);
-
-  tile.appendChild(img);
-  tile.addEventListener("click", () => openLightbox(index));
-  masonry.appendChild(tile);
-  observer.observe(img);
-});
+  window.addEventListener("load", () => setTimeout(scheduleIdleUpgrades, 1500));
+}
 
 function renderLightbox() {
   const item = items[currentIndex];
   lbImg.src = buildImageUrl(item.name, 1600, 85);
+
+  [currentIndex - 1, currentIndex + 1].forEach((i) => {
+    const n = ((i % items.length) + items.length) % items.length;
+    const pre = new Image();
+    pre.src = buildImageUrl(items[n].name, 1600, 85);
+  });
 
   if (item.credit) {
     const c = CREDITS[item.credit];
@@ -242,14 +315,41 @@ function showPrev() {
 lbClose.addEventListener("click", closeLightbox);
 lbNext.addEventListener("click", showNext);
 lbPrev.addEventListener("click", showPrev);
+lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
 
-lightbox.addEventListener("click", (e) => {
-  if (e.target === lightbox) closeLightbox();
-});
+function openModal() {
+  modal.classList.add("open");
+  document.body.style.overflow = "hidden";
+  modalClose.focus();
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  document.body.style.overflow = "";
+  openModalBtn.focus();
+}
+
+openModalBtn.addEventListener("click", openModal);
+modalClose.addEventListener("click", closeModal);
+modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
 
 document.addEventListener("keydown", (e) => {
-  if (!lightbox.classList.contains("open")) return;
-  if (e.key === "Escape") closeLightbox();
-  if (e.key === "ArrowRight") showNext();
-  if (e.key === "ArrowLeft") showPrev();
+  if (lightbox.classList.contains("open")) {
+    if (e.key === "Escape") closeLightbox();
+    if (e.key === "ArrowRight") showNext();
+    if (e.key === "ArrowLeft") showPrev();
+  }
+  if (modal.classList.contains("open") && e.key === "Escape") closeModal();
+});
+
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {});
+  });
+}
+
+detectAvif().then((supported) => {
+  IMG_FORMAT = supported ? "avif" : "webp";
+  initObserver();
+  buildGrid();
 });
