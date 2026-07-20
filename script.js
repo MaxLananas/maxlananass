@@ -120,7 +120,15 @@ const FILES = [
   { name: "untitled-2.jpg", credit: "bte" },
   { name: "untitled.jpg" },
   { name: "untitled3-2.jpg", credit: "bte" },
-  { name: "untitled3.jpg" }
+  { name: "untitled3.jpg" },
+  { name: "CIRCUITxDIRIGEABLE.jpg", credit: "bte" },
+  { name: "Larressingle.png", credit: "bte" },
+  { name: "Lemans_-_france5.jpg", credit: "bte" },
+  { name: "Lemans_-_large.png", credit: "bte" },
+  { name: "Occi.png", credit: "bte" },
+  { name: "untitled11.jpg", credit: "bte" },
+  { name: "untitled13.jpg", credit: "bte" },
+  { name: "untitled18.jpg", credit: "bte" }
 ];
 
 function buildImageUrl(filename, width, quality) {
