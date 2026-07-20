@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://maxlananas-builds.pages.dev/sitemap.xml
