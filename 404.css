@@ -7,227 +7,64 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
-  --bg: #101012;
-  --off: #e8e4dc;
-  --muted: rgba(232,228,220,.45);
-  --muted2: rgba(232,228,220,.25);
-  --border: rgba(255,255,255,.08);
+  --sand: #FFF7EA;
+  --ink: #123C4A;
+  --coral: #FF6F59;
+  --turquoise: #12C6B7;
+  --mango: #FFC93C;
 }
 
 body {
-  background: var(--bg);
-  color: var(--off);
-  font-family: 'Space Mono', ui-monospace, monospace;
   min-height: 100vh;
-}
-
-.scene {
-  max-width: 720px;
-  margin: 0 auto;
-  padding: 90px 24px 60px;
-  text-align: center;
-}
-
-.glitch-wrap {
-  margin-bottom: 18px;
-}
-
-.glitch {
-  font-family: 'FFFlauta', monospace;
-  font-size: clamp(90px, 20vw, 180px);
-  line-height: 1;
-  letter-spacing: -.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, Roboto, sans-serif;
   position: relative;
-  color: var(--off);
-  animation: flicker 4s infinite;
+  overflow: hidden;
 }
 
-.glitch::before,
-.glitch::after {
-  content: attr(data-text);
+.wave-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  opacity: .7;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(255,201,60,.35), transparent 40%),
+    radial-gradient(circle at 85% 15%, rgba(18,198,183,.3), transparent 45%),
+    radial-gradient(circle at 50% 90%, rgba(255,111,89,.3), transparent 50%);
+  filter: blur(10px);
 }
 
-.glitch::before {
-  color: #EAB308;
-  animation: glitch-1 2.6s infinite linear alternate-reverse;
+.err-wrap {
+  position: relative;
+  text-align: center;
+  padding: 40px;
 }
 
-.glitch::after {
-  color: #5865F2;
-  animation: glitch-2 3.1s infinite linear alternate-reverse;
+.err-fruit { font-size: 42px; display: block; margin-bottom: 14px; }
+
+h1 {
+  font-family: 'FFFlauta', sans-serif;
+  font-size: clamp(70px, 18vw, 140px);
+  line-height: 1;
+  background: linear-gradient(90deg, var(--coral), var(--mango), var(--turquoise));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
-@keyframes glitch-1 {
-  0% { clip-path: inset(10% 0 60% 0); transform: translate(-2px,0); }
-  20% { clip-path: inset(60% 0 5% 0); transform: translate(2px,0); }
-  40% { clip-path: inset(20% 0 40% 0); transform: translate(-1px,0); }
-  60% { clip-path: inset(80% 0 2% 0); transform: translate(1px,0); }
-  80% { clip-path: inset(35% 0 45% 0); transform: translate(-2px,0); }
-  100% { clip-path: inset(5% 0 70% 0); transform: translate(2px,0); }
-}
+p { font-size: 14px; color: rgba(18,60,74,.7); margin: 14px 0 30px; }
 
-@keyframes glitch-2 {
-  0% { clip-path: inset(70% 0 5% 0); transform: translate(2px,0); }
-  25% { clip-path: inset(15% 0 60% 0); transform: translate(-2px,0); }
-  50% { clip-path: inset(45% 0 25% 0); transform: translate(1px,0); }
-  75% { clip-path: inset(5% 0 80% 0); transform: translate(-1px,0); }
-  100% { clip-path: inset(55% 0 10% 0); transform: translate(2px,0); }
-}
-
-@keyframes flicker {
-  0%, 92%, 100% { opacity: 1; }
-  93% { opacity: .4; }
-  94% { opacity: 1; }
-  95% { opacity: .2; }
-  96% { opacity: 1; }
-}
-
-.subtitle {
-  font-size: 15px;
-  color: var(--off);
-  margin-bottom: 6px;
-}
-
-.subtitle2 {
-  font-size: 11px;
-  color: var(--muted);
-  margin-bottom: 34px;
-}
-
-.home-btn {
+.err-btn {
   display: inline-block;
-  background: rgba(255,255,255,.06);
-  border: 1px solid var(--border);
-  color: var(--off);
+  background: var(--ink);
+  color: #fff;
   text-decoration: none;
-  font-size: 11px;
-  letter-spacing: .04em;
-  padding: 13px 28px;
-  border-radius: 99px;
-  transition: background .2s, transform .2s;
-}
-
-.home-btn:hover {
-  background: rgba(255,255,255,.13);
-  transform: translateY(-2px);
-}
-
-.credits {
-  margin-top: 80px;
-  padding-top: 50px;
-  border-top: 1px solid var(--border);
-  text-align: left;
-}
-
-.credits h2 {
-  font-family: 'FFFlauta', monospace;
-  font-size: 20px;
-  text-align: center;
-  margin-bottom: 8px;
-}
-
-.credits-intro {
-  font-size: 11px;
-  color: var(--muted);
-  text-align: center;
-  margin-bottom: 28px;
-}
-
-.credit-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-.credit-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px;
-  background: rgba(255,255,255,.03);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  text-decoration: none;
-  color: var(--off);
-  transition: background .25s, border-color .25s, transform .25s;
-}
-
-.credit-card:hover {
-  background: rgba(255,255,255,.07);
-  border-color: rgba(255,255,255,.16);
-  transform: translateY(-2px);
-}
-
-.credit-card img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-  border-radius: 8px;
-  flex-shrink: 0;
-}
-
-.credit-card div {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.c-name {
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 700;
+  padding: 14px 32px;
+  border-radius: 99px;
+  transition: transform .3s cubic-bezier(.22,.68,0,1), background .3s;
 }
-
-.c-role {
-  font-size: 9px;
-  color: var(--muted);
-  letter-spacing: .02em;
-}
-
-.socials-404 {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 60px;
-}
-
-.socials-404 a {
-  width: 40px;
-  height: 40px;
-  border-radius: 10px;
-  background: rgba(255,255,255,.05);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--muted);
-  transition: background .2s, color .2s, transform .2s;
-}
-
-.socials-404 a svg {
-  width: 17px;
-  height: 17px;
-}
-
-.socials-404 a:hover {
-  color: var(--off);
-  background: rgba(255,255,255,.12);
-  transform: translateY(-2px);
-}
-
-.footer-404 {
-  margin-top: 30px;
-  font-size: 9px;
-  color: var(--muted2);
-  letter-spacing: .05em;
-}
-
-@media (max-width: 560px) {
-  .scene { padding: 60px 18px 40px; }
-  .credit-cards { grid-template-columns: 1fr; }
-  .credits { margin-top: 50px; padding-top: 36px; }
-}
+.err-btn:hover { transform: translateY(-3px); background: var(--turquoise); }
