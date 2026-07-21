@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MaxLananas — Portfolio tropical</title>
-<meta name="description" content="Portfolio de MaxLananas — builds Minecraft 1:1, reconstructions fidèles et créations sous le soleil.">
-<meta name="theme-color" content="#FF6F59" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#073349" media="(prefers-color-scheme: dark)">
-<meta name="color-scheme" content="light dark">
-<meta property="og:title" content="MaxLananas — Portfolio">
-<meta property="og:description" content="Builds Minecraft 1:1 et créations tropicales.">
+<title>MaxLananas — Digital Architecture Studio</title>
+<meta name="description" content="MaxLananas — high-end Minecraft building studio. 1:1 recreations, monumental spawns, organic terraforming, commissioned builds.">
+<meta name="theme-color" content="#08080a">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="MaxLananas — Digital Architecture Studio">
+<meta property="og:description" content="Building impossible worlds, one block at a time.">
 <meta property="og:image" content="apple-touch-icon.png">
 <meta property="og:type" content="website">
 <link rel="icon" href="apple-touch-icon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://wsrv.nl">
-<link rel="preconnect" href="https://github.com">
 <link rel="preconnect" href="https://objects.githubusercontent.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="dns-prefetch" href="https://wsrv.nl">
 <link rel="preload" href="FFFlauta-200.otf" as="font" type="font/otf" crossorigin>
 <link rel="preload" href="style.css" as="style">
@@ -25,105 +24,201 @@
 </head>
 <body>
 
-<header class="topbar">
-  <div class="blob blob-a"></div>
-  <div class="blob blob-b"></div>
-  <div class="topbar-inner">
-    <a href="#" class="logo" aria-label="MaxLananas">
-      <span class="logo-fruit">🍍</span>
-      <span class="logo-text">Max<span class="logo-accent">Lananas</span></span>
-    </a>
-    <p class="tagline">Builds Minecraft 1:1, sous le soleil ☀️🌊</p>
-    <nav class="socials">
-      <a href="https://github.com/MaxLananas" target="_blank" rel="noopener" aria-label="GitHub" class="social-git">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
-      </a>
-      <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" aria-label="Discord" class="social-discord">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.9-1.52.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.26a18.3 18.3 0 0 0-5.46 0 12.6 12.6 0 0 0-.62-1.26.07.07 0 0 0-.08-.04c-1.7.3-3.36.8-4.9 1.52a.07.07 0 0 0-.03.03C.98 8.6.28 12.7.62 16.75a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 6 3.03.07.07 0 0 0 .08-.03c.46-.63.87-1.3 1.23-2a.07.07 0 0 0-.04-.1 13.1 13.1 0 0 1-1.87-.9.07.07 0 0 1 0-.12c.12-.1.25-.2.37-.29a.07.07 0 0 1 .07 0c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .07 0c.12.1.25.2.37.29a.07.07 0 0 1 0 .12c-.6.35-1.22.65-1.87.9a.07.07 0 0 0-.04.1c.36.7.78 1.37 1.23 2a.07.07 0 0 0 .08.03 19.85 19.85 0 0 0 6.02-3.03.07.07 0 0 0 .03-.06c.4-4.68-.67-8.74-2.85-12.35a.06.06 0 0 0-.03-.03ZM8.68 14.3c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.95 2.42-2.15 2.42Zm6.65 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.94 2.42-2.15 2.42Z"/></svg>
-      </a>
-      <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener" aria-label="Instagram" class="social-insta">
-        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07Zm0 5.35a4.49 4.49 0 1 0 0 8.98 4.49 4.49 0 0 0 0-8.98Zm0 7.4a2.92 2.92 0 1 1 0-5.83 2.92 2.92 0 0 1 0 5.83Zm4.66-7.58a1.05 1.05 0 1 0 0-2.1 1.05 1.05 0 0 0 0 2.1Z"/></svg>
-      </a>
-    </nav>
+<div class="noise-overlay" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span id="cursorRingText"></span></div>
+<div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <span class="preloader-logo">MAXLANANAS</span>
+    <span class="preloader-count" id="preCount">0</span>
   </div>
-  <svg class="wave-divider" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,32 C240,80 480,0 720,24 C960,48 1200,88 1440,32 L1440,80 L0,80 Z" fill="var(--sand)"/>
-  </svg>
-</header>
-
-<main class="masonry" id="masonry"></main>
-
-<div class="lightbox" id="lightbox">
-  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
-  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Précédent">&lsaquo;</button>
-  <img class="lb-img" id="lbImg" alt="">
-  <div class="lb-caption" id="lbCaption"></div>
-  <button class="lb-arrow lb-next" id="lbNext" aria-label="Suivant">&rsaquo;</button>
 </div>
 
-<section class="cta">
-  <svg class="wave-divider wave-top" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,48 C240,0 480,80 720,40 C960,0 1200,56 1440,16 L1440,0 L0,0 Z" fill="var(--sand)"/>
+<header class="site-header" id="siteHeader">
+  <a href="#top" class="brand">MAX<span>LANANAS</span></a>
+  <nav class="main-nav">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="header-socials">
+    <a href="https://github.com/MaxLananas" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07Zm0 5.35a4.49 4.49 0 1 0 0 8.98 4.49 4.49 0 0 0 0-8.98Zm0 7.4a2.92 2.92 0 1 1 0-5.83 2.92 2.92 0 0 1 0 5.83Zm4.66-7.58a1.05 1.05 0 1 0 0-2.1 1.05 1.05 0 0 0 0 2.1Z"/></svg>
+    </a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" id="hero">
+  <div class="hero-orb orb-1" data-parallax="0.15"></div>
+  <div class="hero-orb orb-2" data-parallax="0.25"></div>
+  <div class="hero-orb orb-3" data-parallax="0.1"></div>
+  <svg class="hero-grid-deco" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M0 100 H200 M100 0 V200" stroke="currentColor" stroke-width="0.4"/>
+    <circle cx="100" cy="100" r="60" stroke="currentColor" stroke-width="0.4" fill="none"/>
   </svg>
-  <div class="cta-inner">
-    <span class="cta-eyebrow">🌴 Disponible pour des projets</span>
-    <h2>On construit ton île&nbsp;?</h2>
-    <p>Builds sur-mesure, reconstructions 1:1, outils de dev — livrés avec le sourire.</p>
-    <button class="cta-btn" id="openCommission">Contacte-moi</button>
+
+  <p class="hero-eyebrow" data-reveal>Digital Architecture Studio — Est. Block by Block</p>
+  <h1 class="hero-title">
+    <span class="line" data-reveal>BUILDING</span>
+    <span class="line grad-text" data-reveal>IMPOSSIBLE</span>
+    <span class="line" data-reveal>WORLDS</span>
+  </h1>
+  <p class="hero-sub" data-reveal>MaxLananas crafts 1:1 recreations, monumental spawns and organic terraforming — engineered like architecture, rendered like art.</p>
+
+  <div class="hero-actions" data-reveal>
+    <a href="#contact" class="btn-primary">
+      Start a Project
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <a href="#work" class="btn-ghost">View the Portfolio</a>
+  </div>
+
+  <div class="scroll-cue" data-reveal><span></span>Scroll</div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>1:1 SCALE&nbsp;✦&nbsp;TERRAFORMING&nbsp;✦&nbsp;SPAWN DESIGN&nbsp;✦&nbsp;WORLDEDIT&nbsp;✦&nbsp;REDSTONE ENGINEERING&nbsp;✦&nbsp;EVENT MAPS&nbsp;✦&nbsp;</span>
+    <span>1:1 SCALE&nbsp;✦&nbsp;TERRAFORMING&nbsp;✦&nbsp;SPAWN DESIGN&nbsp;✦&nbsp;WORLDEDIT&nbsp;✦&nbsp;REDSTONE ENGINEERING&nbsp;✦&nbsp;EVENT MAPS&nbsp;✦&nbsp;</span>
+  </div>
+</div>
+
+<section class="stats">
+  <div class="stat" data-reveal><span class="stat-num" id="statBuilds">0</span><span class="stat-label">Builds Delivered</span></div>
+  <div class="stat" data-reveal><span class="stat-num" data-count="4">0</span><span class="stat-label">Featured Collabs</span></div>
+  <div class="stat" data-reveal><span class="stat-num" data-count="24">0</span><span class="stat-label">Hour Response</span></div>
+  <div class="stat" data-reveal><span class="stat-num" data-count="100">0</span><span class="stat-label">% Custom Work</span></div>
+</section>
+
+<section class="gallery" id="work">
+  <div class="gallery-ambient" id="galleryAmbient" aria-hidden="true"></div>
+  <div class="gallery-head">
+    <span class="section-tag" data-reveal>Selected Works</span>
+    <h2 data-reveal>THE <span class="grad-text">PORTFOLIO</span></h2>
+    <p data-reveal>A journey across monuments, event spawns, organic landscapes and collaborative megaprojects — each plate numbered like an architectural archive.</p>
+  </div>
+  <div class="bento" id="bento"></div>
+</section>
+
+<section class="process" id="process">
+  <span class="section-tag" data-reveal>How it works</span>
+  <h2 data-reveal>FROM <span class="grad-text">BRIEF</span> TO <span class="grad-text">BLOCK</span></h2>
+  <div class="process-grid">
+    <div class="process-card" data-reveal>
+      <span class="process-num">01</span>
+      <h3>Brief</h3>
+      <p>You describe the vision — a real place, a spawn concept, a full server world.</p>
+    </div>
+    <div class="process-card" data-reveal>
+      <span class="process-num">02</span>
+      <h3>Quote</h3>
+      <p>Transparent scope, timeline and pricing sent within 24 to 48 hours.</p>
+    </div>
+    <div class="process-card" data-reveal>
+      <span class="process-num">03</span>
+      <h3>Build</h3>
+      <p>Progress shots, WorldEdit precision, and constant back-and-forth with you.</p>
+    </div>
+    <div class="process-card" data-reveal>
+      <span class="process-num">04</span>
+      <h3>Delivery</h3>
+      <p>Final render pass, schematic handoff or direct server integration.</p>
+    </div>
   </div>
 </section>
 
-<footer class="footer">MaxLananas &copy; 2026 · fait avec 🍍 et du café glacé</footer>
+<section class="contact" id="contact">
+  <div class="contact-bg" aria-hidden="true"></div>
+  <span class="section-tag light" data-reveal>Let's Build</span>
+  <h2 class="contact-title" data-reveal>READY TO CLAIM<br>YOUR <span class="grad-text-invert">TERRITORY?</span></h2>
+  <p data-reveal>Custom builds, 1:1 recreations, event spawns and dev tools — commissioned directly, delivered fast.</p>
 
-<button class="fab-top" id="fabTop" aria-label="Retour en haut">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
+  <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="btn-massive" data-reveal>
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.9-1.52.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.26a18.3 18.3 0 0 0-5.46 0 12.6 12.6 0 0 0-.62-1.26.07.07 0 0 0-.08-.04c-1.7.3-3.36.8-4.9 1.52a.07.07 0 0 0-.03.03C.98 8.6.28 12.7.62 16.75a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 6 3.03.07.07 0 0 0 .08-.03c.46-.63.87-1.3 1.23-2a.07.07 0 0 0-.04-.1 13.1 13.1 0 0 1-1.87-.9.07.07 0 0 1 0-.12c.12-.1.25-.2.37-.29a.07.07 0 0 1 .07 0c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .07 0c.12.1.25.2.37.29a.07.07 0 0 1 0 .12c-.6.35-1.22.65-1.87.9a.07.07 0 0 0-.04.1c.36.7.78 1.37 1.23 2a.07.07 0 0 0 .08.03 19.85 19.85 0 0 0 6.02-3.03.07.07 0 0 0 .03-.06c.4-4.68-.67-8.74-2.85-12.35a.06.06 0 0 0-.03-.03ZM8.68 14.3c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.95 2.42-2.15 2.42Zm6.65 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.94 2.42-2.15 2.42Z"/></svg>
+    Open a Discord Ticket
+  </a>
 
-<div class="modal-overlay" id="commissionModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
-    <span class="modal-eyebrow">🥥 Devis gratuit</span>
-    <h2 id="modalTitle">Construisons quelque chose ensemble</h2>
-    <p class="modal-lead">Builds Minecraft sur-mesure et développement. Réponse sous 24 à 48h.</p>
-
-    <div class="modal-services">
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
-        <span class="service-name">1:1 Scale</span>
-        <span class="service-desc">Reconstruction fidèle de lieux réels</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
-        <span class="service-name">Spawn / Event</span>
-        <span class="service-desc">Zones de jeu, lobbies, maps d'événement</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 4 9 4 14a8 8 0 0 0 16 0c0-5-4-8-8-12Z"/></svg>
-        <span class="service-name">Organique</span>
-        <span class="service-desc">Terraforming, nature, environnements</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
-        <span class="service-name">Dev / Outils</span>
-        <span class="service-desc">Sites, plugins, outils sur-mesure</span>
-      </div>
+  <div class="services-row" data-reveal>
+    <div class="service-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+      <div><strong>1:1 Scale</strong><span>Faithful real-world recreation</span></div>
     </div>
-
-    <div class="modal-process">
-      <div class="step"><span class="step-num">01</span><span class="step-label">Brief</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">02</span><span class="step-label">Devis</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">03</span><span class="step-label">Build</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">04</span><span class="step-label">Livraison</span></div>
+    <div class="service-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+      <div><strong>Spawn / Event</strong><span>Lobbies, maps, event zones</span></div>
     </div>
-
-    <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="modal-cta">Ouvrir un ticket Discord</a>
-    <p class="modal-note">Devis gratuit &middot; Tarifs transparents &middot; Suivi de projet</p>
+    <div class="service-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 4 9 4 14a8 8 0 0 0 16 0c0-5-4-8-8-12Z"/></svg>
+      <div><strong>Organic</strong><span>Terraforming, nature, biomes</span></div>
+    </div>
+    <div class="service-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
+      <div><strong>Dev / Tools</strong><span>Sites, plugins, pipelines</span></div>
+    </div>
   </div>
+</section>
+
+</main>
+
+<footer class="site-footer" id="siteFooter">
+  <svg class="wave-svg wave-back" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,160 C240,260 480,60 720,120 C960,180 1200,260 1440,140 L1440,320 L0,320 Z"/>
+  </svg>
+  <svg class="wave-svg wave-front" viewBox="0 0 1440 320" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,200 C300,100 600,260 900,160 C1150,80 1300,180 1440,120 L1440,320 L0,320 Z"/>
+  </svg>
+
+  <div class="footer-content">
+    <div class="footer-brand">MAX<span>LANANAS</span></div>
+    <div class="footer-socials">
+      <a href="https://github.com/MaxLananas" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
+      </a>
+      <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" aria-label="Discord">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.9-1.52.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.26a18.3 18.3 0 0 0-5.46 0 12.6 12.6 0 0 0-.62-1.26.07.07 0 0 0-.08-.04c-1.7.3-3.36.8-4.9 1.52a.07.07 0 0 0-.03.03C.98 8.6.28 12.7.62 16.75a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 6 3.03.07.07 0 0 0 .08-.03c.46-.63.87-1.3 1.23-2a.07.07 0 0 0-.04-.1 13.1 13.1 0 0 1-1.87-.9.07.07 0 0 1 0-.12c.12-.1.25-.2.37-.29a.07.07 0 0 1 .07 0c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .07 0c.12.1.25.2.37.29a.07.07 0 0 1 0 .12c-.6.35-1.22.65-1.87.9a.07.07 0 0 0-.04.1c.36.7.78 1.37 1.23 2a.07.07 0 0 0 .08.03 19.85 19.85 0 0 0 6.02-3.03.07.07 0 0 0 .03-.06c.4-4.68-.67-8.74-2.85-12.35a.06.06 0 0 0-.03-.03ZM8.68 14.3c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.95 2.42-2.15 2.42Zm6.65 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.94 2.42-2.15 2.42Z"/></svg>
+      </a>
+      <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07Zm0 5.35a4.49 4.49 0 1 0 0 8.98 4.49 4.49 0 0 0 0-8.98Zm0 7.4a2.92 2.92 0 1 1 0-5.83 2.92 2.92 0 0 1 0 5.83Zm4.66-7.58a1.05 1.05 0 1 0 0-2.1 1.05 1.05 0 0 0 0 2.1Z"/></svg>
+      </a>
+    </div>
+    <div class="footer-credits" id="footerCredits"></div>
+    <p class="footer-copy">© 2026 MaxLananas — Crafted block by block.</p>
+  </div>
+</footer>
+
+<div class="discord-float" id="discordFloat">
+  <svg class="df-ring" viewBox="0 0 64 64" aria-hidden="true">
+    <circle class="df-ring-bg" cx="32" cy="32" r="29"/>
+    <circle class="df-ring-fg" id="dfRingFg" cx="32" cy="32" r="29"/>
+  </svg>
+  <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="df-btn" aria-label="Commission a build on Discord">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.9-1.52.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.26a18.3 18.3 0 0 0-5.46 0 12.6 12.6 0 0 0-.62-1.26.07.07 0 0 0-.08-.04c-1.7.3-3.36.8-4.9 1.52a.07.07 0 0 0-.03.03C.98 8.6.28 12.7.62 16.75a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 6 3.03.07.07 0 0 0 .08-.03c.46-.63.87-1.3 1.23-2a.07.07 0 0 0-.04-.1 13.1 13.1 0 0 1-1.87-.9.07.07 0 0 1 0-.12c.12-.1.25-.2.37-.29a.07.07 0 0 1 .07 0c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .07 0c.12.1.25.2.37.29a.07.07 0 0 1 0 .12c-.6.35-1.22.65-1.87.9a.07.07 0 0 0-.04.1c.36.7.78 1.37 1.23 2a.07.07 0 0 0 .08.03 19.85 19.85 0 0 0 6.02-3.03.07.07 0 0 0 .03-.06c.4-4.68-.67-8.74-2.85-12.35a.06.06 0 0 0-.03-.03ZM8.68 14.3c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.95 2.42-2.15 2.42Zm6.65 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.94 2.42-2.15 2.42Z"/></svg>
+    <span class="df-label">Commission a Build</span>
+  </a>
 </div>
 
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+  </button>
+  <img class="lb-img" id="lbImg" alt="">
+  <div class="lb-caption" id="lbCaption"></div>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
+</div>
+
+<script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js" defer></script>
 <script src="script.js" defer></script>
 </body>
 </html>
