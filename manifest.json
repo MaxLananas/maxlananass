@@ -1,11 +1,11 @@
 {
-  "name": "MaxLananas — Portfolio",
+  "name": "MaxLananas — Minecraft Builder Portfolio",
   "short_name": "MaxLananas",
-  "description": "Builds Minecraft 1:1 et créations tropicales.",
+  "description": "Custom 1:1 Minecraft recreations, spawns, terraforming and dev tools.",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#FFF7EA",
-  "theme_color": "#FF6F59",
+  "background_color": "#0a0a0b",
+  "theme_color": "#0a0a0b",
   "icons": [
     { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
   ]
