@@ -78,16 +78,16 @@ const FILES = [
   { name: "2026-07-02_16.20.56.png", tags: [] },
   { name: "2026-07-06_21.59.15_4K.png", tags: [] },
   { name: "2026-07-06_21.59.35_4K.png", credit: "bte", tags: [] },
-  { name: "chateau_loire.png", credit: "endorah", tags: [] },
-  { name: "circuit24hdumans.jpg", credit: "bte", tags: [] },
-  { name: "larresingle.jpg", credit: "bte", tags: [] },
-  { name: "little-bridge.png", credit: "bte", tags: [] },
-  { name: "maisonbois.png", tags: [] },
-  { name: "Mt_Blanc_cut.png", tags: [] },
-  { name: "Ocapiat-01.png", credit: "endorah", tags: [] },
-  { name: "Parentis.png", tags: [] },
-  { name: "pontneufv1.png", tags: [] },
-  { name: "potfleur.png", tags: [] },
+  { name: "chateau_loire.png", credit: "endorah", tags: ["chateau","château","castle","loire","val de loire","france","medieval","médiéval","tour","tower","renaissance","royal","palace","palais","pierre","stone","jardin","garden","monument","architecture"] },
+  { name: "circuit24hdumans.jpg", credit: "bte", tags: ["circuit","race track","piste","course","24h","24 heures","le mans","lemans","endurance","voiture","car","racing","tribune","grandstand","asphalte","virage","corner","motorsport","france","buildtheearth"] },
+  { name: "larresingle.jpg", credit: "bte", tags: ["larressingle","village","fortifie","fortified","gers","france","medieval","médiéval","remparts","walls","pierre","stone","chateau","occitanie","historique","historical","tourisme","tourism","plus beaux villages","buildtheearth"] },
+  { name: "little-bridge.png", credit: "bte", tags: ["bridge","pont","small bridge","petit pont","riviere","river","eau","water","pierre","stone","arche","arch","campagne","countryside","nature","paysage","landscape","rural","chemin","path"] },
+  { name: "maisonbois.png", tags: ["maison","house","maison en bois","wooden house","bois","wood","cabane","cabin","chalet","foret","forest","nature","rural","campagne","architecture","construction","timber","toit","roof","fenetre"] },
+  { name: "Mt_Blanc_cut.png", tags: ["mont blanc","montagne","mountain","alpes","alps","neige","snow","sommet","summit","glacier","france","chamonix","ski","hiver","winter","paysage","landscape","terraforming","nature","altitude"] },
+  { name: "Ocapiat-01.png", credit: "endorah", tags: ["ocapiat","batiment","building","entreprise","company","bureau","office","formation","training","agriculture","professionnel","professional","moderne","modern","architecture","facade","siege social","headquarters","endorah","corporate"] },
+  { name: "Parentis.png", tags: ["parentis","parentis-en-born","landes","france","village","ville","town","lac","lake","foret","forest","nature","campagne","occitanie","sud-ouest","southwest","paysage","landscape","terraforming","aquitaine"] },
+  { name: "pontneufv1.png", tags: ["pont neuf","pont","bridge","paris","france","seine","riviere","river","pierre","stone","monument","historique","historical","architecture","capitale","capital","tourisme","tourism","patrimoine","heritage"] },
+  { name: "potfleur.png", tags: ["pot de fleur","flower pot","fleur","flower","plante","plant","jardin","garden","decoration","deco","ceramique","ceramic","terre cuite","nature","botanique","botanic","jardinage","gardening","detail","prop"] },
   { name: "sans_nom-2-1.jpg", credit: "bte", tags: [] },
   { name: "Shot_01.jpg", credit: "endorah", tags: [] },
   { name: "Shot_03.1.jpg", credit: "endorah", tags: [] },
@@ -95,17 +95,17 @@ const FILES = [
   { name: "Shot_06.2.png", credit: "endorah", tags: [] },
   { name: "Slide_1.png", credit: "mrbeast", tags: [] },
   { name: "Slide_2.png", credit: "mrbeast", tags: [] },
-  { name: "spawnfight4glory.jpg", credit: "fight4glory", tags: [] },
-  { name: "Streaming-768x432.jpg", credit: "endorah", tags: [] },
+  { name: "spawnfight4glory.jpg", credit: "fight4glory", tags: ["fight4glory","spawn","event","evenement","lobby","competition","tournoi","tournament","minecraft event","map","arena","arene","pvp","jeu","game","plateforme","platform","esport","communaute","community"] },
+  { name: "Streaming-768x432.jpg", credit: "endorah", tags: ["streaming","stream","setup","studio","twitch","youtube","live","camera","microphone","micro","ecran","screen","gaming","jeu video","video game","contenu","content","createur","creator","endorah"] },
   { name: "untitled-2.jpg", credit: "bte", tags: [] },
   { name: "untitled.jpg", tags: [] },
   { name: "untitled3-2.jpg", credit: "bte", tags: [] },
   { name: "untitled3.jpg", tags: [] },
-  { name: "CIRCUITxDIRIGEABLE.jpg", credit: "bte", tags: [] },
-  { name: "Larressingle.png", credit: "bte", tags: [] },
-  { name: "Lemans_-_france5.jpg", credit: "bte", tags: [] },
-  { name: "Lemans_-_large.png", credit: "bte", tags: [] },
-  { name: "Occi.png", credit: "bte", tags: [] },
+  { name: "CIRCUITxDIRIGEABLE.jpg", credit: "bte", tags: ["circuit","dirigeable","airship","blimp","course","race","piste","track","aerien","aerial","zeppelin","transport","vehicule","vehicle","motorsport","futuriste","futuristic","evenement","buildtheearth","ciel"] },
+  { name: "Larressingle.png", credit: "bte", tags: ["larressingle","village","fortifie","fortified","gers","france","medieval","médiéval","remparts","walls","pierre","stone","chateau","occitanie","historique","historical","plus beaux villages","tourisme","buildtheearth","village medieval"] },
+  { name: "Lemans_-_france5.jpg", credit: "bte", tags: ["le mans","lemans","france","circuit","course","race","24 heures","24h","endurance","sarthe","ville","town","monument","architecture","motorsport","tribune","grandstand","buildtheearth","patrimoine","heritage"] },
+  { name: "Lemans_-_large.png", credit: "bte", tags: ["le mans","lemans","france","circuit","ville","town","sarthe","panorama","vue large","wide view","24 heures","24h","endurance","urbanisme","urban planning","architecture","monument","buildtheearth","terraforming","patrimoine"] },
+  { name: "Occi.png", credit: "bte", tags: ["occitanie","occitania","region","france","sud","south","paysage","landscape","terraforming","territoire","territory","carte","map","geographie","geography","buildtheearth","sud-ouest","southwest","montagne","campagne","Corse","1:1"] },
   { name: "untitled11.jpg", credit: "bte", tags: [] },
   { name: "untitled13.jpg", credit: "bte", tags: [] },
   { name: "untitled18.jpg", credit: "bte", tags: [] }
@@ -120,11 +120,11 @@ FILES.forEach((f) => { f.ts = parseDateFromFilename(f.name); });
 
 function getConnectionProfile() {
   const c = navigator.connection;
-  if (!c) return { scale: 1, quality: 80 };
-  if (c.saveData) return { scale: .55, quality: 58 };
-  if (c.effectiveType === "2g" || c.effectiveType === "slow-2g") return { scale: .55, quality: 55 };
-  if (c.effectiveType === "3g") return { scale: .8, quality: 66 };
-  return { scale: 1, quality: 80 };
+  if (!c) return { scale: 1, quality: 80, concurrency: 6 };
+  if (c.saveData) return { scale: .55, quality: 58, concurrency: 2 };
+  if (c.effectiveType === "2g" || c.effectiveType === "slow-2g") return { scale: .55, quality: 55, concurrency: 2 };
+  if (c.effectiveType === "3g") return { scale: .8, quality: 66, concurrency: 4 };
+  return { scale: 1, quality: 80, concurrency: 6 };
 }
 
 function buildImageUrl(filename, width, quality) {
@@ -142,7 +142,42 @@ function shuffledIndices(len) {
   return arr;
 }
 
+class LoadQueue {
+  constructor(maxConcurrent) {
+    this.maxConcurrent = maxConcurrent;
+    this.active = new Map();
+    this.queue = [];
+  }
+  enqueue(key, priority, task) {
+    if (this.active.has(key)) return;
+    this.queue = this.queue.filter((item) => item.key !== key);
+    this.queue.push({ key, priority, task });
+    this.queue.sort((a, b) => a.priority - b.priority);
+    this._process();
+  }
+  cancel(key) {
+    this.queue = this.queue.filter((item) => item.key !== key);
+    const controller = this.active.get(key);
+    if (controller) controller.abort();
+  }
+  _process() {
+    while (this.active.size < this.maxConcurrent && this.queue.length) {
+      const next = this.queue.shift();
+      const controller = new AbortController();
+      this.active.set(next.key, controller);
+      Promise.resolve()
+        .then(() => next.task(controller.signal))
+        .catch(() => {})
+        .finally(() => {
+          this.active.delete(next.key);
+          this._process();
+        });
+    }
+  }
+}
+
 const profile = getConnectionProfile();
+const gridQueue = new LoadQueue(profile.concurrency);
 const tileRefs = [];
 const SORT_MODES = ["featured", "newest", "oldest"];
 let sortModeIndex = 0;
@@ -157,6 +192,7 @@ const masonry = document.getElementById("masonry");
 const resultsCount = document.getElementById("resultsCount");
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
+const lbSpinner = document.getElementById("lbSpinner");
 const lbCaption = document.getElementById("lbCaption");
 const lbClose = document.getElementById("lbClose");
 const lbPrev = document.getElementById("lbPrev");
@@ -203,39 +239,64 @@ function debounce(fn, delay) {
   return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
 }
 
-function loadTileImage(img, tile, index) {
+async function loadTileImage(img, tile, index, signal) {
   const item = FILES[index];
-  const full = new Image();
-  full.src = buildImageUrl(item.name, computeLoadWidth(), profile.quality);
-  full.onload = () => {
-    img.src = full.src;
-    img.classList.add("loaded");
-    if (full.naturalWidth && full.naturalHeight) {
-      tile.style.aspectRatio = full.naturalWidth + " / " + full.naturalHeight;
+  const width = computeLoadWidth();
+  const url = buildImageUrl(item.name, width, profile.quality);
+
+  try {
+    const response = await fetch(url, { signal, mode: "cors" });
+    if (!response.ok) throw new Error("bad response");
+    const blob = await response.blob();
+    if (signal.aborted) return;
+
+    let ratio = null;
+    if ("createImageBitmap" in window) {
+      try {
+        const bitmap = await createImageBitmap(blob);
+        ratio = bitmap.width + " / " + bitmap.height;
+        bitmap.close();
+      } catch (_) {}
     }
-  };
-  full.onerror = () => {
-    img.src = RELEASE_BASE + encodeURIComponent(item.name);
+    if (signal.aborted) return;
+
+    const objectUrl = URL.createObjectURL(blob);
+    img.src = objectUrl;
+    if (ratio) tile.style.aspectRatio = ratio;
     img.classList.add("loaded");
-  };
+    observer.unobserve(img);
+  } catch (err) {
+    if (signal.aborted) return;
+    img.onerror = () => {
+      img.src = RELEASE_BASE + encodeURIComponent(item.name);
+      img.classList.add("loaded");
+      observer.unobserve(img);
+    };
+    img.onload = () => { img.classList.add("loaded"); observer.unobserve(img); };
+    img.src = url;
+  }
 }
 
 function initObserver() {
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
       const img = entry.target;
       const index = Number(img.dataset.index);
       const tile = img.closest(".tile");
-      loadTileImage(img, tile, index);
-      observer.unobserve(img);
+      const key = "grid-" + index;
+
+      if (entry.isIntersecting) {
+        if (img.classList.contains("loaded")) return;
+        const priority = Math.abs(entry.boundingClientRect.top);
+        gridQueue.enqueue(key, priority, (signal) => loadTileImage(img, tile, index, signal));
+      } else if (!img.classList.contains("loaded")) {
+        gridQueue.cancel(key);
+      }
     });
   }, { rootMargin: "400px 0px" });
 }
 
-function altFor(item) {
-  return "Minecraft build by MaxLananas";
-}
+function altFor() { return "Minecraft build by MaxLananas"; }
 
 function buildGrid() {
   refreshColumnWidth();
@@ -258,7 +319,7 @@ function buildGrid() {
     tile.appendChild(plate);
 
     const img = document.createElement("img");
-    img.alt = altFor(item);
+    img.alt = altFor();
     img.decoding = "async";
     img.dataset.index = index;
     tile.appendChild(img);
@@ -270,11 +331,7 @@ function buildGrid() {
 
   masonry.appendChild(fragment);
 
-  const imgs = masonry.querySelectorAll(".tile img");
-  imgs.forEach((img, i) => {
-    if (i < 6) loadTileImage(img, img.closest(".tile"), i);
-    else observer.observe(img);
-  });
+  masonry.querySelectorAll(".tile img").forEach((img) => observer.observe(img));
 
   applyOrder();
   applyFilters();
@@ -327,10 +384,52 @@ function applyFilters() {
   resultsCount.textContent = "Showing " + visibleCount + " of " + FILES.length + " builds";
 }
 
+let lightboxController = null;
+let lightboxToken = 0;
+
+async function loadLightboxImage(index) {
+  const myToken = ++lightboxToken;
+  if (lightboxController) lightboxController.abort();
+  lightboxController = new AbortController();
+  const signal = lightboxController.signal;
+
+  lbImg.classList.remove("loaded");
+  lbSpinner.hidden = false;
+
+  const item = FILES[index];
+  const url = buildImageUrl(item.name, 1600, 85);
+
+  try {
+    const response = await fetch(url, { signal, mode: "cors" });
+    if (!response.ok) throw new Error("bad response");
+    const blob = await response.blob();
+    if (myToken !== lightboxToken) return;
+    const objectUrl = URL.createObjectURL(blob);
+    lbImg.onload = () => {
+      if (myToken !== lightboxToken) return;
+      lbImg.classList.add("loaded");
+      lbSpinner.hidden = true;
+    };
+    lbImg.src = objectUrl;
+  } catch (err) {
+    if (signal.aborted || myToken !== lightboxToken) return;
+    lbImg.onload = () => {
+      if (myToken !== lightboxToken) return;
+      lbImg.classList.add("loaded");
+      lbSpinner.hidden = true;
+    };
+    lbImg.onerror = () => {
+      if (myToken !== lightboxToken) return;
+      lbImg.src = RELEASE_BASE + encodeURIComponent(item.name);
+    };
+    lbImg.src = url;
+  }
+}
+
 function renderLightbox() {
   const item = FILES[currentIndex];
-  lbImg.src = buildImageUrl(item.name, 1600, 85);
-  lbImg.alt = altFor(item);
+  lbImg.alt = altFor();
+  loadLightboxImage(currentIndex);
 
   [currentIndex - 1, currentIndex + 1].forEach((i) => {
     const n = ((i % FILES.length) + FILES.length) % FILES.length;
@@ -358,6 +457,9 @@ function openLightbox(index) {
 }
 
 function closeLightbox() {
+  if (lightboxController) lightboxController.abort();
+  lightboxToken++;
+  lbSpinner.hidden = true;
   lightbox.classList.remove("open");
   document.body.style.overflow = "";
 }
@@ -435,6 +537,7 @@ sortToggle.addEventListener("click", () => {
 function openDensityPopover() {
   const rect = densityToggle.getBoundingClientRect();
   densityPopover.style.top = (rect.bottom + 10) + "px";
+  densityPopover.style.left = "auto";
   densityPopover.style.right = (window.innerWidth - rect.right) + "px";
   densityPopover.hidden = false;
   densityToggle.setAttribute("aria-expanded", "true");
@@ -451,7 +554,9 @@ densityToggle.addEventListener("click", () => {
 });
 
 document.addEventListener("click", (e) => {
-  if (!densityPopover.hidden && !e.target.closest(".popover-wrap")) closeDensityPopover();
+  if (densityPopover.hidden) return;
+  if (densityPopover.contains(e.target) || densityToggle.contains(e.target)) return;
+  closeDensityPopover();
 });
 
 document.addEventListener("keydown", (e) => {
