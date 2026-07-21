@@ -1,5 +1,5 @@
-const STATIC_CACHE = "maxlananas-static-v4";
-const IMAGE_CACHE = "maxlananas-images-v4";
+const STATIC_CACHE = "maxlananas-static-v5";
+const IMAGE_CACHE = "maxlananas-images-v5";
 const IMAGE_CACHE_LIMIT = 90;
 
 const STATIC_ASSETS = ["./", "./index.html", "./style.css", "./script.js", "./FFFlauta-200.otf", "./apple-touch-icon.png", "./manifest.json"];
