@@ -1,30 +1,10 @@
 const RELEASE_BASE = "https://github.com/MaxLananas/Asset-Portfolio/releases/download/images-v1/";
 
 const CREDITS = {
-  bte: {
-    text: "Réalisation collective dans le cadre du projet",
-    linkText: "BuildTheEarth France",
-    linkUrl: null,
-    logo: "Logo_BTE_France-3632312792.png"
-  },
-  endorah: {
-    text: "Réalisé en tant que bénévole au sein de l'association loi 1901",
-    linkText: "Endorah",
-    linkUrl: "https://endorah.net/",
-    logo: "cropped-500x500Endorah_-_Copie-2322200814.png"
-  },
-  fight4glory: {
-    text: "Réalisé pour l'événement",
-    linkText: "Fight4Glory",
-    linkUrl: null,
-    logo: "image_v2-Photoroom.png"
-  },
-  mrbeast: {
-    text: "Collaboration de 10 builders représentant la France dans une vidéo de",
-    linkText: "MrBeast",
-    linkUrl: "https://www.youtube.com/watch?v=qTMKHZelGAs",
-    logo: "1701523229mr-beast-logo-transparent-background-2847774365.png"
-  }
+  bte: { text: "Realized within the", linkText: "BuildTheEarth France", linkUrl: null, logo: "Logo_BTE_France-3632312792.png" },
+  endorah: { text: "Volunteer build for the non-profit", linkText: "Endorah", linkUrl: "https://endorah.net/", logo: "cropped-500x500Endorah_-_Copie-2322200814.png" },
+  fight4glory: { text: "Built for the event", linkText: "Fight4Glory", linkUrl: null, logo: "image_v2-Photoroom.png" },
+  mrbeast: { text: "10-builder collaboration featured in a video by", linkText: "MrBeast", linkUrl: "https://www.youtube.com/watch?v=qTMKHZelGAs", logo: "1701523229mr-beast-logo-transparent-background-2847774365.png" }
 };
 
 const FILES = [
@@ -131,7 +111,10 @@ const FILES = [
   { name: "untitled18.jpg", credit: "bte" }
 ];
 
+const TAGS = ["1:1 SCALE", "TERRAFORM", "SPAWN", "REDSTONE", "EVENT MAP", "ORGANIC", "MEGAPROJECT", "COLLAB"];
+
 let IMG_FORMAT = "webp";
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function detectAvif() {
   return new Promise((resolve) => {
@@ -153,12 +136,7 @@ function getConnectionProfile() {
 
 function buildImageUrl(filename, width, quality, forceFormat) {
   const source = RELEASE_BASE + encodeURIComponent(filename);
-  const params = new URLSearchParams({
-    url: source,
-    w: Math.max(16, Math.round(width)),
-    output: forceFormat || IMG_FORMAT,
-    q: quality
-  });
+  const params = new URLSearchParams({ url: source, w: Math.max(16, Math.round(width)), output: forceFormat || IMG_FORMAT, q: quality });
   return "https://wsrv.nl/?" + params.toString();
 }
 
@@ -174,31 +152,71 @@ const items = shuffle([...FILES]);
 const loadedIndexes = new Set();
 const profile = getConnectionProfile();
 
-const masonry = document.getElementById("masonry");
+const bento = document.getElementById("bento");
 const lightbox = document.getElementById("lightbox");
 const lbImg = document.getElementById("lbImg");
 const lbCaption = document.getElementById("lbCaption");
 const lbClose = document.getElementById("lbClose");
 const lbPrev = document.getElementById("lbPrev");
 const lbNext = document.getElementById("lbNext");
-const modal = document.getElementById("commissionModal");
-const openModalBtn = document.getElementById("openCommission");
-const modalClose = document.getElementById("modalClose");
-const fabTop = document.getElementById("fabTop");
+const preloader = document.getElementById("preloader");
+const preCount = document.getElementById("preCount");
+const progressBar = document.getElementById("progressBar");
+const siteHeader = document.getElementById("siteHeader");
+const cursorDot = document.getElementById("cursorDot");
+const cursorRing = document.getElementById("cursorRing");
+const cursorRingText = document.getElementById("cursorRingText");
+const galleryAmbient = document.getElementById("galleryAmbient");
+const gallerySection = document.getElementById("work");
+const statBuilds = document.getElementById("statBuilds");
+const footerCredits = document.getElementById("footerCredits");
+const dfRingFg = document.getElementById("dfRingFg");
 
 let currentIndex = 0;
 let observer;
 let touchStartX = 0;
+let lenis = null;
+
+const PATTERNS = {
+  desktop: [[2,2],[1,1],[1,2],[2,1],[1,1],[1,1],[2,2],[1,1],[1,1],[2,1],[1,2],[1,1]],
+  tablet: [[2,2],[1,1],[1,1],[2,1],[1,2],[1,1],[1,1],[2,1]],
+  mobile: [[2,2],[2,1],[2,1],[1,1],[1,1],[2,1]]
+};
+
+function currentBreakpoint() {
+  const w = window.innerWidth;
+  if (w < 640) return "mobile";
+  if (w < 1024) return "tablet";
+  return "desktop";
+}
+
+function applyPattern() {
+  const bp = currentBreakpoint();
+  const pattern = PATTERNS[bp];
+  const cols = bp === "mobile" ? 2 : bp === "tablet" ? 4 : 6;
+  bento.style.setProperty("--cols", cols);
+  const tiles = bento.querySelectorAll(".bento-item");
+  tiles.forEach((tile, i) => {
+    const [c, r] = pattern[i % pattern.length];
+    tile.style.setProperty("--sc", Math.min(c, cols));
+    tile.style.setProperty("--sr", r);
+  });
+}
+
+function debounce(fn, delay) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
+}
 
 function tileWidth(el) {
-  const w = el.getBoundingClientRect().width || 250;
+  const w = el.getBoundingClientRect().width || 300;
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  return Math.min(900, Math.round(w * dpr * profile.scale / 40) * 40);
+  return Math.min(1000, Math.round(w * dpr * profile.scale / 40) * 40);
 }
 
 function upgradeTile(img, item, baseWidth) {
   if (!profile.upgrade) return;
-  const hiWidth = Math.min(1000, baseWidth * 2);
+  const hiWidth = Math.min(1100, baseWidth * 2);
   const hi = new Image();
   hi.onload = () => { img.src = hi.src; };
   hi.src = buildImageUrl(item.name, hiWidth, 88);
@@ -210,7 +228,7 @@ function scheduleIdleUpgrades() {
     const idx = [...loadedIndexes].shift();
     if (idx === undefined) return;
     loadedIndexes.delete(idx);
-    const tile = masonry.children[idx];
+    const tile = bento.children[idx];
     if (!tile) return scheduleIdleUpgrades();
     const rect = tile.getBoundingClientRect();
     if (rect.bottom < -800 || rect.top > window.innerHeight + 800) return scheduleIdleUpgrades();
@@ -220,24 +238,6 @@ function scheduleIdleUpgrades() {
   };
   if ("requestIdleCallback" in window) requestIdleCallback(run, { timeout: 2000 });
   else setTimeout(run, 500);
-}
-
-function attachCreditBadge(tile, item) {
-  if (!item.credit) return;
-  const c = CREDITS[item.credit];
-  if (!c) return;
-  const badge = document.createElement("div");
-  badge.className = "credit-badge";
-  const logo = document.createElement("img");
-  logo.src = c.logo;
-  logo.alt = "";
-  logo.loading = "lazy";
-  logo.decoding = "async";
-  const label = document.createElement("span");
-  label.textContent = c.linkText;
-  badge.appendChild(logo);
-  badge.appendChild(label);
-  tile.appendChild(badge);
 }
 
 function loadTileImage(img, tile, index) {
@@ -252,9 +252,7 @@ function loadTileImage(img, tile, index) {
     loadedIndexes.add(index);
   };
   full.onerror = () => {
-    const raw = RELEASE_BASE + encodeURIComponent(item.name);
-    img.onerror = () => { tile.classList.add("is-loaded"); };
-    img.src = raw;
+    img.src = RELEASE_BASE + encodeURIComponent(item.name);
     img.classList.add("loaded");
     tile.classList.add("is-loaded");
   };
@@ -263,44 +261,102 @@ function loadTileImage(img, tile, index) {
 function initObserver() {
   observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
       const img = entry.target;
       const index = Number(img.dataset.index);
-      const tile = img.closest(".tile");
-      loadTileImage(img, tile, index);
-      observer.unobserve(img);
+      const tile = img.closest(".bento-item");
+      if (entry.isIntersecting) {
+        tile.classList.add("in-view");
+        loadTileImage(img, tile, index);
+        observer.unobserve(img);
+      }
     });
-  }, { rootMargin: "600px 0px" });
+  }, { rootMargin: "500px 0px" });
 }
 
-function buildGrid() {
+function buildBento() {
   const fragment = document.createDocumentFragment();
 
   items.forEach((item, index) => {
     const tile = document.createElement("div");
-    tile.className = "tile";
+    tile.className = "bento-item";
+    if (index % 9 === 4) tile.classList.add("wave-card");
+    else if (index % 13 === 6) tile.classList.add("blob-card");
+
+    const tag = TAGS[index % TAGS.length];
+    const tagEl = document.createElement("span");
+    tagEl.className = "bento-tag";
+    tagEl.textContent = tag;
+    tile.appendChild(tagEl);
+
+    if (item.credit && CREDITS[item.credit]) {
+      const c = CREDITS[item.credit];
+      const badge = document.createElement("div");
+      badge.className = "bento-credit";
+      const logo = document.createElement("img");
+      logo.src = c.logo;
+      logo.alt = "";
+      logo.loading = "lazy";
+      logo.decoding = "async";
+      const label = document.createElement("span");
+      label.textContent = c.linkText;
+      badge.appendChild(logo);
+      badge.appendChild(label);
+      tile.appendChild(badge);
+    }
 
     const img = document.createElement("img");
-    img.alt = "";
+    img.alt = item.credit && CREDITS[item.credit] ? CREDITS[item.credit].linkText : "Original build";
     img.decoding = "async";
     img.dataset.index = index;
     img.fetchPriority = index < 6 ? "high" : "auto";
-
     tile.appendChild(img);
-    attachCreditBadge(tile, item);
+
+    const caption = document.createElement("div");
+    caption.className = "bento-caption";
+    const plate = document.createElement("span");
+    plate.className = "bento-plate";
+    plate.textContent = "N\u00b0 " + String(index + 1).padStart(3, "0");
+    const title = document.createElement("span");
+    title.className = "bento-title";
+    title.textContent = item.credit && CREDITS[item.credit] ? CREDITS[item.credit].linkText + " Build" : "Original Build";
+    caption.appendChild(plate);
+    caption.appendChild(title);
+    tile.appendChild(caption);
+
+    tile.dataset.cursorText = "View";
     tile.addEventListener("click", () => openLightbox(index));
     fragment.appendChild(tile);
   });
 
-  masonry.appendChild(fragment);
+  bento.appendChild(fragment);
+  applyPattern();
 
-  const tiles = masonry.querySelectorAll(".tile img");
+  const tiles = bento.querySelectorAll(".bento-item img");
   tiles.forEach((img, i) => {
-    if (i < 6) loadTileImage(img, img.closest(".tile"), i);
+    const tile = img.closest(".bento-item");
+    if (i < 6) { tile.classList.add("in-view"); loadTileImage(img, tile, i); }
     else observer.observe(img);
   });
 
   window.addEventListener("load", () => setTimeout(scheduleIdleUpgrades, 1500));
+}
+
+function buildFooterCredits() {
+  const seen = new Set();
+  items.forEach((item) => { if (item.credit) seen.add(item.credit); });
+  seen.forEach((key) => {
+    const c = CREDITS[key];
+    if (!c) return;
+    const chip = document.createElement(c.linkUrl ? "a" : "span");
+    chip.className = "footer-credit-chip";
+    if (c.linkUrl) { chip.href = c.linkUrl; chip.target = "_blank"; chip.rel = "noopener"; }
+    const img = document.createElement("img");
+    img.src = c.logo; img.alt = ""; img.loading = "lazy"; img.decoding = "async";
+    const span = document.createElement("span");
+    span.textContent = c.linkText;
+    chip.appendChild(img); chip.appendChild(span);
+    footerCredits.appendChild(chip);
+  });
 }
 
 function renderLightbox() {
@@ -315,9 +371,7 @@ function renderLightbox() {
 
   if (item.credit && CREDITS[item.credit]) {
     const c = CREDITS[item.credit];
-    const link = c.linkUrl
-      ? `<a href="${c.linkUrl}" target="_blank" rel="noopener">${c.linkText}</a>`
-      : `<strong>${c.linkText}</strong>`;
+    const link = c.linkUrl ? `<a href="${c.linkUrl}" target="_blank" rel="noopener">${c.linkText}</a>` : `<strong>${c.linkText}</strong>`;
     lbCaption.innerHTML = `<img src="${c.logo}" alt="">${c.text} ${link}`;
     lbCaption.style.display = "flex";
   } else {
@@ -331,28 +385,22 @@ function openLightbox(index) {
   renderLightbox();
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
+  if (lenis) lenis.stop();
 }
 
 function closeLightbox() {
   lightbox.classList.remove("open");
   document.body.style.overflow = "";
+  if (lenis) lenis.start();
 }
 
-function showNext() {
-  currentIndex = (currentIndex + 1) % items.length;
-  renderLightbox();
-}
-
-function showPrev() {
-  currentIndex = (currentIndex - 1 + items.length) % items.length;
-  renderLightbox();
-}
+function showNext() { currentIndex = (currentIndex + 1) % items.length; renderLightbox(); }
+function showPrev() { currentIndex = (currentIndex - 1 + items.length) % items.length; renderLightbox(); }
 
 lbClose.addEventListener("click", closeLightbox);
 lbNext.addEventListener("click", showNext);
 lbPrev.addEventListener("click", showPrev);
 lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
-
 lightbox.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
 lightbox.addEventListener("touchend", (e) => {
   const dx = e.changedTouches[0].clientX - touchStartX;
@@ -360,44 +408,156 @@ lightbox.addEventListener("touchend", (e) => {
   if (dx < 0) showNext(); else showPrev();
 }, { passive: true });
 
-function openModal() {
-  modal.classList.add("open");
-  document.body.style.overflow = "hidden";
-  modalClose.focus();
-}
-
-function closeModal() {
-  modal.classList.remove("open");
-  document.body.style.overflow = "";
-  openModalBtn.focus();
-}
-
-openModalBtn.addEventListener("click", openModal);
-modalClose.addEventListener("click", closeModal);
-modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
-
 document.addEventListener("keydown", (e) => {
-  if (lightbox.classList.contains("open")) {
-    if (e.key === "Escape") closeLightbox();
-    if (e.key === "ArrowRight") showNext();
-    if (e.key === "ArrowLeft") showPrev();
-  }
-  if (modal.classList.contains("open") && e.key === "Escape") closeModal();
+  if (!lightbox.classList.contains("open")) return;
+  if (e.key === "Escape") closeLightbox();
+  if (e.key === "ArrowRight") showNext();
+  if (e.key === "ArrowLeft") showPrev();
 });
 
-let scrollTicking = false;
-window.addEventListener("scroll", () => {
-  if (scrollTicking) return;
-  scrollTicking = true;
-  requestAnimationFrame(() => {
-    fabTop.classList.toggle("show", window.scrollY > 600);
-    scrollTicking = false;
+function initSmoothScroll() {
+  if (typeof Lenis === "undefined" || reduceMotion) return;
+  lenis = new Lenis({ duration: 1.1, easing: (t) => 1 - Math.pow(1 - t, 3), smoothWheel: true });
+  function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
+  requestAnimationFrame(raf);
+}
+
+function initAnchors() {
+  document.querySelectorAll('a[href^="#"]').forEach((a) => {
+    a.addEventListener("click", (e) => {
+      const id = a.getAttribute("href");
+      if (id.length < 2) return;
+      const target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(target, { offset: -20 });
+      else target.scrollIntoView({ behavior: "smooth" });
+    });
   });
-}, { passive: true });
+}
 
-fabTop.addEventListener("click", () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-});
+function initReveal() {
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("in-view");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: .15, rootMargin: "0px 0px -60px 0px" });
+  document.querySelectorAll("[data-reveal]").forEach((el, i) => {
+    el.style.transitionDelay = (i % 6) * 70 + "ms";
+    revealObserver.observe(el);
+  });
+}
+
+function initCounters() {
+  statBuilds.dataset.count = items.length;
+  const counters = document.querySelectorAll(".stat-num");
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = Number(el.dataset.count);
+      let start = 0;
+      const duration = 1200;
+      const startTime = performance.now();
+      function tick(now) {
+        const p = Math.min(1, (now - startTime) / duration);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+        if (p < 1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+      counterObserver.unobserve(el);
+    });
+  }, { threshold: .5 });
+  counters.forEach((c) => counterObserver.observe(c));
+}
+
+function initHeaderScroll() {
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      siteHeader.classList.toggle("scrolled", window.scrollY > 40);
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const p = maxScroll > 0 ? Math.min(1, window.scrollY / maxScroll) : 0;
+      progressBar.style.width = (p * 100) + "%";
+      const circumference = 182;
+      dfRingFg.style.strokeDashoffset = String(circumference * (1 - p));
+      ticking = false;
+    });
+  }, { passive: true });
+}
+
+function initParallax() {
+  if (reduceMotion) return;
+  const orbs = document.querySelectorAll("[data-parallax]");
+  let ticking = false;
+  function update() {
+    const y = window.scrollY;
+    orbs.forEach((el) => {
+      const factor = parseFloat(el.dataset.parallax);
+      el.style.transform = `translateY(${y * factor}px)`;
+    });
+    if (gallerySection) {
+      const rect = gallerySection.getBoundingClientRect();
+      const total = rect.height + window.innerHeight;
+      const passed = window.innerHeight - rect.top;
+      const progress = Math.max(0, Math.min(1, passed / total));
+      galleryAmbient.style.filter = `blur(100px) hue-rotate(${progress * 280}deg)`;
+    }
+    ticking = false;
+  }
+  window.addEventListener("scroll", () => {
+    if (!ticking) { requestAnimationFrame(update); ticking = true; }
+  }, { passive: true });
+  update();
+}
+
+function initCursor() {
+  if (window.matchMedia("(pointer: coarse)").matches || reduceMotion) return;
+  document.documentElement.classList.add("has-cursor");
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  window.addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; cursorDot.style.left = mx + "px"; cursorDot.style.top = my + "px"; });
+  function loop() {
+    rx += (mx - rx) * .18;
+    ry += (my - ry) * .18;
+    cursorRing.style.left = rx + "px";
+    cursorRing.style.top = ry + "px";
+    requestAnimationFrame(loop);
+  }
+  loop();
+  document.addEventListener("mouseover", (e) => {
+    const target = e.target.closest("[data-cursor-text], a, button, .bento-item");
+    if (!target) return;
+    cursorRing.classList.add("hover");
+    cursorRingText.textContent = target.dataset.cursorText || "";
+  });
+  document.addEventListener("mouseout", (e) => {
+    const target = e.target.closest("[data-cursor-text], a, button, .bento-item");
+    if (!target) return;
+    cursorRing.classList.remove("hover");
+    cursorRingText.textContent = "";
+  });
+}
+
+function initPreloader() {
+  let count = 0;
+  const start = performance.now();
+  function tick() {
+    const elapsed = performance.now() - start;
+    count = Math.min(100, Math.round((elapsed / 1200) * 100));
+    preCount.textContent = count;
+    if (count < 100) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+  const done = () => setTimeout(() => preloader.classList.add("hide"), 500);
+  if (document.readyState === "complete") done();
+  else window.addEventListener("load", done);
+  setTimeout(done, 3000);
+}
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
@@ -408,5 +568,15 @@ if ("serviceWorker" in navigator) {
 detectAvif().then((supported) => {
   IMG_FORMAT = supported ? "avif" : "webp";
   initObserver();
-  buildGrid();
+  buildBento();
+  buildFooterCredits();
+  initSmoothScroll();
+  initAnchors();
+  initReveal();
+  initCounters();
+  initHeaderScroll();
+  initParallax();
+  initCursor();
+  initPreloader();
+  window.addEventListener("resize", debounce(applyPattern, 200));
 });
