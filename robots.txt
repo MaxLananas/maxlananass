@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://maxlananas.com/sitemap.xml
+Sitemap: https://maxlananas.is-a.dev/sitemap.xml
