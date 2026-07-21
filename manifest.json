@@ -1,0 +1,12 @@
+{
+  "name": "MaxLananas — Portfolio",
+  "short_name": "MaxLananas",
+  "description": "Builds Minecraft 1:1 et créations tropicales.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#FFF7EA",
+  "theme_color": "#FF6F59",
+  "icons": [
+    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
