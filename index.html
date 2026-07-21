@@ -1,22 +1,290 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MaxLananas — Portfolio</title>
-<meta name="description" content="Portfolio de MaxLananas — builds Minecraft 1:1 et créations.">
-<meta name="theme-color" content="#101012">
+<title>MaxLananas — Minecraft Builder Portfolio | Custom 1:1 Builds & Commissions</title>
+<meta name="description" content="MaxLananas is a professional Minecraft builder crafting 1:1 real-world recreations, monumental spawns, organic terraforming and event maps. Browse 100+ builds and commission your own on Discord.">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="author" content="MaxLananas">
+<link rel="canonical" href="https://maxlananas.com/">
+<meta name="theme-color" content="#0a0a0b">
 <meta name="color-scheme" content="dark">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://maxlananas.com/">
+<meta property="og:site_name" content="MaxLananas">
+<meta property="og:title" content="MaxLananas — Minecraft Builder Portfolio">
+<meta property="og:description" content="Custom 1:1 Minecraft recreations, spawns and terraforming — 100+ builds, commissions open on Discord.">
+<meta property="og:image" content="https://maxlananas.com/apple-touch-icon.png">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MaxLananas — Minecraft Builder Portfolio">
+<meta name="twitter:description" content="Custom 1:1 Minecraft recreations, spawns and terraforming — commission yours on Discord.">
+<meta name="twitter:image" content="https://maxlananas.com/apple-touch-icon.png">
+
+<link rel="icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="manifest" href="manifest.json">
+
 <link rel="preconnect" href="https://wsrv.nl">
-<link rel="preconnect" href="https://github.com">
+<link rel="preconnect" href="https://objects.githubusercontent.com" crossorigin>
+<link rel="dns-prefetch" href="https://wsrv.nl">
 <link rel="preload" href="FFFlauta-200.otf" as="font" type="font/otf" crossorigin>
+<link rel="preload" href="style.css" as="style">
 <link rel="stylesheet" href="style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://maxlananas.com/#person",
+      "name": "MaxLananas",
+      "url": "https://maxlananas.com/",
+      "jobTitle": "Minecraft Builder & Digital Architect",
+      "sameAs": [
+        "https://github.com/MaxLananas",
+        "https://www.instagram.com/maxlananas.builds/",
+        "https://discord.gg/pnJhKuU2QK"
+      ],
+      "knowsAbout": ["Minecraft building", "WorldEdit", "Terraforming", "1:1 scale recreation", "Redstone engineering"]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://maxlananas.com/#website",
+      "url": "https://maxlananas.com/",
+      "name": "MaxLananas Portfolio",
+      "publisher": { "@id": "https://maxlananas.com/#person" },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://maxlananas.com/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "CollectionPage",
+      "@id": "https://maxlananas.com/#portfolio",
+      "url": "https://maxlananas.com/#work",
+      "name": "Minecraft Build Portfolio",
+      "isPartOf": { "@id": "https://maxlananas.com/#website" },
+      "about": { "@id": "https://maxlananas.com/#person" }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://maxlananas.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://maxlananas.com/#work" },
+        { "@type": "ListItem", "position": 3, "name": "Contact", "item": "https://maxlananas.com/#contact" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does a Minecraft build commission cost?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on scale, complexity and timeline. Send a brief on Discord and you'll receive a transparent, free quote within 24 to 48 hours." }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does a build take to complete?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Turnaround varies from a few days for small structures to several weeks for monumental or 1:1 scale projects. A realistic timeline is confirmed during the quote stage." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is a 1:1 scale Minecraft build?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A 1:1 scale build is a faithful recreation of a real-world location, translated block by block at true scale using tools like WorldEdit and real-world elevation data." }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I commission a build for my server or event?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Yes. Spawn areas, event lobbies, competition maps and full server worlds are all part of the regular commission work." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I get started with a commission?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Open a ticket on Discord, describe your project, and you'll receive a reply with next steps within 24 to 48 hours." }
+        }
+      ]
+    },
+    {
+      "@type": "Service",
+      "serviceType": "Minecraft custom building commission",
+      "provider": { "@id": "https://maxlananas.com/#person" },
+      "areaServed": "Worldwide",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Building services",
+        "itemListElement": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "1:1 Scale Recreation" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Spawn & Event Design" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Organic Terraforming" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Dev Tools & Websites" } }
+        ]
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-<header class="topbar">
-  <span class="logo">MaxLananas</span>
-  <nav class="socials">
+<a href="#work" class="skip-link">Skip to gallery</a>
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="site-header" id="siteHeader">
+  <div class="header-row">
+    <a href="#top" class="brand" aria-label="MaxLananas home">
+      <svg class="brand-mark" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M16 2 28 9v14L16 30 4 23V9Z"/>
+        <path d="M16 2v14M16 16 4 9M16 16l12-7M16 16v14"/>
+      </svg>
+      <span>MaxLananas</span>
+    </a>
+
+    <nav class="main-nav" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <form class="search-form" role="search" id="searchForm" aria-label="Search builds">
+      <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="searchInput" placeholder="Search builds, collabs..." autocomplete="off" aria-label="Search builds">
+      <button type="button" id="clearSearch" class="icon-mini" hidden aria-label="Clear search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </button>
+      <span class="search-divider" aria-hidden="true"></span>
+      <button type="button" id="shuffleBtn" class="icon-mini" aria-label="Shuffle gallery order">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
+      </button>
+    </form>
+
+    <div class="header-actions">
+      <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="text-link">Discord</a>
+      <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="btn-pill-solid">Join Discord</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="gallery-intro">
+  <div class="intro-text">
+    <h1 id="galleryHeading">Portfolio</h1>
+    <p>A collection of Minecraft builds — originals, collaborations and commissioned projects.</p>
+  </div>
+
+  <div class="gallery-controls">
+    <div class="tabs" role="tablist" aria-label="Filter builds">
+      <button type="button" class="tab active" role="tab" aria-selected="true" data-filter="all">All</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-filter="original">Originals</button>
+      <button type="button" class="tab" role="tab" aria-selected="false" data-filter="collab">Collaborations</button>
+    </div>
+
+    <div class="control-icons">
+      <button type="button" id="sortToggle" class="icon-btn" aria-pressed="false" aria-label="Toggle sort order">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 4v16M7 4 3 8M7 4l4 4M17 20V4M17 20l4-4M17 20l-4-4"/></svg>
+      </button>
+      <div class="popover-wrap">
+        <button type="button" id="densityToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Display settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h13M20 18h0"/><circle cx="16" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="10" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
+        </button>
+        <div class="popover" id="densityPopover" hidden role="menu">
+          <span class="popover-label">Grid density</span>
+          <div class="segmented">
+            <button type="button" class="seg active" data-density="cozy">Cozy</button>
+            <button type="button" class="seg" data-density="compact">Compact</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="results-count" id="resultsCount" aria-live="polite">Showing 110 of 110 builds</p>
+</section>
+
+<section class="gallery" id="work" aria-labelledby="galleryHeading">
+  <div class="masonry" id="masonry" data-density="cozy"></div>
+</section>
+
+<section class="process" id="process" aria-labelledby="processHeading">
+  <span class="eyebrow">Process</span>
+  <h2 id="processHeading">From brief to block</h2>
+  <ol class="process-list">
+    <li><span class="num">01</span><h3>Brief</h3><p>You describe the vision — a real place, a spawn concept, a full server world.</p></li>
+    <li><span class="num">02</span><h3>Quote</h3><p>Transparent scope, timeline and pricing sent within 24 to 48 hours.</p></li>
+    <li><span class="num">03</span><h3>Build</h3><p>Progress shots, WorldEdit precision, constant back-and-forth with you.</p></li>
+    <li><span class="num">04</span><h3>Delivery</h3><p>Final render pass, schematic handoff or direct server integration.</p></li>
+  </ol>
+</section>
+
+<section class="contact" id="contact" aria-labelledby="contactHeading">
+  <span class="eyebrow">Get in touch</span>
+  <h2 id="contactHeading">Let's build something together</h2>
+  <p>Custom builds, 1:1 recreations, event spawns and dev tools — commissioned directly, delivered fast.</p>
+
+  <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="discord-cta">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37a19.8 19.8 0 0 0-4.9-1.52.07.07 0 0 0-.08.04c-.21.38-.45.87-.61 1.26a18.3 18.3 0 0 0-5.46 0 12.6 12.6 0 0 0-.62-1.26.07.07 0 0 0-.08-.04c-1.7.3-3.36.8-4.9 1.52a.07.07 0 0 0-.03.03C.98 8.6.28 12.7.62 16.75a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 6 3.03.07.07 0 0 0 .08-.03c.46-.63.87-1.3 1.23-2a.07.07 0 0 0-.04-.1 13.1 13.1 0 0 1-1.87-.9.07.07 0 0 1 0-.12c.12-.1.25-.2.37-.29a.07.07 0 0 1 .07 0c3.93 1.8 8.18 1.8 12.06 0a.07.07 0 0 1 .07 0c.12.1.25.2.37.29a.07.07 0 0 1 0 .12c-.6.35-1.22.65-1.87.9a.07.07 0 0 0-.04.1c.36.7.78 1.37 1.23 2a.07.07 0 0 0 .08.03 19.85 19.85 0 0 0 6.02-3.03.07.07 0 0 0 .03-.06c.4-4.68-.67-8.74-2.85-12.35a.06.06 0 0 0-.03-.03ZM8.68 14.3c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.95 2.42-2.15 2.42Zm6.65 0c-1.18 0-2.15-1.08-2.15-2.42 0-1.33.95-2.42 2.15-2.42 1.21 0 2.17 1.1 2.15 2.42 0 1.34-.94 2.42-2.15 2.42Z"/></svg>
+    Open a Discord ticket
+  </a>
+
+  <ul class="services-list">
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
+      <strong>1:1 Scale</strong><span>Faithful real-world recreation</span>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
+      <strong>Spawn / Event</strong><span>Lobbies, maps, event zones</span>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 4 9 4 14a8 8 0 0 0 16 0c0-5-4-8-8-12Z"/></svg>
+      <strong>Organic</strong><span>Terraforming, nature, biomes</span>
+    </li>
+    <li>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
+      <strong>Dev / Tools</strong><span>Sites, plugins, pipelines</span>
+    </li>
+  </ul>
+
+  <div class="faq">
+    <h3>Frequently asked questions</h3>
+    <details>
+      <summary>How much does a Minecraft build commission cost?</summary>
+      <p>Pricing depends on scale, complexity and timeline. Send a brief on Discord and you'll receive a transparent, free quote within 24 to 48 hours.</p>
+    </details>
+    <details>
+      <summary>How long does a build take to complete?</summary>
+      <p>Turnaround varies from a few days for small structures to several weeks for monumental or 1:1 scale projects. A realistic timeline is confirmed during the quote stage.</p>
+    </details>
+    <details>
+      <summary>What is a 1:1 scale Minecraft build?</summary>
+      <p>A 1:1 scale build is a faithful recreation of a real-world location, translated block by block at true scale using tools like WorldEdit and real-world elevation data.</p>
+    </details>
+    <details>
+      <summary>Can I commission a build for my server or event?</summary>
+      <p>Yes. Spawn areas, event lobbies, competition maps and full server worlds are all part of the regular commission work.</p>
+    </details>
+    <details>
+      <summary>How do I get started with a commission?</summary>
+      <p>Open a ticket on Discord, describe your project, and you'll receive a reply with next steps within 24 to 48 hours.</p>
+    </details>
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="footer-brand">MaxLananas</div>
+  <nav class="footer-links" aria-label="Footer">
+    <a href="#work">Work</a>
+    <a href="#process">Process</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="footer-socials">
     <a href="https://github.com/MaxLananas" target="_blank" rel="noopener" aria-label="GitHub">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.15-.02-2.09-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a10.9 10.9 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.43-2.69 5.41-5.25 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5Z"/></svg>
     </a>
@@ -26,72 +294,32 @@
     <a href="https://www.instagram.com/maxlananas.builds/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41 1.27-.06 1.65-.07 4.85-.07Zm0 5.35a4.49 4.49 0 1 0 0 8.98 4.49 4.49 0 0 0 0-8.98Zm0 7.4a2.92 2.92 0 1 1 0-5.83 2.92 2.92 0 0 1 0 5.83Zm4.66-7.58a1.05 1.05 0 1 0 0-2.1 1.05 1.05 0 0 0 0 2.1Z"/></svg>
     </a>
-  </nav>
-</header>
+  </div>
+  <div class="footer-credits" id="footerCredits"></div>
+  <p class="footer-copy">&copy; 2026 MaxLananas. All builds shown remain the property of their respective owners.</p>
+</footer>
 
-<main class="masonry" id="masonry"></main>
+<nav class="quick-nav" aria-label="Quick navigation">
+  <a href="#work">Work</a>
+  <a href="#process">Process</a>
+  <a href="#contact">Contact</a>
+  <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="quick-nav-cta">Join the community</a>
+</nav>
 
 <div class="lightbox" id="lightbox">
-  <button class="lb-close" id="lbClose" aria-label="Fermer">&times;</button>
-  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Précédent">&lsaquo;</button>
+  <button class="lb-close" id="lbClose" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
+  </button>
+  <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
+  </button>
   <img class="lb-img" id="lbImg" alt="">
   <div class="lb-caption" id="lbCaption"></div>
-  <button class="lb-arrow lb-next" id="lbNext" aria-label="Suivant">&rsaquo;</button>
+  <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
+  </button>
 </div>
 
-<section class="cta">
-  <h2>Want a build?</h2>
-  <p>Builds sur-mesure, reconstructions 1:1, outils de dev.</p>
-  <button class="cta-btn" id="openCommission">Contact me</button>
-</section>
-
-<footer class="footer">MaxLananas &copy; 2026</footer>
-
-<div class="modal-overlay" id="commissionModal">
-  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
-
-    <h2 id="modalTitle">Construisons quelque chose ensemble</h2>
-    <p class="modal-lead">Builds Minecraft sur-mesure et développement. Réponse sous 24 à 48h.</p>
-
-    <div class="modal-services">
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a15 15 0 0 1 0 18 15 15 0 0 1 0-18Z"/></svg>
-        <span class="service-name">1:1 Scale</span>
-        <span class="service-desc">Reconstruction fidèle de lieux réels</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 21V9l8-6 8 6v12"/><path d="M9 21v-6h6v6"/></svg>
-        <span class="service-name">Spawn / Event</span>
-        <span class="service-desc">Zones de jeu, lobbies, maps d'événement</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2C8 6 4 9 4 14a8 8 0 0 0 16 0c0-5-4-8-8-12Z"/></svg>
-        <span class="service-name">Organique</span>
-        <span class="service-desc">Terraforming, nature, environnements</span>
-      </div>
-      <div class="service">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="m8 9-4 3 4 3M16 9l4 3-4 3M13 6l-2 12"/></svg>
-        <span class="service-name">Dev / Outils</span>
-        <span class="service-desc">Sites, plugins, outils sur-mesure</span>
-      </div>
-    </div>
-
-    <div class="modal-process">
-      <div class="step"><span class="step-num">01</span><span class="step-label">Brief</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">02</span><span class="step-label">Devis</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">03</span><span class="step-label">Build</span></div>
-      <div class="step-line"></div>
-      <div class="step"><span class="step-num">04</span><span class="step-label">Livraison</span></div>
-    </div>
-
-    <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="modal-cta">Ouvrir un ticket Discord</a>
-    <p class="modal-note">Devis gratuit &middot; Tarifs transparents &middot; Suivi de projet</p>
-  </div>
-</div>
-
-<script src="script.js"></script>
+<script src="script.js" defer></script>
 </body>
 </html>
