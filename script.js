@@ -142,11 +142,20 @@ function detectAvif() {
   });
 }
 
+function getConnectionProfile() {
+  const c = navigator.connection;
+  if (!c) return { scale: 1, quality: 82, upgrade: true };
+  if (c.saveData) return { scale: .6, quality: 60, upgrade: false };
+  if (c.effectiveType === "2g" || c.effectiveType === "slow-2g") return { scale: .6, quality: 55, upgrade: false };
+  if (c.effectiveType === "3g") return { scale: .8, quality: 68, upgrade: true };
+  return { scale: 1, quality: 82, upgrade: true };
+}
+
 function buildImageUrl(filename, width, quality, forceFormat) {
   const source = RELEASE_BASE + encodeURIComponent(filename);
   const params = new URLSearchParams({
     url: source,
-    w: width,
+    w: Math.max(16, Math.round(width)),
     output: forceFormat || IMG_FORMAT,
     q: quality
   });
@@ -163,6 +172,7 @@ function shuffle(arr) {
 
 const items = shuffle([...FILES]);
 const loadedIndexes = new Set();
+const profile = getConnectionProfile();
 
 const masonry = document.getElementById("masonry");
 const lightbox = document.getElementById("lightbox");
@@ -171,20 +181,23 @@ const lbCaption = document.getElementById("lbCaption");
 const lbClose = document.getElementById("lbClose");
 const lbPrev = document.getElementById("lbPrev");
 const lbNext = document.getElementById("lbNext");
-
 const modal = document.getElementById("commissionModal");
 const openModalBtn = document.getElementById("openCommission");
 const modalClose = document.getElementById("modalClose");
+const fabTop = document.getElementById("fabTop");
 
 let currentIndex = 0;
 let observer;
+let touchStartX = 0;
 
 function tileWidth(el) {
   const w = el.getBoundingClientRect().width || 250;
-  return Math.min(900, Math.round(w * (window.devicePixelRatio || 1) / 50) * 50);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  return Math.min(900, Math.round(w * dpr * profile.scale / 40) * 40);
 }
 
 function upgradeTile(img, item, baseWidth) {
+  if (!profile.upgrade) return;
   const hiWidth = Math.min(1000, baseWidth * 2);
   const hi = new Image();
   hi.onload = () => { img.src = hi.src; };
@@ -192,9 +205,7 @@ function upgradeTile(img, item, baseWidth) {
 }
 
 function scheduleIdleUpgrades() {
-  const conn = navigator.connection;
-  if (conn && (conn.saveData || conn.effectiveType === "2g" || conn.effectiveType === "slow-2g")) return;
-
+  if (!profile.upgrade) return;
   const run = () => {
     const idx = [...loadedIndexes].shift();
     if (idx === undefined) return;
@@ -207,12 +218,46 @@ function scheduleIdleUpgrades() {
     upgradeTile(img, items[idx], tileWidth(tile));
     scheduleIdleUpgrades();
   };
+  if ("requestIdleCallback" in window) requestIdleCallback(run, { timeout: 2000 });
+  else setTimeout(run, 500);
+}
 
-  if ("requestIdleCallback" in window) {
-    requestIdleCallback(run, { timeout: 2000 });
-  } else {
-    setTimeout(run, 500);
-  }
+function attachCreditBadge(tile, item) {
+  if (!item.credit) return;
+  const c = CREDITS[item.credit];
+  if (!c) return;
+  const badge = document.createElement("div");
+  badge.className = "credit-badge";
+  const logo = document.createElement("img");
+  logo.src = c.logo;
+  logo.alt = "";
+  logo.loading = "lazy";
+  logo.decoding = "async";
+  const label = document.createElement("span");
+  label.textContent = c.linkText;
+  badge.appendChild(logo);
+  badge.appendChild(label);
+  tile.appendChild(badge);
+}
+
+function loadTileImage(img, tile, index) {
+  const item = items[index];
+  const w = tileWidth(tile);
+  const full = new Image();
+  full.src = buildImageUrl(item.name, w, profile.quality);
+  full.onload = () => {
+    img.src = full.src;
+    img.classList.add("loaded");
+    tile.classList.add("is-loaded");
+    loadedIndexes.add(index);
+  };
+  full.onerror = () => {
+    const raw = RELEASE_BASE + encodeURIComponent(item.name);
+    img.onerror = () => { tile.classList.add("is-loaded"); };
+    img.src = raw;
+    img.classList.add("loaded");
+    tile.classList.add("is-loaded");
+  };
 }
 
 function initObserver() {
@@ -221,24 +266,11 @@ function initObserver() {
       if (!entry.isIntersecting) return;
       const img = entry.target;
       const index = Number(img.dataset.index);
-      const item = items[index];
-      const w = tileWidth(img.closest(".tile"));
-      const full = new Image();
-      full.src = buildImageUrl(item.name, w, 80);
-      full.onload = () => {
-        img.src = full.src;
-        img.classList.remove("lqip");
-        img.classList.add("loaded");
-        loadedIndexes.add(index);
-      };
-      full.onerror = () => {
-        img.src = RELEASE_BASE + encodeURIComponent(item.name);
-        img.classList.remove("lqip");
-        img.classList.add("loaded");
-      };
+      const tile = img.closest(".tile");
+      loadTileImage(img, tile, index);
       observer.unobserve(img);
     });
-  }, { rootMargin: "500px 0px" });
+  }, { rootMargin: "600px 0px" });
 }
 
 function buildGrid() {
@@ -249,20 +281,24 @@ function buildGrid() {
     tile.className = "tile";
 
     const img = document.createElement("img");
-    img.className = "lqip";
     img.alt = "";
     img.decoding = "async";
     img.dataset.index = index;
     img.fetchPriority = index < 6 ? "high" : "auto";
-    img.src = buildImageUrl(item.name, 24, 35);
 
     tile.appendChild(img);
+    attachCreditBadge(tile, item);
     tile.addEventListener("click", () => openLightbox(index));
     fragment.appendChild(tile);
   });
 
   masonry.appendChild(fragment);
-  document.querySelectorAll(".tile img").forEach((img) => observer.observe(img));
+
+  const tiles = masonry.querySelectorAll(".tile img");
+  tiles.forEach((img, i) => {
+    if (i < 6) loadTileImage(img, img.closest(".tile"), i);
+    else observer.observe(img);
+  });
 
   window.addEventListener("load", () => setTimeout(scheduleIdleUpgrades, 1500));
 }
@@ -277,7 +313,7 @@ function renderLightbox() {
     pre.src = buildImageUrl(items[n].name, 1600, 85);
   });
 
-  if (item.credit) {
+  if (item.credit && CREDITS[item.credit]) {
     const c = CREDITS[item.credit];
     const link = c.linkUrl
       ? `<a href="${c.linkUrl}" target="_blank" rel="noopener">${c.linkText}</a>`
@@ -317,6 +353,13 @@ lbNext.addEventListener("click", showNext);
 lbPrev.addEventListener("click", showPrev);
 lightbox.addEventListener("click", (e) => { if (e.target === lightbox) closeLightbox(); });
 
+lightbox.addEventListener("touchstart", (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+lightbox.addEventListener("touchend", (e) => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  if (Math.abs(dx) < 40) return;
+  if (dx < 0) showNext(); else showPrev();
+}, { passive: true });
+
 function openModal() {
   modal.classList.add("open");
   document.body.style.overflow = "hidden";
@@ -340,6 +383,20 @@ document.addEventListener("keydown", (e) => {
     if (e.key === "ArrowLeft") showPrev();
   }
   if (modal.classList.contains("open") && e.key === "Escape") closeModal();
+});
+
+let scrollTicking = false;
+window.addEventListener("scroll", () => {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  requestAnimationFrame(() => {
+    fabTop.classList.toggle("show", window.scrollY > 600);
+    scrollTicking = false;
+  });
+}, { passive: true });
+
+fabTop.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 if ("serviceWorker" in navigator) {
