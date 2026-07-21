@@ -188,18 +188,9 @@
       <button type="button" id="shuffleBtn" class="icon-btn" aria-label="Shuffle order">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
       </button>
-      <div class="popover-wrap">
-        <button type="button" id="densityToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Display settings">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h13M20 18h0"/><circle cx="16" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="10" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
-        </button>
-        <div class="popover" id="densityPopover" hidden role="menu">
-          <span class="popover-label">Grid density</span>
-          <div class="segmented">
-            <button type="button" class="seg active" data-density="cozy">Cozy</button>
-            <button type="button" class="seg" data-density="compact">Compact</button>
-          </div>
-        </div>
-      </div>
+      <button type="button" id="densityToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Display settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h13M20 18h0"/><circle cx="16" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="10" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
+      </button>
     </div>
   </div>
 
@@ -314,11 +305,20 @@
   <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
   </button>
+  <div class="lb-spinner" id="lbSpinner" aria-hidden="true"></div>
   <img class="lb-img" id="lbImg" alt="">
   <div class="lb-caption" id="lbCaption"></div>
   <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
+</div>
+
+<div class="popover" id="densityPopover" hidden role="menu">
+  <span class="popover-label">Grid density</span>
+  <div class="segmented">
+    <button type="button" class="seg active" data-density="cozy">Cozy</button>
+    <button type="button" class="seg" data-density="compact">Compact</button>
+  </div>
 </div>
 
 <script src="script.js" defer></script>
