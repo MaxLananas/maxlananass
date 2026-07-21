@@ -8,116 +8,123 @@ const CREDITS = {
 };
 
 const FILES = [
-  { name: "2025-01-27_20.55.35.png" },
-  { name: "2025-04-13_12.19.39.png" },
-  { name: "2025-04-17_21.24.15.png" },
-  { name: "2025-04-17_21.24.28.png" },
-  { name: "2025-04-17_21.24.35.png" },
-  { name: "2025-04-27_15.00.38.png" },
-  { name: "2025-05-26_17.29.47.png" },
-  { name: "2025-06-04_15.53.50.png", credit: "bte" },
-  { name: "2025-06-10_19.05.39.png", credit: "bte" },
-  { name: "2025-06-10_19.09.43.png", credit: "bte" },
-  { name: "2025-06-13_11.07.58.png", credit: "bte" },
-  { name: "2025-06-30_21.09.22.png" },
-  { name: "2025-06-30_22.06.58.png" },
-  { name: "2025-07-09_19.07.32.png" },
-  { name: "2025-07-14_17.18.52.png" },
-  { name: "2025-07-14_17.21.46.png" },
-  { name: "2025-07-14_17.26.17.png" },
-  { name: "2025-07-15_13.03.23.png" },
-  { name: "2025-07-18_15.18.06.png" },
-  { name: "2025-07-19_22.41.22.png", credit: "endorah" },
-  { name: "2025-07-21_18.17.35.png" },
-  { name: "2025-09-13_19.31.36.png" },
-  { name: "2025-09-13_20.22.36.png" },
-  { name: "2025-09-18_13.23.02.png" },
-  { name: "2025-09-18_13.23.25.png" },
-  { name: "2025-09-18_13.23.41.png" },
-  { name: "2025-09-18_13.26.41.png" },
-  { name: "2025-09-18_13.27.22.png" },
-  { name: "2025-09-18_13.27.54.png" },
-  { name: "2025-09-18_13.31.06.png" },
-  { name: "2025-09-20_18.52.59.png", credit: "bte" },
-  { name: "2025-09-25_21.45.27.png" },
-  { name: "2025-10-19_13.50.46.png" },
-  { name: "2025-10-19_13.51.00.png" },
-  { name: "2025-10-19_13.51.24.png" },
-  { name: "2025-10-23_17.38.26.png" },
-  { name: "2025-10-23_17.38.40.png" },
-  { name: "2025-10-24_23.07.50.png" },
-  { name: "2025-10-25_01.04.04.png" },
-  { name: "2025-10-25_01.04.17.png" },
-  { name: "2025-10-25_02.01.55.png" },
-  { name: "2025-10-25_02.02.23.png" },
-  { name: "2025-10-27_17.32.34.png" },
-  { name: "2025-10-27_17.56.40.png" },
-  { name: "2025-10-27_17.56.53.png" },
-  { name: "2025-10-29_17.00.15.png", credit: "mrbeast" },
-  { name: "2025-10-29_17.47.57.png", credit: "mrbeast" },
-  { name: "2025-10-30_21.38.03.png" },
-  { name: "2025-10-31_17.24.05.png" },
-  { name: "2025-11-02_21.24.44.png" },
-  { name: "2025-11-02_21.24.53.png" },
-  { name: "2025-11-02_22.00.18.png" },
-  { name: "2025-11-16_14.56.40.png", credit: "mrbeast" },
-  { name: "2025-11-16_15.08.49.png", credit: "mrbeast" },
-  { name: "2025-11-22_11.02.49.png" },
-  { name: "2025-11-22_11.04.22.png" },
-  { name: "2025-12-09_18.58.54.png" },
-  { name: "2025-12-09_18.59.03.png" },
-  { name: "2025-12-24_13.51.44.png" },
-  { name: "2025-12-24_13.51.51.png" },
-  { name: "2026-01-03_01.34.48.png", credit: "bte" },
-  { name: "2026-01-03_01.35.07.png", credit: "bte" },
-  { name: "2026-01-03_01.35.57.png", credit: "bte" },
-  { name: "2026-01-03_01.37.11.png", credit: "bte" },
-  { name: "2026-04-01_21.07.14.png", credit: "bte" },
-  { name: "2026-04-01_21.07.28.png", credit: "bte" },
-  { name: "2026-05-30_15.23.36.png" },
-  { name: "2026-07-02_16.20.56.png" },
-  { name: "2026-07-06_21.59.15_4K.png" },
-  { name: "2026-07-06_21.59.35_4K.png", credit: "bte" },
-  { name: "chateau_loire.png", credit: "endorah" },
-  { name: "circuit24hdumans.jpg", credit: "bte" },
-  { name: "larresingle.jpg", credit: "bte" },
-  { name: "little-bridge.png", credit: "bte" },
-  { name: "maisonbois.png" },
-  { name: "Mt_Blanc_cut.png" },
-  { name: "Ocapiat-01.png", credit: "endorah" },
-  { name: "Parentis.png" },
-  { name: "pontneufv1.png" },
-  { name: "potfleur.png" },
-  { name: "sans_nom-2-1.jpg", credit: "bte" },
-  { name: "Shot_01.jpg", credit: "endorah" },
-  { name: "Shot_03.1.jpg", credit: "endorah" },
-  { name: "Shot_03.jpg", credit: "endorah" },
-  { name: "Shot_06.2.png", credit: "endorah" },
-  { name: "Slide_1.png", credit: "mrbeast" },
-  { name: "Slide_2.png", credit: "mrbeast" },
-  { name: "spawnfight4glory.jpg", credit: "fight4glory" },
-  { name: "Streaming-768x432.jpg", credit: "endorah" },
-  { name: "untitled-2.jpg", credit: "bte" },
-  { name: "untitled.jpg" },
-  { name: "untitled3-2.jpg", credit: "bte" },
-  { name: "untitled3.jpg" },
-  { name: "CIRCUITxDIRIGEABLE.jpg", credit: "bte" },
-  { name: "Larressingle.png", credit: "bte" },
-  { name: "Lemans_-_france5.jpg", credit: "bte" },
-  { name: "Lemans_-_large.png", credit: "bte" },
-  { name: "Occi.png", credit: "bte" },
-  { name: "untitled11.jpg", credit: "bte" },
-  { name: "untitled13.jpg", credit: "bte" },
-  { name: "untitled18.jpg", credit: "bte" }
+  { name: "2025-01-27_20.55.35.png", tags: [] },
+  { name: "2025-04-13_12.19.39.png", tags: [] },
+  { name: "2025-04-17_21.24.15.png", tags: [] },
+  { name: "2025-04-17_21.24.28.png", tags: [] },
+  { name: "2025-04-17_21.24.35.png", tags: [] },
+  { name: "2025-04-27_15.00.38.png", tags: [] },
+  { name: "2025-05-26_17.29.47.png", tags: [] },
+  { name: "2025-06-04_15.53.50.png", credit: "bte", tags: [] },
+  { name: "2025-06-10_19.05.39.png", credit: "bte", tags: [] },
+  { name: "2025-06-10_19.09.43.png", credit: "bte", tags: [] },
+  { name: "2025-06-13_11.07.58.png", credit: "bte", tags: [] },
+  { name: "2025-06-30_21.09.22.png", tags: [] },
+  { name: "2025-06-30_22.06.58.png", tags: [] },
+  { name: "2025-07-09_19.07.32.png", tags: [] },
+  { name: "2025-07-14_17.18.52.png", tags: [] },
+  { name: "2025-07-14_17.21.46.png", tags: [] },
+  { name: "2025-07-14_17.26.17.png", tags: [] },
+  { name: "2025-07-15_13.03.23.png", tags: [] },
+  { name: "2025-07-18_15.18.06.png", tags: [] },
+  { name: "2025-07-19_22.41.22.png", credit: "endorah", tags: [] },
+  { name: "2025-07-21_18.17.35.png", tags: [] },
+  { name: "2025-09-13_19.31.36.png", tags: [] },
+  { name: "2025-09-13_20.22.36.png", tags: [] },
+  { name: "2025-09-18_13.23.02.png", tags: [] },
+  { name: "2025-09-18_13.23.25.png", tags: [] },
+  { name: "2025-09-18_13.23.41.png", tags: [] },
+  { name: "2025-09-18_13.26.41.png", tags: [] },
+  { name: "2025-09-18_13.27.22.png", tags: [] },
+  { name: "2025-09-18_13.27.54.png", tags: [] },
+  { name: "2025-09-18_13.31.06.png", tags: [] },
+  { name: "2025-09-20_18.52.59.png", credit: "bte", tags: [] },
+  { name: "2025-09-25_21.45.27.png", tags: [] },
+  { name: "2025-10-19_13.50.46.png", tags: [] },
+  { name: "2025-10-19_13.51.00.png", tags: [] },
+  { name: "2025-10-19_13.51.24.png", tags: [] },
+  { name: "2025-10-23_17.38.26.png", tags: [] },
+  { name: "2025-10-23_17.38.40.png", tags: [] },
+  { name: "2025-10-24_23.07.50.png", tags: [] },
+  { name: "2025-10-25_01.04.04.png", tags: [] },
+  { name: "2025-10-25_01.04.17.png", tags: [] },
+  { name: "2025-10-25_02.01.55.png", tags: [] },
+  { name: "2025-10-25_02.02.23.png", tags: [] },
+  { name: "2025-10-27_17.32.34.png", tags: [] },
+  { name: "2025-10-27_17.56.40.png", tags: [] },
+  { name: "2025-10-27_17.56.53.png", tags: [] },
+  { name: "2025-10-29_17.00.15.png", credit: "mrbeast", tags: [] },
+  { name: "2025-10-29_17.47.57.png", credit: "mrbeast", tags: [] },
+  { name: "2025-10-30_21.38.03.png", tags: [] },
+  { name: "2025-10-31_17.24.05.png", tags: [] },
+  { name: "2025-11-02_21.24.44.png", tags: [] },
+  { name: "2025-11-02_21.24.53.png", tags: [] },
+  { name: "2025-11-02_22.00.18.png", tags: [] },
+  { name: "2025-11-16_14.56.40.png", credit: "mrbeast", tags: [] },
+  { name: "2025-11-16_15.08.49.png", credit: "mrbeast", tags: [] },
+  { name: "2025-11-22_11.02.49.png", tags: [] },
+  { name: "2025-11-22_11.04.22.png", tags: [] },
+  { name: "2025-12-09_18.58.54.png", tags: [] },
+  { name: "2025-12-09_18.59.03.png", tags: [] },
+  { name: "2025-12-24_13.51.44.png", tags: [] },
+  { name: "2025-12-24_13.51.51.png", tags: [] },
+  { name: "2026-01-03_01.34.48.png", credit: "bte", tags: [] },
+  { name: "2026-01-03_01.35.07.png", credit: "bte", tags: [] },
+  { name: "2026-01-03_01.35.57.png", credit: "bte", tags: [] },
+  { name: "2026-01-03_01.37.11.png", credit: "bte", tags: [] },
+  { name: "2026-04-01_21.07.14.png", credit: "bte", tags: [] },
+  { name: "2026-04-01_21.07.28.png", credit: "bte", tags: [] },
+  { name: "2026-05-30_15.23.36.png", tags: [] },
+  { name: "2026-07-02_16.20.56.png", tags: [] },
+  { name: "2026-07-06_21.59.15_4K.png", tags: [] },
+  { name: "2026-07-06_21.59.35_4K.png", credit: "bte", tags: [] },
+  { name: "chateau_loire.png", credit: "endorah", tags: [] },
+  { name: "circuit24hdumans.jpg", credit: "bte", tags: [] },
+  { name: "larresingle.jpg", credit: "bte", tags: [] },
+  { name: "little-bridge.png", credit: "bte", tags: [] },
+  { name: "maisonbois.png", tags: [] },
+  { name: "Mt_Blanc_cut.png", tags: [] },
+  { name: "Ocapiat-01.png", credit: "endorah", tags: [] },
+  { name: "Parentis.png", tags: [] },
+  { name: "pontneufv1.png", tags: [] },
+  { name: "potfleur.png", tags: [] },
+  { name: "sans_nom-2-1.jpg", credit: "bte", tags: [] },
+  { name: "Shot_01.jpg", credit: "endorah", tags: [] },
+  { name: "Shot_03.1.jpg", credit: "endorah", tags: [] },
+  { name: "Shot_03.jpg", credit: "endorah", tags: [] },
+  { name: "Shot_06.2.png", credit: "endorah", tags: [] },
+  { name: "Slide_1.png", credit: "mrbeast", tags: [] },
+  { name: "Slide_2.png", credit: "mrbeast", tags: [] },
+  { name: "spawnfight4glory.jpg", credit: "fight4glory", tags: [] },
+  { name: "Streaming-768x432.jpg", credit: "endorah", tags: [] },
+  { name: "untitled-2.jpg", credit: "bte", tags: [] },
+  { name: "untitled.jpg", tags: [] },
+  { name: "untitled3-2.jpg", credit: "bte", tags: [] },
+  { name: "untitled3.jpg", tags: [] },
+  { name: "CIRCUITxDIRIGEABLE.jpg", credit: "bte", tags: [] },
+  { name: "Larressingle.png", credit: "bte", tags: [] },
+  { name: "Lemans_-_france5.jpg", credit: "bte", tags: [] },
+  { name: "Lemans_-_large.png", credit: "bte", tags: [] },
+  { name: "Occi.png", credit: "bte", tags: [] },
+  { name: "untitled11.jpg", credit: "bte", tags: [] },
+  { name: "untitled13.jpg", credit: "bte", tags: [] },
+  { name: "untitled18.jpg", credit: "bte", tags: [] }
 ];
+
+function parseDateFromFilename(name) {
+  const m = name.match(/^(\d{4})-(\d{2})-(\d{2})_(\d{2})\.(\d{2})\.(\d{2})/);
+  if (!m) return null;
+  return new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTime();
+}
+FILES.forEach((f) => { f.ts = parseDateFromFilename(f.name); });
 
 function getConnectionProfile() {
   const c = navigator.connection;
-  if (!c) return { scale: 1, quality: 82, upgrade: true };
-  if (c.saveData) return { scale: .6, quality: 60, upgrade: false };
-  if (c.effectiveType === "2g" || c.effectiveType === "slow-2g") return { scale: .6, quality: 55, upgrade: false };
-  if (c.effectiveType === "3g") return { scale: .8, quality: 68, upgrade: true };
-  return { scale: 1, quality: 82, upgrade: true };
+  if (!c) return { scale: 1, quality: 80 };
+  if (c.saveData) return { scale: .55, quality: 58 };
+  if (c.effectiveType === "2g" || c.effectiveType === "slow-2g") return { scale: .55, quality: 55 };
+  if (c.effectiveType === "3g") return { scale: .8, quality: 66 };
+  return { scale: 1, quality: 80 };
 }
 
 function buildImageUrl(filename, width, quality) {
@@ -136,15 +143,15 @@ function shuffledIndices(len) {
 }
 
 const profile = getConnectionProfile();
-const loadedIndexes = new Set();
 const tileRefs = [];
-let currentOrderMode = "shuffle";
+const SORT_MODES = ["featured", "newest", "oldest"];
+let sortModeIndex = 0;
 let shuffleOrder = shuffledIndices(FILES.length);
 let activeFilter = "all";
 let searchTerm = "";
 let currentIndex = 0;
 let observer;
-let lenisLike = false;
+let cachedColWidth = 0;
 
 const masonry = document.getElementById("masonry");
 const resultsCount = document.getElementById("resultsCount");
@@ -159,59 +166,57 @@ const searchInput = document.getElementById("searchInput");
 const clearSearch = document.getElementById("clearSearch");
 const shuffleBtn = document.getElementById("shuffleBtn");
 const sortToggle = document.getElementById("sortToggle");
+const sortLabel = document.getElementById("sortLabel");
 const densityToggle = document.getElementById("densityToggle");
 const densityPopover = document.getElementById("densityPopover");
 const footerCredits = document.getElementById("footerCredits");
 const tabs = document.querySelectorAll(".tab");
 const segs = document.querySelectorAll(".seg");
 
-function tileWidth(el) {
-  const w = el.getBoundingClientRect().width || 300;
+function estimateColumnWidth() {
+  const containerWidth = masonry.getBoundingClientRect().width || window.innerWidth;
+  const density = masonry.dataset.density;
+  const w = window.innerWidth;
+  let maxCols, minWidth, gap;
+  if (density === "compact") {
+    if (w <= 640) { maxCols = 2; minWidth = 130; gap = 6; }
+    else if (w <= 1024) { maxCols = 4; minWidth = 150; gap = 6; }
+    else { maxCols = 7; minWidth = 170; gap = 6; }
+  } else {
+    if (w <= 640) { maxCols = 2; minWidth = 150; gap = 6; }
+    else if (w <= 1024) { maxCols = 3; minWidth = 190; gap = 8; }
+    else { maxCols = 5; minWidth = 240; gap = 8; }
+  }
+  const cols = Math.max(1, Math.min(maxCols, Math.floor((containerWidth + gap) / (minWidth + gap))));
+  return Math.max(minWidth, Math.floor((containerWidth - gap * (cols - 1)) / cols));
+}
+
+function refreshColumnWidth() { cachedColWidth = estimateColumnWidth(); }
+
+function computeLoadWidth() {
   const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  return Math.min(1000, Math.round(w * dpr * profile.scale / 40) * 40);
+  return Math.min(1000, Math.round(cachedColWidth * dpr * profile.scale / 40) * 40);
 }
 
-function upgradeTile(img, item, baseWidth) {
-  if (!profile.upgrade) return;
-  const hiWidth = Math.min(1100, baseWidth * 2);
-  const hi = new Image();
-  hi.onload = () => { img.src = hi.src; };
-  hi.src = buildImageUrl(item.name, hiWidth, 88);
-}
-
-function scheduleIdleUpgrades() {
-  if (!profile.upgrade) return;
-  const run = () => {
-    const idx = [...loadedIndexes].shift();
-    if (idx === undefined) return;
-    loadedIndexes.delete(idx);
-    const tile = tileRefs[idx];
-    if (!tile) return scheduleIdleUpgrades();
-    const rect = tile.getBoundingClientRect();
-    if (rect.bottom < -800 || rect.top > window.innerHeight + 800) return scheduleIdleUpgrades();
-    const img = tile.querySelector("img");
-    upgradeTile(img, FILES[idx], tileWidth(tile));
-    scheduleIdleUpgrades();
-  };
-  if ("requestIdleCallback" in window) requestIdleCallback(run, { timeout: 2000 });
-  else setTimeout(run, 500);
+function debounce(fn, delay) {
+  let t;
+  return (...args) => { clearTimeout(t); t = setTimeout(() => fn(...args), delay); };
 }
 
 function loadTileImage(img, tile, index) {
   const item = FILES[index];
-  const w = tileWidth(tile);
   const full = new Image();
-  full.src = buildImageUrl(item.name, w, profile.quality);
+  full.src = buildImageUrl(item.name, computeLoadWidth(), profile.quality);
   full.onload = () => {
     img.src = full.src;
     img.classList.add("loaded");
-    tile.classList.add("is-loaded");
-    loadedIndexes.add(index);
+    if (full.naturalWidth && full.naturalHeight) {
+      tile.style.aspectRatio = full.naturalWidth + " / " + full.naturalHeight;
+    }
   };
   full.onerror = () => {
     img.src = RELEASE_BASE + encodeURIComponent(item.name);
     img.classList.add("loaded");
-    tile.classList.add("is-loaded");
   };
 }
 
@@ -225,22 +230,27 @@ function initObserver() {
       loadTileImage(img, tile, index);
       observer.unobserve(img);
     });
-  }, { rootMargin: "600px 0px" });
+  }, { rootMargin: "400px 0px" });
 }
 
 function altFor(item) {
-  if (item.credit && CREDITS[item.credit]) return "Minecraft build — collaboration with " + CREDITS[item.credit].linkText;
-  return "Original Minecraft build by MaxLananas";
+  return "Minecraft build by MaxLananas";
 }
 
 function buildGrid() {
+  refreshColumnWidth();
   const fragment = document.createDocumentFragment();
 
   FILES.forEach((item, index) => {
     const tile = document.createElement("div");
     tile.className = "tile";
     tile.dataset.credit = item.credit ? "collab" : "original";
-    tile.dataset.search = (item.name.replace(/[_.-]/g, " ") + " " + (item.credit ? CREDITS[item.credit].linkText : "")).toLowerCase();
+    const searchBits = [
+      item.name.replace(/[_.-]/g, " "),
+      item.credit ? CREDITS[item.credit].linkText : "",
+      (item.tags || []).join(" ")
+    ];
+    tile.dataset.search = searchBits.join(" ").toLowerCase();
 
     const plate = document.createElement("span");
     plate.className = "tile-plate";
@@ -250,21 +260,8 @@ function buildGrid() {
     const img = document.createElement("img");
     img.alt = altFor(item);
     img.decoding = "async";
-    img.loading = "lazy";
     img.dataset.index = index;
     tile.appendChild(img);
-
-    if (item.credit && CREDITS[item.credit]) {
-      const c = CREDITS[item.credit];
-      const chip = document.createElement("div");
-      chip.className = "credit-chip";
-      const logo = document.createElement("img");
-      logo.src = c.logo; logo.alt = ""; logo.loading = "lazy"; logo.decoding = "async";
-      const label = document.createElement("span");
-      label.textContent = c.linkText;
-      chip.appendChild(logo); chip.appendChild(label);
-      tile.appendChild(chip);
-    }
 
     tile.addEventListener("click", () => openLightbox(index));
     tileRefs[index] = tile;
@@ -279,7 +276,6 @@ function buildGrid() {
     else observer.observe(img);
   });
 
-  window.addEventListener("load", () => setTimeout(scheduleIdleUpgrades, 1500));
   applyOrder();
   applyFilters();
 }
@@ -302,8 +298,18 @@ function buildFooterCredits() {
   });
 }
 
+function computeSortedOrder() {
+  const mode = SORT_MODES[sortModeIndex];
+  if (mode === "featured") return shuffleOrder;
+  const withTs = FILES.map((f, i) => ({ i, ts: f.ts }));
+  const dated = withTs.filter((x) => x.ts !== null);
+  const undated = withTs.filter((x) => x.ts === null).map((x) => x.i);
+  dated.sort((a, b) => (mode === "newest" ? b.ts - a.ts : a.ts - b.ts));
+  return [...dated.map((x) => x.i), ...undated];
+}
+
 function applyOrder() {
-  const order = currentOrderMode === "shuffle" ? shuffleOrder : FILES.map((_, i) => i);
+  const order = computeSortedOrder();
   const fragment = document.createDocumentFragment();
   order.forEach((idx) => fragment.appendChild(tileRefs[idx]));
   masonry.appendChild(fragment);
@@ -409,43 +415,58 @@ clearSearch.addEventListener("click", () => {
 
 shuffleBtn.addEventListener("click", () => {
   shuffleOrder = shuffledIndices(FILES.length);
-  currentOrderMode = "shuffle";
-  sortToggle.setAttribute("aria-pressed", "false");
+  sortModeIndex = 0;
+  sortToggle.classList.remove("is-active");
+  sortLabel.textContent = "Featured";
+  sortToggle.setAttribute("aria-label", "Sort order: Featured");
   applyOrder();
 });
 
 sortToggle.addEventListener("click", () => {
-  currentOrderMode = currentOrderMode === "shuffle" ? "sequence" : "shuffle";
-  sortToggle.setAttribute("aria-pressed", currentOrderMode === "sequence" ? "true" : "false");
+  sortModeIndex = (sortModeIndex + 1) % SORT_MODES.length;
+  const mode = SORT_MODES[sortModeIndex];
+  const labels = { featured: "Featured", newest: "Newest", oldest: "Oldest" };
+  sortLabel.textContent = labels[mode];
+  sortToggle.setAttribute("aria-label", "Sort order: " + labels[mode]);
+  sortToggle.classList.toggle("is-active", mode !== "featured");
   applyOrder();
 });
 
+function openDensityPopover() {
+  const rect = densityToggle.getBoundingClientRect();
+  densityPopover.style.top = (rect.bottom + 10) + "px";
+  densityPopover.style.right = (window.innerWidth - rect.right) + "px";
+  densityPopover.hidden = false;
+  densityToggle.setAttribute("aria-expanded", "true");
+}
+
+function closeDensityPopover() {
+  densityPopover.hidden = true;
+  densityToggle.setAttribute("aria-expanded", "false");
+}
+
 densityToggle.addEventListener("click", () => {
-  const isOpen = densityPopover.hidden === false;
-  densityPopover.hidden = isOpen;
-  densityToggle.setAttribute("aria-expanded", String(!isOpen));
+  if (densityPopover.hidden) openDensityPopover();
+  else closeDensityPopover();
 });
 
 document.addEventListener("click", (e) => {
-  if (!densityPopover.hidden && !e.target.closest(".popover-wrap")) {
-    densityPopover.hidden = true;
-    densityToggle.setAttribute("aria-expanded", "false");
-  }
+  if (!densityPopover.hidden && !e.target.closest(".popover-wrap")) closeDensityPopover();
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && !densityPopover.hidden) {
-    densityPopover.hidden = true;
-    densityToggle.setAttribute("aria-expanded", "false");
-    densityToggle.focus();
-  }
+  if (e.key === "Escape" && !densityPopover.hidden) { closeDensityPopover(); densityToggle.focus(); }
 });
+
+window.addEventListener("scroll", () => { if (!densityPopover.hidden) closeDensityPopover(); }, { passive: true });
 
 segs.forEach((seg) => {
   seg.addEventListener("click", () => {
     segs.forEach((s) => s.classList.remove("active"));
     seg.classList.add("active");
     masonry.dataset.density = seg.dataset.density;
+    refreshColumnWidth();
+    closeDensityPopover();
   });
 });
 
@@ -462,6 +483,11 @@ window.addEventListener("scroll", () => {
     scrollTicking = false;
   });
 }, { passive: true });
+
+window.addEventListener("resize", debounce(() => {
+  refreshColumnWidth();
+  if (!densityPopover.hidden) closeDensityPopover();
+}, 200));
 
 function initQueryParam() {
   const params = new URLSearchParams(location.search);
