@@ -105,7 +105,7 @@ const FILES = [
   { name: "Larressingle.png", credit: "bte", tags: ["larressingle","village","fortifie","fortified","gers","france","medieval","médiéval","remparts","walls","pierre","stone","chateau","occitanie","historique","historical","plus beaux villages","tourisme","buildtheearth","village medieval"] },
   { name: "Lemans_-_france5.jpg", credit: "bte", tags: ["le mans","lemans","france","circuit","course","race","24 heures","24h","endurance","sarthe","ville","town","monument","architecture","motorsport","tribune","grandstand","buildtheearth","patrimoine","heritage"] },
   { name: "Lemans_-_large.png", credit: "bte", tags: ["le mans","lemans","france","circuit","ville","town","sarthe","panorama","vue large","wide view","24 heures","24h","endurance","urbanisme","urban planning","architecture","monument","buildtheearth","terraforming","patrimoine"] },
-  { name: "Occi.png", credit: "bte", tags: ["occitanie","occitania","region","france","sud","south","paysage","landscape","terraforming","territoire","territory","carte","map","geographie","geography","buildtheearth","sud-ouest","southwest","montagne","campagne","Corse","1:1"] },
+  { name: "Occi.png", credit: "bte", tags: ["occi","corse","corsica","village abandonne","abandoned","hante","haunted","ghost village","france","buildtheearth","1:1","terraforming"] },
   { name: "untitled11.jpg", credit: "bte", tags: [] },
   { name: "untitled13.jpg", credit: "bte", tags: [] },
   { name: "untitled18.jpg", credit: "bte", tags: [] }
@@ -230,8 +230,8 @@ function estimateColumnWidth() {
 function refreshColumnWidth() { cachedColWidth = estimateColumnWidth(); }
 
 function computeLoadWidth() {
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-  return Math.min(1000, Math.round(cachedColWidth * dpr * profile.scale / 40) * 40);
+  const dpr = Math.min(window.devicePixelRatio || 1, 1.75);
+  return Math.min(560, Math.round(cachedColWidth * dpr * profile.scale / 40) * 40);
 }
 
 function debounce(fn, delay) {
@@ -242,38 +242,15 @@ function debounce(fn, delay) {
 async function loadTileImage(img, tile, index, signal) {
   const item = FILES[index];
   const width = computeLoadWidth();
-  const url = buildImageUrl(item.name, width, profile.quality);
-
   try {
-    const response = await fetch(url, { signal, mode: "cors" });
-    if (!response.ok) throw new Error("bad response");
-    const blob = await response.blob();
+    const im = await progressiveLoad(img, item.name, width, profile.quality, signal);
     if (signal.aborted) return;
-
-    let ratio = null;
-    if ("createImageBitmap" in window) {
-      try {
-        const bitmap = await createImageBitmap(blob);
-        ratio = bitmap.width + " / " + bitmap.height;
-        bitmap.close();
-      } catch (_) {}
-    }
-    if (signal.aborted) return;
-
-    const objectUrl = URL.createObjectURL(blob);
-    img.src = objectUrl;
-    if (ratio) tile.style.aspectRatio = ratio;
-    img.classList.add("loaded");
+    if (im && im.naturalWidth) tile.style.aspectRatio = im.naturalWidth + " / " + im.naturalHeight;
     observer.unobserve(img);
   } catch (err) {
-    if (signal.aborted) return;
-    img.onerror = () => {
-      img.src = RELEASE_BASE + encodeURIComponent(item.name);
-      img.classList.add("loaded");
-      observer.unobserve(img);
-    };
-    img.onload = () => { img.classList.add("loaded"); observer.unobserve(img); };
-    img.src = url;
+    if (signal && signal.aborted) return;
+    img.src = sourceUrl(item.name);
+    img.onload = () => { img.classList.add("loaded"); img.classList.remove("lqip"); observer.unobserve(img); };
   }
 }
 
@@ -407,20 +384,17 @@ async function loadLightboxImage(index) {
   lbSpinner.hidden = false;
 
   const item = FILES[index];
-  const url = buildImageUrl(item.name, 1600, 85);
+  const w = Math.min(1400, Math.round(window.innerWidth * Math.min(window.devicePixelRatio || 1, 1.75)));
 
   try {
-    const response = await fetch(url, { signal, mode: "cors" });
-    if (!response.ok) throw new Error("bad response");
-    const blob = await response.blob();
+    const im = await loadImageChain(proxyChain(item.name, w, 78), signal);
     if (myToken !== lightboxToken) return;
-    const objectUrl = URL.createObjectURL(blob);
     lbImg.onload = () => {
       if (myToken !== lightboxToken) return;
       lbImg.classList.add("loaded");
       lbSpinner.hidden = true;
     };
-    lbImg.src = objectUrl;
+    lbImg.src = im.src;
   } catch (err) {
     if (signal.aborted || myToken !== lightboxToken) return;
     lbImg.onload = () => {
@@ -430,9 +404,9 @@ async function loadLightboxImage(index) {
     };
     lbImg.onerror = () => {
       if (myToken !== lightboxToken) return;
-      lbImg.src = RELEASE_BASE + encodeURIComponent(item.name);
+      lbImg.src = sourceUrl(item.name);
     };
-    lbImg.src = url;
+    lbImg.src = sourceUrl(item.name);
   }
 }
 
@@ -444,7 +418,8 @@ function renderLightbox() {
   [currentIndex - 1, currentIndex + 1].forEach((i) => {
     const n = ((i % FILES.length) + FILES.length) % FILES.length;
     const pre = new Image();
-    pre.src = buildImageUrl(FILES[n].name, 1600, 85);
+    pre.decoding = "async";
+    pre.src = proxyChain(FILES[n].name, 900, 70)[0];
   });
 
   if (item.credit && CREDITS[item.credit]) {
@@ -604,7 +579,11 @@ function initQueryParam() {
 
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch(() => {});
+    navigator.serviceWorker.getRegistrations().then((regs) => {
+      return Promise.all(regs.map((r) => r.update())).catch(() => {});
+    }).finally(() => {
+      navigator.serviceWorker.register("sw.js").catch(() => {});
+    });
   });
 }
 
@@ -612,3 +591,19 @@ initObserver();
 initQueryParam();
 buildGrid();
 buildFooterCredits();
+
+window.MAX = {
+  FILES,
+  CREDITS,
+  RELEASE_BASE,
+  buildImageUrl,
+  progressiveLoad,
+  proxyChain,
+  sourceUrl,
+  openLightbox,
+  closeLightbox,
+  showNext,
+  showPrev,
+  tileRefs,
+  masonry,
+};

@@ -15,7 +15,7 @@
 <meta property="og:url" content="https://maxlananas.is-a.dev/">
 <meta property="og:site_name" content="MaxLananas">
 <meta property="og:title" content="MaxLananas — Minecraft Builder Portfolio">
-<meta property="og:description" content="Custom 1:1 Minecraft recreations, spawns and terraforming — 100+ builds, commissions open on Discord.">
+<meta property="og:description" content="Custom 1:1 Minecraft recreations, spawns and terraforming — 100+ builds, commissions currently closed.">
 <meta property="og:image" content="https://maxlananas.is-a.dev/apple-touch-icon.png">
 <meta property="og:locale" content="en_US">
 <meta name="twitter:card" content="summary_large_image">
@@ -28,6 +28,7 @@
 <link rel="manifest" href="manifest.json">
 
 <link rel="preconnect" href="https://wsrv.nl">
+<link rel="preconnect" href="https://images.weserv.nl">
 <link rel="preconnect" href="https://objects.githubusercontent.com" crossorigin>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,6 +138,15 @@
 <body class="is-loading">
 
 <a href="#work" class="skip-link">Skip to gallery</a>
+<canvas class="gl" id="gl" aria-hidden="true"></canvas>
+<svg class="svg-fx" aria-hidden="true">
+  <filter id="liquid" x="-20%" y="-20%" width="140%" height="140%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="3" seed="2" result="n">
+      <animate attributeName="baseFrequency" dur="8s" values="0.015;0.028;0.015" repeatCount="indefinite"/>
+    </feTurbulence>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="0" id="liquidScale"/>
+  </filter>
+</svg>
 <div class="noise" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 
@@ -154,12 +164,6 @@
     <span>Minecraft builder</span>
     <span>Please wait</span>
   </div>
-</div>
-
-<div class="cursor" id="cursor" aria-hidden="true">
-  <div class="cursor-ring"></div>
-  <div class="cursor-dot"></div>
-  <div class="cursor-label">View</div>
 </div>
 
 <header class="site-header" id="siteHeader">
@@ -180,8 +184,7 @@
     </nav>
 
     <div class="header-meta">
-      <span class="live-dot" aria-hidden="true"></span>
-      <span class="header-status">Commissions open</span>
+      <span class="header-status">Commissions closed</span>
       <time class="header-clock" id="liveClock" datetime="">00:00:00</time>
     </div>
 
@@ -248,34 +251,8 @@
         <span class="scroll-cue-line"></span>
         <span>Scroll</span>
       </a>
-      <p class="hero-aside">100+ builds · WorldEdit · Commissions</p>
+      <p class="hero-aside">100+ builds · WorldEdit</p>
     </div>
-  </div>
-</section>
-
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>1:1 Scale</span><span>Spawns</span><span>Terraforming</span><span>WorldEdit</span><span>Event maps</span><span>BuildTheEarth</span><span>Commissions</span><span>Architecture</span>
-    <span>1:1 Scale</span><span>Spawns</span><span>Terraforming</span><span>WorldEdit</span><span>Event maps</span><span>BuildTheEarth</span><span>Commissions</span><span>Architecture</span>
-  </div>
-</div>
-
-<section class="stats" id="stats">
-  <div class="stat" data-count="100" data-suffix="+">
-    <span class="stat-num">0</span>
-    <span class="stat-label">Builds in the archive</span>
-  </div>
-  <div class="stat" data-count="4" data-suffix="">
-    <span class="stat-num">0</span>
-    <span class="stat-label">Studios &amp; events</span>
-  </div>
-  <div class="stat" data-count="1" data-suffix=":1">
-    <span class="stat-num">0</span>
-    <span class="stat-label">Real-world scale</span>
-  </div>
-  <div class="stat" data-count="24" data-suffix="h">
-    <span class="stat-num">0</span>
-    <span class="stat-label">Quote turnaround</span>
   </div>
 </section>
 
@@ -286,7 +263,7 @@
     <p class="section-lead">A handful of collaborations and 1:1 worlds — the rest lives in the archive below.</p>
   </div>
 
-  <article class="case case-lg" data-file="Slide_1.png" data-cursor="view">
+  <article class="case case-lg" data-file="Slide_1.png">
     <div class="case-media">
       <div class="media-mask">
         <img alt="MrBeast collaboration map" width="1600" height="900" decoding="async">
@@ -302,7 +279,7 @@
   </article>
 
   <div class="case-grid">
-    <article class="case" data-file="circuit24hdumans.jpg" data-cursor="view">
+    <article class="case" data-file="circuit24hdumans.jpg">
       <div class="case-media">
         <div class="media-mask">
           <img alt="Circuit 24h du Mans in Minecraft" width="1200" height="800" decoding="async">
@@ -316,7 +293,7 @@
       </div>
     </article>
 
-    <article class="case" data-file="chateau_loire.png" data-cursor="view">
+    <article class="case" data-file="chateau_loire.png">
       <div class="case-media">
         <div class="media-mask">
           <img alt="Château de la Loire for Endorah" width="1200" height="800" decoding="async">
@@ -330,7 +307,7 @@
       </div>
     </article>
 
-    <article class="case" data-file="spawnfight4glory.jpg" data-cursor="view">
+    <article class="case" data-file="spawnfight4glory.jpg">
       <div class="case-media">
         <div class="media-mask">
           <img alt="Fight4Glory event spawn" width="1200" height="800" decoding="async">
@@ -344,17 +321,17 @@
       </div>
     </article>
 
-    <article class="case" data-file="Occi.png" data-cursor="view">
+    <article class="case" data-file="Occi.png">
       <div class="case-media">
         <div class="media-mask">
-          <img alt="Occitanie 1:1 terraforming" width="1200" height="800" decoding="async">
+          <img alt="Occi, abandoned village in Corsica" width="1200" height="800" decoding="async">
         </div>
         <span class="case-index">05</span>
       </div>
       <div class="case-copy">
-        <p class="case-meta">BuildTheEarth · Terraforming</p>
-        <h3>Occitanie</h3>
-        <p>Regional terrain at 1:1 — elevation, coast, and the long view.</p>
+        <p class="case-meta">BuildTheEarth · Corsica</p>
+        <h3>Occi</h3>
+        <p>An abandoned, haunted village in Corsica — rebuilt at 1:1, empty streets and all.</p>
       </div>
     </article>
   </div>
@@ -438,28 +415,28 @@
   </div>
 </section>
 
-<section class="services-pin" id="services">
-  <div class="services-track" id="servicesTrack">
-    <div class="services-intro">
-      <span class="eyebrow">Services</span>
-      <h2>What I take on</h2>
-    </div>
-    <article class="service-card">
+<section class="services" id="services">
+  <div class="services-intro">
+    <span class="eyebrow">Services</span>
+    <h2 class="split-title">What I take on</h2>
+  </div>
+  <div class="services-grid">
+    <article class="service-card" data-tilt>
       <span>01</span>
       <h3>1:1 Scale</h3>
       <p>Faithful real-world recreation from elevation data and WorldEdit.</p>
     </article>
-    <article class="service-card">
+    <article class="service-card" data-tilt>
       <span>02</span>
       <h3>Spawn / Event</h3>
       <p>Lobbies, maps and event zones built for traffic and cameras.</p>
     </article>
-    <article class="service-card">
+    <article class="service-card" data-tilt>
       <span>03</span>
       <h3>Organic</h3>
       <p>Terraforming, nature, biomes — terrain that reads as real.</p>
     </article>
-    <article class="service-card">
+    <article class="service-card" data-tilt>
       <span>04</span>
       <h3>Dev / Tools</h3>
       <p>Sites, plugins and pipelines around the build itself.</p>

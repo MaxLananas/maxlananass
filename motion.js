@@ -8,8 +8,6 @@
   const loader = $("#loader");
   const loaderCount = $("#loaderCount");
   const loaderBar = $("#loaderBar");
-  const cursor = $("#cursor");
-  const cursorLabel = cursor ? $(".cursor-label", cursor) : null;
   const clock = $("#liveClock");
   const navToggle = $("#navToggle");
   const menuOverlay = $("#menuOverlay");
@@ -31,38 +29,26 @@
   tickClock();
   setInterval(tickClock, 1000);
 
-  const HERO_FILES = {
-    a: "Mt_Blanc_cut.png",
-    b: "chateau_loire.png",
-    c: "Larressingle.png",
-  };
-
-  function imgUrl(name, w) {
-    if (window.MAX && window.MAX.buildImageUrl) return window.MAX.buildImageUrl(name, w, 76);
-    const source = "https://github.com/MaxLananas/Asset-Portfolio/releases/download/images-v1/" + encodeURIComponent(name);
-    return "https://wsrv.nl/?url=" + encodeURIComponent(source) + "&w=" + w + "&q=76";
-  }
-
   function hydrateMedia() {
-    const map = [
-      [".hero-shot-a img", HERO_FILES.a, 720],
-      [".hero-shot-b img", HERO_FILES.b, 900],
-      [".hero-shot-c img", HERO_FILES.c, 640],
-    ];
-    map.forEach(([sel, file, w]) => {
-      const el = $(sel);
-      if (el) {
-        el.src = imgUrl(file, w);
-        el.loading = "eager";
+    const load = (img, file, w) => {
+      if (!img || !file) return;
+      img.loading = img.dataset.file ? "eager" : "lazy";
+      if (window.MAX && window.MAX.progressiveLoad) {
+        window.MAX.progressiveLoad(img, file, w, 70);
+      } else if (window.MAX && window.MAX.buildImageUrl) {
+        img.src = window.MAX.buildImageUrl(file, w, 70);
+      } else {
+        img.src = "https://github.com/MaxLananas/Asset-Portfolio/releases/download/images-v1/" + encodeURIComponent(file);
       }
+    };
+    $$(".hero-shot img").forEach((img) => {
+      load(img, img.dataset.file, Number(img.dataset.w || 640));
     });
     $$(".case").forEach((card) => {
       const file = card.dataset.file;
       const img = $("img", card);
-      if (!file || !img) return;
-      const wide = card.classList.contains("case-lg") ? 1600 : 1100;
-      img.src = imgUrl(file, wide);
-      img.loading = "lazy";
+      const wide = card.classList.contains("case-lg") ? 1100 : 720;
+      load(img, file, wide);
     });
   }
   hydrateMedia();
@@ -174,40 +160,36 @@
     });
   });
 
-  /* —— Cursor —— */
-  if (finePointer && !reduce && cursor) {
-    document.body.classList.add("has-cursor");
-    const ring = $(".cursor-ring", cursor);
-    const dot = $(".cursor-dot", cursor);
-    const pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-    const ringPos = { x: pos.x, y: pos.y };
-    let visible = false;
-
-    window.addEventListener("pointermove", (e) => {
-      pos.x = e.clientX;
-      pos.y = e.clientY;
-      if (!visible) {
-        visible = true;
-        cursor.classList.add("is-on");
-        ringPos.x = pos.x;
-        ringPos.y = pos.y;
-      }
-      gsap.set(dot, { x: pos.x, y: pos.y });
-    }, { passive: true });
-
-    gsap.ticker.add(() => {
-      ringPos.x += (pos.x - ringPos.x) * 0.18;
-      ringPos.y += (pos.y - ringPos.y) * 0.18;
-      gsap.set(ring, { x: ringPos.x, y: ringPos.y });
-      if (cursorLabel) gsap.set(cursorLabel, { x: ringPos.x, y: ringPos.y });
+  /* —— 3D tilt + liquid hover —— */
+  const liquid = document.getElementById("liquidScale");
+  if (finePointer && !reduce) {
+    $$("[data-tilt]").forEach((el) => {
+      el.addEventListener("pointermove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        gsap.to(el, {
+          rotateY: px * 10,
+          rotateX: -py * 8,
+          transformPerspective: 900,
+          duration: 0.45,
+          ease: "power3.out",
+        });
+      });
+      el.addEventListener("pointerleave", () => {
+        gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.7, ease: hop });
+      });
     });
 
-    document.addEventListener("mouseover", (e) => {
-      const view = e.target.closest("[data-cursor='view'], .tile");
-      const hide = e.target.closest("[data-cursor='hidden']");
-      cursor.classList.toggle("is-view", Boolean(view) && !hide);
-      cursor.classList.toggle("is-hidden", Boolean(hide));
-      if (cursorLabel) cursorLabel.textContent = view ? "View" : "";
+    $$(".case-media").forEach((media) => {
+      media.addEventListener("pointerenter", () => {
+        if (liquid) gsap.to(liquid, { attr: { scale: 18 }, duration: 0.5, ease: "power2.out" });
+        media.classList.add("is-liquid");
+      });
+      media.addEventListener("pointerleave", () => {
+        if (liquid) gsap.to(liquid, { attr: { scale: 0 }, duration: 0.6, ease: "power2.inOut" });
+        media.classList.remove("is-liquid");
+      });
     });
   }
 
@@ -339,33 +321,6 @@
   /* —— Scroll animations —— */
   function bindScroll() {
     if (reduce) return;
-
-    gsap.to(".marquee-track", {
-      xPercent: -50,
-      ease: "none",
-      duration: 28,
-      repeat: -1,
-    });
-
-    $$(".stat").forEach((stat) => {
-      const num = $(".stat-num", stat);
-      const end = Number(stat.dataset.count || 0);
-      const suffix = stat.dataset.suffix || "";
-      const obj = { v: 0 };
-      ScrollTrigger.create({
-        trigger: stat,
-        start: "top 85%",
-        once: true,
-        onEnter: () => {
-          gsap.to(obj, {
-            v: end,
-            duration: 1.6,
-            ease: "power3.out",
-            onUpdate: () => { num.textContent = Math.round(obj.v) + suffix; },
-          });
-        },
-      });
-    });
 
     gsap.utils.toArray(".case-media").forEach((media) => {
       const img = $("img", media);
@@ -506,6 +461,12 @@
       },
     });
   }
+
+  gsap.to(".gl", {
+    opacity: 0,
+    ease: "none",
+    scrollTrigger: { trigger: ".hero", start: "center top", end: "bottom top", scrub: true },
+  });
 
   gsap.to(".hero-shot-b", {
     yPercent: 12,
