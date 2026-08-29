@@ -1,8 +1,8 @@
-const STATIC_CACHE = "maxlananas-static-v6";
-const IMAGE_CACHE = "maxlananas-images-v6";
+const STATIC_CACHE = "maxlananas-static-v7";
+const IMAGE_CACHE = "maxlananas-images-v7";
 const IMAGE_CACHE_LIMIT = 90;
 
-const STATIC_ASSETS = ["./", "./index.html", "./style.css", "./script.js", "./FFFlauta-200.otf", "./apple-touch-icon.png", "./manifest.json"];
+const STATIC_ASSETS = ["./", "./index.html", "./style.css", "./script.js", "./motion.js", "./FFFlauta-200.otf", "./apple-touch-icon.png", "./manifest.json"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)).catch(() => {}));

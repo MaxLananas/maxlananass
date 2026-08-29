@@ -325,6 +325,7 @@ function buildGrid() {
     tile.appendChild(img);
 
     tile.addEventListener("click", () => openLightbox(index));
+    tile.setAttribute("data-cursor", "view");
     tileRefs[index] = tile;
     fragment.appendChild(tile);
   });
@@ -335,6 +336,7 @@ function buildGrid() {
 
   applyOrder();
   applyFilters();
+  window.dispatchEvent(new CustomEvent("gallery:ready"));
 }
 
 function buildFooterCredits() {
@@ -365,11 +367,18 @@ function computeSortedOrder() {
   return [...dated.map((x) => x.i), ...undated];
 }
 
-function applyOrder() {
+function applyOrder(animate) {
+  const visible = tileRefs.filter((t) => t && !t.hidden);
+  const state = animate && window.Flip && visible.length ? Flip.getState(visible) : null;
   const order = computeSortedOrder();
   const fragment = document.createDocumentFragment();
   order.forEach((idx) => fragment.appendChild(tileRefs[idx]));
   masonry.appendChild(fragment);
+  if (state) {
+    Flip.from(state, { duration: 0.7, ease: "power2.inOut", stagger: 0.006, absolute: true, onComplete: () => {
+      if (window.ScrollTrigger) ScrollTrigger.refresh();
+    }});
+  }
 }
 
 function applyFilters() {
@@ -382,6 +391,7 @@ function applyFilters() {
     if (visible) visibleCount++;
   });
   resultsCount.textContent = "Showing " + visibleCount + " of " + FILES.length + " builds";
+  window.dispatchEvent(new CustomEvent("gallery:filter", { detail: { visibleCount } }));
 }
 
 let lightboxController = null;
@@ -454,6 +464,7 @@ function openLightbox(index) {
   lightbox.classList.add("open");
   document.body.style.overflow = "hidden";
   lbClose.focus();
+  window.dispatchEvent(new CustomEvent("lightbox:open", { detail: { index } }));
 }
 
 function closeLightbox() {
@@ -462,6 +473,7 @@ function closeLightbox() {
   lbSpinner.hidden = true;
   lightbox.classList.remove("open");
   document.body.style.overflow = "";
+  window.dispatchEvent(new CustomEvent("lightbox:close"));
 }
 
 function showNext() { currentIndex = (currentIndex + 1) % FILES.length; renderLightbox(); }
@@ -521,7 +533,7 @@ shuffleBtn.addEventListener("click", () => {
   sortToggle.classList.remove("is-active");
   sortLabel.textContent = "Featured";
   sortToggle.setAttribute("aria-label", "Sort order: Featured");
-  applyOrder();
+  applyOrder(true);
 });
 
 sortToggle.addEventListener("click", () => {
@@ -531,7 +543,7 @@ sortToggle.addEventListener("click", () => {
   sortLabel.textContent = labels[mode];
   sortToggle.setAttribute("aria-label", "Sort order: " + labels[mode]);
   sortToggle.classList.toggle("is-active", mode !== "featured");
-  applyOrder();
+  applyOrder(true);
 });
 
 function openDensityPopover() {
@@ -574,20 +586,6 @@ segs.forEach((seg) => {
     closeDensityPopover();
   });
 });
-
-let lastScrollY = 0;
-let scrollTicking = false;
-window.addEventListener("scroll", () => {
-  if (scrollTicking) return;
-  scrollTicking = true;
-  requestAnimationFrame(() => {
-    const y = window.scrollY;
-    if (y > lastScrollY && y > 120) siteHeader.classList.add("hide");
-    else siteHeader.classList.remove("hide");
-    lastScrollY = y;
-    scrollTicking = false;
-  });
-}, { passive: true });
 
 window.addEventListener("resize", debounce(() => {
   refreshColumnWidth();

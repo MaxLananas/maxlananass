@@ -5,16 +5,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>404 — Page not found | MaxLananas</title>
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#0a0a0b">
+<meta name="theme-color" content="#0b0b0a">
 <link rel="icon" href="apple-touch-icon.png">
 <link rel="preload" href="FFFlauta-200.otf" as="font" type="font/otf" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="404.css">
 </head>
 <body>
+  <div class="noise" aria-hidden="true"></div>
   <main class="err-wrap">
-    <h1>404</h1>
+    <p class="err-kicker">Error / 404</p>
+    <h1 id="errTitle">404</h1>
     <p>This build was never placed. The page you're looking for doesn't exist.</p>
     <a href="/" class="err-btn">Back to portfolio</a>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+  <script>
+    if (window.gsap) {
+      try { if (window.SplitText) gsap.registerPlugin(SplitText); } catch (e) {}
+      const title = document.getElementById("errTitle");
+      gsap.from(".err-kicker, p, .err-btn", { y: 16, opacity: 0, stagger: 0.08, duration: 0.8, ease: "power3.out", delay: 0.2 });
+      if (window.SplitText && title) {
+        const split = SplitText.create ? SplitText.create(title, { type: "chars" }) : new SplitText(title, { type: "chars" });
+        gsap.from(split.chars, { yPercent: 110, rotate: 8, stagger: 0.05, duration: 1.1, ease: "power4.out" });
+      } else {
+        gsap.from(title, { y: 40, opacity: 0, duration: 1, ease: "power4.out" });
+      }
+    }
+  </script>
 </body>
 </html>
