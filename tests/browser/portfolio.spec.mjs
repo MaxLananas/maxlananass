@@ -65,10 +65,10 @@ test("filters, date sorting, shuffle, density and credit links survive", async (
   await page.goto("/");
   await ready(page);
   await page.locator('[data-filter="collab"]').click();
-  await expect(page.locator("#resultsCount")).toHaveText("Showing 41 of 101 builds");
+  await expect(page.locator("#resultsCount")).toHaveText("Showing 41 of 101 images");
   await expect(page.locator('.tile[data-credit="original"]:not([hidden])')).toHaveCount(0);
   await page.locator('[data-filter="original"]').click();
-  await expect(page.locator("#resultsCount")).toHaveText("Showing 60 of 101 builds");
+  await expect(page.locator("#resultsCount")).toHaveText("Showing 60 of 101 images");
   await page.locator('[data-filter="all"]').click();
   await page.locator("#sortToggle").click();
   await expect(page.locator("#sortLabel")).toHaveText("Newest");
@@ -102,11 +102,11 @@ test("search handles accents, empty results, deep links and Enter without reload
   await page.locator("#searchInput").fill("ZZZ-no-such-build");
   await page.locator("#searchInput").press("Enter");
   await expect(page.locator("#emptyResults")).toBeVisible();
-  await expect(page.locator("#resultsCount")).toHaveText("Showing 0 of 101 builds");
+  await expect(page.locator("#resultsCount")).toHaveText("Showing 0 of 101 images");
   expect(await page.evaluate(() => window.__noReloadMarker)).toBe("preserved");
   await page.locator("#clearSearch").click();
   await expect(page.locator("#clearSearch")).toBeHidden();
-  await expect(page.locator("#resultsCount")).toHaveText("Showing 101 of 101 builds");
+  await expect(page.locator("#resultsCount")).toHaveText("Showing 101 of 101 images");
   expect(new URL(page.url()).searchParams.has("q")).toBe(false);
 });
 
@@ -355,7 +355,7 @@ test("without JavaScript the original album and contact links remain available",
   try {
     const page = await context.newPage();
     await page.goto("http://127.0.0.1:4174/");
-    await expect(page.locator('noscript a[href*="releases/tag/images-v1"]')).toBeVisible();
+    await expect(page.locator('noscript a[href*="builds/"]')).toBeVisible();
     await expect(page.locator(".discord-cta")).toHaveAttribute("href", "https://discord.gg/pnJhKuU2QK");
   } finally { await context.close(); }
 });

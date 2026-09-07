@@ -27,6 +27,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - run: npm run seo:check
       - run: npm test
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browser
@@ -84,7 +85,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
           PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
         run: npm run build
+      - name: Validate real production HTML and image sitemaps
+        run: npm run seo:check -- --dir dist
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

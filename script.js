@@ -1,5 +1,5 @@
 import { FILES, CREDITS, RELEASE_BASE } from "./gallery-data.js";
-import { altFor, connectionProfile, imageMetadata, requestedImageWidth, normalizeSearch, originalUrl, parseDateFromFilename } from "./image-utils.js";
+import { altFor, assetUrl, connectionProfile, imageMetadata, requestedImageWidth, normalizeSearch, originalUrl, parseDateFromFilename } from "./image-utils.js";
 import { loadImage, clearImage } from "./image-loader.js";
 import { LoadQueue } from "./load-queue.js";
 
@@ -266,7 +266,7 @@ function applyFilters() {
     if (ref.tile.hidden) queue.cancel("grid-" + i);
   });
   updateVisibleOrder();
-  resultsCount.textContent = `Showing ${visibleOrder.length} of ${FILES.length} builds`;
+  resultsCount.textContent = `Showing ${visibleOrder.length} of ${FILES.length} images`;
   $("emptyResults").hidden = visibleOrder.length !== 0;
   scheduleGrid();
 }
@@ -279,7 +279,7 @@ function buildFooterCredits() {
     chip.className = "footer-credit-chip";
     if (credit.linkUrl) { chip.href = credit.linkUrl; chip.target = "_blank"; chip.rel = "noopener"; }
     const img = document.createElement("img");
-    img.src = credit.logo;
+    img.src = assetUrl(credit.logo);
     img.alt = "";
     img.width = img.height = 16;
     img.loading = "lazy";
@@ -460,7 +460,7 @@ pauseQueue();
 // Do not let service-worker installation compete with the first visible photos.
 if ("serviceWorker" in navigator) {
   const register = () => {
-    const run = () => navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).catch(() => {});
+    const run = () => navigator.serviceWorker.register(assetUrl("sw.js"), { updateViaCache: "none" }).catch(() => {});
     if ("requestIdleCallback" in window) requestIdleCallback(run, { timeout: 4000 });
     else setTimeout(run, 1500);
   };

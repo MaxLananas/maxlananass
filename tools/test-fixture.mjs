@@ -7,6 +7,7 @@ import sharp from "sharp";
 import { FILES } from "../gallery-data.js";
 import { RECIPE } from "./prepare-images.mjs";
 import { buildSite } from "./build.mjs";
+import { renderSeo } from "./seo-render.mjs";
 
 export async function createFixture() {
   const directory = resolve(".cache/test-originals");
@@ -31,14 +32,22 @@ export async function createFixture() {
   // compatibility with the existing branch-based GitHub Pages publication.
   const sourceDir = resolve(".cache/source-site");
   await mkdir(sourceDir, { recursive: true });
-  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "sw.js", "apple-touch-icon.png", "manifest.json"]) {
+  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-labels.js", "page.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "sw.js", "apple-touch-icon.png", "manifest.json"]) {
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
   for (const file of ["assets/fonts/FFFlauta-200.woff2", ...["bte", "endorah", "fight4glory", "mrbeast"].map((key) => `assets/credits/${key}.webp`)]) {
     await mkdir(resolve(sourceDir, file, ".."), { recursive: true });
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
-  // A small test-only module import shim is not injected into either production mode.
+  const { files } = await renderSeo();
+  for (const [name, html] of files) {
+    await mkdir(resolve(sourceDir, name, ".."), { recursive: true });
+    await writeFile(resolve(sourceDir, name), html);
+  }
+  for (const name of ["assets/icons/favicon-96.png", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/social/portfolio.png"]) {
+    await mkdir(resolve(sourceDir, name, ".."), { recursive: true });
+    await copyFile(resolve(name), resolve(sourceDir, name));
+  }
   return result;
 }
 

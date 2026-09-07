@@ -14,15 +14,15 @@ const types = {
   ".otf": "font/otf", ".xml": "application/xml", ".txt": "text/plain; charset=utf-8"
 };
 
-export function staticServer(root) {
+export function staticServer(root, { noindex = false } = {}) {
   root = resolve(root);
   return createServer(async (request, response) => {
     if (!["GET", "HEAD"].includes(request.method)) { response.writeHead(405); response.end(); return; }
-    let pathname;
-    try { pathname = decodeURIComponent(new URL(request.url, "http://preview.invalid").pathname); }
+    let pathname, url;
+    try { url = new URL(request.url, "http://preview.invalid"); pathname = decodeURIComponent(url.pathname); }
     catch (_) { response.writeHead(400); response.end(); return; }
     const segments = pathname.split("/").filter(Boolean);
-    if (segments.some((part) => part.startsWith(".") || ["node_modules", "tools", "tests"].includes(part))) {
+    if (segments.some((part) => part.startsWith(".") || ["node_modules", "tools", "tests", "templates", "content", "docs"].includes(part))) {
       response.writeHead(404); response.end("Not found"); return;
     }
     let file = resolve(root, "." + pathname);
@@ -31,14 +31,20 @@ export function staticServer(root) {
     }
     let status = 200;
     let metadata;
+    let directory = false;
     try {
       metadata = await stat(file);
-      if (metadata.isDirectory()) { file = resolve(file, "index.html"); metadata = await stat(file); }
+      if (metadata.isDirectory()) { directory = true; file = resolve(file, "index.html"); metadata = await stat(file); }
       if (!metadata.isFile()) throw new Error("Not a file");
     } catch (_) {
       status = 404;
       file = resolve(root, "404.html");
       try { metadata = await stat(file); } catch (_) { response.writeHead(404); response.end("Not found"); return; }
+    }
+    if (status === 200 && (pathname.endsWith("/index.html") || (directory && !pathname.endsWith("/")))) {
+      const destination = pathname.endsWith("/index.html") ? pathname.slice(0, -10) : pathname + "/";
+      response.writeHead(308, { location: encodeURI(destination) + url.search, "cache-control": "public, max-age=300", ...(noindex ? { "x-robots-tag": "noindex" } : {}) });
+      response.end(); return;
     }
     const etag = `"${metadata.size}-${metadata.mtimeMs}"`;
     const immutable = /\/assets\/gallery\/[\da-f]+-\d+\.(avif|webp)$/.test(file);
@@ -47,7 +53,8 @@ export function staticServer(root) {
       "cache-control": immutable ? "public, max-age=31536000, immutable" : "no-cache",
       "x-content-type-options": "nosniff",
       "etag": etag,
-      "vary": "Accept-Encoding"
+      "vary": "Accept-Encoding",
+      ...(noindex ? { "x-robots-tag": "noindex" } : {})
     };
     // Deliberately no host/origin allowlist or frame-ancestors restriction: the
     // Arena preview is proxied and embedded, not running in the visitor's localhost.
@@ -72,7 +79,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1]
   const arg = (name, fallback) => args.includes(name) ? args[args.indexOf(name) + 1] : fallback;
   const root = arg("--root", ".");
   const port = Number(arg("--port", process.env.PORT || 4173));
-  const server = staticServer(root);
+  const server = staticServer(root, { noindex: args.includes("--preview") });
   server.listen(port, "0.0.0.0", () => console.log(`Portfolio available on port ${port} (root: ${resolve(root)})`));
   process.on("SIGTERM", () => server.close());
   process.on("SIGINT", () => server.close());

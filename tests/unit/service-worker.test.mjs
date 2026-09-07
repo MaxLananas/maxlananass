@@ -134,15 +134,15 @@ test("storage/quota errors do not stop a successful network image", async () => 
 
 test("activation deletes only this portfolio's obsolete caches", async () => {
   const h = harness();
-  for (const name of ["another-app", "maxlananas-static-old", "maxlananas-images-v6", "maxlananas-images-v7", "maxlananas-static-source-v7"]) await h.caches.open(name);
+  for (const name of ["another-app", "maxlananas-static-old", "maxlananas-images-v6", "maxlananas-images-v7", "maxlananas-static-source-v8"]) await h.caches.open(name);
   await h.lifecycle("activate");
-  assert.deepEqual((await h.caches.keys()).sort(), ["another-app", "maxlananas-images-v7", "maxlananas-static-source-v7"]);
+  assert.deepEqual((await h.caches.keys()).sort(), ["another-app", "maxlananas-images-v7", "maxlananas-static-source-v8"]);
 });
 
 test("fresh HTML and unhashed scripts replace stale source deployments", async () => {
   const h = harness();
   const home = scope + "index.html";
-  const cache = await h.caches.open("maxlananas-static-source-v7");
+  const cache = await h.caches.open("maxlananas-static-source-v8");
   await cache.put(home, new Response("old home", { headers: { "content-type": "text/html" } }));
   h.setFetch(async () => new Response("new home", { headers: { "content-type": "text/html" } }));
   const response = await h.dispatch(scope + "?q=castle", { mode: "navigate", destination: "document" });
@@ -167,7 +167,7 @@ test("hashed build assets are immutable; unrelated APIs and range requests are i
 
 test("offline home query uses the shell, but missing paths remain 404, not the homepage", async () => {
   const h = harness();
-  const cache = await h.caches.open("maxlananas-static-source-v7");
+  const cache = await h.caches.open("maxlananas-static-source-v8");
   await cache.put(scope + "index.html", new Response("portfolio", { headers: { "content-type": "text/html" } }));
   await cache.put(scope + "404.html", new Response("not found", { headers: { "content-type": "text/html" } }));
   h.setFetch(async () => { throw new TypeError("Offline"); });
@@ -184,4 +184,15 @@ test("navigation preload is reused rather than fetching the document twice", asy
   const result = await h.dispatch(scope, { mode: "navigate", destination: "document", preloadResponse: Promise.resolve(preload) });
   assert.equal(await result.text(), "preloaded");
   assert.equal(h.calls.length, 0);
+});
+
+test("visited document pages have independent offline caches, not a copy of the home", async () => {
+  const h = harness();
+  h.setFetch(async (request) => new Response(request.url.includes("homegui") ? "HomeGUI project" : "About MaxLananas", { headers: { "content-type": "text/html" } }));
+  await h.dispatch(scope + "projects/homegui/", { mode: "navigate", destination: "document" });
+  await h.dispatch(scope + "about/", { mode: "navigate", destination: "document" });
+  h.setFetch(async () => { throw new TypeError("Offline"); });
+  assert.equal(await (await h.dispatch(scope + "projects/homegui/?ref=bookmark", { mode: "navigate", destination: "document" })).text(), "HomeGUI project");
+  assert.equal(await (await h.dispatch(scope + "about/", { mode: "navigate", destination: "document" })).text(), "About MaxLananas");
+  assert.equal((await h.dispatch(scope + "development/", { mode: "navigate", destination: "document" })).status, 503, "An unvisited known page is unavailable, not a fabricated 404");
 });

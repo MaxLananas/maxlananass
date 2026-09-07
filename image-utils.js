@@ -1,5 +1,12 @@
 import { RELEASE_BASE } from "./gallery-data.js";
 import { IMAGE_MANIFEST } from "./image-manifest.js";
+import { imageLabel } from "./image-labels.js";
+
+export function assetUrl(path) {
+  if (typeof document === "undefined") return path;
+  const base = document.documentElement.dataset.base || "./";
+  return new URL(path, new URL(base, document.baseURI)).href;
+}
 
 // Shared sizes, not an almost-unique URL for every screen. More browser/CDN cache hits.
 export const IMAGE_WIDTHS = [320, 640, 960, 1600, 2560];
@@ -70,7 +77,7 @@ export function imageSources(item, cssWidth, dpr = 1, purpose = "grid") {
   let widths = allWidths.filter((width) => width <= maxWidth);
   if (!widths.length) widths = [allWidths[0]];
   const width = requestedImageWidth(item, cssWidth, dpr, purpose);
-  const urlFor = (size, format) => `${metadata.base}-${size}.${format}`;
+  const urlFor = (size, format) => assetUrl(`${metadata.base}-${size}.${format}`);
   return {
     width,
     sizes: `${Math.max(1, Math.ceil(cssWidth))}px`,
@@ -92,6 +99,5 @@ export function normalizeSearch(value) {
 }
 
 export function altFor(item, index) {
-  const title = item.name.replace(/\.[^.]+$/, "").replace(/[_.-]/g, " ");
-  return `Minecraft build #${String(index + 1).padStart(3, "0")} by MaxLananas — ${title}`;
+  return `${imageLabel(item, index)} — MaxLananas (#${String(index + 1).padStart(3, "0")})`;
 }

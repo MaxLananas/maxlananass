@@ -1,4 +1,4 @@
-import { altFor, imageMetadata, requestedImageWidth, originalUrl } from "./image-utils.js";
+import { altFor, assetUrl, imageMetadata, requestedImageWidth, originalUrl } from "./image-utils.js";
 import { clearImage, loadImage } from "./image-loader.js";
 
 export function createLightbox({ files, credits, getOrder, getThumbnail, getProfile, onOpenChange }) {
@@ -84,7 +84,7 @@ export function createLightbox({ files, credits, getOrder, getThumbnail, getProf
     caption.hidden = !credit;
     if (!credit) return;
     const logo = document.createElement("img");
-    logo.src = credit.logo;
+    logo.src = assetUrl(credit.logo);
     logo.width = logo.height = 20;
     logo.alt = "";
     logo.decoding = "async";

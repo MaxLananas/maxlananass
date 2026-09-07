@@ -18,3 +18,5 @@ p { font-size: 14px; color: rgba(245,245,244,.6); margin: 14px 0 30px; }
   padding: 14px 30px; border-radius: 99px; transition: transform .25s;
 }
 .err-btn:hover { transform: translateY(-3px); }
+
+.err-wrap p a { color: #f5f5f4; text-underline-offset: 3px; }

@@ -1,8 +1,22 @@
 # MaxLananas — portfolio
 
+**Site : [maxlananas.is-a.dev](https://maxlananas.is-a.dev/)** — Minecraft builder, contributions BuildTheEarth et projets de développement.
+
 Portfolio statique, sans framework ni dépendance JavaScript côté visiteur. Les **101 photos, crédits, tags de recherche, liens et sections du portfolio d’origine sont conservés**.
 
 Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1). Aucun original n’est modifié, supprimé, déplacé ou ajouté au dépôt du site.
+
+## Architecture SEO et contenu
+
+Le site comprend maintenant **23 pages statiques (22 indexables)** : profil MaxLananas en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, huit fiches documentées, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
+
+- Sources éditoriales : `content/`, `templates/home.html`, `tools/seo-content.mjs` et `image-labels.js`.
+- Génération : `npm run seo:render`. Ne pas modifier les snapshots HTML à la main.
+- Contrôle : `npm run seo:check` (canonicals, langues, liens/ancres, schemas, sitemaps, absence de pages orphelines).
+- [Audit et stratégie avant implémentation](docs/SEO-AUDIT.md).
+- [Publication, vérification et suivi SEO](docs/SEO-OPERATIONS.md).
+
+Ces améliorations SEO fonctionnent également dans le mode de publication actuel, sans activation du pipeline d’images. Les règles Cloudflare livrées protègent les miroirs/previews de l’indexation ; GitHub Pages ignore ces fichiers et conserve les canonicals HTML.
 
 ## Publication : deux modes compatibles
 
@@ -139,7 +153,7 @@ npm run test:browser         # vrais navigateurs sur des fixtures isolées
 npm run test:all
 ```
 
-Les tests navigateur génèrent des **images synthétiques uniquement dans `.cache/test-site`**, jamais dans `dist/` ni dans le portfolio publié. Ils testent les deux modes, les filtres, la recherche et les accents, les dates, les crédits, la densité, le clavier, les gestes, les changements rapides, les erreurs, les connexions bridées/Save-Data, les changements Retina et le cache hors ligne. Le catalogue est comparé à une empreinte de la version d’origine.
+Les tests navigateur génèrent des **images synthétiques uniquement dans `.cache/test-site`**, jamais dans `dist/` ni dans le portfolio publié. Ils testent les deux modes, les filtres, la recherche et les accents, les dates, les crédits, la densité, le clavier, les gestes, les changements rapides, les erreurs, les connexions bridées/Save-Data, les changements Retina et le cache hors ligne. Le catalogue est comparé à une empreinte de la version d’origine. Des contrôles SEO sans JS, des tests de parité entre user-agents, de pagination, de navigation multipage hors ligne et des audits WCAG automatisés complètent cette base.
 
 La configuration complète prévoit Chromium bureau/mobile, Firefox bureau et WebKit mobile sur CI. Pour utiliser un Chromium déjà installé, définir `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` : seuls les projets Chromium sont alors exécutés.
 
@@ -160,7 +174,7 @@ node tools/measure-image.mjs /chemin/vers/2025-01-27_20.55.35.png
 
 Ce sont des **mesures d’encodage sur une photo**, pas une moyenne sur tout l’album, un score Lighthouse ou une promesse de temps de chargement. Les gains dépendent de la photo, de l’écran et de la connexion. Le rapport de tout l’album, produit par un build complet, est dans `.cache/build-report.json` et dans l’artifact GitHub Actions `image-performance-report`.
 
-Pendant l’intervention, 27 tests unitaires et 36 scénarios Chromium bureau/mobile ont été validés (deux scénarios réservés au bureau sont volontairement ignorés sur mobile). Les téléchargements directs des assets de release et des navigateurs Firefox/WebKit étaient indisponibles depuis le sandbox : **le build de production des 101 vrais originaux n’a donc pas été exécuté ici**, et aucun score de performance en production n’est revendiqué. La photo de mesure a pu être récupérée dans l’historique du dépôt et son empreinte correspond exactement à l’asset de release. Le pipeline complet a été exercé localement avec les fixtures ; GitHub Actions ou un dossier local complet d’originaux permet la préparation réelle.
+La première intervention a validé 27 tests unitaires et 36 scénarios Chromium bureau/mobile. La suite SEO étend ces tests. Après chaque push, vérifier les résultats et le SHA exact dans la Pull Request et les checks GitHub Actions ; un résultat d’un ancien commit ne valide pas les suivants. Les téléchargements directs des assets de release et des navigateurs Firefox/WebKit étaient indisponibles depuis le sandbox : **le build de production des 101 vrais originaux n’a donc pas été exécuté ici**, et aucun score de performance en production n’est revendiqué. La photo de mesure a pu être récupérée dans l’historique du dépôt et son empreinte correspond exactement à l’asset de release. Le pipeline complet a été exercé localement avec les fixtures ; GitHub Actions ou un dossier local complet d’originaux permet la préparation réelle.
 
 ## Licence
 

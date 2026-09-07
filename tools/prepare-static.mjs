@@ -3,6 +3,7 @@ import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import sharp from "sharp";
 import wawoff2 from "wawoff2";
+import { prepareSeoAssets } from "./seo-assets.mjs";
 
 const logos = {
   bte: "Logo_BTE_France-3632312792.png",
@@ -25,6 +26,7 @@ export async function prepareStatic(root = process.cwd()) {
     await writeFile(resolve(root, `assets/credits/${key}.webp`), output);
     result.logos[key] = { original: input.length, optimized: output.length };
   }
+  await prepareSeoAssets(root);
   return result;
 }
 

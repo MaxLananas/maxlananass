@@ -38,7 +38,7 @@ for (const file of scripts) {
   const source = await readFile(resolve(root, file), "utf8");
   for (const match of source.matchAll(/(?:from\s*|import\s*\()\s*["'](\.[^"']+)["']/g)) await localFile(match[1], dirname(resolve(root, file)));
 }
-const runtimeFiles = ["script.js", "gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js"];
+const runtimeFiles = ["image-labels.js", "script.js", "gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js"];
 const gzipBytes = (await Promise.all(runtimeFiles.map(async (file) => gzipSync(await readFile(resolve(root, file))).length)))
   .reduce((sum, size) => sum + size, 0);
 if (gzipBytes > 25 * 1024) throw new Error(`Source startup JavaScript exceeds its 25 KiB gzip budget: ${gzipBytes}`);
