@@ -1,0 +1,45 @@
+name: Prepare supplied project media
+
+on:
+  push:
+    branches: [arena/01a07ce9-maxlananass]
+    paths:
+      - content/project-media-sources.json
+      - tools/import-project-media.mjs
+      - .github/workflows/project-media.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  checks: write
+
+jobs:
+  prepare:
+    if: github.ref == 'refs/heads/arena/01a07ce9-maxlananass'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Import and prepare the supplied public media for review
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p .cache
+          set -o pipefail
+          node tools/import-project-media.mjs --github-transfer 2>&1 | tee .cache/project-media.log
+      - name: Surface an import failure without publishing source files
+        if: failure()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module - <<'JS' > .cache/media-failure.json
+          import fs from 'node:fs';
+          const text = fs.existsSync('.cache/project-media.log') ? fs.readFileSync('.cache/project-media.log','utf8').slice(-12000) : 'The media import did not start.';
+          console.log(JSON.stringify({name:'Project media import diagnostic',head_sha:process.env.GITHUB_SHA,status:'completed',conclusion:'neutral',output:{title:'Import requires attention',summary:'```text\n'+text+'\n```'}}));
+          JS
+          gh api "repos/$GITHUB_REPOSITORY/check-runs" --method POST --input .cache/media-failure.json
