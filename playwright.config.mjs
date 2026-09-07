@@ -14,7 +14,7 @@ export default defineConfig({
   expect: { timeout: 8000 },
   retries: process.env.CI ? 1 : 0,
   forbidOnly: !!process.env.CI,
-  reporter: [["list"]],
+  reporter: process.env.GITHUB_ACTIONS ? [["list"], ["github"]] : [["list"]],
   use: {
     baseURL: "http://127.0.0.1:4174",
     serviceWorkers: "block",
