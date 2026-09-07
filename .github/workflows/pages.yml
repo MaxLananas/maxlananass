@@ -28,8 +28,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -58,8 +58,8 @@ jobs:
       deploy: ${{ steps.plan.outputs.deploy }}
       legacy: ${{ steps.plan.outputs.legacy }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
       - name: Read the existing Pages configuration
@@ -85,19 +85,20 @@ jobs:
       variants: ${{ steps.validation.outputs.variants }}
       digests: ${{ steps.validation.outputs.digests }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
       - run: npm ci
-      - uses: actions/cache@v4
+      - uses: actions/cache/restore@v4
+        id: image-cache
         with:
           path: |
             .cache/originals
             .cache/optimized
             .cache/releases
-          key: portfolio-images-${{ runner.os }}-${{ hashFiles('gallery-data.js', 'image-utils.js', 'tools/prepare-images.mjs', 'package-lock.json') }}
+          key: portfolio-images-${{ runner.os }}-${{ hashFiles('gallery-data.js', 'image-utils.js', 'tools/prepare-images.mjs', 'package-lock.json') }}-${{ github.run_id }}-${{ github.run_attempt }}
           restore-keys: |
             portfolio-images-${{ runner.os }}-
       - name: Page URL configuration
@@ -112,6 +113,14 @@ jobs:
           GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
           BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
         run: npm run build
+      - uses: actions/cache/save@v4
+        if: always() && steps.image-cache.outcome == 'success'
+        with:
+          path: |
+            .cache/originals
+            .cache/optimized
+            .cache/releases
+          key: ${{ steps.image-cache.outputs.cache-primary-key }}
       - name: Verify every real variant and all generated pages
         id: validation
         run: node tools/validate-real-build.mjs
@@ -163,8 +172,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm

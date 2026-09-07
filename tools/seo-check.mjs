@@ -135,7 +135,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.ok($(video).attr("controls") !== undefined && $(video).attr("playsinline") !== undefined);
       assert.ok(Number($(video).attr("width")) > 0 && Number($(video).attr("height")) > 0);
       await localResource($(video).attr("poster"), page.path);
-      for (const source of $(video).find("source").toArray()) await localResource($(source).attr("src"), page.path);
+      for (const source of $(video).find("source").toArray()) await localResource($(source).attr("src") || $(source).attr("data-src"), page.path);
     }
     if (page.galleryPage) {
       const photos = $(".photo-card img").toArray();

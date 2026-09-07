@@ -25,8 +25,19 @@ if ("serviceWorker" in navigator) {
   else window.addEventListener("load", () => setTimeout(register, 1500), { once: true });
 }
 
+document.querySelectorAll("[data-native-player]").forEach(player => { player.hidden = false; });
 document.addEventListener("click", async (event) => {
   if (!(event.target instanceof Element)) return;
+  const start = event.target.closest("[data-start-native-video]");
+  if (start) {
+    const video = start.closest("[data-native-player]").querySelector("video");
+    video.querySelectorAll("source[data-src]").forEach(source => { source.src = source.dataset.src; });
+    start.hidden = true;
+    video.load();
+    video.play().catch(() => { /* The native controls remain available if playback is denied. */ });
+    video.focus();
+    return;
+  }
   const item = event.target.closest("a[data-project-viewer]");
   if (!item || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !("HTMLDialogElement" in window)) return;
   event.preventDefault();

@@ -47,7 +47,8 @@ test("native video is deferred, plays and supports seeking without Google", asyn
   await expect(page.locator("iframe")).toHaveCount(0);
   await page.waitForTimeout(300);
   expect(mediaRequests).toEqual([]);
-  await video.evaluate(async element => { element.muted = true; await element.play(); });
+  await video.evaluate(element => { element.muted = true; });
+  await page.locator("[data-start-native-video]").click();
   await expect.poll(() => video.evaluate(element => element.currentTime)).toBeGreaterThan(.5);
   await video.evaluate(element => { element.pause(); element.currentTime = 30; });
   await expect.poll(() => video.evaluate(element => element.readyState)).toBeGreaterThanOrEqual(2);

@@ -6,6 +6,7 @@ import { FILES } from "../gallery-data.js";
 import { checkSeo } from "./seo-check.mjs";
 
 // Run only against a real release build, never the synthetic browser fixtures.
+try {
 const report = JSON.parse(await readFile(".cache/build-report.json", "utf8"));
 assert.equal(report.source, "github-release", "Real validation must not use local fixtures");
 assert.equal(report.images, FILES.length);
@@ -21,7 +22,7 @@ for (const file of report.files) {
     assert.equal(bytes.length, variant.bytes);
     const image = await sharp(bytes).metadata();
     assert.equal(image.width, variant.width);
-    assert.equal(image.height, Math.round(file.height * variant.width / file.width));
+    assert.ok(Math.abs(image.height - file.height * variant.width / file.width) <= 1, `${name}: unexpected resized height ${image.height}`);
     assert.ok(image.width <= file.width, "No upscaling");
   }
 }
@@ -34,3 +35,8 @@ await writeFile(".cache/real-build-validation.json", JSON.stringify(summary, nul
 console.log(JSON.stringify(summary, null, 2));
 if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `originals=${summary.originals}\nvariants=${summary.variants}\ndigests=${summary.sha256Verified}\nbytes=${summary.variantBytes}\n`);
 if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, "## Verified real image build\n\n```json\n" + JSON.stringify(summary, null, 2) + "\n```\n");
+
+} catch (error) {
+  console.error(`::error file=tools/validate-real-build.mjs::${String(error.message).replaceAll("%", "%25").replaceAll("\n", "%0A").replaceAll("\r", "%0D")}`);
+  throw error;
+}

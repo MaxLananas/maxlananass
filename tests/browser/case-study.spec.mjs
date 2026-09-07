@@ -10,7 +10,7 @@ test("the iProf case study is fully linked in French and English", async ({ page
   await expect(page.locator("h1")).toHaveText("Refonte iProf 2026");
   await expect(page.locator(".case-study")).toContainText("La question de conception");
   await expect(page.locator(".project-gallery-item")).toHaveCount(11);
-  await expect(page.locator("video source")).toHaveAttribute("src", /assets\/video\/.*\.mp4$/);
+  await expect(page.locator("video source")).toHaveAttribute("data-src", /assets\/video\/.*\.mp4$/);
   const graph = JSON.parse(await page.locator("script[type='application/ld+json']").textContent())["@graph"];
   const article = graph.find(node => node["@type"] === "Article");
   expect(article.inLanguage).toBe("fr");
