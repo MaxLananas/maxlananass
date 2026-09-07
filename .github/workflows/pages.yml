@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+    types: [opened, synchronize, reopened, edited]
   workflow_dispatch:
     inputs:
       mode:
@@ -18,8 +19,8 @@ permissions:
   contents: read
 
 concurrency:
-  group: portfolio-${{ github.event_name }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: portfolio-${{ github.event_name }}-${{ github.ref }}-${{ contains(github.event.pull_request.body, '- [x] Validate real media') && 'real' || 'standard' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.body, '- [x] Validate real media') }}
 
 jobs:
   verify:
@@ -47,7 +48,7 @@ jobs:
 
   plan:
     name: Decide publication mode without changing repository settings
-    if: github.event_name != 'pull_request'
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, '- [x] Validate real media'))
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -61,7 +62,7 @@ jobs:
         id: plan
         env:
           GH_TOKEN: ${{ github.token }}
-          REQUESTED_MODE: ${{ inputs.mode || 'auto' }}
+          REQUESTED_MODE: ${{ github.event_name == 'pull_request' && 'validate' || inputs.mode || 'auto' }}
         run: |
           publication=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)
           build=false; deploy=false; legacy=false
