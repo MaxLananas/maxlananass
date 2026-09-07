@@ -1,6 +1,6 @@
 @font-face {
   font-family: 'FFFlauta';
-  src: url('FFFlauta-200.otf') format('opentype');
+  src: url('assets/fonts/FFFlauta-200.woff2') format('woff2');
   font-display: swap;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }

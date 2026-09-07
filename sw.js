@@ -1,51 +1,177 @@
-const STATIC_CACHE = "maxlananas-static-v6";
-const IMAGE_CACHE = "maxlananas-images-v6";
-const IMAGE_CACHE_LIMIT = 90;
-
-const STATIC_ASSETS = ["./", "./index.html", "./style.css", "./script.js", "./FFFlauta-200.otf", "./apple-touch-icon.png", "./manifest.json"];
+/* Only the small application shell is precached. Photos enter the bounded cache
+   when viewed, never as a bulk offline download. The build injects hashed assets. */
+const STATIC_VERSION = "source-v7";
+const STATIC_CACHE = "maxlananas-static-" + STATIC_VERSION;
+const IMAGE_CACHE = "maxlananas-images-v7";
+const IMAGE_CACHE_LIMIT = 180;
+const IMAGE_BYTE_LIMIT = 48 * 1024 * 1024;
+const IMAGE_ENTRY_LIMIT = 6 * 1024 * 1024;
+const STATIC_ASSETS = /* precache:start */ [
+  "./", "./index.html", "./style.css", "./script.js", "./gallery-data.js",
+  "./image-manifest.js", "./image-utils.js", "./image-loader.js", "./load-queue.js", "./lightbox.js",
+  "./assets/fonts/FFFlauta-200.woff2", "./apple-touch-icon.png", "./manifest.json", "./404.html", "./404.css",
+  "./assets/credits/bte.webp", "./assets/credits/endorah.webp", "./assets/credits/fight4glory.webp", "./assets/credits/mrbeast.webp"
+] /* precache:end */;
+const ROOT = new URL("./", self.location.href);
+const HOME = new URL("./index.html", ROOT).href;
+const NOT_FOUND = new URL("./404.html", ROOT).href;
+const staticURLs = new Set(STATIC_ASSETS.map((path) => new URL(path, ROOT).href));
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS)).catch(() => {}));
-  self.skipWaiting();
+  // An incomplete installation must not replace a working offline version.
+  event.waitUntil(caches.open(STATIC_CACHE).then((cache) => cache.addAll(STATIC_ASSETS.map((asset) =>
+    new Request(new URL(asset, ROOT), { cache: "no-cache" })
+  ))));
+  // No forced skipWaiting/reload: an open tab keeps its matching code and cache.
 });
 
 self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => Promise.all(keys.filter((k) => k !== STATIC_CACHE && k !== IMAGE_CACHE).map((k) => caches.delete(k))))
-  );
-  self.clients.claim();
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    await Promise.all(keys.filter((key) => key.startsWith("maxlananas-") && key !== STATIC_CACHE && key !== IMAGE_CACHE)
+      .map((key) => caches.delete(key)));
+    // Never delete caches owned by another application on this origin.
+    if (self.registration.navigationPreload) await self.registration.navigationPreload.enable();
+    await self.clients.claim();
+  })());
 });
 
-async function trimCache(cacheName, maxItems) {
-  const cache = await caches.open(cacheName);
-  const keys = await cache.keys();
-  if (keys.length > maxItems) { await cache.delete(keys[0]); await trimCache(cacheName, maxItems); }
+async function cached(request, cacheName = STATIC_CACHE) {
+  try { return await caches.match(request, { cacheName }); } catch (_) { return undefined; }
 }
 
-async function staleWhileRevalidate(request) {
-  const cache = await caches.open(IMAGE_CACHE);
-  const cached = await cache.match(request);
-  const network = fetch(request).then((response) => {
-    if (response && response.status === 200) { cache.put(request, response.clone()); trimCache(IMAGE_CACHE, IMAGE_CACHE_LIMIT); }
-    return response;
-  }).catch(() => cached);
-  return cached || network;
-}
-
-async function cacheFirst(request) {
-  const cached = await caches.match(request);
-  if (cached) return cached;
+async function storeStatic(request, response) {
+  if (!response.ok || response.type === "opaque") return;
   try {
-    const response = await fetch(request);
-    if (response && response.status === 200) { const cache = await caches.open(STATIC_CACHE); cache.put(request, response.clone()); }
-    return response;
-  } catch (e) { return cached; }
+    const cache = await caches.open(STATIC_CACHE);
+    await cache.put(request, response);
+  } catch (_) { /* Storage-disabled/private browsing must still work online. */ }
+}
+
+let imageWrites = Promise.resolve();
+let imageIndex;
+let imageBytes = 0;
+async function storeImage(request, response) {
+  if (!response.ok || response.type === "opaque" || !response.headers.get("content-type")?.startsWith("image/")) return;
+  if (Number(response.headers.get("content-length")) > IMAGE_ENTRY_LIMIT) return;
+  try {
+    const blob = await response.blob();
+    if (!blob.size || blob.size > IMAGE_ENTRY_LIMIT) return;
+    const cache = await caches.open(IMAGE_CACHE);
+    if (!imageIndex) {
+      const keys = await cache.keys();
+      const entries = await Promise.all(keys.map(async (key) => [key.url, Number((await cache.match(key))?.headers.get("x-portfolio-bytes")) || 0]));
+      imageIndex = new Map(entries);
+      imageBytes = entries.reduce((sum, [, size]) => sum + size, 0);
+    }
+    const headers = new Headers(response.headers);
+    headers.set("x-portfolio-bytes", String(blob.size));
+    headers.set("content-length", String(blob.size));
+    headers.delete("content-encoding");
+    // Evict before writing as well, to avoid needless QuotaExceededError failures.
+    while (imageIndex.size && (imageIndex.size >= IMAGE_CACHE_LIMIT || imageBytes + blob.size > IMAGE_BYTE_LIMIT)) {
+      const oldest = imageIndex.keys().next().value;
+      await cache.delete(oldest);
+      imageBytes -= imageIndex.get(oldest);
+      imageIndex.delete(oldest);
+    }
+    await cache.put(request, new Response(blob, { status: 200, headers }));
+    imageBytes += blob.size - (imageIndex.get(request.url) || 0);
+    imageIndex.set(request.url, blob.size);
+  } catch (_) {
+    imageIndex = null; // Rebuild the index if the browser evicts storage itself.
+  }
+}
+
+function imageResponse(event) {
+  let write = Promise.resolve();
+  const response = (async () => {
+    const hit = await cached(event.request, IMAGE_CACHE);
+    if (hit) return hit; // Immutable variant: NO background redownload on cache hits.
+    const result = await fetch(event.request);
+    const copy = result.clone();
+    write = imageWrites = imageWrites.then(() => storeImage(event.request, copy)).catch(() => {});
+    return result;
+  })();
+  event.respondWith(response);
+  // Keep writes alive after returning the image; never make paint wait for cache I/O.
+  event.waitUntil(response.then(() => write).catch(() => {}));
+}
+
+function homeRequest(url) {
+  return url.pathname === ROOT.pathname || url.pathname === new URL(HOME).pathname;
+}
+
+async function navigationResponse(request, network) {
+  const url = new URL(request.url);
+  const hit = homeRequest(url) ? (await cached(HOME) || await cached(ROOT.href)) : undefined;
+  if (!hit) {
+    try { return await network; } catch (_) {
+      if (!homeRequest(url)) {
+        const missing = await cached(NOT_FOUND);
+        if (missing) return new Response(missing.body, { status: 404, headers: missing.headers });
+      }
+      return new Response("Offline. Please reconnect to load this page.", {
+        status: 503, headers: { "content-type": "text/plain; charset=utf-8" }
+      });
+    }
+  }
+  let timer;
+  try {
+    // Fast return visits even on flaky internet; a successful network response still
+    // refreshes the HTML for the next visit. The original query string is preserved.
+    return await Promise.race([
+      network.catch(() => hit),
+      new Promise((resolve) => { timer = setTimeout(() => resolve(hit), 2000); })
+    ]);
+  } finally { clearTimeout(timer); }
 }
 
 self.addEventListener("fetch", (event) => {
   const { request } = event;
-  if (request.method !== "GET") return;
+  if (request.method !== "GET" || request.headers.has("range")) return;
   const url = new URL(request.url);
-  if (url.hostname === "wsrv.nl") { event.respondWith(staleWhileRevalidate(request)); return; }
-  if (url.origin === self.location.origin) event.respondWith(cacheFirst(request));
+  if (request.mode === "navigate" && url.origin === ROOT.origin) {
+    const network = (async () => {
+      let preload;
+      try { preload = await event.preloadResponse; } catch (_) {}
+      const response = preload || await fetch(request, { cache: "no-cache" });
+      if (homeRequest(url) && response.ok && response.headers.get("content-type")?.includes("text/html")) {
+        await storeStatic(HOME, response.clone());
+      }
+      return response;
+    })();
+    event.waitUntil(network.catch(() => {}));
+    event.respondWith(navigationResponse(request, network));
+    return;
+  }
+  const isGallery = url.origin === ROOT.origin && url.pathname.startsWith(ROOT.pathname + "assets/gallery/");
+  const isProxy = url.hostname === "wsrv.nl" &&
+    (url.searchParams.get("url") || "").startsWith("https://github.com/MaxLananas/Asset-Portfolio/releases/download/");
+  if (request.destination === "image" && (isGallery || isProxy)) {
+    imageResponse(event);
+    return;
+  }
+  if (url.origin !== ROOT.origin) return; // Do not cache opaque, multi-megabyte release originals.
+  const cleanURL = new URL(url);
+  cleanURL.search = "";
+  const isAsset = url.pathname.startsWith(ROOT.pathname + "assets/");
+  if (!staticURLs.has(cleanURL.href) && !isAsset) return;
+  const immutable = isAsset && /[-.][\w-]{8,}\.(?:js|css|woff2)$/.test(url.pathname);
+  let write = Promise.resolve();
+  const result = (async () => {
+    const hit = await cached(request);
+    if (hit && immutable) return hit;
+    try {
+      // Unhashed source files must not get stuck on an old deployment forever.
+      const response = await fetch(request, { cache: immutable ? "default" : "no-cache" });
+      write = storeStatic(request, response.clone());
+      return response;
+    } catch (error) {
+      if (hit) return hit;
+      throw error;
+    }
+  })();
+  event.respondWith(result);
+  event.waitUntil(result.then(() => write).catch(() => {}));
 });

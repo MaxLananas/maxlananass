@@ -1,0 +1,113 @@
+name: Portfolio — checks and optimized Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Regression tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-test-failures
+          path: test-results/
+          retention-days: 7
+
+  build:
+    name: Prepare the original release images
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    # The very first high-quality AVIF encode is CPU-intensive. Subsequent builds
+    # reuse verified originals AND content-addressed encoded variants.
+    timeout-minutes: 150
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      publication_mode: ${{ steps.publication.outputs.mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Check the existing publication mode (do not change repository settings)
+        id: publication
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mode=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)
+          echo "mode=$mode" >> "$GITHUB_OUTPUT"
+          if [ "$mode" != "workflow" ]; then
+            echo "::notice::The current branch-based Pages publication is preserved. For prepared AVIF/WebP images, select Settings > Pages > Source > GitHub Actions, then run this workflow again."
+          fi
+      - name: Reuse verified originals and encoded variants
+        uses: actions/cache@v4
+        with:
+          path: |
+            .cache/originals
+            .cache/optimized
+          key: portfolio-images-${{ runner.os }}-${{ hashFiles('gallery-data.js', 'image-utils.js', 'tools/prepare-images.mjs', 'package-lock.json') }}
+          restore-keys: |
+            portfolio-images-${{ runner.os }}-
+      - name: Page URL configuration
+        id: pages
+        if: steps.publication.outputs.mode == 'workflow'
+        uses: actions/configure-pages@v5
+      - name: Generate the static site, never alter the release originals
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+      - name: Image size report
+        uses: actions/upload-artifact@v4
+        with:
+          name: image-performance-report
+          path: .cache/build-report.json
+          retention-days: 14
+
+  deploy:
+    name: Publish optimized portfolio
+    if: needs.build.outputs.publication_mode == 'workflow'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy only the complete, tested build
+        id: deployment
+        uses: actions/deploy-pages@v4

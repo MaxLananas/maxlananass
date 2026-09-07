@@ -27,12 +27,15 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
 
-<link rel="preconnect" href="https://wsrv.nl">
-<link rel="preconnect" href="https://objects.githubusercontent.com" crossorigin>
-<link rel="dns-prefetch" href="https://wsrv.nl">
-<link rel="preload" href="FFFlauta-200.otf" as="font" type="font/otf" crossorigin>
-<link rel="preload" href="style.css" as="style">
+<link rel="preconnect" href="https://wsrv.nl" crossorigin>
+<link rel="preload" href="assets/fonts/FFFlauta-200.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="style.css">
+<link rel="modulepreload" href="gallery-data.js">
+<link rel="modulepreload" href="image-manifest.js">
+<link rel="modulepreload" href="image-utils.js">
+<link rel="modulepreload" href="image-loader.js">
+<link rel="modulepreload" href="load-queue.js">
+<script type="module" src="script.js"></script>
 
 <script type="application/ld+json">
 {
@@ -188,17 +191,19 @@
       <button type="button" id="shuffleBtn" class="icon-btn" aria-label="Shuffle order">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg>
       </button>
-      <button type="button" id="densityToggle" class="icon-btn" aria-haspopup="true" aria-expanded="false" aria-label="Display settings">
+      <button type="button" id="densityToggle" class="icon-btn" aria-controls="densityPopover" aria-expanded="false" aria-label="Display settings">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h13M20 18h0"/><circle cx="16" cy="6" r="1.6" fill="currentColor" stroke="none"/><circle cx="10" cy="12" r="1.6" fill="currentColor" stroke="none"/><circle cx="18" cy="18" r="1.6" fill="currentColor" stroke="none"/></svg>
       </button>
     </div>
   </div>
 
-  <p class="results-count" id="resultsCount" aria-live="polite">Showing 101 of 101 builds</p>
+  <p class="results-count" id="resultsCount" aria-live="polite" aria-atomic="true">Showing 101 of 101 builds</p>
 </section>
 
 <section class="gallery" id="work" aria-labelledby="galleryHeading">
-  <div class="masonry" id="masonry" data-density="cozy"></div>
+  <div class="masonry" id="masonry" data-density="cozy" aria-busy="true"></div>
+  <p class="empty-results" id="emptyResults" hidden>No builds match this search. Try another keyword or filter.</p>
+  <noscript><p class="empty-results">JavaScript is disabled. <a href="https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1">View the original images on GitHub</a> or get in touch below.</p></noscript>
 </section>
 
 <section class="process" id="process" aria-labelledby="processHeading">
@@ -298,29 +303,37 @@
   <a href="https://discord.gg/pnJhKuU2QK" target="_blank" rel="noopener" class="quick-nav-cta">Join the community</a>
 </nav>
 
-<div class="lightbox" id="lightbox">
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Build photo viewer" aria-hidden="true">
   <button class="lb-close" id="lbClose" aria-label="Close">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg>
   </button>
   <button class="lb-arrow lb-prev" id="lbPrev" aria-label="Previous">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg>
   </button>
-  <div class="lb-spinner" id="lbSpinner" aria-hidden="true"></div>
-  <img class="lb-img" id="lbImg" alt="">
-  <div class="lb-caption" id="lbCaption"></div>
+  <div class="lb-frame" id="lbFrame" aria-busy="false">
+    <img class="lb-preview" id="lbPreview" alt="" aria-hidden="true" decoding="async" hidden>
+    <picture id="lbPicture"><img class="lb-img" id="lbImg" alt="" decoding="async"></picture>
+    <div class="lb-spinner" id="lbSpinner" aria-hidden="true" hidden></div>
+  </div>
+  <div class="lb-caption" id="lbCaption" hidden></div>
+  <div class="lb-tools">
+    <span id="lbCounter" aria-live="polite" aria-atomic="true"></span>
+    <a id="lbOriginal" target="_blank" rel="noopener" title="Full-quality original file (may be large)">Open original ↗</a>
+    <button type="button" id="lbRetry" hidden>Retry</button>
+  </div>
+  <p class="lb-status" id="lbStatus" role="status"></p>
   <button class="lb-arrow lb-next" id="lbNext" aria-label="Next">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
   </button>
 </div>
 
-<div class="popover" id="densityPopover" hidden role="menu">
+<div class="popover" id="densityPopover" hidden role="group" aria-label="Grid density">
   <span class="popover-label">Grid density</span>
   <div class="segmented">
-    <button type="button" class="seg active" data-density="cozy">Cozy</button>
-    <button type="button" class="seg" data-density="compact">Compact</button>
+    <button type="button" class="seg active" aria-pressed="true" data-density="cozy">Cozy</button>
+    <button type="button" class="seg" aria-pressed="false" data-density="compact">Compact</button>
   </div>
 </div>
 
-<script src="script.js" defer></script>
 </body>
 </html>

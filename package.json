@@ -1,0 +1,26 @@
+{
+  "name": "maxlananas-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Static portfolio. Build-time image optimization; no browser dependencies.",
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "images": "node tools/prepare-images.mjs",
+    "check": "node tools/check.mjs",
+    "test": "node --test tests/unit/*.test.mjs",
+    "test:browser": "node tools/test-fixture.mjs && playwright test",
+    "test:all": "npm run check && npm test && npm run test:browser",
+    "build": "node tools/build.mjs",
+    "images:static": "node tools/prepare-static.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "esbuild": "^0.28.2",
+    "sharp": "^0.35.4",
+    "wawoff2": "^2.0.1"
+  }
+}
