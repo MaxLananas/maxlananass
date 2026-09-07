@@ -27,22 +27,6 @@ if ("serviceWorker" in navigator) {
 
 document.addEventListener("click", async (event) => {
   if (!(event.target instanceof Element)) return;
-  const videoButton = event.target.closest("[data-load-video]");
-  if (videoButton) {
-    const facade = videoButton.closest("[data-drive-video]");
-    const id = facade.dataset.driveVideo;
-    if (!/^[\w-]{20,}$/.test(id) || facade.dataset.loaded) return;
-    facade.dataset.loaded = "true";
-    const iframe = document.createElement("iframe");
-    iframe.src = `https://drive.google.com/file/d/${id}/preview`;
-    iframe.title = "iProf 2026 video walkthrough — Google Drive";
-    iframe.allow = "fullscreen; picture-in-picture";
-    iframe.allowFullscreen = true;
-    iframe.referrerPolicy = "no-referrer";
-    facade.replaceChildren(iframe);
-    iframe.focus();
-    return;
-  }
   const item = event.target.closest("a[data-project-viewer]");
   if (!item || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || !("HTMLDialogElement" in window)) return;
   event.preventDefault();

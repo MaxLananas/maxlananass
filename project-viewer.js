@@ -10,11 +10,18 @@ function close() {
   opener?.focus({ preventScroll: true });
 }
 function create() {
+  const fr = document.documentElement.lang === "fr";
   dialog = document.createElement("dialog");
   dialog.className = "project-viewer";
-  dialog.setAttribute("aria-label", "Project screenshot viewer");
+  dialog.setAttribute("aria-label", fr ? "Visionneuse des captures du projet" : "Project screenshot viewer");
   // Static interface only. Captions and image URLs are assigned as properties.
   dialog.innerHTML = '<button type="button" class="pv-close" aria-label="Close screenshot viewer">×</button><div class="pv-stage"><img alt=""></div><div class="pv-controls"><button type="button" class="pv-prev" aria-label="Previous screenshot">←</button><span class="pv-count" aria-live="polite"></span><a class="pv-full-size" target="_blank" rel="noopener">Full-size image ↗</a><button type="button" class="pv-next" aria-label="Next screenshot">→</button></div><p class="pv-caption" role="status"></p>';
+  if (fr) {
+    dialog.querySelector(".pv-close").setAttribute("aria-label", "Fermer la visionneuse");
+    dialog.querySelector(".pv-prev").setAttribute("aria-label", "Capture précédente");
+    dialog.querySelector(".pv-next").setAttribute("aria-label", "Capture suivante");
+    dialog.querySelector(".pv-full-size").textContent = "Image pleine taille ↗";
+  }
   document.body.appendChild(dialog);
   image = dialog.querySelector("img");
   caption = dialog.querySelector(".pv-caption");
@@ -53,7 +60,7 @@ async function show(direction = 0) {
     await next.decode();
     if (token === current && dialog.open) image.src = next.src;
   } catch (_) {
-    if (token === current && dialog.open) caption.textContent += " — showing the available preview";
+    if (token === current && dialog.open) caption.textContent += document.documentElement.lang === "fr" ? " — aperçu disponible" : " — showing the available preview";
   } finally { if (pending === next) pending = null; }
 }
 export function openProjectViewer(item) {

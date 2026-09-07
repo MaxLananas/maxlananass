@@ -109,6 +109,10 @@
       "indexable": true
     },
     {
+      "path": "/fr/projets/refonte-iprof/",
+      "indexable": true
+    },
+    {
       "path": "/builds/",
       "indexable": true
     },
@@ -165,6 +169,7 @@
     "projects/bte-france-guidelines/index.html",
     "projects/builders-utilities-bt-corsica/index.html",
     "projects/le-mans/index.html",
+    "fr/projets/refonte-iprof/index.html",
     "builds/index.html",
     "builds/page/2/index.html",
     "builds/page/3/index.html",

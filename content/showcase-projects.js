@@ -3,7 +3,7 @@
 export const SHOWCASE_PROJECTS = [
   {
     slug: "iprof-redesign", name: "iProf 2026", kind: "design", collection: "interface", category: "Interface redesign", bte: false,
-    title: "iProf 2026 — interface redesign by MaxLananas",
+    title: "iProf 2026 — UI/UX redesign case study | MaxLananas",
     description: "Discover MaxLananas’s independent iProf redesign: dashboard, career, mobility, documents and messaging, with eleven presentation images and a video walkthrough.",
     summary: "A new interface for everyday teacher workflows, presented through eleven visuals and a video walkthrough.",
     language: "PHP · CSS · JavaScript", cover: "iprof-overview", leadMedia: "iprof-dashboard", social: "iprof-cover",
@@ -13,7 +13,7 @@ export const SHOWCASE_PROJECTS = [
       "Explore the eleven annotated visuals and the video walkthrough to see how the screens fit together."
     ],
     features: ["A dashboard that prioritizes upcoming deadlines, career steps and unread messages.", "A career timeline, drag-and-drop mobility preferences and a document vault.", "A shared visual language, dark-theme presentation and responsive layouts.", "Eleven annotated presentation visuals and an accompanying video."],
-    usage: "Browse the presentation images below. Select a screenshot to inspect the interface without leaving the portfolio. The video is loaded from Google Drive only after you choose to open it; its original file remains available from the supplied presentation folder.",
+    usage: "Browse the presentation images below. Select a screenshot to inspect the interface without leaving the portfolio. The native video loads only when playback is requested; the original file remains in the supplied presentation folder.",
     limits: "This is a personal redesign, not an official Ministry of Education deployment, an authentication portal or a claim of institutional endorsement. The presentation explicitly uses fictitious data. Its screenshots document the design, not production integration or an independently certified accessibility audit.",
     media: [
       { key: "iprof-overview", title: "Project presentation", alt: "iProf 2026 redesign presentation by MaxLananas" },

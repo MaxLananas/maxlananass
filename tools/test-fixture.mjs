@@ -40,6 +40,7 @@ export async function createFixture() {
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
   await cp(resolve("assets/projects"), resolve(sourceDir, "assets/projects"), { recursive: true });
+  await cp(resolve("assets/video"), resolve(sourceDir, "assets/video"), { recursive: true });
   const { files } = await renderSeo();
   for (const [name, html] of files) {
     await mkdir(resolve(sourceDir, name, ".."), { recursive: true });

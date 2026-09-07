@@ -4,7 +4,10 @@ import { pathToFileURL } from "node:url";
 import { SITE, PAGE_SIZE, canonical, galleryPath, projectPath } from "../content/site.js";
 import { sitePages } from "../content/pages.js";
 import { PROJECTS, developmentProjects } from "../content/projects.js";
-import { projectMedia } from "./project-content.mjs";
+import { projectMedia, iprofVideo } from "./project-content.mjs";
+import { caseMedia } from "./iprof-case-study.mjs";
+import { contentVersion } from "./content-version.mjs";
+import { brandIcon } from "./brand.mjs";
 import { FILES, CREDITS } from "../gallery-data.js";
 import { imageLabel } from "../image-labels.js";
 import { escape, helpers, pageContent, homeIntro, homeProjects } from "./seo-content.mjs";
@@ -15,8 +18,10 @@ const PERSON = canonical("/#person");
 const WEBSITE = canonical("/#website");
 const imageFiles = (page) => page.galleryPage
   ? FILES.slice((page.galleryPage - 1) * PAGE_SIZE, page.galleryPage * PAGE_SIZE)
-  : [...(page.project?.images || []).map((name) => FILES.find((item) => item.name === name)), ...(page.project?.media || []).map((item) => ({ ...item, projectMedia: true }))];
+  : [...(page.project?.images || []).map((name) => FILES.find((item) => item.name === name)), ...(page.caseStudy ? caseMedia(page) : page.project?.media || []).map((item) => ({ ...item, projectMedia: true }))];
 const imageSource = (item, h) => item.projectMedia ? h.mediaData(item.key).src : h.imageData(item).src;
+const languageLinks = (page) => page.alternates ? [...page.alternates, { lang: "x-default", path: page.alternates[0].path }] : [];
+const articlePage = (page) => page.type === "Article" || page.caseStudy;
 const socialImage = (page) => projectMedia[page.project?.social || page.project?.cover]?.social || "assets/social/portfolio.png";
 
 export const pageImages = imageFiles;
@@ -45,9 +50,9 @@ export function schemaFor(page, pages, h) {
   };
   const graph = [person, { "@type": "WebSite", "@id": WEBSITE, url: SITE.url, name: SITE.name, alternateName: "MaxLananas Portfolio", inLanguage: ["en", "fr"], publisher: { "@id": PERSON } }];
   const webPage = {
-    "@type": page.type === "Article" ? "WebPage" : page.type,
+    "@type": articlePage(page) ? "WebPage" : page.type,
     "@id": url + "#webpage", url, name: page.title, description: page.description,
-    inLanguage: page.lang, isPartOf: { "@id": WEBSITE }, about: { "@id": PERSON }
+    inLanguage: page.lang, dateModified: page.modified, lastReviewed: page.reviewed, isPartOf: { "@id": WEBSITE }, about: { "@id": PERSON }
   };
   const bte = page.path === "/buildtheearth/" || page.project?.bte;
   if (bte) {
@@ -61,18 +66,11 @@ export function schemaFor(page, pages, h) {
     webPage.breadcrumb = { "@id": url + "#breadcrumb" };
   }
   if (page.type === "ProfilePage") webPage.mainEntity = { "@id": PERSON };
-  if (page.type === "Article") {
-    const article = { "@type": "Article", "@id": url + "#article", headline: page.heading, description: page.description,
-      datePublished: page.updated, dateModified: page.updated, author: { "@id": PERSON }, publisher: { "@id": PERSON },
-      mainEntityOfPage: { "@id": webPage["@id"] }, inLanguage: page.lang, image: canonical("/assets/social/portfolio.png"),
-      citation: PROJECTS.filter((p) => p.kind === "software").map((p) => p.source?.url || p.repo).filter(Boolean) };
-    graph.push(article);
-    webPage.mainEntity = { "@id": article["@id"] };
-  }
   if (page.project) {
     const p = page.project;
-    const work = { "@id": url + "#project", "@type": p.kind === "software" && p.repo ? "SoftwareSourceCode" : "CreativeWork",
-      name: p.name, url, description: p.summary,
+    const projectURL = canonical(projectPath(p.slug));
+    const work = { "@id": projectURL + "#project", "@type": p.kind === "software" && p.repo ? "SoftwareSourceCode" : "CreativeWork",
+      name: p.name, url: projectURL, description: p.summary,
       ...(p.upstream || p.kind === "build" ? { contributor: { "@id": PERSON } } : { creator: { "@id": PERSON } }) };
     if (p.repo) {
       work.codeRepository = p.repo;
@@ -86,14 +84,9 @@ export function schemaFor(page, pages, h) {
     if (p.upstream) { work.isBasedOn = p.upstream; work.creditText = "BT Corsica adaptation by MaxLananas; upstream BuildersUtilities by TehBrian and Arcaniax."; }
     if (p.kind === "build") work.creditText = "Made within BuildTheEarth France; portfolio contribution by MaxLananas.";
     if (p.kind === "documentation") { work.inLanguage = "fr"; work.genre = "Unofficial community documentation"; }
-    if (p.application) {
-      const application = { "@type": p.web ? "WebApplication" : "SoftwareApplication", "@id": url + "#application", name: p.name,
-        url: p.launch?.url || url, description: p.summary, applicationCategory: p.application, softwareRequirements: p.requirements,
-        ...(p.upstream ? { contributor: { "@id": PERSON } } : { author: { "@id": PERSON } }) };
-      if (p.media?.length) application.screenshot = p.media.map((item) => canonical(h.mediaData(item.key).src));
-      graph.push(application);
-      work.targetProduct = { "@id": application["@id"] };
-    }
+    // Descriptive source/work entities are accurate without fabricated prices
+    // or reviews to force SoftwareApplication rich-result eligibility.
+    if (p.kind === "software") work.genre = p.category;
     graph.push(work);
     webPage.mainEntity = { "@id": work["@id"] };
   }
@@ -113,11 +106,12 @@ export function schemaFor(page, pages, h) {
     webPage.hasPart = references;
   }
   if (page.project?.video) {
-    const video = page.project.video;
-    const id = url + "#video";
-    graph.push({ "@type": "VideoObject", "@id": id, name: video.name, description: video.description,
-      embedUrl: `https://drive.google.com/file/d/${video.driveId}/preview`, thumbnailUrl: canonical(h.mediaData(video.poster).src),
-      creator: { "@id": PERSON }, isPartOf: { "@id": webPage["@id"] } });
+    const id = canonical("/projects/iprof-redesign/#video");
+    graph.push({ "@type": "MediaObject", "@id": id,
+      name: page.lang === "fr" ? "Présentation de la refonte iProf 2026" : "iProf 2026 redesign walkthrough",
+      description: page.project.video.description, contentUrl: canonical(iprofVideo.file), thumbnailUrl: canonical(iprofVideo.poster),
+      encodingFormat: "video/mp4", duration: `PT${iprofVideo.duration}S`, inLanguage: "fr",
+      creator: { "@id": PERSON }, isPartOf: { "@id": canonical("/projects/iprof-redesign/#project") } });
     webPage.hasPart = [...(webPage.hasPart || []), { "@id": id }];
   }
 
@@ -126,6 +120,21 @@ export function schemaFor(page, pages, h) {
     graph.push({ "@type": "ItemList", "@id": url + "#projects", name: page.heading,
       itemListElement: selected.map((p, index) => ({ "@type": "ListItem", position: index + 1, name: p.name, url: canonical(projectPath(p.slug)) })) });
     webPage.mainEntity = { "@id": url + "#projects" };
+  }
+  if (articlePage(page)) {
+    if (!page.published) throw new Error(`An article needs its real publication date: ${page.path}`);
+    const citation = page.caseStudy ? [page.project.source.url] : ["homegui", "tracebte", "railway-tools-axiom", "bte-distortion-calculator", "pineappleui", "builders-utilities-bt-corsica"]
+      .map(slug => PROJECTS.find(p => p.slug === slug)).map(p => p.source?.url || p.repo).filter(Boolean);
+    const article = { "@type": "Article", "@id": url + "#article", headline: page.heading, description: page.description,
+      datePublished: page.published, dateModified: page.modified, author: { "@id": PERSON }, publisher: { "@id": PERSON },
+      mainEntityOfPage: { "@id": webPage["@id"] }, inLanguage: page.lang, image: canonical(socialImage(page)), citation };
+    if (page.caseStudy) {
+      article.about = { "@id": canonical(projectPath(page.project.slug)) + "#project" };
+      article.associatedMedia = { "@id": canonical("/projects/iprof-redesign/#video") };
+      article.workTranslation = languageLinks(page).filter(p => p.lang !== page.lang && p.lang !== "x-default").map(p => ({ "@id": canonical(p.path) + "#article" }));
+    }
+    graph.push(article);
+    webPage.mainEntity = { "@id": article["@id"] };
   }
   graph.push(webPage);
   return { "@context": "https://schema.org", "@graph": graph };
@@ -144,9 +153,10 @@ ${meta("description", page.description)}
 ${meta("robots", page.noindex ? "noindex, follow" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1")}
 ${page.noindex ? "" : `<link rel="canonical" href="${url}">`}
 ${meta("author", SITE.name)}
+${meta("portfolio-content-version", options.contentVersion)}
 ${meta("theme-color", "#0a0a0b")}
 ${meta("color-scheme", "dark")}
-${meta("og:type", page.type === "Article" ? "article" : "website", true)}
+${meta("og:type", articlePage(page) ? "article" : "website", true)}
 ${meta("og:url", url, true)}
 ${meta("og:site_name", SITE.name, true)}
 ${meta("og:title", page.title, true)}
@@ -162,8 +172,8 @@ ${meta("twitter:title", page.title)}
 ${meta("twitter:description", page.description)}
 ${meta("twitter:image", canonical(social))}
 ${meta("twitter:image:alt", socialAlt)}
-${page.type === "Article" ? meta("article:published_time", page.updated, true) + "\n" + meta("article:modified_time", page.updated, true) + "\n" + meta("article:author", canonical("/about/"), true) : ""}
-${page.alternates ? `<link rel="alternate" hreflang="en" href="${canonical("/about/")}"><link rel="alternate" hreflang="fr" href="${canonical("/fr/a-propos/")}"><link rel="alternate" hreflang="x-default" href="${canonical("/about/")}">` : ""}
+${articlePage(page) ? meta("article:published_time", page.published, true) + "\n" + meta("article:modified_time", page.modified, true) + "\n" + meta("article:author", canonical("/about/"), true) : ""}
+${languageLinks(page).map(({ lang, path }) => `<link rel="alternate" hreflang="${lang}" href="${canonical(path)}">`).join("\n")}
 ${options.googleVerification ? meta("google-site-verification", options.googleVerification) : ""}
 ${options.bingVerification ? meta("msvalidate.01", options.bingVerification) : ""}
 <link rel="icon" href="${h.local("assets/icons/favicon-96.png")}" type="image/png" sizes="96x96">
@@ -186,16 +196,16 @@ function frame(page, pages, body, h, head) {
       headings.push({ id, title });
       return `<h2 id="${id}">${title}</h2>`;
     });
-    body = `<details class="contents"><summary>On this page</summary><nav aria-label="On this page"><ul>${headings.map(({id, title}) => `<li><a href="#${id}">${title}</a></li>`).join("")}</ul></nav></details>` + body;
+    body = `<details class="contents"><summary>${fr ? "Dans cette étude" : "On this page"}</summary><nav aria-label="${fr ? "Dans cette étude" : "On this page"}"><ul>${headings.map(({id, title}) => `<li><a href="#${id}">${title}</a></li>`).join("")}</ul></nav></details>` + body;
   }
   const crumbs = breadcrumbs(page, pages);
   return `<!DOCTYPE html>
 <!-- Generated by tools/seo-render.mjs. Edit content/ and templates/, not this snapshot. -->
-<html lang="${page.lang}" data-base="${h.local("")}"><head>${head}</head><body class="document-page">
+<html lang="${page.lang}" data-base="${h.local("")}"><head>${head}</head><body class="document-page${page.caseStudy ? " case-study-page" : ""}">
 <a class="skip-link" href="#content">${fr ? "Aller au contenu" : "Skip to content"}</a>
 <header class="site-header"><div class="header-row"><a class="brand" href="${h.local("")}" aria-label="MaxLananas home"><img src="${h.local("assets/icons/favicon-96.png")}" width="28" height="28" alt="">MaxLananas</a><nav class="document-nav" aria-label="${fr ? "Navigation principale" : "Primary"}">${h.link("/projects/", fr ? "Projets" : "Projects")}${h.link("/buildtheearth/", "BuildTheEarth")}${h.link("/development/", fr ? "Développement" : "Development")}${h.link("/builds/", fr ? "Galerie" : "Gallery")}${h.link("/about/", fr ? "Profil (EN)" : "About")}${h.link("/#contact", "Contact")}</nav></div></header>
 <main class="content-page" id="content"><nav class="breadcrumbs" aria-label="${fr ? "Fil d’Ariane" : "Breadcrumb"}"><ol>${crumbs.map((crumb, i) => `<li>${i === crumbs.length - 1 ? `<span aria-current="page">${escape(crumb.name)}</span>` : h.link(new URL(crumb.url).pathname, crumb.name)}</li>`).join("")}</ol></nav><article><h1>${escape(page.heading)}</h1>${body}</article></main>
-<footer class="site-footer"><p class="footer-brand">MaxLananas</p><nav class="footer-links" aria-label="Footer">${h.link("/", fr ? "Accueil" : "Portfolio")}${h.link("/projects/", fr ? "Projets" : "Projects")}${h.link("/builds/", fr ? "Toutes les images" : "All screenshots")}${h.link("/search/", fr ? "Recherche (EN)" : "Search")}${h.link("/about/", "About MaxLananas")}${h.link("/fr/a-propos/", "Profil en français", 'lang="fr"')}</nav><p class="footer-social-links">${h.link(SITE.github, "GitHub") } · ${h.link(SITE.modrinth, "Modrinth")} · ${h.link(SITE.instagram, "Instagram")} · ${h.link(SITE.discord, "Discord")}</p><p class="footer-copy">© 2026 MaxLananas. ${fr ? "Portfolio personnel indépendant. Les créations restent la propriété de leurs auteurs respectifs." : "Independent personal portfolio. All creations remain the property of their respective owners."}</p></footer>
+<footer class="site-footer"><p class="footer-brand">${brandIcon("pineapple")}MaxLananas</p><nav class="footer-links" aria-label="Footer">${h.link("/", fr ? "Accueil" : "Portfolio")}${h.link("/projects/", fr ? "Projets" : "Projects")}${h.link("/builds/", fr ? "Toutes les images" : "All screenshots")}${h.link("/search/", fr ? "Recherche (EN)" : "Search")}${h.link("/about/", "About MaxLananas")}${h.link("/fr/a-propos/", "Profil en français", 'lang="fr"')}</nav><p class="footer-social-links">${h.link(SITE.github, "GitHub") } · ${h.link(SITE.modrinth, "Modrinth")} · ${h.link(SITE.instagram, "Instagram")} · ${h.link(SITE.discord, "Discord")}</p><p class="footer-copy">© 2026 MaxLananas. ${fr ? "Portfolio personnel indépendant. Les créations restent la propriété de leurs auteurs respectifs." : "Independent personal portfolio. All creations remain the property of their respective owners."}</p></footer>
 </body></html>\n`;
 }
 
@@ -205,21 +215,23 @@ export async function renderSeo({ manifest = {}, base = "/", ...custom } = {}) {
   const options = {
     optimized: false, styles: "style.css", font: "assets/fonts/FFFlauta-200.woff2", app: "script.js", pageScript: "page.js",
     preloads: ["gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "image-labels.js"], pagePreloads: [],
-    googleVerification: process.env.GOOGLE_SITE_VERIFICATION || SITE.verification.google, bingVerification: process.env.BING_SITE_VERIFICATION || SITE.verification.bing, ...custom
+    googleVerification: SITE.verification.google || process.env.GOOGLE_SITE_VERIFICATION || "", bingVerification: process.env.BING_SITE_VERIFICATION || SITE.verification.bing, ...custom
   };
+  options.contentVersion = await contentVersion();
   const pages = sitePages();
   const files = new Map();
   const h = helpers(base, manifest);
   const template = await readFile(resolve(root, "templates/home.html"), "utf8");
   for (const page of pages) {
     const head = headFor(page, pages, h, options);
-    const html = page.home ? template.replace("{{SEO_HEAD}}", head).replace("{{HOME_INTRO}}", homeIntro(page, h))
+    let html = page.home ? template.replace("{{SEO_HEAD}}", head).replace("{{HOME_INTRO}}", homeIntro(page, h))
       .replace("{{HOME_PROJECTS}}", homeProjects(h)).replaceAll("{{MODRINTH}}", SITE.modrinth).replaceAll("{{IMAGE_COUNT}}", String(FILES.length)).replaceAll("{{BASE}}", base)
       : frame(page, pages, pageContent(page, h), h, head);
+    if (page.home) html = html.replace(/<summary>/g, `<summary>${brandIcon("spark")}`).replace(/(<(?:p|div) class="footer-brand">)/g, `$1${brandIcon("pineapple")}`);
     files.set(pageFile(page.path), page.home ? html.replace("<!DOCTYPE html>", "<!DOCTYPE html>\n<!-- Generated by tools/seo-render.mjs. Edit content/ and templates/, not this snapshot. -->") : html);
   }
   const indexable = pages.filter((p) => !p.noindex);
-  files.set("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable.map((p) => `  <url><loc>${escape(canonical(p.path))}</loc><lastmod>${p.updated}</lastmod>${p.alternates ? `<xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="${canonical("/about/")}"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="fr" href="${canonical("/fr/a-propos/")}"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="${canonical("/about/")}"/>` : ""}</url>`).join("\n")}\n</urlset>\n`);
+  files.set("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${indexable.map((p) => `  <url><loc>${escape(canonical(p.path))}</loc><lastmod>${p.modified}</lastmod>${languageLinks(p).map(({ lang, path }) => `<xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="${lang}" href="${canonical(path)}"/>`).join("")}</url>`).join("\n")}\n</urlset>\n`);
   files.set("sitemap-images.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n${indexable.filter((p) => imageFiles(p).length).map((p) => `  <url><loc>${escape(canonical(p.path))}</loc>${imageFiles(p).map((item) => `<image:image><image:loc>${escape(canonical(imageSource(item, h)))}</image:loc></image:image>`).join("")}</url>`).join("\n")}\n</urlset>\n`);
   files.set("robots.txt", `User-agent: *\nAllow: /\nDisallow: /.git/\nDisallow: /.github/\nDisallow: /node_modules/\nDisallow: /tools/\nDisallow: /tests/\nDisallow: /templates/\nDisallow: /content/\nDisallow: /docs/\nDisallow: /site-pages.json\nDisallow: /package.json\nDisallow: /package-lock.json\nDisallow: /README.md\n\n# Keep CSS, JavaScript, images and /search/ crawlable; search carries noindex in HTML.\nSitemap: ${canonical("/sitemap.xml")}\nSitemap: ${canonical("/sitemap-images.xml")}\n`);
   files.set("manifest.json", JSON.stringify({ id: base, name: "MaxLananas — Minecraft builds & developer projects", short_name: "MaxLananas", description: SITE.description,
@@ -238,6 +250,12 @@ https://:version.:project.pages.dev/*
   Referrer-Policy: strict-origin-when-cross-origin
 
 /assets/gallery/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/projects/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/video/*
   Cache-Control: public, max-age=31536000, immutable
 
 /search/*

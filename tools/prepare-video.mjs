@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { readFile, writeFile, mkdir, rename } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
@@ -43,12 +43,19 @@ export async function prepareVideo({ source, output = ".cache/native-video" } = 
   await sharp(posterSource).resize(1200, 630, { fit: "contain", background: "#0a0a0b" }).flatten({ background: "#0a0a0b" }).jpeg({ quality: 94, chromaSubsampling: "4:4:4" }).toFile(resolve(output, poster));
   await exec("ffmpeg", ["-hide_banner", "-loglevel", "error", "-y", "-i", mp4, "-vf", `fps=6/${duration},scale=640:-2,tile=2x3`, "-frames:v", "1", resolve(output, "review/sequence.jpg")]);
   const nativeBytes = await readFile(mp4);
-  const { stdout: verified } = await exec("ffprobe", ["-v", "error", "-show_format", "-show_streams", "-of", "json", mp4]);
+  const nativeHash = hash(nativeBytes);
+  const finalFile = `assets/video/iprof-${nativeHash.slice(0, 16)}.mp4`;
+  await rename(mp4, resolve(output, finalFile));
+  const posterBytes = await readFile(resolve(output, poster));
+  const posterHash = hash(posterBytes);
+  const finalPoster = `assets/video/iprof-poster-${posterHash.slice(0, 16)}.jpg`;
+  await rename(resolve(output, poster), resolve(output, finalPoster));
+  const { stdout: verified } = await exec("ffprobe", ["-v", "error", "-show_format", "-show_streams", "-of", "json", resolve(output, finalFile)]);
   const result = JSON.parse(verified), video = result.streams.find((s) => s.codec_type === "video");
   const info = { source: `https://drive.google.com/file/d/${config.video.id}/view`, sourceSha256: hash(sourceBytes), sourceBytes: sourceBytes.length,
-    file: stem + ".mp4", bytes: nativeBytes.length, sha256: hash(nativeBytes), mime: "video/mp4", codec: video.codec_name,
+    file: finalFile, bytes: nativeBytes.length, sha256: nativeHash, mime: "video/mp4", codec: video.codec_name,
     width: video.width, height: video.height, duration: Number(result.format.duration), hasAudio: audio.length > 0,
-    poster, remuxedWithoutReencoding: canRemux };
+    poster: finalPoster, posterSha256: posterHash, remuxedWithoutReencoding: canRemux };
   await mkdir(resolve(output, "content"), { recursive: true });
   await writeFile(resolve(output, "content/iprof-video.json"), JSON.stringify(info, null, 2) + "\n");
   console.log(JSON.stringify(info, null, 2));

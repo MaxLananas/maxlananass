@@ -8,7 +8,7 @@ Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://gi
 
 ## Architecture SEO et contenu
 
-Le site comprend maintenant **34 pages statiques (33 indexables)** : profil MaxLananas en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, dix-neuf fiches de projets et collections, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
+Le site comprend maintenant **35 pages statiques (34 indexables)** : profil MaxLananas et étude de cas iProf en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, dix-neuf fiches de projets et collections, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
 
 - Sources éditoriales : `content/`, `templates/home.html`, `tools/seo-content.mjs` et `image-labels.js`.
 - Génération : `npm run seo:render`. Ne pas modifier les snapshots HTML à la main.
@@ -20,7 +20,7 @@ Ces améliorations SEO fonctionnent également dans le mode de publication actue
 
 ## Nouvelle sélection développement
 
-- **iProf 2026** est le projet d’interface mis en avant, avec les **11 visuels fournis** et le lecteur vidéo Drive chargé uniquement sur action.
+- **iProf 2026** est le projet d’interface mis en avant, avec les **11 visuels fournis** et un lecteur vidéo natif H.264 à chargement différé.
 - Les **10 projets publiés sur Modrinth** sont regroupés ensemble, avec liens de versions : Colorflow, Nostalgia Ultra Shader, Sculk Vision, JukeBoxPlus, Now Playing IRL, HomeGUI, Railway Tools, BidVault, BedrockHeightGuard et DeathPoint.
 - SENTINEL, MaxOS et PineappleUI forment une section **Software lab**, distincte des sorties publiées.
 - Les anciennes URLs BTE et les crédits restent accessibles, sans dominer la sélection dev.
@@ -188,3 +188,15 @@ La première intervention a validé 27 tests unitaires et 36 scénarios Chromium
 ## Licence
 
 Voir [LICENSE](LICENSE). Les attributions du portfolio et les droits sur les créations restent inchangés.
+
+## Derniers garde-fous avant publication
+
+- La valeur Search Console fournie par le propriétaire est intégrée aux pages.
+- Les dates sont indépendantes par URL dans `content/page-dates.json` ; une reconstruction ne republie pas les articles.
+- La vidéo iProf est servie localement en MP4 H.264, sans iframe Google, avec lecture progressive et gestion HTTP des plages d’octets.
+- La validation de l’album réel peut être demandée sans déploiement, par le mode `validate` du workflow ou la case de PR documentée.
+- Le mode legacy est conservé tant que le propriétaire ne change pas Pages ; aucun encodage inutilisé n’est lancé dans ce mode.
+- Le contrôle du site public est exécuté après publication et vérifie aussi l’empreinte du contenu, la balise Google et les réponses 206 de la vidéo.
+- Les workflows et le transport GitHub temporaires d’import ont été retirés. Les outils locaux explicites restent disponibles.
+
+Voir `docs/PREMERGE-VALIDATION.md` pour les garanties testées et les limites.

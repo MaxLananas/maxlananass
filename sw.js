@@ -12,7 +12,7 @@ const STATIC_ASSETS = /* precache:start */ [
   "./assets/icons/favicon-96.png", "./assets/fonts/FFFlauta-200.woff2", "./apple-touch-icon.png", "./manifest.json", "./404.html", "./404.css",
   "./assets/credits/bte.webp", "./assets/credits/endorah.webp", "./assets/credits/fight4glory.webp", "./assets/credits/mrbeast.webp"
 ] /* precache:end */;
-const PAGE_PATHS = /* pages:start */ ["","about/","fr/a-propos/","projects/","buildtheearth/","development/","guides/minecraft-mods-plugins-addons/","search/","projects/iprof-redesign/","projects/colorflow/","projects/nostalgia-ultra/","projects/sculk-vision/","projects/jukeboxplus/","projects/now-playing-irl/","projects/homegui/","projects/railway-tools-axiom/","projects/bidvault/","projects/bedrock-height-guard/","projects/deathpoint/","projects/sentinel/","projects/maxos/","projects/pineappleui/","projects/tracebte/","projects/bte-distortion-calculator/","projects/bte-france-guidelines/","projects/builders-utilities-bt-corsica/","projects/le-mans/","builds/","builds/page/2/","builds/page/3/","builds/page/4/","builds/page/5/","builds/page/6/","builds/page/7/"] /* pages:end */;
+const PAGE_PATHS = /* pages:start */ ["","about/","fr/a-propos/","projects/","buildtheearth/","development/","guides/minecraft-mods-plugins-addons/","search/","projects/iprof-redesign/","projects/colorflow/","projects/nostalgia-ultra/","projects/sculk-vision/","projects/jukeboxplus/","projects/now-playing-irl/","projects/homegui/","projects/railway-tools-axiom/","projects/bidvault/","projects/bedrock-height-guard/","projects/deathpoint/","projects/sentinel/","projects/maxos/","projects/pineappleui/","projects/tracebte/","projects/bte-distortion-calculator/","projects/bte-france-guidelines/","projects/builders-utilities-bt-corsica/","projects/le-mans/","fr/projets/refonte-iprof/","builds/","builds/page/2/","builds/page/3/","builds/page/4/","builds/page/5/","builds/page/6/","builds/page/7/"] /* pages:end */;
 const ROOT = new URL("./", self.location.href);
 const HOME = new URL("./index.html", ROOT).href;
 const NOT_FOUND = new URL("./404.html", ROOT).href;
@@ -135,6 +135,9 @@ self.addEventListener("fetch", (event) => {
   const { request } = event;
   if (request.method !== "GET" || request.headers.has("range")) return;
   const url = new URL(request.url);
+  // Let HTTP byte ranges and the browser media cache handle video. Never copy
+  // an entire movie into the application CacheStorage budget.
+  if (request.destination === "video" || request.destination === "audio" || url.pathname.startsWith(ROOT.pathname + "assets/video/")) return;
   if (request.mode === "navigate" && url.origin === ROOT.origin) {
     const network = (async () => {
       let preload;

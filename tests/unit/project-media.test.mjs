@@ -41,13 +41,13 @@ test("iProf is a design study with real media, not a fake government service", a
   const { files } = await renderSeo();
   const $ = load(files.get("projects/iprof-redesign/index.html"));
   assert.equal($(".project-gallery-item").length, 11);
-  assert.equal($("iframe, video, form").length, 0, "No initial third-party player or credential form");
-  assert.equal($("[data-drive-video]").length, 1);
-  assert.match($(".project-scope-notice").text(), /fictitious/);
+  assert.equal($("iframe, form").length, 0, "No third-party player or credential form");
+  assert.equal($("video[preload=none][controls]").length, 1);
+  assert.match($(".case-study").text(), /fictitious/);
   assert.match($("meta[property='og:image']").attr("content"), /iprof-cover.*social\.jpg$/);
   const graph = JSON.parse($("script[type='application/ld+json']").text())["@graph"];
   assert.equal(graph.find(n => n["@id"].endsWith("#project"))["@type"], "CreativeWork");
-  assert.equal(graph.find(n => n["@type"] === "VideoObject").uploadDate, undefined, "Do not invent an upload date for a rich result");
+  assert.equal(graph.find(n => n["@type"] === "MediaObject").uploadDate, undefined, "Do not invent an upload date for a rich result");
 });
 
 test("all regular page footers link to the creator’s exact Modrinth profile", async () => {

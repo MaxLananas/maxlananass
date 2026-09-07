@@ -196,3 +196,10 @@ test("visited document pages have independent offline caches, not a copy of the 
   assert.equal(await (await h.dispatch(scope + "about/", { mode: "navigate", destination: "document" })).text(), "About MaxLananas");
   assert.equal((await h.dispatch(scope + "development/", { mode: "navigate", destination: "document" })).status, 503, "An unvisited known page is unavailable, not a fabricated 404");
 });
+
+test("native media remains outside CacheStorage, including non-range requests", async () => {
+  const h = harness();
+  const response = await h.dispatch(scope + "assets/video/iprof-example.mp4", { destination: "video" });
+  assert.equal(response, undefined);
+  assert.equal(h.calls.length, 0);
+});

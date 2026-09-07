@@ -2,7 +2,7 @@
 
 ## Ce qui est réellement livré
 
-Le rendu n’est plus limité à la galerie interactive : **34 documents HTML, 33 URLs indexables**, dix-neuf fiches de projets et collections, deux profils équivalents EN/FR, un guide technique et sept pages de galerie couvrant les 101 captures. La recherche interne est noindex. La 404 reste hors sitemap.
+Le rendu n’est plus limité à la galerie interactive : **35 documents HTML, 34 URLs indexables**, dix-neuf fiches de projets et collections, deux profils équivalents EN/FR, une étude de cas iProf EN/FR et un guide technique et sept pages de galerie couvrant les 101 captures. La recherche interne est noindex. La 404 reste hors sitemap.
 
 Les versions à la racine fonctionnent immédiatement après fusion/publication, y compris avec GitHub Pages en mode legacy ou un déploiement Cloudflare sans build. Le build optimisé produit les mêmes pages dans `dist/`, avec les vrais formats/tailles préparés. Il n’est donc **pas nécessaire d’activer GitHub Actions pour bénéficier du nouveau contenu SEO** ; cette activation reste nécessaire pour le pipeline de variantes dans ce mode d’hébergement.
 
@@ -10,7 +10,9 @@ Les versions à la racine fonctionnent immédiatement après fusion/publication,
 
 | Fichier | Responsabilité |
 | --- | --- |
-| `content/site.js` | Nom, origine canonique, profils, date de revue et vérification de propriété optionnelle |
+| `content/site.js` | Nom, origine canonique, profils et vérification de propriété |
+| `content/page-dates.json` | Dates de publication, modification et revue, indépendantes pour chaque URL |
+| `content/iprof-case-study.js` | Texte éditorial anglais/français de l’étude de cas |
 | `content/projects.js` | Sélection éditoriale, descriptions, dépendances, limites, sources épinglées, attribution et relations |
 | `content/pages.js` | Routes, intentions, titles/descriptions, hiérarchie et langues |
 | `tools/seo-content.mjs` | Texte des rubriques, profils, guide et présentation des données |
@@ -64,7 +66,7 @@ Aucun token, compte propriétaire, statistique privée, soumission ou validation
 5. Inspecter le rendu et le canonical retenu de l’accueil, du profil, d’un logiciel, du hub BuildTheEarth et d’une page de galerie. Vérifier la découverte des images. Les images locales du build évitent la dépendance à un domaine CDN externe pour leur indexation ; le mode source reste dépendant du proxy/original.
 6. Tester manuellement les variantes HTTP, www et github.io depuis un réseau autorisé. N’exiger une redirection www que si cet hôte est réellement configuré. Ne pas modifier le DNS sur la base d’une simple hypothèse.
 
-Les validators locaux contrôlent la structure et sa cohérence avec le contenu ; ils ne remplacent pas le Rich Results Test ni l’inspection Google d’une URL publiée. SoftwareApplication sans avis/prix fictifs ne promet pas un rich result. La FAQ HTML est conservée pour les visiteurs, sans promettre un résultat enrichi FAQ retiré par Google.
+Les validators locaux contrôlent la structure et sa cohérence avec le contenu ; ils ne remplacent pas le Rich Results Test ni l’inspection Google d’une URL publiée. Les projets sont décrits avec SoftwareSourceCode/CreativeWork plutôt que des SoftwareApplication incomplètes destinées à forcer un résultat enrichi. La vidéo est un MediaObject vérifié ; aucune date de mise en ligne inconnue n’est inventée pour un VideoObject. La FAQ HTML est conservée pour les visiteurs, sans promettre un résultat enrichi FAQ retiré par Google.
 
 ## Mesures utiles, plutôt qu’une promesse de « position 1 »
 
@@ -90,3 +92,15 @@ La priorité est de documenter du travail réel, pas de produire une page pour c
 6. **Revue trimestrielle ou lors d’une release** : confirmer que les projets sont toujours décrits correctement, que les liens/dépendances tiennent et que la traduction française reste équivalente.
 
 L’HTML sémantique, les liens ordinaires, les entités cohérentes et les sources servent aussi aux systèmes de recherche basés sur l’IA. Aucun cloaking, contenu réservé aux bots ou fichier prétendument magique pour les rankings n’est ajouté.
+
+## Déploiement automatique et validation de l’album réel
+
+Le workflow possède trois chemins distincts :
+
+- **PR ordinaire** : contrôles de code, SEO, tests, aucun déploiement.
+- **Validation réelle demandée** : build complet à partir de la release, contrôle de chaque variante, rapports et artifact téléchargeable, aucun déploiement. Le mode `validate` via `workflow_dispatch` permet ce contrôle sur une branche. Si l’intégration ne dispose pas du droit de déclencher un workflow, un membre disposant d’une branche dans ce dépôt peut ajouter la case `- [x] Validate real media` au corps de sa PR. Les forks ne peuvent pas déclencher ce chemin par ce mécanisme. Décocher après la demande évite d’encoder à chaque changement éditorial.
+- **Publication de main** : build puis déploiement seulement si Pages utilise GitHub Actions. En mode legacy, les snapshots continuent de se publier sans un encodage inutilisé. Le contrôle public attend la propagation et vérifie la vraie réponse du site dans les deux modes.
+
+`tools/publication-plan.mjs` centralise et teste les décisions. Le mode de validation ne peut jamais sélectionner le déploiement, même exécuté sur main. Les permissions d’écriture Pages/OIDC sont limitées au job de déploiement. Il n’y a plus de workflow d’import attaché à la branche de session, ni de transport via écritures de blobs/checks.
+
+Le marqueur `portfolio-content-version` est une empreinte technique des sources éditoriales et du rendu, pas une date SEO. `seo:live` compare cette empreinte, les titles/canonicals, la valeur Google, les assets critiques, les sitemaps, les directives d’indexation, une vraie 404 et une plage de la vidéo. En cas de divergence, le check reste rouge ; il ne présente pas un ancien déploiement comme valide.

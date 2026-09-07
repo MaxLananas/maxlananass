@@ -9,7 +9,7 @@ import { FILES } from "../gallery-data.js";
 import { renderSeo, pageFile, pageImages, serviceWorkerRoutes } from "./seo-render.mjs";
 
 const root = resolve(import.meta.dirname, "..");
-const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "VideoObject"]);
+const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "MediaObject", "VideoObject"]);
 const text = (value) => value.replace(/\s+/g, " ").trim();
 
 export async function checkSeo({ directory = root, snapshots = resolve(directory) === root } = {}) {
@@ -61,7 +61,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     assert.ok($("meta[name='twitter:image:alt']").attr("content"));
     await localResource($("meta[property='og:image']").attr("content"), page.path);
     const alternates = $("link[hreflang]");
-    assert.equal(alternates.length, page.alternates ? 3 : 0);
+    assert.equal(alternates.length, page.alternates ? page.alternates.length + 1 : 0);
     for (const alternate of alternates.toArray()) {
       const lang = $(alternate).attr("hreflang"), href = $(alternate).attr("href");
       const target = documents.get(new URL(href).pathname);
@@ -71,6 +71,10 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     }
     const ld = $("script[type='application/ld+json']");
     assert.equal(ld.length, 1);
+    if (SITE.verification.google) {
+      assert.equal($("meta[name='google-site-verification']").length, 1);
+      assert.equal($("meta[name='google-site-verification']").attr("content"), SITE.verification.google);
+    }
     const graph = JSON.parse(ld.text())["@graph"];
     assert.ok(Array.isArray(graph));
     const ids = new Set(graph.map((node) => node["@id"]));
@@ -81,6 +85,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.ok(!node.aggregateRating && !node.review && !node.interactionStatistic && !node.offers, "No invented ratings/offers/metrics");
       if (node.codeRepository) assert.equal(node["@type"], "SoftwareSourceCode");
       if (node["@type"] === "Article") {
+        assert.equal(node.datePublished, page.published); assert.equal(node.dateModified, page.modified);
         assert.equal(node.headline, page.heading); assert.equal(node.author["@id"], canonical("/#person"));
         assert.ok($(`time[datetime='${node.datePublished}']`).length, "Article date is visible and real");
       }
@@ -125,6 +130,13 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.ok(Number($(img).attr("width")) > 0 && Number($(img).attr("height")) > 0, "Reserve image dimensions");
       await localResource($(img).attr("src"), page.path);
     }
+    for (const video of $("video").toArray()) {
+      assert.equal($(video).attr("preload"), "none");
+      assert.ok($(video).attr("controls") !== undefined && $(video).attr("playsinline") !== undefined);
+      assert.ok(Number($(video).attr("width")) > 0 && Number($(video).attr("height")) > 0);
+      await localResource($(video).attr("poster"), page.path);
+      for (const source of $(video).find("source").toArray()) await localResource($(source).attr("src"), page.path);
+    }
     if (page.galleryPage) {
       const photos = $(".photo-card img").toArray();
       assert.ok(photos.length > 0 && photos.length <= PAGE_SIZE);
@@ -148,7 +160,10 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
   const locations = sitemap("url > loc").toArray().map((node) => sitemap(node).text());
   assert.deepEqual(locations.sort(), indexable.map((page) => canonical(page.path)).sort());
   assert.equal(sitemap("priority, changefreq").length, 0);
-  for (const date of sitemap("lastmod").toArray()) assert.equal(sitemap(date).text(), SITE.reviewed, "No fabricated freshness on every build");
+  for (const entry of sitemap("url").toArray()) {
+    const page = indexable.find(p => canonical(p.path) === sitemap(entry).children("loc").text());
+    assert.equal(sitemap(entry).children("lastmod").text(), page.modified, "Use the modification date of this page, not a build date");
+  }
   const imageMap = load(await readFile(resolve(directory, "sitemap-images.xml"), "utf8"), { xml: true });
   for (const node of imageMap("url").toArray()) {
     const path = new URL(imageMap(node).children("loc").text()).pathname;

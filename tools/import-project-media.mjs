@@ -1,14 +1,11 @@
 // Explicit import only; never runs during a normal visitor request or site build.
-// Originals remain on the supplied Drive / Modrinth. The optional CI transport
-// stores optimized blobs without changing any branch, for review in the sandbox.
-import { readFile, writeFile, mkdir, readdir } from "node:fs/promises";
+// Originals remain on the supplied Drive / Modrinth. Outputs stay in .cache
+// until the maintainer reviews them. This tool never calls GitHub write APIs.
+import { readFile, writeFile, mkdir } from "node:fs/promises";
 import { resolve, dirname } from "node:path";
 import { createHash } from "node:crypto";
-import { execFile } from "node:child_process";
-import { promisify } from "node:util";
 import sharp from "sharp";
 
-const exec = promisify(execFile);
 const root = resolve(import.meta.dirname, "..");
 const sources = JSON.parse(await readFile(resolve(root, "content/project-media-sources.json"), "utf8"));
 const out = resolve(root, ".cache/project-media-import");
@@ -61,10 +58,6 @@ async function image(key, url, { icon = false, social = false, review = false } 
   console.log(`Prepared ${key}: ${width}×${height}, ${variants.length} variants`);
 }
 
-if (process.argv.includes("--video-only")) {
-  const { prepareVideo } = await import("./prepare-video.mjs");
-  await prepareVideo({ output: ".cache/project-media-import" });
-} else {
 sharp.concurrency(1);
 for (const item of sources.screenshots) await image(item.key, `https://drive.usercontent.google.com/download?id=${item.id}&export=download&confirm=t`, { social: item.key === "iprof-cover", review: true });
 await save("review/contact-sheet.jpg", await sharp({ create: { width: 1280, height: Math.ceil(reviewThumbs.length / 2) * 400, channels: 3, background: "#ddd" } }).composite(reviewThumbs.map((input, i) => ({ input, left: i % 2 * 640, top: Math.floor(i / 2) * 400 }))).jpeg({ quality: 92 }).toBuffer());
@@ -79,41 +72,5 @@ for (const project of projects) {
   }
 }
 
-try {
-  const video = await download(`https://drive.usercontent.google.com/download?id=${sources.video.id}&export=download&confirm=t`);
-  const videoFile = resolve(root, ".cache/iprof-review.mp4");
-  await writeFile(videoFile, video);
-  const { stdout } = await exec("ffprobe", ["-v", "error", "-show_entries", "format=duration:stream=width,height,codec_type", "-of", "json", videoFile]);
-  const details = JSON.parse(stdout);
-  await exec("ffmpeg", ["-y", "-i", videoFile, "-vf", "fps=1/10,scale=640:-2,tile=2x3", "-frames:v", "1", resolve(out, "review/video-frames.jpg")]);
-  manifest.video = { id: sources.video.id, duration: Number(details.format.duration), bytes: video.length,
-    ...details.streams.find((stream) => stream.codec_type === "video") };
-} catch (error) { console.warn("Video review unavailable:", error.message); manifest.video = { id: sources.video.id }; }
 await save("project-media.json", Buffer.from(JSON.stringify(manifest, null, 2) + "\n"));
-
-}
-
-async function gh(endpoint, body) {
-  return new Promise((resolve, reject) => {
-    const child = execFile("gh", ["api", endpoint, "--method", "POST", "--input", "-"], { maxBuffer: 1024 * 1024 }, (error, stdout) => error ? reject(error) : resolve(JSON.parse(stdout)));
-    child.stdin.end(JSON.stringify(body));
-  });
-}
-if (process.argv.includes("--github-transfer")) {
-  const repo = process.env.GITHUB_REPOSITORY;
-  if (repo !== "MaxLananas/maxlananass" || process.env.GITHUB_REF !== "refs/heads/arena/01a07ce9-maxlananass") throw new Error("Media transport is limited to the authorized working branch");
-  const files = [];
-  async function upload(directory, prefix = "") {
-    for (const entry of await readdir(directory, { withFileTypes: true })) {
-      const path = prefix + entry.name;
-      if (entry.isDirectory()) { await upload(resolve(directory, entry.name), path + "/"); continue; }
-      const bytes = await readFile(resolve(directory, entry.name));
-      const blob = await gh(`repos/${repo}/git/blobs`, { content: bytes.toString("base64"), encoding: "base64" });
-      files.push({ path, sha: blob.sha, bytes: bytes.length });
-    }
-  }
-  await upload(out);
-  await gh(`repos/${repo}/check-runs`, { name: "Project media prepared for review", head_sha: process.env.GITHUB_SHA, status: "completed", conclusion: "neutral", output: {
-    title: "Supplied media imported; no branch was modified", summary: "```json\n" + JSON.stringify({ files }) + "\n```"
-  } });
-}
+console.log("Prepared images are ready for review in .cache/project-media-import. No site or branch was changed.");
