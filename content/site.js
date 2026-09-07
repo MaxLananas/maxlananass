@@ -5,7 +5,7 @@ export const SITE = {
   language: "en",
   reviewed: "2026-09-07",
   // Public verification values; leave empty until supplied by the property owner.
-  verification: { google: "", bing: "" },
+  verification: { google: "l9cboevgfOesdqe5S5lO7BqU_MB6XB1UIwmlr8EDCr0", bing: "" },
   description: "Minecraft builds, BuildTheEarth contributions, mods, plugins and developer tools by MaxLananas. Explore the projects, screenshots and source repositories.",
   github: "https://github.com/MaxLananas",
   modrinth: "https://modrinth.com/user/maxlananass",

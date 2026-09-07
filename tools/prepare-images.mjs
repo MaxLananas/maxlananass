@@ -133,10 +133,11 @@ export async function prepareImages({
   offline = false,
   widths = IMAGE_WIDTHS,
   recipe = RECIPE,
-  concurrency = 2,
+  concurrency = Number(process.env.IMAGE_CONCURRENCY || 2),
   onProgress = (message) => console.log(message)
 } = {}) {
   validateFiles(files);
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 4) throw new Error("IMAGE_CONCURRENCY must be between 1 and 4");
   outputDir = resolve(outputDir);
   cacheDir = resolve(cacheDir);
   if (sourceDir) sourceDir = resolve(sourceDir);
@@ -204,12 +205,15 @@ export async function prepareImages({
   }]));
   const unique = [...new Map(results.map((result) => [result.key, result])).values()];
   const report = {
+    source: sourceDir ? "local" : "github-release",
+    release: releaseBase,
+    verifiedDigests: sourceDir ? null : files.filter((file) => assets.get(file.name)?.digest?.startsWith("sha256:")).length,
     images: results.length,
     originalBytes: results.reduce((sum, item) => sum + item.originalBytes, 0),
     variantBytes: unique.reduce((sum, item) => sum + item.variants.reduce((n, variant) => n + variant.bytes, 0), 0),
     variants: unique.reduce((sum, item) => sum + item.variants.length, 0),
     recipe,
-    files: results.map(({ name, originalBytes, width, height, variants }) => ({ name, originalBytes, width, height, variants }))
+    files: results.map(({ name, key, originalBytes, width, height, variants }) => ({ name, key, originalBytes, width, height, variants }))
   };
   return { manifest, report };
 }

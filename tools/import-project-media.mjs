@@ -61,6 +61,10 @@ async function image(key, url, { icon = false, social = false, review = false } 
   console.log(`Prepared ${key}: ${width}×${height}, ${variants.length} variants`);
 }
 
+if (process.argv.includes("--video-only")) {
+  const { prepareVideo } = await import("./prepare-video.mjs");
+  await prepareVideo({ output: ".cache/project-media-import" });
+} else {
 sharp.concurrency(1);
 for (const item of sources.screenshots) await image(item.key, `https://drive.usercontent.google.com/download?id=${item.id}&export=download&confirm=t`, { social: item.key === "iprof-cover", review: true });
 await save("review/contact-sheet.jpg", await sharp({ create: { width: 1280, height: Math.ceil(reviewThumbs.length / 2) * 400, channels: 3, background: "#ddd" } }).composite(reviewThumbs.map((input, i) => ({ input, left: i % 2 * 640, top: Math.floor(i / 2) * 400 }))).jpeg({ quality: 92 }).toBuffer());
@@ -86,6 +90,8 @@ try {
     ...details.streams.find((stream) => stream.codec_type === "video") };
 } catch (error) { console.warn("Video review unavailable:", error.message); manifest.video = { id: sources.video.id }; }
 await save("project-media.json", Buffer.from(JSON.stringify(manifest, null, 2) + "\n"));
+
+}
 
 async function gh(endpoint, body) {
   return new Promise((resolve, reject) => {
