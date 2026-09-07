@@ -9,7 +9,7 @@ import { FILES } from "../gallery-data.js";
 import { renderSeo, pageFile, pageImages, serviceWorkerRoutes } from "./seo-render.mjs";
 
 const root = resolve(import.meta.dirname, "..");
-const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject"]);
+const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "VideoObject"]);
 const text = (value) => value.replace(/\s+/g, " ").trim();
 
 export async function checkSeo({ directory = root, snapshots = resolve(directory) === root } = {}) {
@@ -87,7 +87,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     }
     const person = graph.find((node) => node["@type"] === "Person");
     assert.equal(person["@id"], canonical("/#person")); assert.equal(person.name, SITE.name);
-    assert.deepEqual(person.sameAs, [SITE.github, SITE.instagram]);
+    assert.deepEqual(person.sameAs, [SITE.github, SITE.instagram, SITE.modrinth]);
     assert.ok(!person.address && !person.birthDate && !person.worksFor && !person.memberOf, "Do not invent identity or an official role");
     const entity = graph.find((node) => node["@id"] === canonical(page.path) + "#webpage");
     if (page.type === "ProfilePage") assert.equal(entity.mainEntity["@id"], person["@id"]);
@@ -155,7 +155,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     const page = pages.find((p) => p.path === path);
     assert.ok(page && !page.noindex);
     const $ = documents.get(path);
-    const actual = new Set($(".photo-card img").toArray().map((img) => canonical($(img).attr("src"))));
+    const actual = new Set($(".photo-card img, img[data-project-media]").toArray().map((img) => canonical($(img).attr("src"))));
     const listed = imageMap(node).find("image\\:loc").toArray().map((img) => imageMap(img).text());
     assert.equal(listed.length, pageImages(page).length);
     for (const url of listed) assert.ok(actual.has(url), `Image sitemap must match visible HTML: ${url}`);

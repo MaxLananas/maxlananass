@@ -8,7 +8,7 @@ Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://gi
 
 ## Architecture SEO et contenu
 
-Le site comprend maintenant **23 pages statiques (22 indexables)** : profil MaxLananas en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, huit fiches documentées, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
+Le site comprend maintenant **34 pages statiques (33 indexables)** : profil MaxLananas en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, dix-neuf fiches de projets et collections, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
 
 - Sources éditoriales : `content/`, `templates/home.html`, `tools/seo-content.mjs` et `image-labels.js`.
 - Génération : `npm run seo:render`. Ne pas modifier les snapshots HTML à la main.
@@ -17,6 +17,15 @@ Le site comprend maintenant **23 pages statiques (22 indexables)** : profil MaxL
 - [Publication, vérification et suivi SEO](docs/SEO-OPERATIONS.md).
 
 Ces améliorations SEO fonctionnent également dans le mode de publication actuel, sans activation du pipeline d’images. Les règles Cloudflare livrées protègent les miroirs/previews de l’indexation ; GitHub Pages ignore ces fichiers et conserve les canonicals HTML.
+
+## Nouvelle sélection développement
+
+- **iProf 2026** est le projet d’interface mis en avant, avec les **11 visuels fournis** et le lecteur vidéo Drive chargé uniquement sur action.
+- Les **10 projets publiés sur Modrinth** sont regroupés ensemble, avec liens de versions : Colorflow, Nostalgia Ultra Shader, Sculk Vision, JukeBoxPlus, Now Playing IRL, HomeGUI, Railway Tools, BidVault, BedrockHeightGuard et DeathPoint.
+- SENTINEL, MaxOS et PineappleUI forment une section **Software lab**, distincte des sorties publiées.
+- Les anciennes URLs BTE et les crédits restent accessibles, sans dominer la sélection dev.
+
+Voir [la sélection et les médias](docs/DEVELOPMENT-SHOWCASE.md) pour les sources, l’import et les limites de validation.
 
 ## Publication : deux modes compatibles
 

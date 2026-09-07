@@ -1,7 +1,10 @@
 // Editorial selection, not a scraper-generated page for every repository.
 // Descriptions are grounded in the linked documentation. Review compatibility
 // when updating a project; never turn roadmap items into released features.
-export const PROJECTS = [
+import { SHOWCASE_PROJECTS } from "./showcase-projects.js";
+import { MODRINTH_ADDITIONS, withRelease } from "./modrinth-projects.js";
+
+const LEGACY_PROJECTS = [
   {
     slug: "homegui", name: "HomeGUI", kind: "software", category: "Client-side Minecraft mod", bte: false,
     title: "HomeGUI — Minecraft home management mod | MaxLananas",
@@ -137,3 +140,12 @@ export const PROJECTS = [
     related: ["railway-tools-axiom", "tracebte", "bte-france-guidelines"]
   }
 ];
+
+
+const records = [...SHOWCASE_PROJECTS, ...MODRINTH_ADDITIONS, ...LEGACY_PROJECTS].map(withRelease);
+export const FEATURED_PROJECT_SLUGS = ["iprof-redesign", "colorflow", "nostalgia-ultra", "sentinel"];
+export const RELEASE_PROJECT_SLUGS = ["colorflow", "nostalgia-ultra", "sculk-vision", "jukeboxplus", "now-playing-irl", "homegui", "railway-tools-axiom", "bidvault", "bedrock-height-guard", "deathpoint"];
+const order = ["iprof-redesign", ...RELEASE_PROJECT_SLUGS, "sentinel", "maxos", "pineappleui"];
+export const PROJECTS = [...order.map((slug) => records.find((p) => p.slug === slug)), ...records.filter((p) => !order.includes(p.slug))];
+if (PROJECTS.some((p) => !p) || new Set(PROJECTS.map((p) => p.slug)).size !== PROJECTS.length) throw new Error("Invalid project selection");
+export const developmentProjects = () => PROJECTS.filter((p) => ["interface", "release", "lab"].includes(p.collection));

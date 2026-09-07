@@ -33,15 +33,63 @@
       "indexable": false
     },
     {
+      "path": "/projects/iprof-redesign/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/colorflow/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/nostalgia-ultra/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sculk-vision/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/jukeboxplus/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/now-playing-irl/",
+      "indexable": true
+    },
+    {
       "path": "/projects/homegui/",
       "indexable": true
     },
     {
-      "path": "/projects/tracebte/",
+      "path": "/projects/railway-tools-axiom/",
       "indexable": true
     },
     {
-      "path": "/projects/railway-tools-axiom/",
+      "path": "/projects/bidvault/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bedrock-height-guard/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/deathpoint/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sentinel/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/maxos/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/pineappleui/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/tracebte/",
       "indexable": true
     },
     {
@@ -50,10 +98,6 @@
     },
     {
       "path": "/projects/bte-france-guidelines/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/pineappleui/",
       "indexable": true
     },
     {
@@ -102,12 +146,23 @@
     "development/index.html",
     "guides/minecraft-mods-plugins-addons/index.html",
     "search/index.html",
+    "projects/iprof-redesign/index.html",
+    "projects/colorflow/index.html",
+    "projects/nostalgia-ultra/index.html",
+    "projects/sculk-vision/index.html",
+    "projects/jukeboxplus/index.html",
+    "projects/now-playing-irl/index.html",
     "projects/homegui/index.html",
-    "projects/tracebte/index.html",
     "projects/railway-tools-axiom/index.html",
+    "projects/bidvault/index.html",
+    "projects/bedrock-height-guard/index.html",
+    "projects/deathpoint/index.html",
+    "projects/sentinel/index.html",
+    "projects/maxos/index.html",
+    "projects/pineappleui/index.html",
+    "projects/tracebte/index.html",
     "projects/bte-distortion-calculator/index.html",
     "projects/bte-france-guidelines/index.html",
-    "projects/pineappleui/index.html",
     "projects/builders-utilities-bt-corsica/index.html",
     "projects/le-mans/index.html",
     "builds/index.html",

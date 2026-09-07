@@ -13,7 +13,7 @@ const pages = sitePages();
 
 test("all source pages, crawl paths, image and page sitemaps stay synchronized", async () => {
   const result = await checkSeo();
-  assert.equal(result.indexable, 22);
+  assert.equal(result.indexable, pages.filter((p) => !p.noindex).length);
   assert.equal(result.originalScreenshots, 101);
   assert.equal(result.orphans, 0);
 });
@@ -110,7 +110,7 @@ test("live verification rejects stale HTML and checks the deployed routes withou
   await new Promise((resolve) => server.listen(0, "0.0.0.0", resolve));
   try {
     const report = await verifyLive({ origin: `http://127.0.0.1:${server.address().port}/` });
-    assert.equal(report.pages, 23);
+    assert.equal(report.pages, pages.length);
     assert.equal(report.missingStatus, 404);
     await assert.rejects(verifyLive({ fetcher: async () => new Response("<title>Old site</title>") }), /old or unexpected deployment/);
   } finally { await new Promise((resolve) => server.close(resolve)); }

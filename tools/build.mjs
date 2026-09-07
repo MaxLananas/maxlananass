@@ -1,4 +1,4 @@
-import { readFile, writeFile, mkdir, copyFile, rm } from "node:fs/promises";
+import { readFile, writeFile, mkdir, copyFile, cp, rm } from "node:fs/promises";
 import { resolve, relative, join, sep } from "node:path";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
@@ -73,6 +73,7 @@ export async function buildSite({ outDir = "dist", sourceDir, offline = false, i
   await mkdir(join(outDir, "assets/credits"), { recursive: true });
   const creditFiles = ["bte", "endorah", "fight4glory", "mrbeast"].map((key) => `assets/credits/${key}.webp`);
   for (const file of creditFiles) await copyFile(join(root, file), join(outDir, file));
+  await cp(join(root, "assets/projects"), join(outDir, "assets/projects"), { recursive: true });
   const identityFiles = ["assets/icons/favicon-96.png", "assets/icons/icon-192.png", "assets/icons/icon-512.png", "assets/social/portfolio.png"];
   for (const file of identityFiles) {
     await mkdir(resolve(outDir, file, ".."), { recursive: true });

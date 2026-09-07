@@ -2,7 +2,7 @@
 
 ## Ce qui est réellement livré
 
-Le rendu n’est plus limité à la galerie interactive : **23 documents HTML, 22 URLs indexables**, huit fiches de projets documentées, deux profils équivalents EN/FR, un guide technique et sept pages de galerie couvrant les 101 captures. La recherche interne est noindex. La 404 reste hors sitemap.
+Le rendu n’est plus limité à la galerie interactive : **34 documents HTML, 33 URLs indexables**, dix-neuf fiches de projets et collections, deux profils équivalents EN/FR, un guide technique et sept pages de galerie couvrant les 101 captures. La recherche interne est noindex. La 404 reste hors sitemap.
 
 Les versions à la racine fonctionnent immédiatement après fusion/publication, y compris avec GitHub Pages en mode legacy ou un déploiement Cloudflare sans build. Le build optimisé produit les mêmes pages dans `dist/`, avec les vrais formats/tailles préparés. Il n’est donc **pas nécessaire d’activer GitHub Actions pour bénéficier du nouveau contenu SEO** ; cette activation reste nécessaire pour le pipeline de variantes dans ce mode d’hébergement.
 
@@ -51,7 +51,7 @@ npm run seo:live
 npm run seo:live -- --origin https://BRANCHE.maxlananas-builds.pages.dev/
 ```
 
-Ce contrôle vérifie les 23 pages publiées, leur version/title, canonicals, directives d’indexation, ressources SEO, sitemaps et statut 404. Il échoue volontairement contre un ancien déploiement. Des restrictions réseau locales peuvent empêcher son exécution ; une erreur de connexion n’est pas un diagnostic de désindexation.
+Ce contrôle vérifie les pages publiées du catalogue, leur version/title, canonicals, directives d’indexation, ressources SEO, sitemaps et statut 404. Il échoue volontairement contre un ancien déploiement. Des restrictions réseau locales peuvent empêcher son exécution ; une erreur de connexion n’est pas un diagnostic de désindexation.
 
 ## Actions propriétaire : Search Console et Bing
 

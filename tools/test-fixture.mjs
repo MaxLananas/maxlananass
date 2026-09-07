@@ -1,6 +1,6 @@
 // Synthetic, deterministic test images ONLY. Never deployed or mixed into the
 // portfolio. All fixture output lives in ignored .cache/ directories.
-import { mkdir, writeFile, copyFile } from "node:fs/promises";
+import { mkdir, writeFile, copyFile, cp } from "node:fs/promises";
 import { resolve } from "node:path";
 import { pathToFileURL } from "node:url";
 import sharp from "sharp";
@@ -32,13 +32,14 @@ export async function createFixture() {
   // compatibility with the existing branch-based GitHub Pages publication.
   const sourceDir = resolve(".cache/source-site");
   await mkdir(sourceDir, { recursive: true });
-  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-labels.js", "page.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "sw.js", "apple-touch-icon.png", "manifest.json"]) {
+  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-labels.js", "page.js", "project-viewer.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "sw.js", "apple-touch-icon.png", "manifest.json"]) {
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
   for (const file of ["assets/fonts/FFFlauta-200.woff2", ...["bte", "endorah", "fight4glory", "mrbeast"].map((key) => `assets/credits/${key}.webp`)]) {
     await mkdir(resolve(sourceDir, file, ".."), { recursive: true });
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
+  await cp(resolve("assets/projects"), resolve(sourceDir, "assets/projects"), { recursive: true });
   const { files } = await renderSeo();
   for (const [name, html] of files) {
     await mkdir(resolve(sourceDir, name, ".."), { recursive: true });

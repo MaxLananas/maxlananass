@@ -8,6 +8,7 @@ export const SITE = {
   verification: { google: "", bing: "" },
   description: "Minecraft builds, BuildTheEarth contributions, mods, plugins and developer tools by MaxLananas. Explore the projects, screenshots and source repositories.",
   github: "https://github.com/MaxLananas",
+  modrinth: "https://modrinth.com/user/maxlananass",
   instagram: "https://www.instagram.com/maxlananas.builds/",
   discord: "https://discord.gg/pnJhKuU2QK",
   bte: "https://buildtheearth.net/"

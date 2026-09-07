@@ -7,7 +7,7 @@ const pages = sitePages();
 
 test("the compiled deployment passes the same static SEO crawl as the source", async () => {
   const report = await checkSeo({ directory: ".cache/test-site", snapshots: false });
-  expect(report.indexable).toBe(22);
+  expect(report.indexable).toBe(pages.filter((p) => !p.noindex).length);
   expect(report.originalScreenshots).toBe(101);
   expect(report.orphans).toBe(0);
 });
