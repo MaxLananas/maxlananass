@@ -1,12 +1,26 @@
 {
-  "name": "MaxLananas — Minecraft Builder Portfolio",
+  "id": "/",
+  "name": "MaxLananas — Minecraft builds & developer projects",
   "short_name": "MaxLananas",
-  "description": "Custom 1:1 Minecraft recreations, spawns, terraforming and dev tools.",
-  "start_url": "./",
+  "description": "Minecraft builds, BuildTheEarth contributions, mods, plugins and developer tools by MaxLananas. Explore the projects, screenshots and source repositories.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#0a0a0b",
   "theme_color": "#0a0a0b",
   "icons": [
-    { "src": "apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+    {
+      "src": "/assets/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/assets/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
   ]
 }

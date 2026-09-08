@@ -1,0 +1,13 @@
+# Review the authored content and renderer first; snapshots remain versioned so
+# branch-based GitHub Pages can publish the complete site without a build step.
+/index.html linguist-generated=true
+/about/index.html linguist-generated=true
+/fr/**/index.html linguist-generated=true
+/projects/**/index.html linguist-generated=true
+/projects/index.html linguist-generated=true
+/buildtheearth/index.html linguist-generated=true
+/development/index.html linguist-generated=true
+/guides/**/index.html linguist-generated=true
+/builds/**/index.html linguist-generated=true
+/builds/index.html linguist-generated=true
+/search/index.html linguist-generated=true

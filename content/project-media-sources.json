@@ -1,0 +1,19 @@
+{
+  "driveFolder": "https://drive.google.com/drive/folders/15kwqtMb1Kkie324cIn-g3a04owKM88xy",
+  "screenshots": [
+    {"key":"iprof-overview","name":"00-visuel-officiel.png","id":"1iJBbEnWDItdoAXQDEktJGPPAl6O4edU9"},
+    {"key":"iprof-cover","name":"01-couverture.png","id":"1cyq6RftGFi27BcPx716xDGZHCEFEMrqx"},
+    {"key":"iprof-showcase","name":"02-vitrine.png","id":"1-j-pbl_8E1o7KazesixXjEwc5fpwVSlw"},
+    {"key":"iprof-login","name":"03-connexion.png","id":"1FmNKEVnAcnBvsto-tvQDOmWhYCzh3dW7"},
+    {"key":"iprof-dashboard","name":"04-tableau-de-bord.png","id":"1XLvMupIi_brsxiX3bfB2SsNMnkaA3r4m"},
+    {"key":"iprof-career","name":"05-carriere.png","id":"1qmHEJ2c8yz1vPdYWHIV-aDFmnlErE0Me"},
+    {"key":"iprof-mobility","name":"06-mobilite.png","id":"1PRVrC40GU9hBKMaIdIFSV419fTw4R_CB"},
+    {"key":"iprof-documents","name":"07-documents.png","id":"1hjlEg174JrpLxuNgJuusvWVFH2ip8hDE"},
+    {"key":"iprof-messaging","name":"08-messagerie.png","id":"1I_BkYcdLbchur2WHDqrG-H59XWkadP6W"},
+    {"key":"iprof-accessibility","name":"09-accessibilite.png","id":"1Sras9mYu_5nfq1-5hlg_YS0JigFntTIQ"},
+    {"key":"iprof-responsive","name":"10-responsive.png","id":"1J2PsFGssQWnVJptEQstiEiZtjsl-MSoD"}
+  ],
+  "video": {"id":"1ZHfabuvXI7Y1_HHELVGH7kaGofM8QwWj","name":"trailer-iprof-2026.mp4"},
+  "modrinthUser":"maxlananass",
+  "galleryProjects":["colorflow","sculk-vision","jukeboxplus","nostalgia-ultra","now-playing-irl","homegui"]
+}

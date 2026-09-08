@@ -1,0 +1,17 @@
+{
+  "source": "https://drive.google.com/file/d/1ZHfabuvXI7Y1_HHELVGH7kaGofM8QwWj/view",
+  "sourceSha256": "bf4a27d069b154c0fabf7ce5be79a3e4652c0dade9a3d60c5d4f70226f984627",
+  "sourceBytes": 8461217,
+  "file": "assets/video/iprof-d88d16fa821d2b01.mp4",
+  "bytes": 8461218,
+  "sha256": "d88d16fa821d2b01c8d52682914bb7d700aed5d92550884088230ba39222313d",
+  "mime": "video/mp4",
+  "codec": "h264",
+  "width": 1280,
+  "height": 720,
+  "duration": 47.68,
+  "hasAudio": true,
+  "poster": "assets/video/iprof-poster-fe96dccdb19c24ab.jpg",
+  "remuxedWithoutReencoding": true,
+  "posterSha256": "fe96dccdb19c24ab680e4ba3daa1f8e7204c739e09d75461d64b888573833f58"
+}

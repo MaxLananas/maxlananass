@@ -1,0 +1,196 @@
+name: Portfolio — checks and optimized Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, edited]
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Validate the real archive without deployment, or deploy main'
+        type: choice
+        options: [validate, deploy]
+        default: validate
+        required: true
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-${{ github.event_name }}-${{ github.ref }}-${{ contains(github.event.pull_request.body, '- [x] Validate real media') && 'real' || 'standard' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' && !contains(github.event.pull_request.body, '- [x] Validate real media') }}
+
+jobs:
+  verify:
+    name: Regression tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - name: Optional read-only diagnosis of a previous failed run
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: node tools/ci-diagnostics.mjs
+      - run: npm ci
+      - run: npm run check
+      - run: npm run seo:check
+      - run: npm test
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-test-failures
+          path: test-results/
+          retention-days: 7
+
+  plan:
+    name: Decide publication mode without changing repository settings
+    if: github.event_name != 'pull_request' || (github.event.pull_request.head.repo.full_name == github.repository && contains(github.event.pull_request.body, '- [x] Validate real media'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      build: ${{ steps.plan.outputs.build }}
+      deploy: ${{ steps.plan.outputs.deploy }}
+      legacy: ${{ steps.plan.outputs.legacy }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+      - name: Read the existing Pages configuration
+        id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REQUESTED_MODE: ${{ github.event_name == 'pull_request' && 'validate' || inputs.mode || 'auto' }}
+        run: |
+          export PAGE_PUBLICATION_MODE=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq .build_type)
+          node tools/publication-plan.mjs
+
+  build:
+    name: Build and validate the real release archive
+    needs: [verify, plan]
+    if: needs.plan.outputs.build == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      originals: ${{ steps.validation.outputs.originals }}
+      variants: ${{ steps.validation.outputs.variants }}
+      digests: ${{ steps.validation.outputs.digests }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - uses: actions/cache/restore@v4
+        id: image-cache
+        with:
+          path: |
+            .cache/originals
+            .cache/optimized
+            .cache/releases
+          key: portfolio-images-${{ runner.os }}-${{ hashFiles('gallery-data.js', 'image-utils.js', 'tools/prepare-images.mjs', 'package-lock.json') }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            portfolio-images-${{ runner.os }}-
+      - name: Page URL configuration
+        id: pages
+        if: needs.plan.outputs.deploy == 'true'
+        uses: actions/configure-pages@v5
+      - name: Build without modifying any release original
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          IMAGE_CONCURRENCY: 4
+          PAGES_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
+          BING_SITE_VERIFICATION: ${{ vars.BING_SITE_VERIFICATION }}
+        run: npm run build
+      - uses: actions/cache/save@v4
+        if: always() && steps.image-cache.outcome == 'success'
+        with:
+          path: |
+            .cache/originals
+            .cache/optimized
+            .cache/releases
+          key: ${{ steps.image-cache.outputs.cache-primary-key }}
+      - name: Verify every real variant and all generated pages
+        id: validation
+        run: node tools/validate-real-build.mjs
+      - name: Exercise the real prepared gallery in Chromium
+        run: |
+          npx playwright install --with-deps chromium
+          node tools/smoke-real-site.mjs
+      - uses: actions/upload-pages-artifact@v3
+        if: needs.plan.outputs.deploy == 'true'
+        with:
+          path: dist
+      - uses: actions/upload-artifact@v4
+        if: needs.plan.outputs.deploy != 'true'
+        with:
+          name: validated-site
+          path: dist/
+          retention-days: 7
+      - uses: actions/upload-artifact@v4
+        with:
+          name: real-image-validation
+          path: |
+            .cache/build-report.json
+            .cache/real-build-validation.json
+            .cache/real-browser-validation.json
+            .cache/real-build-first-screen.png
+          retention-days: 30
+
+  evidence:
+    name: 'Validated ${{ needs.build.outputs.originals }} originals / ${{ needs.build.outputs.variants }} variants / ${{ needs.build.outputs.digests }} SHA-256'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo 'Real build validation completed. This job does not deploy.'
+
+  deploy:
+    name: Publish optimized portfolio
+    if: needs.plan.outputs.deploy == 'true'
+    needs: [build, plan]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/deploy-pages@v4
+        id: deployment
+
+  verify-live:
+    name: Verify the public site after publication
+    if: always() && needs.verify.result == 'success' && needs.plan.result == 'success' && (needs.deploy.result == 'success' || needs.plan.outputs.legacy == 'true')
+    needs: [verify, plan, deploy]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Allow propagation, then verify the actual public responses
+        run: npm run seo:live -- --attempts 6 --delay 15000

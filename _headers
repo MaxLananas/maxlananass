@@ -1,0 +1,26 @@
+# Cloudflare Pages only. GitHub Pages ignores this file.
+# Never index a pages.dev mirror or branch preview of the canonical site.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/assets/gallery/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/projects/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/assets/video/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/search/*
+  X-Robots-Tag: noindex, follow
+
+/404.html
+  X-Robots-Tag: noindex, follow

@@ -1,8 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://maxlananas.is-a.dev/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
+  <url><loc>https://maxlananas.is-a.dev/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/about/</loc><lastmod>2026-09-07</lastmod><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://maxlananas.is-a.dev/about/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="fr" href="https://maxlananas.is-a.dev/fr/a-propos/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://maxlananas.is-a.dev/about/"/></url>
+  <url><loc>https://maxlananas.is-a.dev/fr/a-propos/</loc><lastmod>2026-09-07</lastmod><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://maxlananas.is-a.dev/about/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="fr" href="https://maxlananas.is-a.dev/fr/a-propos/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://maxlananas.is-a.dev/about/"/></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/buildtheearth/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/development/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/guides/minecraft-mods-plugins-addons/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/iprof-redesign/</loc><lastmod>2026-09-07</lastmod><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://maxlananas.is-a.dev/projects/iprof-redesign/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="fr" href="https://maxlananas.is-a.dev/fr/projets/refonte-iprof/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://maxlananas.is-a.dev/projects/iprof-redesign/"/></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/colorflow/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/nostalgia-ultra/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/sculk-vision/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/jukeboxplus/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/now-playing-irl/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/homegui/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/railway-tools-axiom/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/bidvault/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/bedrock-height-guard/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/deathpoint/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/sentinel/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/maxos/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/pineappleui/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/tracebte/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/bte-distortion-calculator/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/bte-france-guidelines/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/builders-utilities-bt-corsica/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/projects/le-mans/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/fr/projets/refonte-iprof/</loc><lastmod>2026-09-07</lastmod><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="en" href="https://maxlananas.is-a.dev/projects/iprof-redesign/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="fr" href="https://maxlananas.is-a.dev/fr/projets/refonte-iprof/"/><xhtml:link xmlns:xhtml="http://www.w3.org/1999/xhtml" rel="alternate" hreflang="x-default" href="https://maxlananas.is-a.dev/projects/iprof-redesign/"/></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/2/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/3/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/4/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/5/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/6/</loc><lastmod>2026-09-07</lastmod></url>
+  <url><loc>https://maxlananas.is-a.dev/builds/page/7/</loc><lastmod>2026-09-07</lastmod></url>
 </urlset>

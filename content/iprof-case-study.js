@@ -1,0 +1,67 @@
+// An editorial case study of supplied screens, not invented user research or KPIs.
+export const IPROF_STUDY = {
+  en: {
+    eyebrow: "Interface study · Personal redesign",
+    deck: "Make the next useful action easier to find.",
+    introduction: "iProf 2026 explores a clearer staff portal through a personal interface redesign. The presentation is set in the context of the Guadeloupe education authority, with fictitious demonstration data. My focus is the relationship between a person’s current situation, their next deadline and the documents or conversations they need.",
+    role: "Interface redesign and presentation by MaxLananas",
+    stack: "PHP, CSS and JavaScript — stack stated in the supplied presentation",
+    scope: "11 presentation visuals and a 47.68-second walkthrough",
+    leadAlt: "iProf redesign dashboard with upcoming deadlines, career information and navigation",
+    contextTitle: "The design question",
+    context: "Career, mobility, documents and messages are different tasks, but they concern the same person. The design question is how to connect those tasks without making every screen compete for attention. The supplied dashboard answers with a short situation summary, the next career appointment and a small set of upcoming deadlines before the rest of the navigation.",
+    contextNote: "This is a reading of the supplied redesign, not a measured before/after comparison with the live institutional service. No user interviews, adoption figures or time savings are invented here.",
+    sections: [
+      { id: "orientation", title: "01 — Orient before asking the user to navigate", image: "iprof-dashboard", alt: "Annotated iProf dashboard: situation summary, next career appointment and deadlines", text: "The dashboard brings the current role, unread information and upcoming events into one hierarchy. A career appointment is treated as an actionable item rather than another number in a menu. This establishes a clear entry point while the persistent sidebar keeps the other services available.", decision: "Design choice: show the immediate situation first; keep navigation predictable across screens." },
+      { id: "career-and-mobility", title: "02 — Give time and priorities a visible shape", image: "iprof-career", alt: "Career screen with progression cards and a visible career timeline", text: "The career view uses a timeline and a next-step card to make progression easier to read. The mobility presentation complements it with an ordered list of preferences, campaign information and a calendar. These are complementary views of a process, not evidence that the underlying career calculations or administrative rules have been validated.", decision: "Design choice: separate what is happening now, what comes next and what the person can prepare." },
+      { id: "documents-and-messages", title: "03 — Keep supporting information close to the task", image: "iprof-documents", alt: "Document screen with categories, search, expiry status and document actions", text: "Documents are organized around categories, search and visible status. The messaging screen follows the same logic with a prioritized inbox and conversation threads. The point is to reduce the need to reconstruct context when moving from a deadline to a document or a message.", decision: "Design choice: expose state and context; do not make the person remember information from another screen." }
+    ],
+    systemTitle: "A shared visual language, not eleven unrelated screens",
+    system: "The supplied presentation uses a blue-led palette, restrained surfaces, persistent navigation and a repeated card hierarchy. Typography separates the page’s purpose from operational information. These public-service visual references remain inside the independently supplied mockups; this portfolio is not an official Ministry website.",
+    mobileTitle: "Responsive and accessible by intention — testable in implementation",
+    mobile: "The mobile and dark-theme presentations show how the same information hierarchy can adapt to narrower screens and another contrast context. They are useful design evidence, but a screenshot alone cannot establish keyboard behavior, assistive-technology support, secure authentication or RGAA conformance.",
+    validationTitle: "What a production handoff should verify",
+    checklist: ["Keyboard order, visible focus, useful form labels and an alternative to pointer-only reordering.", "Reflow at narrow widths and high zoom without losing actions or document information.", "Empty, loading, error and expired-document states rather than the ideal data state alone.", "Server-side authorization, session handling and real administrative rules with the responsible team.", "Usability with the intended staff and an accessibility audit of the implemented application."],
+    deliverablesTitle: "The complete presentation",
+    deliverables: "The eleven supplied visuals remain available below, including the public-facing page, sign-in concept, dashboard, career, mobility, documents, messages and responsive/accessibility presentations. Open an image for a larger view. The video uses the browser’s native player and is not downloaded before playback is requested.",
+    limitsTitle: "Scope and evidence",
+    limits: "The project is presented as a personal interface redesign with fictitious data. This page does not claim institutional commissioning, production deployment, measured business results or independently certified accessibility. The supplied media is the evidence available for this study; the underlying iProf application code was not provided for review.",
+    sourceLabel: "Supplied presentation and original files",
+    nextTitle: "Have an interface worth rethinking?",
+    next: "A useful starting point is the task that currently causes friction: finding an action, understanding a status or moving between related information. Describe that context and the intended audience when getting in touch.",
+    contact: "Discuss an interface", explore: "Explore development projects",
+    mediaTitles: ["Project presentation", "Cover", "Public-facing page", "Sign-in concept", "Dashboard", "Career", "Mobility", "Documents", "Messaging", "Accessibility presentation", "Responsive layouts"]
+  },
+  fr: {
+    eyebrow: "Étude d’interface · Refonte personnelle",
+    deck: "Rendre la prochaine action utile plus facile à trouver.",
+    introduction: "iProf 2026 explore un portail des personnels plus lisible à travers une refonte personnelle de l’interface. La présentation s’inscrit dans le contexte de l’académie de Guadeloupe et utilise des données de démonstration fictives. Mon sujet : relier la situation d’un personnel, sa prochaine échéance et les documents ou échanges dont il a besoin.",
+    role: "Refonte de l’interface et présentation par MaxLananas",
+    stack: "PHP, CSS et JavaScript — technologies indiquées dans la présentation fournie",
+    scope: "11 visuels de présentation et une vidéo de 47,68 secondes",
+    leadAlt: "Tableau de bord de la refonte iProf : échéances, carrière et navigation entre les services",
+    contextTitle: "La question de conception",
+    context: "Carrière, mobilité, documents et messagerie correspondent à des tâches différentes, mais concernent la même personne. Comment relier ces tâches sans donner la même importance à tous les écrans ? Le tableau de bord proposé répond par un résumé de situation, le prochain rendez-vous de carrière et quelques échéances prioritaires, avant le reste de la navigation.",
+    contextNote: "Il s’agit d’une analyse de la refonte présentée, pas d’un avant/après mesuré sur le service institutionnel en production. Aucun entretien utilisateur, chiffre d’adoption ou gain de temps n’est inventé.",
+    sections: [
+      { id: "orientation", title: "01 — Orienter avant de faire naviguer", image: "iprof-dashboard", alt: "Tableau de bord iProf annoté : résumé, prochain rendez-vous de carrière et échéances", text: "Le tableau de bord réunit la situation actuelle, les informations non lues et les événements à venir dans une même hiérarchie. Le rendez-vous de carrière devient une action à préparer, plutôt qu’un nombre supplémentaire dans un menu. Cette entrée claire cohabite avec une barre latérale stable qui laisse les autres services accessibles.", decision: "Parti pris : montrer d’abord la situation immédiate, puis conserver des repères de navigation prévisibles." },
+      { id: "carriere-et-mobilite", title: "02 — Donner une forme au temps et aux priorités", image: "iprof-career", alt: "Écran carrière avec cartes de progression et trajectoire visible dans le temps", text: "La vue carrière utilise une trajectoire et une carte de prochaine étape pour faciliter la lecture de la progression. La présentation de la mobilité la complète par une liste de vœux ordonnés, les informations de campagne et un calendrier. Ces vues rendent un parcours compréhensible ; elles ne prouvent pas la validation des calculs de carrière ou des règles administratives sous-jacentes.", decision: "Parti pris : distinguer ce qui se passe maintenant, ce qui arrive ensuite et ce que la personne peut préparer." },
+      { id: "documents-et-messages", title: "03 — Garder l’information au plus près de la tâche", image: "iprof-documents", alt: "Espace documentaire : catégories, recherche, statut d’expiration et actions sur les fichiers", text: "Les documents s’organisent autour de catégories, d’une recherche et d’états visibles. La messagerie reprend cette logique avec une boîte priorisée et des fils de discussion. L’objectif de conception est de ne pas devoir reconstruire le contexte à chaque passage d’une échéance à un document ou à un échange.", decision: "Parti pris : rendre l’état et le contexte visibles, au lieu de demander de mémoriser l’écran précédent." }
+    ],
+    systemTitle: "Un langage visuel commun, pas onze écrans indépendants",
+    system: "La présentation fournie associe une palette dominée par le bleu, des surfaces sobres, une navigation persistante et une hiérarchie de cartes répétée. La typographie distingue le rôle de la page des informations opérationnelles. Ces références visuelles au service public restent à l’intérieur de la maquette indépendante : ce portfolio n’est pas un site officiel du ministère.",
+    mobileTitle: "Responsive et accessibilité : des intentions à vérifier dans le code",
+    mobile: "Les présentations mobile et sombre montrent comment conserver la hiérarchie dans un espace plus étroit ou un autre contexte de contraste. Ce sont des éléments de conception utiles. Une capture ne suffit toutefois pas à prouver les parcours clavier, le support des technologies d’assistance, la sécurité de l’authentification ou la conformité RGAA.",
+    validationTitle: "Les vérifications à prévoir pour une mise en production",
+    checklist: ["Ordre de navigation au clavier, focus visible, libellés explicites et alternative au réordonnancement uniquement à la souris.", "Affichage étroit et zoom élevé sans perdre les actions ni les informations documentaires.", "États vides, chargements, erreurs et documents expirés, au-delà du seul cas idéal.", "Autorisations côté serveur, sessions et véritables règles de gestion avec l’équipe responsable.", "Tests d’usage avec les personnels concernés et audit d’accessibilité de l’application implémentée."],
+    deliverablesTitle: "La présentation complète",
+    deliverables: "Les onze visuels restent disponibles ci-dessous : vitrine, connexion, tableau de bord, carrière, mobilité, documents, messagerie et présentations responsive/accessibilité. Une image peut être agrandie pour examiner l’interface. La vidéo utilise le lecteur natif du navigateur et n’est pas téléchargée avant une demande de lecture.",
+    limitsTitle: "Périmètre et éléments vérifiables",
+    limits: "Le projet est présenté comme une refonte personnelle d’interface, avec des données fictives. Cette page ne revendique ni commande institutionnelle, ni déploiement en production, ni résultat métier mesuré, ni certification indépendante d’accessibilité. Les médias fournis constituent les éléments disponibles pour cette étude ; le code de l’application iProf n’a pas été fourni pour revue.",
+    sourceLabel: "Présentation fournie et fichiers originaux",
+    nextTitle: "Une interface à repenser ?",
+    next: "Un bon point de départ est la tâche qui crée aujourd’hui de la friction : trouver une action, comprendre un statut ou passer entre des informations liées. Précise ce contexte et le public concerné lorsque tu me contactes.",
+    contact: "Discuter d’une interface", explore: "Voir les projets de développement",
+    mediaTitles: ["Présentation du projet", "Couverture", "Vitrine publique", "Concept de connexion", "Tableau de bord", "Carrière", "Mobilité", "Documents", "Messagerie", "Présentation de l’accessibilité", "Affichages responsive"]
+  }
+};

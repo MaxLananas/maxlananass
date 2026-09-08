@@ -1,0 +1,188 @@
+{
+  "pages": [
+    {
+      "path": "/",
+      "indexable": true
+    },
+    {
+      "path": "/about/",
+      "indexable": true
+    },
+    {
+      "path": "/fr/a-propos/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/",
+      "indexable": true
+    },
+    {
+      "path": "/buildtheearth/",
+      "indexable": true
+    },
+    {
+      "path": "/development/",
+      "indexable": true
+    },
+    {
+      "path": "/guides/minecraft-mods-plugins-addons/",
+      "indexable": true
+    },
+    {
+      "path": "/search/",
+      "indexable": false
+    },
+    {
+      "path": "/projects/iprof-redesign/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/colorflow/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/nostalgia-ultra/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sculk-vision/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/jukeboxplus/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/now-playing-irl/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/homegui/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/railway-tools-axiom/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bidvault/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bedrock-height-guard/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/deathpoint/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sentinel/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/maxos/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/pineappleui/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/tracebte/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bte-distortion-calculator/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bte-france-guidelines/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/builders-utilities-bt-corsica/",
+      "indexable": true
+    },
+    {
+      "path": "/projects/le-mans/",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projets/refonte-iprof/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/2/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/3/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/4/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/5/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/6/",
+      "indexable": true
+    },
+    {
+      "path": "/builds/page/7/",
+      "indexable": true
+    }
+  ],
+  "files": [
+    "index.html",
+    "about/index.html",
+    "fr/a-propos/index.html",
+    "projects/index.html",
+    "buildtheearth/index.html",
+    "development/index.html",
+    "guides/minecraft-mods-plugins-addons/index.html",
+    "search/index.html",
+    "projects/iprof-redesign/index.html",
+    "projects/colorflow/index.html",
+    "projects/nostalgia-ultra/index.html",
+    "projects/sculk-vision/index.html",
+    "projects/jukeboxplus/index.html",
+    "projects/now-playing-irl/index.html",
+    "projects/homegui/index.html",
+    "projects/railway-tools-axiom/index.html",
+    "projects/bidvault/index.html",
+    "projects/bedrock-height-guard/index.html",
+    "projects/deathpoint/index.html",
+    "projects/sentinel/index.html",
+    "projects/maxos/index.html",
+    "projects/pineappleui/index.html",
+    "projects/tracebte/index.html",
+    "projects/bte-distortion-calculator/index.html",
+    "projects/bte-france-guidelines/index.html",
+    "projects/builders-utilities-bt-corsica/index.html",
+    "projects/le-mans/index.html",
+    "fr/projets/refonte-iprof/index.html",
+    "builds/index.html",
+    "builds/page/2/index.html",
+    "builds/page/3/index.html",
+    "builds/page/4/index.html",
+    "builds/page/5/index.html",
+    "builds/page/6/index.html",
+    "builds/page/7/index.html",
+    "sitemap.xml",
+    "sitemap-images.xml",
+    "robots.txt",
+    "manifest.json",
+    "_headers",
+    "_redirects",
+    "site-pages.json"
+  ]
+}
