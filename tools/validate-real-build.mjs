@@ -21,6 +21,11 @@ for (const file of report.files) {
     const bytes = await readFile(resolve("dist/assets/gallery", name));
     assert.equal(bytes.length, variant.bytes);
     const image = await sharp(bytes).metadata();
+    if (variant.format === "webp") assert.equal(image.format, "webp", `${name}: wrong WebP payload`);
+    else {
+      assert.equal(bytes.subarray(4, 8).toString(), "ftyp", `${name}: invalid AVIF container`);
+      assert.ok(bytes.subarray(8, 48).includes(Buffer.from("avif")), `${name}: missing AVIF brand`);
+    }
     assert.equal(image.width, variant.width);
     // libvips shrink-on-load may round a fractional height one pixel differently
     // from JavaScript Math.round (observed: 540 vs 541). Preserve aspect within
