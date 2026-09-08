@@ -36,3 +36,10 @@ Les validations du contenu et de l’interface peuvent être renouvelées rapide
 - La description visuelle de la vidéo n’est pas une transcription vérifiée de sa piste audio.
 - La configuration Pages actuelle reste legacy jusqu’à une décision du propriétaire. Aucun DNS ni paramètre d’hébergement n’est changé silencieusement.
 - La PR reste non fusionnée ; les checks sur le domaine de production auront lieu à la publication réelle.
+
+## Écarts effectivement trouvés pendant la recette
+
+- WebKit peut demander des métadonnées malgré `preload="none"`. Le lecteur amélioré n’attache donc sa source qu’au clic ; un véritable lecteur natif dans `noscript` préserve l’usage sans JavaScript.
+- Le premier encodage réel s’est terminé, puis un contrôle trop strict a trouvé une hauteur de 540 pixels au lieu de `Math.round(...)=541`. La validation accepte désormais l’arrondi d’un pixel du redimensionnement libvips, sans relâcher les contrôles de largeur, poids, provenance et empreintes. Ce n’était pas une image manquante.
+- La sauvegarde de cache est effectuée avant les contrôles finaux, avec des clés versionnées par run : une erreur de recette ne jette plus un encodage valide et coûteux.
+- Une lecture seule optionnelle des anciens logs CI permet de publier un diagnostic borné et nettoyé dans les annotations, sans réintroduire un transport de fichiers ni des permissions d’écriture.

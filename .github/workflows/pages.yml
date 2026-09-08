@@ -132,6 +132,10 @@ jobs:
       - name: Verify every real variant and all generated pages
         id: validation
         run: node tools/validate-real-build.mjs
+      - name: Exercise the real prepared gallery in Chromium
+        run: |
+          npx playwright install --with-deps chromium
+          node tools/smoke-real-site.mjs
       - uses: actions/upload-pages-artifact@v3
         if: needs.plan.outputs.deploy == 'true'
         with:
@@ -148,6 +152,8 @@ jobs:
           path: |
             .cache/build-report.json
             .cache/real-build-validation.json
+            .cache/real-browser-validation.json
+            .cache/real-build-first-screen.png
           retention-days: 30
 
   evidence:

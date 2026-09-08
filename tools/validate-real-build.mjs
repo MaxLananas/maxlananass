@@ -22,6 +22,9 @@ for (const file of report.files) {
     assert.equal(bytes.length, variant.bytes);
     const image = await sharp(bytes).metadata();
     assert.equal(image.width, variant.width);
+    // libvips shrink-on-load may round a fractional height one pixel differently
+    // from JavaScript Math.round (observed: 540 vs 541). Preserve aspect within
+    // that documented bound; width, file size, format and original hashes stay strict.
     assert.ok(Math.abs(image.height - file.height * variant.width / file.width) <= 1, `${name}: unexpected resized height ${image.height}`);
     assert.ok(image.width <= file.width, "No upscaling");
   }
