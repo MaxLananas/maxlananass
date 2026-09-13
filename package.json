@@ -15,6 +15,7 @@
     "images:static": "node tools/prepare-static.mjs",
     "seo:render": "node tools/prepare-static.mjs && node tools/seo-render.mjs",
     "seo:check": "node tools/seo-check.mjs",
+    "seo:diff": "node tools/seo-diff.mjs",
     "seo:live": "node tools/verify-live.mjs"
   },
   "engines": {

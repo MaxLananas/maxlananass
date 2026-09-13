@@ -2,181 +2,619 @@
   "pages": [
     {
       "path": "/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/about/",
+      "lang": "en",
       "indexable": true
     },
     {
       "path": "/fr/a-propos/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/sobre/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/projects/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/buildtheearth/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/buildtheearth/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/buildtheearth/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/development/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/development/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/development/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/guides/minecraft-mods-plugins-addons/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/guides/minecraft-mods-plugins-addons/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/guides/minecraft-mods-plugins-addons/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/search/",
+      "lang": "en",
+      "indexable": false
+    },
+    {
+      "path": "/fr/search/",
+      "lang": "fr",
+      "indexable": false
+    },
+    {
+      "path": "/es/search/",
+      "lang": "es",
       "indexable": false
     },
     {
       "path": "/projects/iprof-redesign/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/colorflow/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/nostalgia-ultra/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/sculk-vision/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/jukeboxplus/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/now-playing-irl/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/homegui/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/railway-tools-axiom/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/bidvault/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/bedrock-height-guard/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/deathpoint/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/sentinel/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/maxos/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/pineappleui/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/tracebte/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/bte-distortion-calculator/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/bte-france-guidelines/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/builders-utilities-bt-corsica/",
-      "indexable": true
-    },
-    {
-      "path": "/projects/le-mans/",
+      "lang": "en",
       "indexable": true
     },
     {
       "path": "/fr/projets/refonte-iprof/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/proyectos/rediseno-iprof/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/colorflow/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/colorflow/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/colorflow/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/nostalgia-ultra/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/nostalgia-ultra/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/nostalgia-ultra/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sculk-vision/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/sculk-vision/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/sculk-vision/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/jukeboxplus/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/jukeboxplus/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/jukeboxplus/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/now-playing-irl/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/now-playing-irl/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/now-playing-irl/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/homegui/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/homegui/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/homegui/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/railway-tools-axiom/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/railway-tools-axiom/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/railway-tools-axiom/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bidvault/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/bidvault/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/bidvault/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bedrock-height-guard/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/bedrock-height-guard/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/bedrock-height-guard/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/deathpoint/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/deathpoint/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/deathpoint/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/sentinel/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/sentinel/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/sentinel/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/maxos/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/maxos/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/maxos/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/pineappleui/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/pineappleui/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/pineappleui/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/riptide/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/riptide/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/riptide/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/tracebte/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/tracebte/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/tracebte/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bte-distortion-calculator/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/bte-distortion-calculator/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/bte-distortion-calculator/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/bte-france-guidelines/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/bte-france-guidelines/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/bte-france-guidelines/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/builders-utilities-bt-corsica/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/builders-utilities-bt-corsica/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/builders-utilities-bt-corsica/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
+      "path": "/projects/le-mans/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/le-mans/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/le-mans/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/2/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/2/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/2/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/3/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/3/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/3/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/4/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/4/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/4/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/5/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/5/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/5/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/6/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/6/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/6/",
+      "lang": "es",
       "indexable": true
     },
     {
       "path": "/builds/page/7/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/builds/page/7/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/builds/page/7/",
+      "lang": "es",
       "indexable": true
     }
   ],
   "files": [
     "index.html",
+    "fr/index.html",
+    "es/index.html",
     "about/index.html",
     "fr/a-propos/index.html",
+    "es/sobre/index.html",
     "projects/index.html",
+    "fr/projects/index.html",
+    "es/projects/index.html",
     "buildtheearth/index.html",
+    "fr/buildtheearth/index.html",
+    "es/buildtheearth/index.html",
     "development/index.html",
+    "fr/development/index.html",
+    "es/development/index.html",
     "guides/minecraft-mods-plugins-addons/index.html",
+    "fr/guides/minecraft-mods-plugins-addons/index.html",
+    "es/guides/minecraft-mods-plugins-addons/index.html",
     "search/index.html",
+    "fr/search/index.html",
+    "es/search/index.html",
     "projects/iprof-redesign/index.html",
-    "projects/colorflow/index.html",
-    "projects/nostalgia-ultra/index.html",
-    "projects/sculk-vision/index.html",
-    "projects/jukeboxplus/index.html",
-    "projects/now-playing-irl/index.html",
-    "projects/homegui/index.html",
-    "projects/railway-tools-axiom/index.html",
-    "projects/bidvault/index.html",
-    "projects/bedrock-height-guard/index.html",
-    "projects/deathpoint/index.html",
-    "projects/sentinel/index.html",
-    "projects/maxos/index.html",
-    "projects/pineappleui/index.html",
-    "projects/tracebte/index.html",
-    "projects/bte-distortion-calculator/index.html",
-    "projects/bte-france-guidelines/index.html",
-    "projects/builders-utilities-bt-corsica/index.html",
-    "projects/le-mans/index.html",
     "fr/projets/refonte-iprof/index.html",
+    "es/proyectos/rediseno-iprof/index.html",
+    "projects/colorflow/index.html",
+    "fr/projects/colorflow/index.html",
+    "es/projects/colorflow/index.html",
+    "projects/nostalgia-ultra/index.html",
+    "fr/projects/nostalgia-ultra/index.html",
+    "es/projects/nostalgia-ultra/index.html",
+    "projects/sculk-vision/index.html",
+    "fr/projects/sculk-vision/index.html",
+    "es/projects/sculk-vision/index.html",
+    "projects/jukeboxplus/index.html",
+    "fr/projects/jukeboxplus/index.html",
+    "es/projects/jukeboxplus/index.html",
+    "projects/now-playing-irl/index.html",
+    "fr/projects/now-playing-irl/index.html",
+    "es/projects/now-playing-irl/index.html",
+    "projects/homegui/index.html",
+    "fr/projects/homegui/index.html",
+    "es/projects/homegui/index.html",
+    "projects/railway-tools-axiom/index.html",
+    "fr/projects/railway-tools-axiom/index.html",
+    "es/projects/railway-tools-axiom/index.html",
+    "projects/bidvault/index.html",
+    "fr/projects/bidvault/index.html",
+    "es/projects/bidvault/index.html",
+    "projects/bedrock-height-guard/index.html",
+    "fr/projects/bedrock-height-guard/index.html",
+    "es/projects/bedrock-height-guard/index.html",
+    "projects/deathpoint/index.html",
+    "fr/projects/deathpoint/index.html",
+    "es/projects/deathpoint/index.html",
+    "projects/sentinel/index.html",
+    "fr/projects/sentinel/index.html",
+    "es/projects/sentinel/index.html",
+    "projects/maxos/index.html",
+    "fr/projects/maxos/index.html",
+    "es/projects/maxos/index.html",
+    "projects/pineappleui/index.html",
+    "fr/projects/pineappleui/index.html",
+    "es/projects/pineappleui/index.html",
+    "projects/riptide/index.html",
+    "fr/projects/riptide/index.html",
+    "es/projects/riptide/index.html",
+    "projects/tracebte/index.html",
+    "fr/projects/tracebte/index.html",
+    "es/projects/tracebte/index.html",
+    "projects/bte-distortion-calculator/index.html",
+    "fr/projects/bte-distortion-calculator/index.html",
+    "es/projects/bte-distortion-calculator/index.html",
+    "projects/bte-france-guidelines/index.html",
+    "fr/projects/bte-france-guidelines/index.html",
+    "es/projects/bte-france-guidelines/index.html",
+    "projects/builders-utilities-bt-corsica/index.html",
+    "fr/projects/builders-utilities-bt-corsica/index.html",
+    "es/projects/builders-utilities-bt-corsica/index.html",
+    "projects/le-mans/index.html",
+    "fr/projects/le-mans/index.html",
+    "es/projects/le-mans/index.html",
     "builds/index.html",
+    "fr/builds/index.html",
+    "es/builds/index.html",
     "builds/page/2/index.html",
+    "fr/builds/page/2/index.html",
+    "es/builds/page/2/index.html",
     "builds/page/3/index.html",
+    "fr/builds/page/3/index.html",
+    "es/builds/page/3/index.html",
     "builds/page/4/index.html",
+    "fr/builds/page/4/index.html",
+    "es/builds/page/4/index.html",
     "builds/page/5/index.html",
+    "fr/builds/page/5/index.html",
+    "es/builds/page/5/index.html",
     "builds/page/6/index.html",
+    "fr/builds/page/6/index.html",
+    "es/builds/page/6/index.html",
     "builds/page/7/index.html",
+    "fr/builds/page/7/index.html",
+    "es/builds/page/7/index.html",
+    "404.html",
     "sitemap.xml",
     "sitemap-images.xml",
     "robots.txt",

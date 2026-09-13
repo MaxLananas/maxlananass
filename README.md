@@ -8,11 +8,13 @@ Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://gi
 
 ## Architecture SEO et contenu
 
-Le site comprend maintenant **35 pages statiques (34 indexables)** : profil MaxLananas et étude de cas iProf en anglais/français, catalogue de projets, rubriques BuildTheEarth et développement, dix-neuf fiches de projets et collections, un guide technique et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
+Le site comprend maintenant **102 pages statiques (99 indexables)** : 34 parcours déclinés à 100 % en anglais, français et espagnol — profil MaxLananas, étude de cas iProf, catalogue de projets, rubriques BuildTheEarth et développement, vingt fiches de projets et collections, un guide technique, une page 404 trilingue et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
 
 - Sources éditoriales : `content/`, `templates/home.html`, `tools/seo-content.mjs` et `image-labels.js`.
 - Génération : `npm run seo:render`. Ne pas modifier les snapshots HTML à la main.
-- Contrôle : `npm run seo:check` (canonicals, langues, liens/ancres, schemas, sitemaps, absence de pages orphelines).
+- Contrôle : `npm run seo:check` (canonicals, langues, liens/ancres, schemas, sitemaps, absence de pages orphelines, lint sémantique).
+- Diff rendu : `npm run seo:diff` régénère le site en mémoire, compare au HTML publié et liste les fichiers modifiés, manquants ou périmés.
+- Programme SEO compilé : `site-package.json` (hôtes, langues, entités `@id`, clusters thématiques, budgets) et `content/seo-queries.js` (requêtes cibles par page et par langue) sont vérifiés par `tools/seo-lint.mjs` : couverture des requêtes, cannibalisation, alignement title/H1/description, profondeur de maillage, intégrité du graphe d'entités, cohérence FAQ et `WebApplication` avec le contenu visible, unicité des libellés d'images.
 - [Audit et stratégie avant implémentation](docs/SEO-AUDIT.md).
 - [Publication, vérification et suivi SEO](docs/SEO-OPERATIONS.md).
 
@@ -22,7 +24,7 @@ Ces améliorations SEO fonctionnent également dans le mode de publication actue
 
 - **iProf 2026** est le projet d’interface mis en avant, avec les **11 visuels fournis** et un lecteur vidéo natif H.264 à chargement différé.
 - Les **10 projets publiés sur Modrinth** sont regroupés ensemble, avec liens de versions : Colorflow, Nostalgia Ultra Shader, Sculk Vision, JukeBoxPlus, Now Playing IRL, HomeGUI, Railway Tools, BidVault, BedrockHeightGuard et DeathPoint.
-- SENTINEL, MaxOS et PineappleUI forment une section **Software lab**, distincte des sorties publiées.
+- SENTINEL, MaxOS, PineappleUI et **Riptide** (convertisseur de schematics Minecraft en ligne, de b1.8.1 à 26.2) forment une section **Software lab**, distincte des sorties publiées.
 - Les anciennes URLs BTE et les crédits restent accessibles, sans dominer la sélection dev.
 
 Voir [la sélection et les médias](docs/DEVELOPMENT-SHOWCASE.md) pour les sources, l’import et les limites de validation.
@@ -155,7 +157,10 @@ Pour mettre à jour les petits logos/la police après modification de leurs sour
 ## Vérifications et mesures
 
 ```sh
-npm run check               # références locales, syntaxe, catalogue, budget JS initial
+npm run check               # références locales, syntaxe, catalogue, budget JS initial (site-package.json)
+npm run seo:render          # régénère pages, sitemaps, robots, _redirects, sw.js
+npm run seo:diff            # HTML rendu vs HTML publié (fichiers périmés inclus)
+npm run seo:check           # SEO + lint sémantique (requêtes, clusters, entités, libellés)
 npm test                    # file, cache/SW, données, préparation d’images
 npx playwright install --with-deps chromium firefox webkit
 npm run test:browser         # vrais navigateurs sur des fixtures isolées

@@ -4,26 +4,30 @@ import { pathToFileURL } from "node:url";
 import assert from "node:assert/strict";
 import { load } from "cheerio";
 import { SITE, PAGE_SIZE, canonical } from "../content/site.js";
+import { LANGS } from "../content/i18n.js";
+import { ui } from "../ui.js";
 import { sitePages } from "../content/pages.js";
 import { FILES } from "../gallery-data.js";
 import { renderSeo, pageFile, pageImages, serviceWorkerRoutes } from "./seo-render.mjs";
+import { lintSeoProgram } from "./seo-lint.mjs";
 
 const root = resolve(import.meta.dirname, "..");
-const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "MediaObject", "VideoObject"]);
+const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "MediaObject", "VideoObject", "FAQPage"]);
 const text = (value) => value.replace(/\s+/g, " ").trim();
 
 export async function checkSeo({ directory = root, snapshots = resolve(directory) === root } = {}) {
   directory = resolve(directory);
   const pages = sitePages();
   const indexable = pages.filter((page) => !page.noindex);
-  const documents = new Map();
-  const titles = new Set(), descriptions = new Set(), galleryOriginals = new Set();
+  const documents = new Map(), sources = new Map();
+  const titles = new Set(), descriptions = new Set(), galleryOriginals = new Set(), distinctOriginals = new Set();
   const adjacency = new Map();
   let links = 0, images = 0;
   for (const page of pages) {
     const html = await readFile(resolve(directory, pageFile(page.path)), "utf8");
-    assert.ok(!/\{\{[A-Z_]+\}\}/.test(html), `Unrendered placeholder: ${page.path}`);
+    assert.ok(!/\{\{(?:UI|COPY|ROUTE):[^}]*\}\}|\{\{[A-Z_]+\}\}/.test(html), `Unrendered placeholder: ${page.path}`);
     documents.set(page.path, load(html));
+    sources.set(page.path, html);
   }
   async function localResource(url, from) {
     if (/^(data:|blob:|mailto:|tel:)/.test(url)) return;
@@ -43,7 +47,8 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     assert.equal($("meta[name=description]").length, 1);
     const description = $("meta[name=description]").attr("content");
     assert.equal(description, page.description);
-    assert.ok(description.length >= 60 && description.length <= 220, `Description length: ${page.path}`);
+    assert.ok(description.length >= 60 && description.length <= 160, `Description length: ${page.path}`);
+    assert.ok(title.length <= 60, `Title length: ${page.path}`);
     assert.ok(!descriptions.has(description), `Duplicate description: ${page.path}`); descriptions.add(description);
     assert.equal($("h1").length, 1, `One H1: ${page.path}`);
     assert.equal(text($("h1").text()), page.heading);
@@ -62,6 +67,15 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     await localResource($("meta[property='og:image']").attr("content"), page.path);
     const alternates = $("link[hreflang]");
     assert.equal(alternates.length, page.alternates ? page.alternates.length + 1 : 0);
+    assert.equal($("link[hreflang='x-default']").length, page.alternates ? 1 : 0, `x-default alternate: ${page.path}`);
+    if (page.lang !== "en") {
+      const chrome = page.home
+        ? [ui(page.lang, "skipHome"), ui(page.lang, "navProjects"), ui(page.lang, "footerAbout")]
+        : [ui(page.lang, "skip"), ui(page.lang, "navProjects"), ui(page.lang, "footerShots"), ui(page.lang, "breadcrumbAria")];
+      const source = sources.get(page.path);
+      for (const expected of chrome) assert.ok(source.includes(expected), `Untranslated interface string on ${page.path}: ${expected}`);
+      for (const language of LANGS) assert.equal($(`.language-nav a[lang='${language}']`).length, 1, `Language switch ${language}: ${page.path}`);
+    }
     for (const alternate of alternates.toArray()) {
       const lang = $(alternate).attr("hreflang"), href = $(alternate).attr("href");
       const target = documents.get(new URL(href).pathname);
@@ -142,8 +156,10 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.ok(photos.length > 0 && photos.length <= PAGE_SIZE);
       for (const img of photos) {
         const original = $(img).attr("data-original");
-        assert.ok(!galleryOriginals.has(original), "A screenshot must not appear on multiple pagination pages");
-        galleryOriginals.add(original);
+        const scoped = `${page.lang}:${original}`;
+        assert.ok(!galleryOriginals.has(scoped), "A screenshot must not appear on multiple pagination pages");
+        galleryOriginals.add(scoped);
+        distinctOriginals.add(original);
       }
       assert.equal($(photos[0]).attr("loading"), "eager");
       assert.equal($(photos[0]).attr("fetchpriority"), "high");
@@ -151,7 +167,8 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.equal($(".pagination").first().find("a[aria-current=page]").length, 1);
     }
   }
-  assert.equal(galleryOriginals.size, FILES.length, "Every original is crawlable without JavaScript");
+  assert.equal(distinctOriginals.size, FILES.length, "Every original is crawlable without JavaScript");
+  assert.equal(galleryOriginals.size, FILES.length * LANGS.length, "Every language paginates the whole catalogue");
   const reachable = new Set(["/"]), pending = ["/"];
   while (pending.length) for (const next of adjacency.get(pending.shift()) || []) if (!reachable.has(next)) { reachable.add(next); pending.push(next); }
   for (const page of indexable) assert.ok(reachable.has(page.path), `Orphan page: ${page.path}`);
@@ -182,13 +199,19 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
   const error = load(await readFile(resolve(directory, "404.html"), "utf8"));
   assert.match(error("meta[name=robots]").attr("content"), /noindex/);
   assert.equal(error("link[rel=canonical]").length, 0, "404 must not canonicalize to the homepage");
+  for (const language of LANGS) {
+    const block = error(`.err-lang[lang='${language}']`);
+    assert.equal(block.length, 1, `Trilingual 404 block: ${language}`);
+    assert.equal(block.find("a.err-btn").attr("href"), language === "en" ? "/" : `/${language}/`);
+  }
   if (snapshots) {
     const expected = await renderSeo();
     for (const [file, value] of expected.files) assert.equal(await readFile(resolve(directory, file), "utf8"), value, `Stale generated file: ${file}. Run npm run seo:render.`);
     const sw = await readFile(resolve(root, "sw.js"), "utf8");
     assert.equal(serviceWorkerRoutes(sw), sw, "Regenerate the service-worker page allowlist");
   }
-  return { pages: pages.length, indexable: indexable.length, images, originalScreenshots: galleryOriginals.size, internalLinks: links, orphans: 0 };
+  const program = lintSeoProgram({ pages, documents, adjacency });
+  return { pages: pages.length, indexable: indexable.length, languages: LANGS.length, images, originalScreenshots: distinctOriginals.size, internalLinks: links, orphans: 0, ...program };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const args = process.argv.slice(2);

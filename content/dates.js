@@ -13,5 +13,6 @@ export function pageDates(path, records) {
 }
 export function dateLabel(value, language = "en") {
   if (!validDate(value)) throw new Error("Invalid display date");
-  return new Intl.DateTimeFormat(language === "fr" ? "fr-FR" : "en-GB", { dateStyle: "long", timeZone: "UTC" }).format(new Date(value + "T00:00:00Z"));
+  const locale = { en: "en-GB", fr: "fr-FR", es: "es-ES" }[language] || "en-GB";
+  return new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(new Date(value + "T00:00:00Z"));
 }

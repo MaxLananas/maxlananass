@@ -5,6 +5,7 @@ import { promisify } from "node:util";
 import { gzipSync } from "node:zlib";
 import { FILES, CREDITS } from "../gallery-data.js";
 import { validateFiles } from "./prepare-images.mjs";
+import { SEO_PROGRAM } from "./seo-lint.mjs";
 
 const exec = promisify(execFile);
 const root = resolve(import.meta.dirname, "..");
@@ -38,9 +39,10 @@ for (const file of scripts) {
   const source = await readFile(resolve(root, file), "utf8");
   for (const match of source.matchAll(/(?:from\s*|import\s*\()\s*["'](\.[^"']+)["']/g)) await localFile(match[1], dirname(resolve(root, file)));
 }
-const runtimeFiles = ["image-labels.js", "script.js", "gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js"];
+const runtimeFiles = ["image-labels.js", "script.js", "gallery-data.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "ui-core.js", "media-i18n.js"];
 const gzipBytes = (await Promise.all(runtimeFiles.map(async (file) => gzipSync(await readFile(resolve(root, file))).length)))
   .reduce((sum, size) => sum + size, 0);
-if (gzipBytes > 25 * 1024) throw new Error(`Source startup JavaScript exceeds its 25 KiB gzip budget: ${gzipBytes}`);
+const budget = SEO_PROGRAM.budgets;
+if (gzipBytes > budget.startupJavaScriptKibGzip * 1024) throw new Error(`Source startup JavaScript exceeds its ${budget.startupJavaScriptKibGzip} KiB gzip budget: ${gzipBytes}`);
 console.log(`Checked ${FILES.length} builds, every local reference and ${scripts.length} JavaScript files.`);
-console.log(`Source startup JavaScript: ${(gzipBytes / 1024).toFixed(1)} KiB gzip. Browser dependencies: 0.`);
+console.log(`Source startup JavaScript: ${(gzipBytes / 1024).toFixed(1)} KiB gzip (budget ${budget.startupJavaScriptKibGzip}). Browser dependencies: ${budget.browserDependencies}.`);

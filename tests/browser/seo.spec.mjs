@@ -60,10 +60,58 @@ test("search is noindex and uses the right root assets from a nested URL", async
 
 test("mobile and narrow screens retain all content without horizontal page overflow", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 760 });
-  for (const route of ["/", "/about/", "/projects/", "/projects/railway-tools-axiom/", "/guides/minecraft-mods-plugins-addons/", "/builds/page/7/"]) {
+  for (const route of ["/", "/fr/", "/es/", "/about/", "/projects/", "/projects/railway-tools-axiom/", "/guides/minecraft-mods-plugins-addons/", "/builds/page/7/"]) {
     await page.goto(route);
     await page.locator("h1").waitFor();
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route).toBe(true);
+    const measured = await page.evaluate(() => {
+      const limit = innerWidth;
+      const scrollWidth = document.documentElement.scrollWidth;
+      const bodyStyle = getComputedStyle(document.body);
+      const htmlStyle = getComputedStyle(document.documentElement);
+      const describe = (node) => {
+        const box = node.getBoundingClientRect();
+        const style = getComputedStyle(node);
+        const classes = typeof node.className === "string" && node.className.trim() ? `.${node.className.trim().split(/\s+/).join(".")}` : "";
+        const chain = [];
+        for (let parent = node.parentElement; parent && parent !== document.body && chain.length < 3; parent = parent.parentElement) {
+          const parentStyle = getComputedStyle(parent);
+          chain.push(`${parent.nodeName.toLowerCase()}${parent.id ? `#${parent.id}` : ""}${typeof parent.className === "string" && parent.className.trim() ? `.${parent.className.trim().split(/\s+/).join(".")}` : ""}[ox:${parentStyle.overflowX}]`);
+        }
+        return `${node.nodeName.toLowerCase()}${node.id ? `#${node.id}` : ""}${classes} box=${Math.round(box.left)}-${Math.round(box.right)} pos=${style.position} width=${style.width} min-width=${style.minWidth} white-space=${style.whiteSpace} parents=${chain.join("<") || "body"} html=${node.outerHTML.slice(0, 160).replace(/\s+/g, " ")}`;
+      };
+      const overflows = () => document.documentElement.scrollWidth > limit;
+      const culprits = [];
+      const hidden = [];
+      for (let round = 0; round < 3 && overflows(); round += 1) {
+        let node = document.body;
+        let culprit = null;
+        for (let depth = 0; depth < 14; depth += 1) {
+          let matched = null;
+          for (const child of Array.from(node.children)) {
+            const previous = child.style.display;
+            child.style.display = "none";
+            const resolved = !overflows();
+            child.style.display = previous;
+            if (resolved) { matched = child; break; }
+          }
+          if (!matched) break;
+          culprit = matched;
+          node = matched;
+        }
+        if (!culprit) break;
+        culprits.push(describe(culprit));
+        hidden.push([culprit, culprit.style.display]);
+        culprit.style.display = "none";
+      }
+      for (const [node, previous] of hidden) node.style.display = previous;
+      return {
+        fits: scrollWidth <= limit,
+        detail: `scrollWidth=${scrollWidth} innerWidth=${limit} bodyMargin=${bodyStyle.margin} bodyPadding=${bodyStyle.padding} bodyOverflowX=${bodyStyle.overflowX} htmlOverflowX=${htmlStyle.overflowX} bodyScrollWidth=${document.body.scrollWidth}`,
+        culprits,
+      };
+    });
+    const detail = `${route} ${measured.detail} culprits=${measured.culprits.length ? JSON.stringify(measured.culprits) : "none"}`;
+    expect(measured.fits, detail).toBe(true);
   }
 });
 
