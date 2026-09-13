@@ -32,7 +32,7 @@ export async function createFixture() {
   // compatibility with the existing branch-based GitHub Pages publication.
   const sourceDir = resolve(".cache/source-site");
   await mkdir(sourceDir, { recursive: true });
-  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-labels.js", "page.js", "project-viewer.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "sw.js", "apple-touch-icon.png", "manifest.json"]) {
+  for (const file of ["index.html", "404.html", "404.css", "style.css", "script.js", "gallery-data.js", "image-labels.js", "page.js", "project-viewer.js", "image-manifest.js", "image-utils.js", "image-loader.js", "load-queue.js", "lightbox.js", "ui-core.js", "media-i18n.js", "sw.js", "apple-touch-icon.png", "favicon.ico", "manifest.json"]) {
     await copyFile(resolve(file), resolve(sourceDir, file));
   }
   for (const file of ["assets/fonts/FFFlauta-200.woff2", ...["bte", "endorah", "fight4glory", "mrbeast"].map((key) => `assets/credits/${key}.webp`)]) {

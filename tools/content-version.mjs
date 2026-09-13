@@ -7,7 +7,7 @@ const root = resolve(import.meta.dirname, "..");
 // It is identical in source and optimized deployments: generated image URLs and
 // esbuild filenames do not change the identity of the authored release.
 export async function contentVersion() {
-  const files = ["style.css", "404.css", "404.html", "script.js", "page.js", "project-viewer.js", "lightbox.js", "image-utils.js", "image-loader.js", "image-labels.js", "gallery-data.js", "load-queue.js",
+  const files = ["style.css", "404.css", "script.js", "page.js", "project-viewer.js", "lightbox.js", "image-utils.js", "image-loader.js", "image-labels.js", "gallery-data.js", "load-queue.js", "media-i18n.js", "ui.js", "ui-core.js", "ui-docs.js",
     "tools/seo-render.mjs", "tools/seo-content.mjs", "tools/project-content.mjs", "tools/iprof-case-study.mjs", "tools/brand.mjs", "tools/content-version.mjs"];
   for (const directory of ["content", "templates"]) {
     for (const entry of await readdir(resolve(root, directory), { withFileTypes: true })) if (entry.isFile()) files.push(directory + "/" + entry.name);

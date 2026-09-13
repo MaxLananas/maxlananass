@@ -55,20 +55,9 @@ export async function buildSite({ outDir = "dist", sourceDir, offline = false, i
   const appInfo = outputEntries.find(([, output]) => output.entryPoint === "script.js")[1];
   const preloads = appInfo.imports.filter((item) => item.kind === "import-statement").map((item) => outputURL(item.path));
   const pageInfo = outputEntries.find(([, output]) => output.entryPoint === "page.js")[1];
-  const seo = await writeSeo({ outDir, manifest, base, optimized: true, styles, font, app: entry, pageScript: entryFor("page.js"), preloads,
+  const seo = await writeSeo({ outDir, manifest, base, optimized: true, styles, notFound, font, app: entry, pageScript: entryFor("page.js"), preloads,
     pagePreloads: pageInfo.imports.filter((item) => item.kind === "import-statement").map((item) => outputURL(item.path)) });
-  base = "/" + base.split("/").filter(Boolean).join("/");
-  if (!base.endsWith("/")) base += "/";
-  const errorPage = (await readFile(join(root, "404.html"), "utf8"))
-    .replace('href="/404.css"', `href="${base}${notFound}"`)
-    .replace('href="/assets/fonts/FFFlauta-200.woff2"', `href="${base}${font}"`)
-    .replace('href="/assets/icons/favicon-96.png"', `href="${base}assets/icons/favicon-96.png"`)
-    .replace('href="/projects/"', `href="${base}projects/"`)
-    .replace('href="/builds/"', `href="${base}builds/"`)
-    .replace('href="/#contact"', `href="${base}#contact"`)
-    .replace('href="/"', `href="${base}"`);
-  await writeFile(join(outDir, "404.html"), errorPage);
-  const staticFiles = ["CNAME", "apple-touch-icon.png"];
+  const staticFiles = ["CNAME", "apple-touch-icon.png", "favicon.ico", "indexnow-key.txt"];
   for (const file of staticFiles) await copyFile(join(root, file), join(outDir, file));
   await mkdir(join(outDir, "assets/credits"), { recursive: true });
   const creditFiles = ["bte", "endorah", "fight4glory", "mrbeast"].map((key) => `assets/credits/${key}.webp`);
@@ -81,7 +70,7 @@ export async function buildSite({ outDir = "dist", sourceDir, offline = false, i
     await copyFile(join(root, file), join(outDir, file));
   }
   await writeFile(join(outDir, ".nojekyll"), "");
-  const assets = [...outputEntries.map(([file]) => outputURL(file)), ...creditFiles, "index.html", "404.html", "apple-touch-icon.png", "manifest.json", "assets/icons/favicon-96.png"].sort();
+  const assets = [...outputEntries.map(([file]) => outputURL(file)), ...creditFiles, "index.html", "404.html", "apple-touch-icon.png", "favicon.ico", "manifest.json", "assets/icons/favicon-96.png"].sort();
   const versionHash = createHash("sha256");
   for (const asset of [...new Set([...assets, ...seo.files.keys()])].sort()) { versionHash.update(asset); versionHash.update(await readFile(join(outDir, asset))); }
   const version = versionHash.digest("hex").slice(0, 16);

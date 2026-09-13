@@ -13,6 +13,6 @@ Disallow: /package.json
 Disallow: /package-lock.json
 Disallow: /README.md
 
-# Keep CSS, JavaScript, images and /search/ crawlable; search carries noindex in HTML.
+# Keep CSS, JavaScript, images and search pages crawlable; search carries noindex in HTML.
 Sitemap: https://maxlananas.is-a.dev/sitemap.xml
 Sitemap: https://maxlananas.is-a.dev/sitemap-images.xml

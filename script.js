@@ -2,6 +2,8 @@ import { FILES, CREDITS, RELEASE_BASE } from "./gallery-data.js";
 import { altFor, assetUrl, connectionProfile, imageMetadata, requestedImageWidth, normalizeSearch, originalUrl, parseDateFromFilename } from "./image-utils.js";
 import { loadImage, clearImage } from "./image-loader.js";
 import { LoadQueue } from "./load-queue.js";
+import { t } from "./ui-core.js";
+import { everyLabel } from "./image-labels.js";
 
 const $ = (id) => document.getElementById(id);
 const masonry = $("masonry");
@@ -197,9 +199,9 @@ function buildGrid() {
     tile.dataset.index = index;
     tile.dataset.credit = item.credit ? "collab" : "original";
     tile.dataset.state = "idle";
-    tile.setAttribute("aria-label", `View ${altFor(item, index)}`);
+    tile.setAttribute("aria-label", t("viewAria", { label: altFor(item, index) }));
     const search = normalizeSearch([
-      item.name.replace(/[_.-]/g, " "), item.credit ? CREDITS[item.credit].linkText : "", ...(item.tags || [])
+      item.name.replace(/[_.-]/g, " "), item.credit ? CREDITS[item.credit].linkText : "", ...(item.tags || []), ...everyLabel(item)
     ].join(" "));
 
     const plate = document.createElement("span");
@@ -225,7 +227,7 @@ function buildGrid() {
     }
     const error = document.createElement("span");
     error.className = "tile-error";
-    error.textContent = "Preview unavailable · open original";
+    error.textContent = t("previewUnavailable");
     error.hidden = true;
     picture.appendChild(img);
     tile.append(picture, plate, error);
@@ -266,7 +268,7 @@ function applyFilters() {
     if (ref.tile.hidden) queue.cancel("grid-" + i);
   });
   updateVisibleOrder();
-  resultsCount.textContent = `Showing ${visibleOrder.length} of ${FILES.length} images`;
+  resultsCount.textContent = t("resultsCount", { shown: visibleOrder.length, total: FILES.length });
   $("emptyResults").hidden = visibleOrder.length !== 0;
   scheduleGrid();
 }
@@ -375,9 +377,9 @@ $("searchForm").addEventListener("submit", (event) => { event.preventDefault(); 
 clearSearch.addEventListener("click", () => { searchInput.value = ""; applySearch(); searchInput.focus(); });
 
 function updateSort() {
-  const label = { featured: "Featured", newest: "Newest", oldest: "Oldest" }[sortModes[sortMode]];
+  const label = t({ featured: "sortFeatured", newest: "sortNewest", oldest: "sortOldest" }[sortModes[sortMode]]);
   sortLabel.textContent = label;
-  sortToggle.setAttribute("aria-label", "Sort order: " + label);
+  sortToggle.setAttribute("aria-label", t("sortAria", { label }));
   sortToggle.classList.toggle("is-active", sortMode !== 0);
   applyOrder();
 }

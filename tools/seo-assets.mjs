@@ -13,7 +13,7 @@ export async function prepareSeoAssets(root) {
       .toFile(resolve(root, `assets/icons/${size === 96 ? "favicon-96" : "icon-" + size}.png`));
   }
   const avatar = await sharp(icon).resize(252, 252, { kernel: "nearest" }).png().toBuffer();
-  const fontfile = resolve(root, "FFFlauta-200.otf");
+  const fontfile = resolve(root, "sources/FFFlauta-200.otf");
   const title = await sharp({ text: { text: '<span foreground="#f5f5f4">MaxLananas</span>', font: "FFFlauta 76", fontfile, rgba: true } }).png().toBuffer();
   const subtitle = await sharp({ text: { text: '<span foreground="#bdbdbd">Minecraft builds\nDeveloper projects &amp; tools</span>', font: "FFFlauta 30", fontfile, rgba: true, spacing: 14 } }).png().toBuffer();
   const url = await sharp({ text: { text: '<span foreground="#a6b38f">maxlananas.is-a.dev</span>', font: "FFFlauta 23", fontfile, rgba: true } }).png().toBuffer();

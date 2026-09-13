@@ -91,7 +91,7 @@ export const MODRINTH_ADDITIONS = Object.entries(details).map(([slug, data]) => 
     ...data, modrinth: release.url, icon: release.icon, cover: release.cover, artwork: release.artwork,
     source: { label: "Project description and releases on Modrinth", url: release.url },
     launch: { label: "View on Modrinth", url: release.url },
-    ...(release.cover ? { media: [{ key: release.cover, title: `${release.name} — project image`, alt: `${release.name} project screenshot published on Modrinth`, caption: "Image from the project’s Modrinth gallery; the interface may differ between releases." }] } : {})
+    ...(release.cover ? { media: [{ key: release.cover, titleKey: "coverTitle", altKey: "coverAlt", captionKey: "modrinthCaption" }] } : {})
   };
 });
 
@@ -102,5 +102,5 @@ export function withRelease(project) {
     source: { label: "Project description and releases on Modrinth", url: release.url }, artwork: release.artwork,
     launch: { label: "View on Modrinth", url: release.url },
     ...(project.slug === "homegui" ? { requirements: "A Fabric client with the dependencies listed for your chosen release, and a server with compatible home commands. Use the current Modrinth version list rather than the older README’s single-version example." } : {}),
-    ...(release.cover ? { media: [{ key: release.cover, title: `${project.name} — interface`, alt: `${project.name} interface screenshot from its Modrinth gallery`, caption: "Published project screenshot; check the release page for the current interface." }] } : {}) };
+    ...(release.cover ? { media: [{ key: release.cover, titleKey: "coverTitleInterface", altKey: "coverAltGallery", captionKey: "coverCaption" }] } : {}) };
 }

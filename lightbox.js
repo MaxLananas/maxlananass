@@ -1,5 +1,7 @@
 import { altFor, assetUrl, imageMetadata, requestedImageWidth, originalUrl } from "./image-utils.js";
 import { clearImage, loadImage } from "./image-loader.js";
+import { t, documentLang } from "./ui-core.js";
+import { CREDITS_COPY } from "./media-i18n.js";
 
 export function createLightbox({ files, credits, getOrder, getThumbnail, getProfile, onOpenChange }) {
   const $ = (id) => document.getElementById(id);
@@ -88,10 +90,11 @@ export function createLightbox({ files, credits, getOrder, getThumbnail, getProf
     logo.width = logo.height = 20;
     logo.alt = "";
     logo.decoding = "async";
+    const copy = CREDITS_COPY[documentLang()]?.[item.credit] || { text: credit.text, linkText: credit.linkText };
     const link = document.createElement(credit.linkUrl ? "a" : "strong");
-    link.textContent = credit.linkText;
+    link.textContent = copy.linkText;
     if (credit.linkUrl) { link.href = credit.linkUrl; link.target = "_blank"; link.rel = "noopener"; }
-    caption.append(logo, document.createTextNode(credit.text + " "), link);
+    caption.append(logo, document.createTextNode(copy.text + " "), link);
   }
 
   async function render() {
@@ -183,9 +186,7 @@ export function createLightbox({ files, credits, getOrder, getThumbnail, getProf
       schedulePrefetch();
     } catch (error) {
       if (myToken !== token || error.name === "AbortError") return;
-      status.textContent = navigator.onLine === false
-        ? "This photo is not available offline yet."
-        : "The full-size photo could not load. Try again or open the original.";
+      status.textContent = navigator.onLine === false ? t("lbOffline") : t("lbLoadError");
       retry.hidden = false;
       frame.style.width = `${widthFor(currentIndex).width}px`;
     } finally {

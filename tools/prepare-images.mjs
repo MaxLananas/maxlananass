@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir, copyFile, rename, stat } from "node:fs/promises";
 import { resolve, join, basename } from "node:path";
+import os from "node:os";
 import { pathToFileURL } from "node:url";
 import { createHash } from "node:crypto";
 import sharp from "sharp";
@@ -7,11 +8,11 @@ import { FILES, RELEASE_BASE } from "../gallery-data.js";
 import { IMAGE_WIDTHS } from "../image-utils.js";
 
 export const RECIPE = {
-  version: 1,
+  version: 3,
   sharp: sharp.versions.sharp,
   vips: sharp.versions.vips,
-  avif: { quality: 70, effort: 6, chromaSubsampling: "4:4:4" },
-  webp: { quality: 90, effort: 6, smartSubsample: true },
+  avif: { quality: 62, effort: 2, chromaSubsampling: "4:4:4" },
+  webp: { quality: 82, effort: 4, smartSubsample: true },
   kernel: "lanczos3"
 };
 const MAX_SOURCE_BYTES = 100 * 1024 * 1024;
@@ -133,11 +134,11 @@ export async function prepareImages({
   offline = false,
   widths = IMAGE_WIDTHS,
   recipe = RECIPE,
-  concurrency = Number(process.env.IMAGE_CONCURRENCY || 2),
+  concurrency = Number(process.env.IMAGE_CONCURRENCY || os.cpus().length),
   onProgress = (message) => console.log(message)
 } = {}) {
   validateFiles(files);
-  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 4) throw new Error("IMAGE_CONCURRENCY must be between 1 and 4");
+  if (!Number.isInteger(concurrency) || concurrency < 1 || concurrency > 16) throw new Error("IMAGE_CONCURRENCY must be between 1 and 16");
   outputDir = resolve(outputDir);
   cacheDir = resolve(cacheDir);
   if (sourceDir) sourceDir = resolve(sourceDir);
@@ -147,7 +148,7 @@ export async function prepareImages({
   const inFlight = new Map();
   let cursor = 0;
   sharp.cache({ memory: 32, files: 20, items: 50 });
-  sharp.concurrency(1); // Bound RAM/CPU on a small runner; run two independent photos.
+  sharp.concurrency(0);
 
   async function encode(buffer, key) {
     const cachePath = join(cacheDir, "optimized", key);
@@ -164,19 +165,15 @@ export async function prepareImages({
       if (!width || !height || meta.pages > 1) throw new Error("Only static, decodable images are supported");
       const availableWidths = variantWidths(width, widths);
       const placeholder = await oriented.clone().resize({ width: 20, height: 20, fit: "inside", withoutEnlargement: true })
-        .webp({ quality: 35, effort: 6 }).toBuffer();
+        .webp({ quality: 35, effort: 4 }).toBuffer();
       const pixel = await oriented.clone().resize(1, 1, { fit: "fill" }).removeAlpha().raw().toBuffer();
       const color = "#" + [...pixel.subarray(0, 3)].map((v) => v.toString(16).padStart(2, "0")).join("");
-      const variants = [];
-      for (const size of availableWidths) {
-        const image = oriented.clone().resize({ width: size, withoutEnlargement: true, kernel: recipe.kernel });
-        for (const format of ["avif", "webp"]) {
-          const bytes = await image.clone()[format](recipe[format]).toBuffer();
-          const file = `${size}.${format}`;
-          await atomicWrite(join(cachePath, file), bytes);
-          variants.push({ file, width: size, format, bytes: bytes.length });
-        }
-      }
+      const variants = (await Promise.all(availableWidths.flatMap((size) => ["avif", "webp"].map(async (format) => {
+        const bytes = await oriented.clone().resize({ width: size, withoutEnlargement: true, kernel: recipe.kernel })[format](recipe[format]).toBuffer();
+        const file = `${size}.${format}`;
+        await atomicWrite(join(cachePath, file), bytes);
+        return { file, width: size, format, bytes: bytes.length };
+      })))).sort((a, b) => a.width - b.width || a.format.localeCompare(b.format));
       info = { width, height, widths: availableWidths, color, placeholder: "data:image/webp;base64," + placeholder.toString("base64"), variants };
       // A complete metadata file is the atomic marker for a successful generation.
       await atomicWrite(metadataFile, JSON.stringify(info));

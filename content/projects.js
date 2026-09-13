@@ -3,6 +3,8 @@
 // when updating a project; never turn roadmap items into released features.
 import { SHOWCASE_PROJECTS } from "./showcase-projects.js";
 import { MODRINTH_ADDITIONS, withRelease } from "./modrinth-projects.js";
+import { projectCopy, hasProjectCopy, META } from "./projects-i18n.js";
+import { ui } from "../ui.js";
 
 const LEGACY_PROJECTS = [
   {
@@ -149,3 +151,19 @@ const order = ["iprof-redesign", ...RELEASE_PROJECT_SLUGS, "sentinel", "maxos", 
 export const PROJECTS = [...order.map((slug) => records.find((p) => p.slug === slug)), ...records.filter((p) => !order.includes(p.slug))];
 if (PROJECTS.some((p) => !p) || new Set(PROJECTS.map((p) => p.slug)).size !== PROJECTS.length) throw new Error("Invalid project selection");
 export const developmentProjects = () => PROJECTS.filter((p) => ["interface", "release", "lab"].includes(p.collection));
+const LOCALIZED_FIELDS = ["title", "description", "summary", "category", "intro", "features", "usage", "limits", "requirements"];
+for (const project of PROJECTS) {
+  for (const field of LOCALIZED_FIELDS) {
+    Object.defineProperty(project, field + "For", {
+      enumerable: false,
+      value: (l = "en") => {
+        if (l === "en" || !(field in project)) return project[field];
+        if (field === "title" || field === "description") return META[l][`/projects/${project.slug}/`][field];
+        if (hasProjectCopy(l, project, field)) return projectCopy(l, project, field);
+        if (field === "requirements" && project.modrinth) return ui(l, "reqModrinth");
+        throw new Error(`Missing ${l} project copy: ${project.slug}.${field}`);
+      }
+    });
+  }
+  Object.defineProperty(project, "hasFor", { enumerable: false, value: (l, field) => l === "en" ? field in project : hasProjectCopy(l, project, field) });
+}

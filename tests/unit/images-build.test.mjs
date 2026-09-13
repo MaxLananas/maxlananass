@@ -52,7 +52,7 @@ test("generates real dimensions, alpha, placeholders, bounded variants and deter
       assert.equal(encoded.hasAlpha, true);
     }
     assert.deepEqual(await readFile(join(sourceDir, "photo.png")), original, "the original must remain byte-for-byte identical");
-    const changed = await prepareImages({ ...options, recipe: { ...recipe, version: 2 } });
+    const changed = await prepareImages({ ...options, recipe: { ...recipe, version: recipe.version + 1 } });
     assert.notEqual(changed.manifest["photo.png"].base, meta.base, "encoder changes must invalidate cached URLs");
   } finally { await rm(temporary, { recursive: true, force: true }); }
 });

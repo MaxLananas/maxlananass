@@ -64,4 +64,37 @@ export const IPROF_STUDY = {
     contact: "Discuter d’une interface", explore: "Voir les projets de développement",
     mediaTitles: ["Présentation du projet", "Couverture", "Vitrine publique", "Concept de connexion", "Tableau de bord", "Carrière", "Mobilité", "Documents", "Messagerie", "Présentation de l’accessibilité", "Affichages responsive"]
   }
+,
+  es: {
+    eyebrow: "Estudio de interfaz · Rediseño personal",
+    deck: "Hacer que la próxima acción útil sea más fácil de encontrar.",
+    introduction: "iProf 2026 explora un portal del personal más legible mediante un rediseño personal de la interfaz. La presentación se inscribe en el contexto de la academia de Guadalupe y usa datos de demostración ficticios. Mi tema: conectar la situación de un miembro del personal, su próximo plazo y los documentos o intercambios que necesita.",
+    role: "Rediseño de la interfaz y presentación por MaxLananas",
+    stack: "PHP, CSS y JavaScript — tecnologías indicadas en la presentación suministrada",
+    scope: "11 visuales de presentación y un vídeo de 47,68 segundos",
+    contextTitle: "La pregunta de diseño",
+    context: "Carrera, movilidad, documentos y mensajería corresponden a tareas distintas, pero conciernen a la misma persona. ¿Cómo conectar esas tareas sin dar la misma importancia a todas las pantallas? El panel propuesto responde con un resumen de situación, la próxima cita de carrera y algunos plazos prioritarios, antes que el resto de la navegación.",
+    contextNote: "Es un análisis del rediseño presentado, no un antes/después medido sobre el servicio institucional en producción. No se inventa ninguna entrevista de usuario, cifra de adopción ni ahorro de tiempo.",
+    leadAlt: "Panel del rediseño de iProf: plazos, carrera y navegación entre servicios",
+    sections: [
+      { id: "orientacion", title: "01 — Orientar antes de hacer navegar", image: "iprof-dashboard", alt: "Panel de iProf anotado: resumen, próxima cita de carrera y plazos", text: "El panel reúne la situación actual, la información no leída y los eventos próximos en una misma jerarquía. La cita de carrera se convierte en una acción que preparar, en lugar de un número más dentro de un menú. Esa entrada clara convive con una barra lateral estable que mantiene accesibles los demás servicios.", decision: "Decisión: mostrar primero la situación inmediata y conservar después referencias de navegación predecibles." },
+      { id: "carrera-y-movilidad", title: "02 — Dar forma al tiempo y a las prioridades", image: "iprof-career", alt: "Pantalla de carrera con tarjetas de progreso y trayectoria visible en el tiempo", text: "La vista de carrera usa una trayectoria y una tarjeta de próximo paso para facilitar la lectura del progreso. La presentación de movilidad la complementa con una lista de deseos ordenados, la información de campaña y un calendario. Estas vistas hacen comprensible un recorrido; no prueban la validación de los cálculos de carrera ni de las reglas administrativas subyacentes.", decision: "Decisión: distinguir lo que ocurre ahora, lo que viene después y lo que la persona puede preparar." },
+      { id: "documentos-y-mensajes", title: "03 — Mantener la información cerca de la tarea", image: "iprof-documents", alt: "Espacio documental: categorías, búsqueda, estado de caducidad y acciones sobre archivos", text: "Los documentos se organizan en torno a categorías, una búsqueda y estados visibles. La mensajería retoma esa lógica con un buzón priorizado y hilos de conversación. El objetivo de diseño es no tener que reconstruir el contexto cada vez que se pasa de un plazo a un documento o a un intercambio.", decision: "Decisión: hacer visibles el estado y el contexto, en lugar de pedir que se recuerde la pantalla anterior." }
+    ],
+    systemTitle: "Un lenguaje visual común, no once pantallas independientes",
+    system: "La presentación suministrada asocia una paleta dominada por el azul, superficies sobrias, navegación persistente y una jerarquía de tarjetas repetida. La tipografía distingue el papel de la página de la información operativa. Esas referencias visuales al servicio público permanecen dentro de la maqueta independiente: este portfolio no es un sitio oficial del ministerio.",
+    mobileTitle: "Responsive y accesibilidad: intenciones que hay que verificar en el código",
+    mobile: "Las presentaciones móvil y oscura muestran cómo conservar la jerarquía en un espacio más estrecho o en otro contexto de contraste. Son elementos de diseño útiles. Una captura no basta, sin embargo, para probar los recorridos de teclado, el soporte de tecnologías de asistencia, la seguridad de la autenticación o la conformidad RGAA.",
+    validationTitle: "Las comprobaciones previstas para una puesta en producción",
+    checklist: ["Orden de navegación por teclado, foco visible, etiquetas explícitas y alternativa al reordenamiento solo con ratón.", "Visualización estrecha y zoom alto sin perder acciones ni información documental.", "Estados vacíos, cargas, errores y documentos caducados, más allá del único caso ideal.", "Permisos del lado del servidor, sesiones y reglas de gestión reales con el equipo responsable.", "Pruebas de uso con el personal concernido y auditoría de accesibilidad de la aplicación implementada."],
+    deliverablesTitle: "La presentación completa",
+    deliverables: "Los once visuales siguen disponibles a continuación: escaparate, inicio de sesión, panel, carrera, movilidad, documentos, mensajería y presentaciones responsive/accesibilidad. Una imagen puede ampliarse para examinar la interfaz. El vídeo usa el reproductor nativo del navegador y no se descarga antes de que se solicite la reproducción.",
+    limitsTitle: "Alcance y elementos verificables",
+    limits: "El proyecto se presenta como un rediseño personal de interfaz, con datos ficticios. Esta página no reivindica ni encargo institucional, ni despliegue en producción, ni resultado de negocio medido, ni certificación independiente de accesibilidad. Los medios suministrados constituyen los elementos disponibles para este estudio; no se proporcionó el código de la aplicación iProf para su revisión.",
+    sourceLabel: "Presentación suministrada y archivos originales",
+    nextTitle: "¿Una interfaz que repensar?",
+    next: "Un buen punto de partida es la tarea que hoy genera fricción: encontrar una acción, comprender un estado o pasar entre informaciones relacionadas. Precisa ese contexto y el público concernido cuando me contactes.",
+    contact: "Hablar de una interfaz", explore: "Ver los proyectos de desarrollo",
+    mediaTitles: ["Presentación del proyecto", "Portada", "Escaparate público", "Concepto de inicio de sesión", "Panel", "Carrera", "Movilidad", "Documentos", "Mensajería", "Presentación de accesibilidad", "Vistas responsive"]
+  }
 };

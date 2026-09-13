@@ -22,5 +22,11 @@ https://:version.:project.pages.dev/*
 /search/*
   X-Robots-Tag: noindex, follow
 
+/fr/search/*
+  X-Robots-Tag: noindex, follow
+
+/es/search/*
+  X-Robots-Tag: noindex, follow
+
 /404.html
   X-Robots-Tag: noindex, follow
