@@ -81,9 +81,10 @@ test("mobile and narrow screens retain all content without horizontal page overf
         wide.push(`${node.nodeName.toLowerCase()}${node.id ? `#${node.id}` : ""}${classes}@${Math.round(box.right)}`);
       }
       const scrollWidth = document.documentElement.scrollWidth;
-      return { fits: scrollWidth <= limit, detail: `${route} scrollWidth=${scrollWidth} innerWidth=${limit} wide=${wide.slice(0, 8).join(" ") || "none"}` };
+      return { fits: scrollWidth <= limit, scrollWidth, limit, wide: wide.slice(0, 8) };
     });
-    expect(overflow.fits, overflow.detail).toBe(true);
+    const detail = `${route} scrollWidth=${overflow.scrollWidth} innerWidth=${overflow.limit} wide=${overflow.wide.join(" ") || "none"}`;
+    expect(overflow.fits, detail).toBe(true);
   }
 });
 
