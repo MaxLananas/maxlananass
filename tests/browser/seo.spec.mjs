@@ -63,28 +63,55 @@ test("mobile and narrow screens retain all content without horizontal page overf
   for (const route of ["/", "/fr/", "/es/", "/about/", "/projects/", "/projects/railway-tools-axiom/", "/guides/minecraft-mods-plugins-addons/", "/builds/page/7/"]) {
     await page.goto(route);
     await page.locator("h1").waitFor();
-    const overflow = await page.evaluate(() => {
+    const measured = await page.evaluate(() => {
       const limit = innerWidth;
-      const wide = [];
-      for (const node of document.body.querySelectorAll("*")) {
-        const box = node.getBoundingClientRect();
-        if (!box.width || box.right <= limit + 1) continue;
-        const style = getComputedStyle(node);
-        if (style.position === "fixed") continue;
-        let clipped = false;
-        for (let parent = node.parentElement; parent && parent !== document.documentElement; parent = parent.parentElement) {
-          const axis = getComputedStyle(parent).overflowX;
-          if (axis === "hidden" || axis === "clip" || axis === "auto" || axis === "scroll") { clipped = true; break; }
-        }
-        if (clipped) continue;
-        const classes = typeof node.className === "string" && node.className.trim() ? `.${node.className.trim().split(/\s+/).join(".")}` : "";
-        wide.push(`${node.nodeName.toLowerCase()}${node.id ? `#${node.id}` : ""}${classes}@${Math.round(box.right)}`);
-      }
       const scrollWidth = document.documentElement.scrollWidth;
-      return { fits: scrollWidth <= limit, scrollWidth, limit, wide: wide.slice(0, 8) };
+      const bodyStyle = getComputedStyle(document.body);
+      const htmlStyle = getComputedStyle(document.documentElement);
+      const describe = (node) => {
+        const box = node.getBoundingClientRect();
+        const style = getComputedStyle(node);
+        const classes = typeof node.className === "string" && node.className.trim() ? `.${node.className.trim().split(/\s+/).join(".")}` : "";
+        const chain = [];
+        for (let parent = node.parentElement; parent && parent !== document.body && chain.length < 3; parent = parent.parentElement) {
+          const parentStyle = getComputedStyle(parent);
+          chain.push(`${parent.nodeName.toLowerCase()}${parent.id ? `#${parent.id}` : ""}${typeof parent.className === "string" && parent.className.trim() ? `.${parent.className.trim().split(/\s+/).join(".")}` : ""}[ox:${parentStyle.overflowX}]`);
+        }
+        return `${node.nodeName.toLowerCase()}${node.id ? `#${node.id}` : ""}${classes} box=${Math.round(box.left)}-${Math.round(box.right)} pos=${style.position} width=${style.width} min-width=${style.minWidth} white-space=${style.whiteSpace} parents=${chain.join("<") || "body"} html=${node.outerHTML.slice(0, 160).replace(/\s+/g, " ")}`;
+      };
+      const overflows = () => document.documentElement.scrollWidth > limit;
+      const culprits = [];
+      const hidden = [];
+      for (let round = 0; round < 3 && overflows(); round += 1) {
+        let node = document.body;
+        let culprit = null;
+        for (let depth = 0; depth < 14; depth += 1) {
+          let matched = null;
+          for (const child of Array.from(node.children)) {
+            const previous = child.style.display;
+            child.style.display = "none";
+            const resolved = !overflows();
+            child.style.display = previous;
+            if (resolved) { matched = child; break; }
+          }
+          if (!matched) break;
+          culprit = matched;
+          node = matched;
+        }
+        if (!culprit) break;
+        culprits.push(describe(culprit));
+        hidden.push([culprit, culprit.style.display]);
+        culprit.style.display = "none";
+      }
+      for (const [node, previous] of hidden) node.style.display = previous;
+      return {
+        fits: scrollWidth <= limit,
+        detail: `scrollWidth=${scrollWidth} innerWidth=${limit} bodyMargin=${bodyStyle.margin} bodyPadding=${bodyStyle.padding} bodyOverflowX=${bodyStyle.overflowX} htmlOverflowX=${htmlStyle.overflowX} bodyScrollWidth=${document.body.scrollWidth}`,
+        culprits,
+      };
     });
-    const detail = `${route} scrollWidth=${overflow.scrollWidth} innerWidth=${overflow.limit} wide=${overflow.wide.join(" ") || "none"}`;
-    expect(overflow.fits, detail).toBe(true);
+    const detail = `${route} ${measured.detail} culprits=${measured.culprits.length ? JSON.stringify(measured.culprits) : "none"}`;
+    expect(measured.fits, detail).toBe(true);
   }
 });
 
