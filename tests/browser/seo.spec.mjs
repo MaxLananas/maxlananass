@@ -60,10 +60,30 @@ test("search is noindex and uses the right root assets from a nested URL", async
 
 test("mobile and narrow screens retain all content without horizontal page overflow", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 760 });
-  for (const route of ["/", "/about/", "/projects/", "/projects/railway-tools-axiom/", "/guides/minecraft-mods-plugins-addons/", "/builds/page/7/"]) {
+  for (const route of ["/", "/fr/", "/es/", "/about/", "/projects/", "/projects/railway-tools-axiom/", "/guides/minecraft-mods-plugins-addons/", "/builds/page/7/"]) {
     await page.goto(route);
     await page.locator("h1").waitFor();
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), route).toBe(true);
+    const overflow = await page.evaluate(() => {
+      const limit = innerWidth;
+      const wide = [];
+      for (const node of document.body.querySelectorAll("*")) {
+        const box = node.getBoundingClientRect();
+        if (!box.width || box.right <= limit + 1) continue;
+        const style = getComputedStyle(node);
+        if (style.position === "fixed") continue;
+        let clipped = false;
+        for (let parent = node.parentElement; parent && parent !== document.documentElement; parent = parent.parentElement) {
+          const axis = getComputedStyle(parent).overflowX;
+          if (axis === "hidden" || axis === "clip" || axis === "auto" || axis === "scroll") { clipped = true; break; }
+        }
+        if (clipped) continue;
+        const classes = typeof node.className === "string" && node.className.trim() ? `.${node.className.trim().split(/\s+/).join(".")}` : "";
+        wide.push(`${node.nodeName.toLowerCase()}${node.id ? `#${node.id}` : ""}${classes}@${Math.round(box.right)}`);
+      }
+      const scrollWidth = document.documentElement.scrollWidth;
+      return { fits: scrollWidth <= limit, detail: `${route} scrollWidth=${scrollWidth} innerWidth=${limit} wide=${wide.slice(0, 8).join(" ") || "none"}` };
+    });
+    expect(overflow.fits, overflow.detail).toBe(true);
   }
 });
 
