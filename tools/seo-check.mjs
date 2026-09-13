@@ -9,9 +9,10 @@ import { ui } from "../ui.js";
 import { sitePages } from "../content/pages.js";
 import { FILES } from "../gallery-data.js";
 import { renderSeo, pageFile, pageImages, serviceWorkerRoutes } from "./seo-render.mjs";
+import { lintSeoProgram } from "./seo-lint.mjs";
 
 const root = resolve(import.meta.dirname, "..");
-const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "MediaObject", "VideoObject"]);
+const types = new Set(["Person", "Organization", "WebSite", "WebPage", "ProfilePage", "CollectionPage", "CreativeWork", "SoftwareSourceCode", "SoftwareApplication", "WebApplication", "Article", "ItemList", "BreadcrumbList", "ImageObject", "MediaObject", "VideoObject", "FAQPage"]);
 const text = (value) => value.replace(/\s+/g, " ").trim();
 
 export async function checkSeo({ directory = root, snapshots = resolve(directory) === root } = {}) {
@@ -209,7 +210,8 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     const sw = await readFile(resolve(root, "sw.js"), "utf8");
     assert.equal(serviceWorkerRoutes(sw), sw, "Regenerate the service-worker page allowlist");
   }
-  return { pages: pages.length, indexable: indexable.length, languages: LANGS.length, images, originalScreenshots: distinctOriginals.size, internalLinks: links, orphans: 0 };
+  const program = lintSeoProgram({ pages, documents, adjacency });
+  return { pages: pages.length, indexable: indexable.length, languages: LANGS.length, images, originalScreenshots: distinctOriginals.size, internalLinks: links, orphans: 0, ...program };
 }
 if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const args = process.argv.slice(2);

@@ -316,6 +316,21 @@
       "indexable": true
     },
     {
+      "path": "/projects/riptide/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/projects/riptide/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/projects/riptide/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
       "path": "/projects/tracebte/",
       "lang": "en",
       "indexable": true
@@ -560,6 +575,9 @@
     "projects/pineappleui/index.html",
     "fr/projects/pineappleui/index.html",
     "es/projects/pineappleui/index.html",
+    "projects/riptide/index.html",
+    "fr/projects/riptide/index.html",
+    "es/projects/riptide/index.html",
     "projects/tracebte/index.html",
     "fr/projects/tracebte/index.html",
     "es/projects/tracebte/index.html",

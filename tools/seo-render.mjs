@@ -106,9 +106,19 @@ export function schemaFor(page, pages, h) {
   if (page.project) {
     const p = page.project;
     const projectURL = canonical(projectPath(p.slug));
-    const work = { "@id": projectURL + "#project", "@type": p.kind === "software" && p.repo ? "SoftwareSourceCode" : "CreativeWork",
-      name: p.name, url: projectURL, description: p.summaryFor(l),
+    const liveUrl = p.web ? p.launch?.url || p.source?.url || "" : "";
+    const workType = p.application === "WebApplication" ? "WebApplication" : p.kind === "software" && p.repo ? "SoftwareSourceCode" : "CreativeWork";
+    const work = { "@id": projectURL + "#project", "@type": workType,
+      name: p.name, url: workType === "WebApplication" && liveUrl ? liveUrl : projectURL, description: p.summaryFor(l),
+      mainEntityOfPage: { "@id": webPage["@id"] },
       ...(p.upstream || p.kind === "build" ? { contributor: { "@id": PERSON } } : { creator: { "@id": PERSON } }) };
+    if (workType === "WebApplication") {
+      work.applicationCategory = p.categoryFor(l);
+      work.operatingSystem = "Any";
+      work.featureList = p.featuresFor(l);
+      if (p.hasFor(l, "requirements")) work.softwareRequirements = p.requirementsFor(l);
+      if (p.interfaceLanguages) work.availableLanguage = [...p.interfaceLanguages];
+    }
     if (p.repo && p.kind === "software") {
       work.codeRepository = p.repo;
       if (p.revision && p.evidenceFile) work.citation = p.repo + "/blob/" + p.revision + "/" + p.evidenceFile;
@@ -122,6 +132,15 @@ export function schemaFor(page, pages, h) {
     if (p.kind === "documentation") { work.inLanguage = "fr"; work.genre = ui(l, "schemaGenreUnofficial"); }
     if (p.kind === "software") work.genre = p.categoryFor(l);
     work.inLanguage = work.inLanguage || l;
+    if (p.web && liveUrl && workType !== "WebApplication") {
+      const app = { "@type": "WebApplication", "@id": projectURL + "#app", name: p.name, url: liveUrl,
+        description: p.summaryFor(l), applicationCategory: p.categoryFor(l), operatingSystem: "Any",
+        featureList: p.featuresFor(l), inLanguage: l,
+        ...(p.interfaceLanguages ? { availableLanguage: [...p.interfaceLanguages] } : {}),
+        creator: { "@id": PERSON }, isBasedOn: { "@id": work["@id"] }, mainEntityOfPage: { "@id": webPage["@id"] } };
+      graph.push(app);
+      work.subjectOf = { "@id": app["@id"] };
+    }
     graph.push(work);
     webPage.mainEntity = { "@id": work["@id"] };
   }
@@ -162,7 +181,7 @@ export function schemaFor(page, pages, h) {
   }
   if (articlePage(page)) {
     if (!page.published) throw new Error(`An article needs its real publication date: ${page.path}`);
-    const citation = page.caseStudy ? [page.project.source.url] : ["homegui", "tracebte", "railway-tools-axiom", "bte-distortion-calculator", "pineappleui", "builders-utilities-bt-corsica"]
+    const citation = page.caseStudy ? [page.project.source.url] : ["homegui", "tracebte", "railway-tools-axiom", "bte-distortion-calculator", "riptide", "pineappleui", "builders-utilities-bt-corsica"]
       .map((slug) => PROJECTS.find((p) => p.slug === slug)).map((p) => p.source?.url || p.repo).filter(Boolean);
     const article = { "@type": "Article", "@id": url + "#article", headline: page.heading, description: page.description,
       datePublished: page.published, dateModified: page.modified, author: { "@id": PERSON }, publisher: { "@id": PERSON },
@@ -174,6 +193,13 @@ export function schemaFor(page, pages, h) {
     article.workTranslation = languageLinks(page).filter((entry) => entry.lang !== page.lang && entry.lang !== "x-default").map((entry) => ({ "@id": canonical(entry.path) + "#article" }));
     graph.push(article);
     webPage.mainEntity = { "@id": article["@id"] };
+  }
+  const faqItems = page.project ? (page.project.hasFor(l, "faq") ? page.project.faqFor(l) : null) : page.home ? copy(l, "/", "faq") : null;
+  if (faqItems?.length) {
+    const faqId = url + "#faq";
+    graph.push({ "@type": "FAQPage", "@id": faqId, inLanguage: l, isPartOf: { "@id": webPage["@id"] },
+      mainEntity: faqItems.map((item) => ({ "@type": "Question", name: item.q, acceptedAnswer: { "@type": "Answer", text: item.a } })) });
+    webPage.hasPart = [...(webPage.hasPart || []), { "@id": faqId }];
   }
   graph.push(webPage);
   return { "@context": "https://schema.org", "@graph": graph };
@@ -367,6 +393,7 @@ Disallow: /templates/
 Disallow: /content/
 Disallow: /docs/
 Disallow: /site-pages.json
+Disallow: /site-package.json
 Disallow: /package.json
 Disallow: /package-lock.json
 Disallow: /README.md

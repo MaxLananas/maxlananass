@@ -9,6 +9,7 @@ Disallow: /templates/
 Disallow: /content/
 Disallow: /docs/
 Disallow: /site-pages.json
+Disallow: /site-package.json
 Disallow: /package.json
 Disallow: /package-lock.json
 Disallow: /README.md

@@ -1,0 +1,56 @@
+{
+  "name": "maxlananas-portfolio",
+  "programVersion": "2026.09.13",
+  "canonicalHost": "maxlananas.is-a.dev",
+  "locales": [
+    "en",
+    "fr",
+    "es"
+  ],
+  "entities": {
+    "person": "https://maxlananas.is-a.dev/#person",
+    "website": "https://maxlananas.is-a.dev/#website",
+    "initiative": "https://maxlananas.is-a.dev/buildtheearth/#initiative"
+  },
+  "budgets": {
+    "titleMax": 60,
+    "descriptionMin": 60,
+    "descriptionMax": 160,
+    "startupJavaScriptKibGzip": 25,
+    "browserDependencies": 0,
+    "orphanPages": 0,
+    "maxLinkDepth": 3,
+    "minQueryCoverage": 1,
+    "maxUnmatchedQueryTokens": 1,
+    "minImageLabelCoverage": 0.16,
+    "minInternalLinksPerPage": 5,
+    "minImageLabelLength": 18
+  },
+  "clusters": [
+    {
+      "id": "brand",
+      "hub": "/",
+      "topic": "Identity, commissions and contact"
+    },
+    {
+      "id": "builds",
+      "hub": "/builds/",
+      "topic": "Minecraft build screenshot catalogue"
+    },
+    {
+      "id": "buildtheearth",
+      "hub": "/buildtheearth/",
+      "topic": "BuildTheEarth builds, plugins and documentation"
+    },
+    {
+      "id": "projects",
+      "hub": "/projects/",
+      "topic": "Published mods, plugins and software projects"
+    },
+    {
+      "id": "development",
+      "hub": "/development/",
+      "topic": "Development work, interfaces and guides"
+    }
+  ]
+}

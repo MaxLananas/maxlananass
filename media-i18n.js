@@ -64,6 +64,36 @@ export const GENERIC_LABEL = {
   "es": "Captura de Minecraft del portfolio {index}"
 };
 
+export const DATED_LABEL = {
+  "en": "Minecraft portfolio screenshot {index}, captured on {date}",
+  "fr": "Capture Minecraft du portfolio {index}, prise le {date}",
+  "es": "Captura de Minecraft del portfolio {index}, tomada el {date}"
+};
+
+const MONTHS = {
+  "en": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+  "fr": ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+  "es": ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"]
+};
+
+export function captureDate(name, language = "en") {
+  const match = /^(20\d{2})-(\d{2})-(\d{2})[_T]/.exec(String(name || ""));
+  if (!match) return "";
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  if (month < 1 || month > 12 || day < 1 || day > 31) return "";
+  const lang = MONTHS[language] ? language : "en";
+  if (lang === "es") return `${day} de ${MONTHS[lang][month - 1]} de ${match[1]}`;
+  return `${day} ${MONTHS[lang][month - 1]} ${match[1]}`;
+}
+
+export function genericLabel(language, item, index) {
+  const lang = MONTHS[language] ? language : "en";
+  const position = String(index + 1).padStart(3, "0");
+  const date = captureDate(item?.name, lang);
+  return (date ? DATED_LABEL[lang] : GENERIC_LABEL[lang]).replace("{index}", position).replace("{date}", date);
+}
+
 export const CREDITS_COPY = {
   "en": {
     "bte": {

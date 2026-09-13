@@ -182,6 +182,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
+      - name: Comparer le HTML rendu au HTML publié dans le dépôt
+        run: npm run seo:diff
       - run: npm run seo:check
       - run: npm test
       - run: npx playwright install --with-deps chromium firefox webkit

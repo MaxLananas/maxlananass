@@ -1,4 +1,4 @@
-import { LABELS, GENERIC_LABEL, CREDITS_COPY } from "../media-i18n.js";
+import { LABELS, CREDITS_COPY, genericLabel } from "../media-i18n.js";
 
 export const LANGS = ["en", "fr", "es"];
 export const LOCALES = { en: "en_US", fr: "fr_FR", es: "es_ES" };
@@ -134,7 +134,7 @@ const en = {
     releasesLinksGuide: "Mods, plugins and addons: which environment?",
     labEyebrow: "Beyond Minecraft",
     labTitle: "The software lab",
-    lab: "SENTINEL explores defensive monitoring in Go, MaxOS explores a small x86 boot and kernel environment with AI-assisted development, and PineappleUI connects interface descriptions to generated Swing code.",
+    lab: "SENTINEL explores defensive monitoring in Go, MaxOS explores a small x86 boot and kernel environment with AI-assisted development, and PineappleUI connects interface descriptions to generated Swing code, and Riptide converts Minecraft builds between versions directly in the browser.",
     labLinks: "{github}",
     labLinksGithub: "Explore the rest of my GitHub repositories ↗",
     refsTitle: "Building-related references",
@@ -153,7 +153,8 @@ const en = {
       { slug: "homegui", label: "HomeGUI", runs: "Fabric client", boundary: "The server still owns the home commands and permissions." },
       { slug: "tracebte", label: "TraceBTE", runs: "Paper server", boundary: "The tutorial needs the documented server tools." },
       { slug: "railway-tools-axiom", label: "Railway Tools", runs: "Fabric client with Axiom", boundary: "Axiom is a separate required dependency." },
-      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Browser", boundary: "Projection inputs and model state affect interpretation." }
+      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Browser", boundary: "Projection inputs and model state affect interpretation." },
+      { slug: "riptide", label: "Riptide", runs: "Browser (server-side conversion)", boundary: "Conversion remaps blocks; read the equivalence report before using the result." }
     ],
     sections: [
       { title: "A client mod can organize information without owning the server feature", body: ["HomeGUI is a useful example. It reads a server’s response to {code} and makes the destinations searchable in a client interface. Its installation belongs in a matching Fabric setup, but the underlying teleportation behavior belongs to the server.", "The practical question before installing: does your server already provide the command this interface organizes? If it does not, a client mod cannot add it, and a server-side plugin or a different server configuration is the right layer."] },
@@ -330,7 +331,7 @@ const fr = {
     releasesLinksGuide: "Mods, plugins et addons : quel environnement ?",
     labEyebrow: "Au-delà de Minecraft",
     labTitle: "Le lab logiciel",
-    lab: "SENTINEL explore la surveillance défensive en Go, MaxOS explore un petit environnement de boot et de noyau x86 développé avec assistance IA, et PineappleUI relie des descriptions d’interface à du code Swing généré.",
+    lab: "SENTINEL explore la surveillance défensive en Go, MaxOS explore un petit environnement de boot et de noyau x86 développé avec assistance IA, et PineappleUI relie des descriptions d’interface à du code Swing généré, et Riptide convertit des builds Minecraft entre versions directement dans le navigateur.",
     labLinks: "{github}",
     labLinksGithub: "Explorer mes autres dépôts GitHub ↗",
     refsTitle: "Références liées à la construction",
@@ -349,7 +350,8 @@ const fr = {
       { slug: "homegui", label: "HomeGUI", runs: "Client Fabric", boundary: "Le serveur garde les commandes et permissions de homes." },
       { slug: "tracebte", label: "TraceBTE", runs: "Serveur Paper", boundary: "Le tutoriel nécessite les outils serveur documentés." },
       { slug: "railway-tools-axiom", label: "Railway Tools", runs: "Client Fabric avec Axiom", boundary: "Axiom est une dépendance requise séparée." },
-      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Navigateur", boundary: "Les entrées de projection et l’état du modèle influencent l’interprétation." }
+      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Navigateur", boundary: "Les entrées de projection et l’état du modèle influencent l’interprétation." },
+      { slug: "riptide", label: "Riptide", runs: "Navigateur (conversion serveur)", boundary: "La conversion remappe les blocs ; lisez le rapport d’équivalence avant d’exploiter le résultat." }
     ],
     sections: [
       { title: "Un mod client organise l’information sans posséder la fonction serveur", body: ["HomeGUI en est un bon exemple. Il lit la réponse du serveur à {code} et rend les destinations recherchables dans une interface client. Son installation relève d’un setup Fabric adapté, mais le comportement de téléportation appartient au serveur.", "La question pratique avant d’installer : votre serveur fournit-il déjà la commande que cette interface organise ? Sinon, aucun mod client ne peut l’ajouter : c’est un plugin serveur ou une configuration serveur différente qui constitue la bonne couche."] },
@@ -526,7 +528,7 @@ const es = {
     releasesLinksGuide: "Mods, plugins y addons: ¿qué entorno?",
     labEyebrow: "Más allá de Minecraft",
     labTitle: "El laboratorio de software",
-    lab: "SENTINEL explora la monitorización defensiva en Go, MaxOS explora un pequeño entorno de arranque y kernel x86 con desarrollo asistido por IA, y PineappleUI conecta descripciones de interfaz con código Swing generado.",
+    lab: "SENTINEL explora la monitorización defensiva en Go, MaxOS explora un pequeño entorno de arranque y kernel x86 con desarrollo asistido por IA, y PineappleUI conecta descripciones de interfaz con código Swing generado, y Riptide convierte builds de Minecraft entre versiones directamente en el navegador.",
     labLinks: "{github}",
     labLinksGithub: "Explorar el resto de mis repositorios en GitHub ↗",
     refsTitle: "Referencias ligadas a la construcción",
@@ -545,7 +547,8 @@ const es = {
       { slug: "homegui", label: "HomeGUI", runs: "Cliente Fabric", boundary: "El servidor sigue poseyendo los comandos y permisos de homes." },
       { slug: "tracebte", label: "TraceBTE", runs: "Servidor Paper", boundary: "El tutorial necesita las herramientas de servidor documentadas." },
       { slug: "railway-tools-axiom", label: "Railway Tools", runs: "Cliente Fabric con Axiom", boundary: "Axiom es una dependencia requerida aparte." },
-      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Navegador", boundary: "Las entradas de proyección y el estado del modelo afectan a la interpretación." }
+      { slug: "bte-distortion-calculator", label: "BTE calculator", runs: "Navegador", boundary: "Las entradas de proyección y el estado del modelo afectan a la interpretación." },
+      { slug: "riptide", label: "Riptide", runs: "Navegador (conversión en servidor)", boundary: "La conversión remapea bloques; lea el informe de equivalencias antes de usar el resultado." }
     ],
     sections: [
       { title: "Un mod cliente organiza información sin poseer la función del servidor", body: ["HomeGUI es un buen ejemplo. Lee la respuesta del servidor a {code} y hace que los destinos se puedan buscar en una interfaz cliente. Su instalación pertenece a un entorno Fabric compatible, pero el comportamiento de teletransporte pertenece al servidor.", "La pregunta práctica antes de instalar: ¿tu servidor ya proporciona el comando que esta interfaz organiza? Si no lo hace, ningún mod cliente puede añadirlo: la capa correcta es un plugin de servidor o una configuración distinta del servidor."] },
@@ -601,7 +604,6 @@ const es = {
 export const COPY = { en, fr, es };
 for (const language of LANGS) {
   COPY[language].labels = LABELS[language];
-  COPY[language].genericLabel = GENERIC_LABEL[language];
   COPY[language].credits = CREDITS_COPY[language];
 }
 export function copy(lang, key, field) {
@@ -612,5 +614,5 @@ export function copy(lang, key, field) {
 export function label(lang, item, index) {
   const named = COPY[lang]?.labels?.[item.name];
   if (named) return named;
-  return COPY[lang].genericLabel.replace("{index}", String(index + 1).padStart(3, "0"));
+  return genericLabel(lang, item, index);
 }

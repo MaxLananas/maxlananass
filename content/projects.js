@@ -64,7 +64,7 @@ const LEGACY_PROJECTS = [
     description: "Explore MaxLananas’s browser-based BTE Distorsion Calculator: geographic inputs, local scale comparisons, theoretical and empirical modes, and model limitations.",
     summary: "A web interface for exploring the relationship between geographic distances and local scale in a BTE projection.",
     repo: "https://github.com/MaxLananas/BTE-Distorsion-Calculator", revision: "794ae8572d15e7da528fd809019ec1526d7e6d32", evidenceFile: "index.html",
-    launch: { label: "Open the calculator (French interface)", url: "https://maxlananas.github.io/BTE-Distorsion-Calculator/" }, language: "JavaScript", application: "DeveloperApplication", web: true,
+    launch: { label: "Open the calculator (French interface)", url: "https://maxlananas.github.io/BTE-Distorsion-Calculator/" }, language: "JavaScript", application: "DeveloperApplication", web: true, interfaceLanguages: ["fr"],
     requirements: "A JavaScript-enabled browser. The interface can load a conformal.lzma grid; its displayed projection mode should be checked before interpreting a calculation.",
     intro: [
       "The BTE Distorsion Calculator is my browser-based tool for examining local scale in the projection used by a BuildTheEarth workflow. It brings geographic inputs and projection explanations together in a French-language interface.",
@@ -73,7 +73,7 @@ const LEGACY_PROJECTS = [
     features: ["Enter latitude and longitude points in the theoretical mode.", "Compare with an empirical mode based on in-game measurements.", "Load the Schwarz–Christoffel conformal.lzma grid when using that model.", "Inspect the projection pipeline explanation and the supplied Chambord example."],
     usage: "Open the calculator, choose a mode and inspect the grid status before entering coordinates. Use the provided example to understand the input format, then work with points relevant to your build. Keep a record of the input points and projection mode when comparing results with a Minecraft measurement.",
     limits: "Without a loaded grid the interface indicates a gnomonic fallback. Results depend on the model and inputs; this page does not claim certified surveying accuracy or independent numerical validation. The tool explores scale, rather than importing buildings into Minecraft.",
-    related: ["tracebte", "railway-tools-axiom", "bte-france-guidelines"]
+    related: ["tracebte", "railway-tools-axiom", "bte-france-guidelines", "riptide"]
   },
   {
     slug: "bte-france-guidelines", name: "BTE France building guidelines", kind: "documentation", category: "Unofficial community documentation", bte: true,
@@ -107,7 +107,7 @@ const LEGACY_PROJECTS = [
     features: ["Describe an interface in a .pineui file.", "Generate Java Swing code from the supported interface description.", "Use the documented compile/run command to explore the generated result.", "Keep target-specific behavior visible rather than assuming every HTML or CSS feature is portable."],
     usage: "The README’s starting command is python main.py myui.pineui --compile --run. Begin with a small layout and inspect the generated Java before expanding it. This is a development workflow, not a Minecraft mod installation: the input file belongs to the transpiler, not a mods or plugins directory.",
     limits: "JavaFX, Android XML and other UI frameworks are listed as future targets, not working features claimed here. Treat this as an experimental tool, verify the supported syntax in the repository and test generated code before relying on it in an application.",
-    related: ["homegui", "bte-distortion-calculator", "tracebte"]
+    related: ["homegui", "bte-distortion-calculator", "tracebte", "riptide"]
   },
   {
     slug: "builders-utilities-bt-corsica", name: "BuildersUtilities — BT Corsica", kind: "software", category: "Adapted Paper plugin / fork", bte: true,
@@ -139,19 +139,45 @@ const LEGACY_PROJECTS = [
     features: ["Compare the circuit image with the wider views in the same collection.", "Read the attribution alongside each screenshot, without opening a JavaScript-only overlay.", "Open the original image when the full-resolution file is needed."],
     usage: "Use the images below to explore the collection, or browse the full screenshot catalogue for other builds. If you want to discuss a similar commission, describe the location, purpose, expected scope and delivery format when contacting me; these screenshots are references rather than a fixed-price package.",
     limits: "This page provides screenshots, not a downloadable world or schematic. It does not claim that the whole city is finished, give an unverified block count, or imply ownership of every contributor’s work in the wider BuildTheEarth project.",
-    related: ["railway-tools-axiom", "tracebte", "bte-france-guidelines"]
+    related: ["railway-tools-axiom", "tracebte", "bte-france-guidelines", "riptide"]
+  },
+  {
+    slug: "riptide", name: "Riptide", kind: "software", collection: "lab", category: "Browser-based schematic converter", bte: false,
+    title: "Riptide — free Minecraft schematic converter | MaxLananas",
+    description: "Riptide by MaxLananas converts Minecraft schematics across 34 versions, from b1.8.1 to 26.2, in the browser. Free, no account, files deleted in 15 minutes.",
+    summary: "A free browser tool that remaps Minecraft builds across 34 versions, from b1.8.1 to 26.2.",
+    source: { label: "Live tool, its own documentation and FAQ", labelKey: "sourceLive", url: "https://allofmyblocks.onrender.com/" },
+    launch: { label: "Open Riptide (English/French interface)", url: "https://allofmyblocks.onrender.com/" },
+    application: "WebApplication", web: true, free: true, interfaceLanguages: ["en", "fr"],
+    images: ["chateau_loire.png", "larresingle.jpg", "Mt_Blanc_cut.png"],
+    imagesNote: "Riptide runs in a browser, so the reference builds below come from this portfolio: they show the kind of construction the converter remaps from one Minecraft version to another.",
+    requirements: "A browser and an internet connection: conversions run on the tool’s own server. Uploads are limited to 512 MB, and uploads, results and metadata are deleted automatically within 15 minutes.",
+    intro: [
+      "Riptide is my free web converter for Minecraft builds. You upload a build file, choose a target version and download the converted result: no installation, no account and no conversion limit.",
+      "The tool starts from a simple observation: a build does not stay portable forever. Sharing a castle made in 1.21 with friends still on 1.12, downgrading a redstone farm to 1.8 for a legacy server or modernising an old schematic all require mapping blocks between versions, which is exactly what Riptide automates. Conversions run on the server and usually finish in a few seconds."
+    ],
+    features: ["Accept .schem, .schematic, .litematic, .mcworld, .mcstructure, .nbt and .zip files.", "Convert between 34 versions, from b1.8.1 to 26.2.", "Read a result screen that states how many blocks had no equivalent, and which ones.", "Handle Litematica files region by region, and vanilla structure-block .nbt templates as input or output.", "Use the English or French interface; nothing is installed and no account is required.", "Keep no trace of the work: uploads, results and metadata are deleted within 15 minutes."],
+    usage: "Open the tool, upload the build file, select the target version and start the conversion. Very large builds wait in a queue and the progress bar shows the real position. Download the result straight away, because files are deleted within 15 minutes, and keep the original until the converted build has been checked in-game.",
+    limits: "Blocks that do not exist in the target version are replaced with their closest visual or functional equivalent, so a conversion is a best-effort remapping rather than a guarantee: modded blocks, custom block states and datapack-specific content may not survive. Conversions run one at a time on a free-tier server, and a build above roughly 100 MB can take much longer. Riptide is an independent fan tool: it is not affiliated with, or endorsed by, Mojang or Microsoft.",
+    faq: [
+      { q: "How do I convert a schematic from 1.20 to 1.12?", a: "Upload the .schem or .litematic file, select 1.12 as the target version, then start the conversion. Riptide remaps the blocks that changed and delivers a ready-to-use file." },
+      { q: "What happens to blocks that do not exist in the target version?", a: "The tool uses a block-mapping database and replaces missing blocks with their closest visual or functional equivalent. The result screen states exactly how many blocks, and which ones, had no equivalent." },
+      { q: "Is there a file size limit?", a: "Uploads are limited to 512 MB. Conversions run one at a time on a free-tier server: typical builds take a few seconds, very large builds are queued, and files above roughly 100 MB may take longer." },
+      { q: "Does it work with Litematica .litematic files?", a: "Yes. Each region of a .litematic file is extracted and converted individually. Vanilla structure-block .nbt templates are also supported, both as input and as an output format for any modern target." }
+    ],
+    related: ["bte-distortion-calculator", "le-mans", "pineappleui"]
   }
 ];
 
 
 const records = [...SHOWCASE_PROJECTS, ...MODRINTH_ADDITIONS, ...LEGACY_PROJECTS].map(withRelease);
-export const FEATURED_PROJECT_SLUGS = ["iprof-redesign", "colorflow", "nostalgia-ultra", "sentinel"];
+export const FEATURED_PROJECT_SLUGS = ["iprof-redesign", "colorflow", "nostalgia-ultra", "riptide", "sentinel"];
 export const RELEASE_PROJECT_SLUGS = ["colorflow", "nostalgia-ultra", "sculk-vision", "jukeboxplus", "now-playing-irl", "homegui", "railway-tools-axiom", "bidvault", "bedrock-height-guard", "deathpoint"];
-const order = ["iprof-redesign", ...RELEASE_PROJECT_SLUGS, "sentinel", "maxos", "pineappleui"];
+const order = ["iprof-redesign", ...RELEASE_PROJECT_SLUGS, "sentinel", "maxos", "pineappleui", "riptide"];
 export const PROJECTS = [...order.map((slug) => records.find((p) => p.slug === slug)), ...records.filter((p) => !order.includes(p.slug))];
 if (PROJECTS.some((p) => !p) || new Set(PROJECTS.map((p) => p.slug)).size !== PROJECTS.length) throw new Error("Invalid project selection");
 export const developmentProjects = () => PROJECTS.filter((p) => ["interface", "release", "lab"].includes(p.collection));
-const LOCALIZED_FIELDS = ["title", "description", "summary", "category", "intro", "features", "usage", "limits", "requirements"];
+const LOCALIZED_FIELDS = ["title", "description", "summary", "category", "intro", "features", "usage", "limits", "requirements", "faq", "imagesNote"];
 for (const project of PROJECTS) {
   for (const field of LOCALIZED_FIELDS) {
     Object.defineProperty(project, field + "For", {

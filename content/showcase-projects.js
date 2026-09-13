@@ -7,7 +7,7 @@ export const SHOWCASE_PROJECTS = [
     description: "Discover MaxLananas’s independent iProf redesign: dashboard, career, mobility, documents and messaging, with eleven presentation images and a video walkthrough.",
     summary: "A new interface for everyday teacher workflows, presented through eleven visuals and a video walkthrough.",
     language: "PHP · CSS · JavaScript", cover: "iprof-overview", leadMedia: "iprof-dashboard", social: "iprof-cover",
-    source: { label: "Creator-supplied presentation on Google Drive", url: "https://drive.google.com/drive/folders/15kwqtMb1Kkie324cIn-g3a04owKM88xy" },
+    source: { label: "Creator-supplied presentation on Google Drive", labelKey: "sourceDrive", url: "https://drive.google.com/drive/folders/15kwqtMb1Kkie324cIn-g3a04owKM88xy" },
     intro: [
       "A teacher portal rethought as one coherent service. My iProf redesign connects the dashboard, career, mobility, documents and messaging through a shared visual system.",
       "Explore the eleven annotated visuals and the video walkthrough to see how the screens fit together."
