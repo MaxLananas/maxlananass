@@ -4,6 +4,7 @@ import { loadImage, clearImage } from "./image-loader.js";
 import { LoadQueue } from "./load-queue.js";
 import { t } from "./ui-core.js";
 import { everyLabel } from "./image-labels.js";
+import { initLuxuryFX } from "./luxury-fx.js";
 
 const $ = (id) => document.getElementById(id);
 const masonry = $("masonry");
@@ -458,6 +459,7 @@ if (query) { searchInput.value = query; searchTerm = normalizeSearch(query); cle
 buildGrid();
 buildFooterCredits();
 pauseQueue();
+initLuxuryFX();
 
 // Do not let service-worker installation compete with the first visible photos.
 if ("serviceWorker" in navigator) {

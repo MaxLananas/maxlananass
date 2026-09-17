@@ -1,5 +1,7 @@
 // Static content never depends on this script. It only adds resilient image
 // delivery and an offline shell for people browsing the document pages.
+import { initLuxuryFX } from "./luxury-fx.js";
+
 const base = new URL(document.documentElement.dataset.base || "/", document.baseURI);
 document.addEventListener("error", (event) => {
   const img = event.target;
@@ -46,3 +48,6 @@ document.addEventListener("click", async (event) => {
     openProjectViewer(item);
   } catch (_) { location.assign(item.href); }
 });
+
+initLuxuryFX();
+
