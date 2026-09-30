@@ -91,6 +91,21 @@
       "indexable": true
     },
     {
+      "path": "/articles/toulouse-pont-neuf-minecraft/",
+      "lang": "en",
+      "indexable": true
+    },
+    {
+      "path": "/fr/articles/pont-neuf-toulouse-minecraft/",
+      "lang": "fr",
+      "indexable": true
+    },
+    {
+      "path": "/es/articulos/pont-neuf-toulouse-minecraft/",
+      "lang": "es",
+      "indexable": true
+    },
+    {
       "path": "/search/",
       "lang": "en",
       "indexable": false
@@ -530,6 +545,9 @@
     "guides/minecraft-mods-plugins-addons/index.html",
     "fr/guides/minecraft-mods-plugins-addons/index.html",
     "es/guides/minecraft-mods-plugins-addons/index.html",
+    "articles/toulouse-pont-neuf-minecraft/index.html",
+    "fr/articles/pont-neuf-toulouse-minecraft/index.html",
+    "es/articulos/pont-neuf-toulouse-minecraft/index.html",
     "search/index.html",
     "fr/search/index.html",
     "es/search/index.html",

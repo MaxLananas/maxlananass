@@ -21,10 +21,10 @@ const WEBSITE = canonical("/#website");
 
 const imageFiles = (page) => page.galleryPage
   ? FILES.slice((page.galleryPage - 1) * PAGE_SIZE, page.galleryPage * PAGE_SIZE)
-  : [...(page.project?.images || []).map((name) => FILES.find((item) => item.name === name)), ...(page.caseStudy ? caseMedia(page) : page.project?.media || []).map((item) => ({ ...item, projectMedia: true }))];
-const imageSource = (item, h) => item.projectMedia ? h.mediaData(item.key).src : h.imageData(item).src;
-const imageTitle = (item, h, name = "") => item.projectMedia ? mediaText(h.lang, item, "title", name) : label(h.lang, item, FILES.findIndex((file) => file.name === item.name));
-const imageCaption = (item, h, name = "") => item.projectMedia ? mediaText(h.lang, item, "alt", name) || mediaText(h.lang, item, "title", name) : imageTitle(item, h, name);
+  : [...(page.project?.images || []).map((name) => FILES.find((item) => item.name === name)), ...(page.caseStudy ? caseMedia(page) : page.project?.media || []).map((item) => ({ ...item, projectMedia: true })), ...(page.editorialArticle ? [{ ...page.editorialArticle.image }] : [])];
+const imageSource = (item, h) => item.editorial ? item.src : item.projectMedia ? h.mediaData(item.key).src : h.imageData(item).src;
+const imageTitle = (item, h, name = "") => item.editorial ? item.title[h.lang] : item.projectMedia ? mediaText(h.lang, item, "title", name) : label(h.lang, item, FILES.findIndex((file) => file.name === item.name));
+const imageCaption = (item, h, name = "") => item.editorial ? item.caption[h.lang] : item.projectMedia ? mediaText(h.lang, item, "alt", name) || mediaText(h.lang, item, "title", name) : imageTitle(item, h, name);
 const articlePage = (page) => page.type === "Article" || page.caseStudy;
 const enRoute = (page) => page.enPath || enPath(page.path);
 const languageLinks = (page) => {
@@ -91,7 +91,7 @@ export function schemaFor(page, pages, h) {
     "@id": url + "#webpage", url, name: page.title, description: page.description,
     inLanguage: page.lang, dateModified: page.modified, lastReviewed: page.reviewed, isPartOf: { "@id": WEBSITE }, about: { "@id": PERSON }
   };
-  const bte = en === "/buildtheearth/" || page.project?.bte;
+  const bte = en === "/buildtheearth/" || page.project?.bte || Boolean(page.editorialArticle);
   if (bte) {
     const initiative = { "@type": "Organization", "@id": canonical("/buildtheearth/#initiative"), name: "BuildTheEarth", url: SITE.bte };
     graph.push(initiative);
@@ -150,17 +150,22 @@ export function schemaFor(page, pages, h) {
     for (const item of photos) {
       const index = FILES.findIndex((file) => file.name === item.name);
       const credit = CREDITS[item.credit];
-      const id = url + (item.projectMedia ? `#media-${item.key}` : `#image-${index + 1}`);
+      const id = url + (item.editorial ? "#editorial-image" : item.projectMedia ? `#media-${item.key}` : `#image-${index + 1}`);
       const title = imageTitle(item, h || helpers("/", {}, l), page.project?.name);
-      const dimensions = item.projectMedia ? mediaData(item.key) : h?.manifest?.[item.name];
+      const dimensions = item.editorial ? { width: item.width, height: item.height } : item.projectMedia ? mediaData(item.key) : h?.manifest?.[item.name];
       graph.push({ "@type": "ImageObject", "@id": id, contentUrl: canonical(imageSource(item, h || helpers("/", {}, l))),
         name: title, caption: imageCaption(item, h || helpers("/", {}, l), page.project?.name),
         ...(dimensions ? { width: dimensions.width, height: dimensions.height } : {}),
-        creditText: item.projectMedia ? ui(l, "creditProjectMedia") : credit ? `${copy(l, "credits", item.credit).text} ${copy(l, "credits", item.credit).linkText}` : ui(l, "creditDefault"),
+        creator: item.editorial ? item.creator : { "@id": PERSON },
+        copyrightNotice: item.editorial ? item.copyrightNotice : credit ? `Image rights remain with their respective owners. Credit: ${copy(l, "credits", item.credit).text} ${copy(l, "credits", item.credit).linkText}.` : "© MaxLananas where applicable; collaborative work and third-party materials remain with their respective rights holders.",
+        license: item.editorial ? item.license : canonical("/about/#image-rights"),
+        acquireLicensePage: item.editorial ? item.acquireLicensePage : canonical("/about/#image-rights"),
+        creditText: item.editorial ? "Image credit published by the Muséum de Toulouse: BTE France; Minecraft build: MaxLananas." : item.projectMedia ? ui(l, "creditProjectMedia") : credit ? `${copy(l, "credits", item.credit).text} ${copy(l, "credits", item.credit).linkText}` : ui(l, "creditDefault"),
         isPartOf: { "@id": webPage["@id"] } });
       references.push({ "@id": id });
     }
     webPage.hasPart = references;
+    if (page.editorialArticle && references.length) webPage.primaryImageOfPage = references[0];
   }
   if (page.project?.video) {
     const id = canonical("/projects/iprof-redesign/#video");
@@ -181,11 +186,14 @@ export function schemaFor(page, pages, h) {
   }
   if (articlePage(page)) {
     if (!page.published) throw new Error(`An article needs its real publication date: ${page.path}`);
-    const citation = page.caseStudy ? [page.project.source.url] : ["homegui", "tracebte", "railway-tools-axiom", "bte-distortion-calculator", "riptide", "pineappleui", "builders-utilities-bt-corsica"]
-      .map((slug) => PROJECTS.find((p) => p.slug === slug)).map((p) => p.source?.url || p.repo).filter(Boolean);
+    const citation = page.editorialArticle
+      ? ["https://museum.toulouse-metropole.fr/le-museum-de-toulouse-construit-sur-minecraft/", SITE.bte]
+      : page.caseStudy ? [page.project.source.url] : ["homegui", "tracebte", "railway-tools-axiom", "bte-distortion-calculator", "riptide", "pineappleui", "builders-utilities-bt-corsica"]
+        .map((slug) => PROJECTS.find((p) => p.slug === slug)).map((p) => p.source?.url || p.repo).filter(Boolean);
     const article = { "@type": "Article", "@id": url + "#article", headline: page.heading, description: page.description,
       datePublished: page.published, dateModified: page.modified, author: { "@id": PERSON }, publisher: { "@id": PERSON },
-      mainEntityOfPage: { "@id": webPage["@id"] }, inLanguage: page.lang, image: socialCard(page, h).href, citation };
+      mainEntityOfPage: { "@id": webPage["@id"] }, inLanguage: page.lang,
+      image: page.editorialArticle ? page.editorialArticle.image.src : socialCard(page, h).href, citation };
     if (page.caseStudy) {
       article.about = { "@id": canonical(projectPath(page.project.slug)) + "#project" };
       article.associatedMedia = { "@id": canonical("/projects/iprof-redesign/#video") };

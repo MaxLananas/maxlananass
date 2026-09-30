@@ -5,10 +5,21 @@ export const LOCALES = { en: "en_US", fr: "fr_FR", es: "es_ES" };
 export const LANG_LABEL = { en: "English", fr: "Français", es: "Español" };
 export const PATH_ALIAS = {
   "/about/": { fr: "/fr/a-propos/", es: "/es/sobre/" },
-  "/projects/iprof-redesign/": { fr: "/fr/projets/refonte-iprof/", es: "/es/proyectos/rediseno-iprof/" }
+  "/projects/iprof-redesign/": { fr: "/fr/projets/refonte-iprof/", es: "/es/proyectos/rediseno-iprof/" },
+  "/articles/toulouse-pont-neuf-minecraft/": {
+    fr: "/fr/articles/pont-neuf-toulouse-minecraft/",
+    es: "/es/articulos/pont-neuf-toulouse-minecraft/"
+  }
 };
 export const enPath = (path) => path.replace(/^\/(fr|es)(?=\/)/, "");
-export const pathFor = (lang, path) => lang === "en" ? path : (PATH_ALIAS[path]?.[lang] || `/${lang}${path === "/" ? "/" : path}`);
+export const pathFor = (lang, path) => {
+  if (lang === "en") return path;
+  const split = path.search(/[?#]/);
+  const pathname = split < 0 ? path : path.slice(0, split);
+  const suffix = split < 0 ? "" : path.slice(split);
+  const localized = PATH_ALIAS[pathname]?.[lang] || `/${lang}${pathname === "/" ? "/" : pathname}`;
+  return localized + suffix;
+};
 
 const en = {
   "/": {
@@ -85,7 +96,8 @@ const en = {
     s3NoteProcess: "building process",
     s3NoteContact: "contact information",
     s4Title: "Attribution and independence",
-    s4: "This is my personal portfolio, not an official Minecraft, Mojang, Microsoft, BuildTheEarth or Axiom website. Contributing to a collective project does not mean representing its whole team. The creations shown remain the property of their respective owners."
+    s4: "This is my personal portfolio, not an official Minecraft, Mojang, Microsoft, BuildTheEarth or Axiom website. Contributing to a collective project does not mean representing its whole team. The creations shown remain the property of their respective owners.",
+    imageRights: "Images are shown for portfolio and attribution purposes; this page does not grant a blanket reuse licence. Check each visible credit and contact the relevant creator or rights holder before reproducing an image. The Muséum de Toulouse photograph of the Pont Neuf is credited to BTE France by the museum; the Minecraft build shown is by MaxLananas. For permission to reuse that photograph, ask its credited rights holder; for the build itself, contact MaxLananas."
   },
   "/projects/": {
     intro: "A selection of my interface work, published Minecraft projects and software experiments. Releases point to Modrinth; GitHub is used for the public source and lab work.",
@@ -116,7 +128,8 @@ const en = {
     s3Bu: "BuildersUtilities adaptation",
     s3Links: "{about} · {guide}",
     s3LinksAbout: "About MaxLananas",
-    s3LinksGuide: "Choose between a mod, plugin and addon"
+    s3LinksGuide: "Choose between a mod, plugin and addon",
+    museumArticleLink: "Read how the Muséum de Toulouse featured my Pont Neuf build"
   },
   "/development/": {
     intro: "Interfaces, Minecraft releases and software experiments by {about}. Explore the iProf redesign, then the published projects and the lab.",
@@ -282,7 +295,8 @@ const fr = {
     s3NoteProcess: "La méthode de travail",
     s3NoteContact: "les informations de contact",
     s4Title: "Attribution et indépendance",
-    s4: "Ce site est mon portfolio personnel, pas un site officiel de Minecraft, Mojang, Microsoft, BuildTheEarth ou Axiom. La participation à un projet collectif ne signifie pas que je représente toute l’équipe. Les droits sur les créations présentées restent ceux de leurs auteurs respectifs."
+    s4: "Ce site est mon portfolio personnel, pas un site officiel de Minecraft, Mojang, Microsoft, BuildTheEarth ou Axiom. La participation à un projet collectif ne signifie pas que je représente toute l’équipe. Les droits sur les créations présentées restent ceux de leurs auteurs respectifs.",
+    imageRights: "Les images sont présentées pour documenter le portfolio et leur attribution ; cette page n’accorde pas de licence générale de réutilisation. Vérifiez chaque crédit visible et contactez le créateur ou titulaire des droits concerné avant toute reproduction. La photographie du Pont-Neuf publiée par le Muséum de Toulouse est créditée à BTE France ; le build Minecraft représenté est de MaxLananas. Pour réutiliser la photographie, demandez l’autorisation au titulaire crédité ; pour le build, contactez MaxLananas."
   },
   "/projects/": {
     intro: "Une sélection de mon travail d’interface, de mes projets Minecraft publiés et de mes expérimentations logicielles. Les versions pointent vers Modrinth ; GitHub accueille les sources publiques et le lab.",
@@ -313,7 +327,8 @@ const fr = {
     s3Bu: "adaptation BuildersUtilities",
     s3Links: "{about} · {guide}",
     s3LinksAbout: "À propos de MaxLananas",
-    s3LinksGuide: "Choisir entre mod, plugin et addon"
+    s3LinksGuide: "Choisir entre mod, plugin et addon",
+    museumArticleLink: "Lire comment le Muséum de Toulouse a mis en avant mon build du Pont-Neuf"
   },
   "/development/": {
     intro: "Interfaces, publications Minecraft et expérimentations logicielles par {about}. Explorez la refonte iProf, puis les projets publiés et le lab.",
@@ -479,7 +494,8 @@ const es = {
     s3NoteProcess: "El método de trabajo",
     s3NoteContact: "la información de contacto",
     s4Title: "Atribución e independencia",
-    s4: "Este es mi portfolio personal, no un sitio oficial de Minecraft, Mojang, Microsoft, BuildTheEarth o Axiom. Participar en un proyecto colectivo no significa representar a todo el equipo. Las creaciones mostradas siguen siendo propiedad de sus respectivos autores."
+    s4: "Este es mi portfolio personal, no un sitio oficial de Minecraft, Mojang, Microsoft, BuildTheEarth o Axiom. Participar en un proyecto colectivo no significa representar a todo el equipo. Las creaciones mostradas siguen siendo propiedad de sus respectivos autores.",
+    imageRights: "Las imágenes se muestran para documentar el portfolio y conservar su atribución; esta página no concede una licencia general de reutilización. Comprueba cada crédito visible y contacta con el creador o titular de derechos correspondiente antes de reproducir una imagen. El Muséum de Toulouse acredita a BTE France la fotografía del Pont Neuf; el build de Minecraft mostrado es de MaxLananas. Para reutilizar la fotografía, solicita permiso al titular acreditado; para el build, contacta con MaxLananas."
   },
   "/projects/": {
     intro: "Una selección de mi trabajo de interfaz, mis proyectos publicados en Minecraft y mis experimentos de software. Las versiones apuntan a Modrinth; GitHub acoge el código público y el laboratorio.",
@@ -510,7 +526,8 @@ const es = {
     s3Bu: "adaptación de BuildersUtilities",
     s3Links: "{about} · {guide}",
     s3LinksAbout: "Sobre MaxLananas",
-    s3LinksGuide: "Elegir entre mod, plugin y addon"
+    s3LinksGuide: "Elegir entre mod, plugin y addon",
+    museumArticleLink: "Lee cómo el Muséum de Toulouse destacó mi build del Pont Neuf"
   },
   "/development/": {
     intro: "Interfaces, publicaciones en Minecraft y experimentos de software de {about}. Explora el rediseño de iProf y después los proyectos publicados y el laboratorio.",

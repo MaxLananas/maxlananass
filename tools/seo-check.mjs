@@ -98,6 +98,9 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
       assert.ok(node["@id"].startsWith(SITE.url));
       assert.ok(!node.aggregateRating && !node.review && !node.interactionStatistic && !node.offers, "No invented ratings/offers/metrics");
       if (node.codeRepository) assert.equal(node["@type"], "SoftwareSourceCode");
+      if (node["@type"] === "ImageObject") {
+        for (const field of ["copyrightNotice", "license", "acquireLicensePage", "creator"]) assert.ok(node[field], `ImageObject ${node["@id"]} needs ${field}`);
+      }
       if (node["@type"] === "Article") {
         assert.equal(node.datePublished, page.published); assert.equal(node.dateModified, page.modified);
         assert.equal(node.headline, page.heading); assert.equal(node.author["@id"], canonical("/#person"));
@@ -187,7 +190,7 @@ export async function checkSeo({ directory = root, snapshots = resolve(directory
     const page = pages.find((p) => p.path === path);
     assert.ok(page && !page.noindex);
     const $ = documents.get(path);
-    const actual = new Set($(".photo-card img, img[data-project-media]").toArray().map((img) => canonical($(img).attr("src"))));
+      const actual = new Set($(".photo-card img, img[data-project-media], img[data-editorial-media]").toArray().map((img) => canonical($(img).attr("src"))));
     const listed = imageMap(node).find("image\\:loc").toArray().map((img) => imageMap(img).text());
     assert.equal(listed.length, pageImages(page).length);
     for (const url of listed) assert.ok(actual.has(url), `Image sitemap must match visible HTML: ${url}`);

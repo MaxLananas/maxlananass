@@ -106,5 +106,9 @@ export const QUERY_MAP = [
   { path: "/builds/", cluster: "builds", intent: "gallery", paginated: true, queries: {
     en: ["minecraft build screenshots"],
     fr: ["captures de builds minecraft"],
-    es: ["capturas de builds de minecraft"] } }
+    es: ["capturas de builds de minecraft"] } },
+  { path: "/articles/toulouse-pont-neuf-minecraft/", cluster: "buildtheearth", intent: "editorial", queries: {
+    en: ["Toulouse Pont Neuf Minecraft build Muséum"],
+    fr: ["Pont-Neuf Toulouse Minecraft Muséum build"],
+    es: ["Pont Neuf Toulouse Minecraft build Muséum"] } }
 ];
