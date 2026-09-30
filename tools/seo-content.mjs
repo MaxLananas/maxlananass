@@ -4,6 +4,7 @@ import { iprofCaseStudy } from "./iprof-case-study.mjs";
 import { dateLabel } from "../content/dates.js";
 import { projectCard, iprofSpotlight, projectScreenshots, projectVideo, mediaData, projectPicture } from "./project-content.mjs";
 import { FILES, CREDITS } from "../gallery-data.js";
+import { MUSEUM_ARTICLE_PATH } from "../content/museum-article.js";
 import { proxyUrl, originalUrl } from "../image-utils.js";
 import { ui, fill } from "../ui.js";
 import { copy, label, pathFor, enPath } from "../content/i18n.js";
@@ -114,7 +115,7 @@ function aboutPage(h) {
       <section><h2>${escape(c("s1Title"))}</h2><p>${fill(c("s1"), { builds: link("/builds/", c("s1Builds")), bte: link("/buildtheearth/", c("s1Bte")) })}</p></section>
       <section><h2>${escape(c("s2Title"))}</h2><p>${fill(c("s2a"), { iprof: link("/projects/iprof-redesign/", c("s2aIprof")), modrinth: link(SITE.modrinth, c("s2aModrinth")) })}</p><p>${fill(c("s2b"), { homegui: link("/projects/homegui/", "HomeGUI"), tracebte: link("/projects/tracebte/", "TraceBTE"), railway: link("/projects/railway-tools-axiom/", "Railway Tools"), pineapple: link("/projects/pineappleui/", "PineappleUI") })}</p><p>${fill(c("s2c"), { projects: link("/projects/", c("s2cProjects")) })}</p></section>
       <section><h2>${escape(c("s3Title"))}</h2><ul>${c("s3Items").map((item, index) => `<li>${link(profiles[index].url, item.label, profiles[index].attributes)} : ${escape(item.text)}</li>`).join("")}</ul><p>${fill(c("s3Note"), { process: link("/#process", c("s3NoteProcess")), contact: link("/#contact", c("s3NoteContact")) })}</p></section>
-      <section><h2>${escape(c("s4Title"))}</h2><p>${escape(c("s4"))}</p></section>`;
+      <section><h2 id="image-rights">${escape(c("s4Title"))}</h2><p>${escape(c("s4"))}</p><p>${escape(c("imageRights"))}</p></section>`;
 }
 
 function projectsHub(h) {
@@ -125,13 +126,28 @@ function projectsHub(h) {
 
 function bteHub(h) {
   const l = h.lang, k = "/buildtheearth/", c = (field) => copy(l, k, field);
-  return `<p>${escape(c("p1"))}</p><p>${fill(c("p2"), { strong: `<strong>${escape(c("p2Strong"))}</strong>`, bte: h.link(SITE.bte, c("p2Bte")) })}</p><section><h2>${escape(c("s1Title"))}</h2><p>${escape(c("s1"))}</p><ul>${c("s1Items").map((item) => `<li>${h.link(`/projects/${item.slug}/`, item.label)} ${escape(item.after)}</li>`).join("")}</ul></section><section><h2>${escape(c("s2Title"))}</h2>${h.cards(PROJECTS.filter((p) => p.bte))}</section><section><h2>${escape(c("s3Title"))}</h2><p>${fill(c("s3"), { builds: h.link("/builds/", c("s3Builds")), bu: h.link("/projects/builders-utilities-bt-corsica/", c("s3Bu")) })}</p><p>${fill(c("s3Links"), { about: h.link("/about/", c("s3LinksAbout")), guide: h.link("/guides/minecraft-mods-plugins-addons/", c("s3LinksGuide")) })}</p></section>`;
+  return `<p>${escape(c("p1"))}</p><p>${fill(c("p2"), { strong: `<strong>${escape(c("p2Strong"))}</strong>`, bte: h.link(SITE.bte, c("p2Bte")) })}</p><p>${h.link(MUSEUM_ARTICLE_PATH, c("museumArticleLink"))}</p><section><h2>${escape(c("s1Title"))}</h2><p>${escape(c("s1"))}</p><ul>${c("s1Items").map((item) => `<li>${h.link(`/projects/${item.slug}/`, item.label)} ${escape(item.after)}</li>`).join("")}</ul></section><section><h2>${escape(c("s2Title"))}</h2>${h.cards(PROJECTS.filter((p) => p.bte))}</section><section><h2>${escape(c("s3Title"))}</h2><p>${fill(c("s3"), { builds: h.link("/builds/", c("s3Builds")), bu: h.link("/projects/builders-utilities-bt-corsica/", c("s3Bu")) })}</p><p>${fill(c("s3Links"), { about: h.link("/about/", c("s3LinksAbout")), guide: h.link("/guides/minecraft-mods-plugins-addons/", c("s3LinksGuide")) })}</p></section>`;
 }
 
 function developmentHub(h) {
   const l = h.lang, k = "/development/", c = (field) => copy(l, k, field);
   const group = (collection) => PROJECTS.filter((p) => p.collection === collection);
   return `<p>${fill(c("intro"), { about: h.link("/about/", c("introAbout")) })}</p><nav class="dev-section-nav" aria-label="${escape(c("navAria"))}"><a href="#interface-work">${escape(c("navInterface"))}</a><a href="#minecraft-releases">${escape(c("navReleases"))}</a><a href="#software-lab">${escape(c("navLab"))}</a></nav><section id="interface-work" class="dev-featured-section"><h2 class="section-label">${escape(c("interfaceLabel"))}</h2>${iprofSpotlight(bySlug("iprof-redesign"), h, { eager: true })}</section><section id="minecraft-releases"><p class="eyebrow">${escape(c("releasesEyebrow"))}</p><h2>${escape(c("releasesTitle"))}</h2><p>${escape(c("releases"))}</p>${h.cards(group("release"))}<p class="section-links">${fill(c("releasesLinks"), { modrinth: h.link(SITE.modrinth, c("releasesLinksModrinth")), guide: h.link("/guides/minecraft-mods-plugins-addons/", c("releasesLinksGuide")) })}</p></section><section id="software-lab"><p class="eyebrow">${escape(c("labEyebrow"))}</p><h2>${escape(c("labTitle"))}</h2><p>${escape(c("lab"))}</p>${h.cards(group("lab"))}<p class="section-links">${fill(c("labLinks"), { github: h.link(SITE.github + "?tab=repositories", c("labLinksGithub")) })}</p></section><section><h2>${escape(c("refsTitle"))}</h2><p>${fill(c("refs"), { bte: h.link("/buildtheearth/", c("refsBte")) })}</p></section>`;
+}
+
+function museumArticle(page, h) {
+  const l = h.lang, article = page.editorialArticle[l], image = page.editorialArticle.image;
+  const byline = `<p class="byline">${fill(h.t("byline"), { author: h.link("/about/", "MaxLananas"), date: `<time datetime="${page.published}">${dateLabel(page.published, l)}</time>` })}</p>`;
+  const picture = `<figure class="project-single-image editorial-image"><a href="${escape(image.src)}" target="_blank" rel="noopener noreferrer"><img src="${escape(image.src)}" width="${image.width}" height="${image.height}" alt="${escape(image.title[l])}" loading="eager" fetchpriority="high" decoding="async" data-editorial-media></a><figcaption>${escape(image.caption[l])}</figcaption></figure>`;
+  const sourceLinks = `<p>${h.link("https://museum.toulouse-metropole.fr/le-museum-de-toulouse-construit-sur-minecraft/", article.sourceLabel, 'target="_blank" rel="noopener noreferrer"')} · ${h.link("https://www.btefrance.fr/fr/", article.bteLabel, 'target="_blank" rel="noopener noreferrer"')} · ${h.link("/about/#image-rights", article.rightsLabel)}</p>`;
+  const sections = article.sections.map((section, index) => {
+    const imageMarkup = index === 1 ? picture : "";
+    const sourceMarkup = index === 2 ? sourceLinks : "";
+    const sectionClass = index === 2 ? ' class="source-note"' : "";
+    const paragraphs = section.paragraphs.map((text) => `<p>${escape(text)}</p>`).join("");
+    return `<section${sectionClass}><h2>${escape(section.title)}</h2>${imageMarkup}${paragraphs}${sourceMarkup}</section>`;
+  }).join("");
+  return `${byline}${sections}`;
 }
 
 function guideArticle(page, h) {
@@ -165,6 +181,7 @@ export function pageContent(page, h) {
   if (en === "/projects/") return projectsHub(h);
   if (en === "/buildtheearth/") return bteHub(h);
   if (en === "/development/") return developmentHub(h);
+  if (page.editorialArticle) return museumArticle(page, h);
   if (page.type === "Article") return guideArticle(page, h);
   if (page.galleryPage) return galleryPage(page, h);
   throw new Error(`No content renderer for ${page.path}`);

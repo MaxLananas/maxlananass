@@ -6,6 +6,7 @@ import { pageDates } from "./dates.js";
 import { LANGS, pathFor } from "./i18n.js";
 import { META } from "./projects-i18n.js";
 import { fill } from "../ui.js";
+import { MUSEUM_ARTICLE, MUSEUM_ARTICLE_PATH } from "./museum-article.js";
 
 function basePages() {
   const pages = [
@@ -15,6 +16,7 @@ function basePages() {
     { enPath: "/buildtheearth/", type: "CollectionPage" },
     { enPath: "/development/", type: "CollectionPage" },
     { enPath: "/guides/minecraft-mods-plugins-addons/", type: "Article", parent: "/development/" },
+    { enPath: MUSEUM_ARTICLE_PATH, type: "Article", parent: "/buildtheearth/", editorialArticle: MUSEUM_ARTICLE },
     { enPath: "/search/", type: "WebPage", home: true, noindex: true }
   ];
   for (const project of PROJECTS) {

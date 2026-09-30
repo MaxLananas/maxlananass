@@ -28,6 +28,7 @@ export const META = {
     "/projects/builders-utilities-bt-corsica/": { title: "BuildersUtilities BT Corsica — Paper tools", heading: "BuildersUtilities — BT Corsica", description: "MaxLananas’s BT Corsica adaptation of BuildersUtilities: waypoints, building helpers and Paper requirements, with explicit credits to the upstream authors." },
     "/projects/le-mans/": { title: "Le Mans Minecraft builds — BTE France portfolio", heading: "Le Mans Minecraft builds", description: "Selected Le Mans Minecraft screenshots from MaxLananas’s portfolio: circuit and wider views, BuildTheEarth France credits and original files." },
     "/projects/riptide/": { title: "Riptide — free Minecraft schematic converter", heading: "Riptide — Minecraft schematic converter", description: "Riptide by MaxLananas converts Minecraft schematics across 34 versions, from b1.8.1 to 26.2, in the browser. Free, no account, files deleted in 15 minutes." },
+    "/articles/toulouse-pont-neuf-minecraft/": { title: "My Toulouse Pont Neuf build featured by the Muséum", heading: "My Toulouse Pont Neuf build featured by the Muséum", description: "The Muséum de Toulouse’s Minecraft feature includes my Pont Neuf build. See the image, credits and details of the BuildTheEarth France project." },
   },
   fr: {
     "/": { title: "MaxLananas — builder Minecraft, développeur & projets", heading: "MaxLananas", description: "Constructions Minecraft, contributions BuildTheEarth, mods, plugins et outils de développement par MaxLananas. Projets, captures et dépôts sources." },
@@ -58,6 +59,7 @@ export const META = {
     "/projects/builders-utilities-bt-corsica/": { title: "BuildersUtilities BT Corsica — outils Paper", heading: "BuildersUtilities — BT Corsica", description: "L’adaptation BT Corsica de BuildersUtilities par MaxLananas : waypoints, aides de construction et prérequis Paper, avec crédits explicites aux auteurs amont." },
     "/projects/le-mans/": { title: "Builds Minecraft du Mans — portfolio BTE France", heading: "Builds Minecraft du Mans", description: "Captures Minecraft du Mans sélectionnées dans le portfolio de MaxLananas : vue du circuit et vues larges, crédits BuildTheEarth France et images originales." },
     "/projects/riptide/": { title: "Riptide — convertisseur de schematics Minecraft gratuit", heading: "Riptide — convertisseur de schematics Minecraft", description: "Riptide convertit vos builds Minecraft entre 34 versions, de b1.8.1 à 26.2, dans le navigateur. Gratuit, sans compte, fichiers supprimés sous 15 minutes." },
+    "/articles/toulouse-pont-neuf-minecraft/": { title: "Mon Pont-Neuf de Toulouse mis en avant par le Muséum", heading: "Mon Pont-Neuf de Toulouse mis en avant par le Muséum", description: "L’article Minecraft du Muséum de Toulouse présente mon build du Pont-Neuf. Retrouvez la photo, les crédits et le contexte du projet BuildTheEarth France." },
   },
   es: {
     "/": { title: "MaxLananas — builder de Minecraft, desarrollador y proyectos", heading: "MaxLananas", description: "Construcciones de Minecraft, contribuciones a BuildTheEarth, mods, plugins y herramientas de desarrollo de MaxLananas. Proyectos, capturas y repositorios." },
@@ -88,6 +90,7 @@ export const META = {
     "/projects/builders-utilities-bt-corsica/": { title: "BuildersUtilities BT Corsica — herramientas Paper", heading: "BuildersUtilities — BT Corsica", description: "Adaptación BT Corsica de BuildersUtilities por MaxLananas: waypoints, ayudas de construcción y requisitos de Paper, con créditos a los autores." },
     "/projects/le-mans/": { title: "Builds de Minecraft de Le Mans — portfolio BTE", heading: "Builds de Minecraft de Le Mans", description: "Capturas de Minecraft de Le Mans seleccionadas del portfolio de MaxLananas: vista del circuito y vistas amplias, con créditos de BuildTheEarth France." },
     "/projects/riptide/": { title: "Riptide — conversor de schematics de Minecraft gratis", heading: "Riptide — conversor de schematics de Minecraft", description: "Riptide convierte tus builds de Minecraft entre 34 versiones, de b1.8.1 a 26.2, en el navegador. Gratis, sin cuenta y archivos borrados en 15 minutos." },
+    "/articles/toulouse-pont-neuf-minecraft/": { title: "El Muséum destaca mi build del Pont Neuf de Toulouse", heading: "El Muséum destaca mi build del Pont Neuf de Toulouse", description: "El artículo Minecraft del Muséum de Toulouse incluye mi build del Pont Neuf. Consulta la imagen, los créditos y el contexto de BuildTheEarth France." },
   }
 };
 
