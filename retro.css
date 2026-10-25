@@ -655,3 +655,80 @@ table.links td.w { width: 130px; background: #cfccc4; }
   text-align: center;
   font-size: 14px;
 }
+
+/* --------------------------------------------------- eyes that watch you -- */
+.eyes-row { display: flex; gap: 12px; justify-content: center; padding: 6px 0 4px; }
+.eye {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #f2efe8 60%, #d8d4cb 100%);
+  border: 2px solid #4c483f;
+  box-shadow: inset 1px 1px 0 #fff, 2px 2px 0 rgba(20,16,10,.35);
+  display: flex; align-items: center; justify-content: center;
+}
+.pupil {
+  width: 13px; height: 13px; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #3a5fa8 0%, #14203c 70%);
+  border: 1px solid #0b1226;
+  display: block; transition: transform .07s linear;
+}
+
+/* --------------------------------------------- colour wheel + block day -- */
+.wheel-row { display: flex; gap: 10px; align-items: flex-start; }
+#wheel {
+  cursor: crosshair; image-rendering: pixelated;
+  border: 2px inset #97938b; background: #000; flex: 0 0 auto;
+}
+#block-day { flex: 1 1 auto; min-width: 0; }
+#block-day .sw { display: flex; flex-wrap: wrap; gap: 3px; background: none; border: none; box-shadow: none; }
+.sw-tex { image-rendering: pixelated; border: 1px solid #5f5b54; box-shadow: 1px 1px 0 rgba(20,16,10,.45); background: #000; }
+
+/* --------------------------------------------------------------- banner -- */
+.banner { background: #141210; }
+.mosaic { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(2, 1fr); gap: 1px; }
+.mosaic img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) contrast(1.06) brightness(.92); }
+.fire-row { text-align: center; margin-top: 3px; }
+
+/* ------------------------------------------- builds: 90s pinterest wall -- */
+.masonry90 { columns: 4 150px; column-gap: 6px; }
+.pin { display: block; break-inside: avoid; margin: 0 0 6px; border: 2px outset #b9b5ac; background: #efece6; padding: 2px; }
+.pin img { display: block; width: 100%; height: auto; }
+.pin:hover { border-color: #ffffcc; }
+
+/* ------------------------------------------------------- links hub page -- */
+.hub { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+.hubbtn {
+  display: block; padding: 8px 10px; text-decoration: none;
+  background: #efece6; border: 2px outset #b9b5ac; color: #2b2822;
+}
+.hubbtn b { display: block; font-family: "PixelBoard", monospace; font-size: 10px; color: var(--navy); text-transform: uppercase; }
+.hubbtn span { display: block; font-size: 12px; margin: 2px 0; }
+.hubbtn i { display: block; font-size: 10px; font-style: normal; color: #6f6b64; word-break: break-all; }
+.hubbtn:hover { background: #ffffcc; border-style: inset; }
+
+/* ---------------------------------------------------- radio locked state -- */
+.winamp.locked .wa-lcd { color: #ffb0b0; }
+
+/* ----------------------------------------------------------- responsive -- */
+@media (max-width: 900px) {
+  table.frame, table.frame tbody, table.frame tr, table.frame td { display: block; width: auto !important; }
+  td.col-left, td.col-right, td.col-main { max-width: none; }
+  .mosaic { grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 1fr); }
+  .banner-logo { font-size: 40px; }
+  .masonry90 { columns: 3 130px; }
+}
+@media (max-width: 560px) {
+  .mosaic { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); }
+  .masonry90 { columns: 2 120px; }
+  .hub { grid-template-columns: 1fr; }
+  .wheel-row { flex-direction: column; align-items: center; }
+  .banner-logo { font-size: 30px; right: 8px; }
+}
+
+/* real photo avatar, framed like a 90s ID badge */
+.ava img.photo {
+  width: 112px; height: 112px; object-fit: cover;
+  image-rendering: auto;
+  border: 3px outset #b9b5ac;
+  box-shadow: 2px 2px 0 rgba(20,16,10,.4);
+  background: #000;
+}

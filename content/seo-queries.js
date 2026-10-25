@@ -19,11 +19,7 @@ export const QUERY_MAP = [
     en: ["development projects minecraft mods software"],
     fr: ["projets de développement mods minecraft logiciels"],
     es: ["proyectos de desarrollo mods de minecraft software"] } },
-  { path: "/guides/minecraft-mods-plugins-addons/", cluster: "development", intent: "informational", queries: {
-    en: ["minecraft mods plugins and axiom addons explained"],
-    fr: ["mods plugins et addons axiom minecraft expliqués"],
-    es: ["mods plugins y addons de axiom para minecraft"] } },
-  { path: "/projects/iprof-redesign/", cluster: "projects", intent: "project", queries: {
+    { path: "/projects/iprof-redesign/", cluster: "projects", intent: "project", queries: {
     en: ["iprof 2026 ui ux redesign case study"],
     fr: ["refonte iprof 2026 étude de cas ui ux"],
     es: ["rediseño de iprof 2026 caso de estudio ui ux"] } },

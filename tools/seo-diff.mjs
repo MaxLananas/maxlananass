@@ -1,9 +1,11 @@
-import { readFile, readdir } from "node:fs/promises";
+import { readFile, readdir, mkdtemp, rm } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { execFile } from "node:child_process";
 import { resolve, join, relative, sep } from "node:path";
 import { pathToFileURL } from "node:url";
-import { renderSeo, serviceWorkerRoutes } from "./seo-render.mjs";
 
 const root = resolve(import.meta.dirname, "..");
+const DEPLOY_ONLY = new Set(["_headers", "_redirects", "robots.txt", "manifest.json", "sw.js"]);
 const IGNORED = new Set([".git", ".github", ".cache", "node_modules", "dist", "assets", "sources", "content", "docs", "templates", "tests", "tools", "scripts"]);
 const posix = (value) => value.split(sep).join("/");
 
@@ -15,16 +17,16 @@ function firstDifference(expected, actual) {
   return { offset: index, rendered: expected.slice(from, index + 110), onDisk: actual.slice(from, index + 110) };
 }
 
-async function walk(directory) {
+async function walk(directory, base = root) {
   const found = [];
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     if (entry.name.startsWith(".") && entry.name !== ".") continue;
     const full = join(directory, entry.name);
     if (entry.isDirectory()) {
       if (IGNORED.has(entry.name)) continue;
-      found.push(...await walk(full));
-    } else if (entry.name === "index.html" || entry.name === "404.html" || /^(sitemap[^/]*\.xml|robots\.txt|manifest\.json|site-pages\.json|_headers|_redirects)$/.test(entry.name)) {
-      found.push(posix(relative(root, full)));
+      found.push(...await walk(full, base));
+    } else if (entry.name === "index.html" || entry.name === "404.html" || /^sitemap\.xml$/.test(entry.name)) {
+      found.push(posix(relative(base, full)));
     }
   }
   return found;
@@ -32,11 +34,12 @@ async function walk(directory) {
 
 export async function renderedDiff({ directory = root } = {}) {
   directory = resolve(directory);
-  const { files, pages } = await renderSeo();
-  const expected = new Map(files);
-  const worker = await readFile(resolve(root, "sw.js"), "utf8");
-  const routed = serviceWorkerRoutes(worker, pages);
-  if (routed !== worker) expected.set("sw.js", routed);
+  // Fresh render with the retro pipeline into a scratch directory.
+  const tmp = await mkdtemp(join(tmpdir(), "retro-diff-"));
+  await new Promise((done, fail) => execFile(process.execPath, [resolve(root, "tools/retro-render.mjs")], { env: { ...process.env, RETRO_OUT: tmp } }, (err) => err ? fail(err) : done()));
+  const expected = new Map();
+  for (const file of await walk(tmp, tmp)) expected.set(file, await readFile(join(tmp, file), "utf8"));
+  await rm(tmp, { recursive: true, force: true });
 
   const missing = [], changed = [];
   for (const [file, value] of expected) {
@@ -45,7 +48,7 @@ export async function renderedDiff({ directory = root } = {}) {
     if (onDisk !== value) changed.push({ file, renderedBytes: value.length, diskBytes: onDisk.length, ...firstDifference(value, onDisk) });
   }
   const onDiskFiles = directory === root ? await walk(root) : [];
-  const stale = onDiskFiles.filter((file) => !expected.has(file)).sort();
+  const stale = onDiskFiles.filter((file) => !expected.has(file) && !DEPLOY_ONLY.has(file)).sort();
   return { generated: expected.size, missing, changed, stale, clean: !missing.length && !changed.length && !stale.length };
 }
 

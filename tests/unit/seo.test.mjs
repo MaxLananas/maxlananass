@@ -81,7 +81,7 @@ test("HTTP status, index aliases, trailing slash, query preservation and bot par
     assert.equal(missing.status, 404);
     assert.match(await missing.text(), /noindex/);
     assert.equal((await fetch(base + "/CNAME", { redirect: "manual" })).status, 200);
-    for (const path of ["/", "/about/", "/projects/homegui/", "/builds/page/7/"]) {
+    for (const path of ["/", "/about/", "/projects/homegui/", "/builds/"]) {
       const bodies = [];
       for (const agent of ["Mozilla/5.0", "Googlebot", "bingbot", "DuckDuckBot", "GPTBot"]) {
         const response = await fetch(base + path, { headers: { "user-agent": agent } });

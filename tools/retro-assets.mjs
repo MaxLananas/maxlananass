@@ -302,4 +302,92 @@ const RAINBOW = [[255, 0, 0], [255, 128, 0], [255, 255, 0], [0, 200, 0], [0, 220
   await write("heart.gif", gif(width, height, pal, frames));
 }
 
+
+// Flame divider strip (banner fire row): flickering pixel fire, transparent bg.
+{
+  const width = 216, height = 10;
+  const pal = [[0, 0, 0], [190, 30, 10], [255, 140, 0], [255, 230, 90], [255, 255, 220]];
+  const hash = (x) => { let h = Math.sin(x * 127.1) * 43758.5453; return h - Math.floor(h); };
+  const frames = [];
+  for (let f = 0; f < 6; f++) {
+    const { index } = indexedCanvas(width, height, (x, y) => {
+      const flick = hash(x * 3 + f * 17) * 3 + Math.sin(x / 5 + f * 1.7) * 1.6;
+      const h = 4 + flick;
+      const fromTop = height - 1 - y;
+      if (fromTop >= h) return 0;
+      if (fromTop >= h - 1.4) return 4;
+      if (fromTop >= h - 3) return 3;
+      if (fromTop >= h - 5) return 2;
+      return 1;
+    }, pal);
+    frames.push({ index, delay: 9, transparent: 0 });
+  }
+  await write("fire.gif", gif(width, height, pal, frames));
+}
+
+// Spinning @ blinkie (transparent bg).
+{
+  const size = 15;
+  const pal = [[0, 0, 0], [0, 120, 220], [120, 220, 255], [255, 255, 255]];
+  const atRows = [
+    ".XXXXXXXXX.",
+    "X.........X",
+    "X..XXXXX..X",
+    "X.X.....X.X",
+    "X.X..X..X.X",
+    "X.X..X..X.X",
+    "X.X..XX.X.X",
+    "X.X.....X.X",
+    "X..XXXXXX.X",
+    "X.........X",
+    ".XXXXXXXXX."
+  ];
+  const frames = [];
+  for (let f = 0; f < 8; f++) {
+    const shift = Math.round(Math.cos((f * Math.PI) / 4) * 1.6);
+    const { index } = indexedCanvas(size, size, (x, y) => {
+      const row = atRows[y - 2];
+      if (!row) return 0;
+      const ch = row[x - 2 - shift];
+      if (ch !== "X" && ch !== ".") return 0;
+      if (ch === ".") return 0;
+      const band = (x + y + f * 2) % 12;
+      return band < 3 ? 3 : band < 7 ? 2 : 1;
+    }, pal);
+    frames.push({ index, delay: 10, transparent: 0 });
+  }
+  await write("at.gif", gif(size, size, pal, frames));
+}
+
+// Blinking pointing hand blinkie ("click here!").
+{
+  const width = 17, height = 15;
+  const pal = [[0, 0, 0], [255, 220, 160], [180, 120, 60], [255, 255, 0]];
+  const handRows = [
+    "..X........",
+    ".XhX.......",
+    ".XhX..XXX..",
+    ".XhX.XhhhX.",
+    ".XhXXXXhhhh",
+    ".Xhhhhhhhhh",
+    ".Xhhhhhhhh.",
+    "..XhhhhhX..",
+    "...XXXXX..."
+  ];
+  const frames = [];
+  for (let f = 0; f < 2; f++) {
+    const dy = f ? 1 : 0;
+    const { index } = indexedCanvas(width, height, (x, y) => {
+      const row = handRows[y - 2 - dy];
+      if (!row) return f && (y === 3 && (x === 13 || x === 15) || (y === 2 && x === 14) || (y === 4 && x === 14)) ? 3 : 0;
+      const ch = row[x - 3 + dy];
+      if (ch === "X") return 2;
+      if (ch === "h") return 1;
+      return f && (y === 3 && (x === 13 || x === 15) || (y === 2 && x === 14) || (y === 4 && x === 14)) ? 3 : 0;
+    }, pal);
+    frames.push({ index, delay: f ? 25 : 45, transparent: 0 });
+  }
+  await write("click.gif", gif(width, height, pal, frames));
+}
+
 console.log("retro assets done");

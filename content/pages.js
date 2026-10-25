@@ -15,16 +15,13 @@ function basePages() {
     { enPath: "/projects/", type: "CollectionPage" },
     { enPath: "/buildtheearth/", type: "CollectionPage" },
     { enPath: "/development/", type: "CollectionPage" },
-    { enPath: "/guides/minecraft-mods-plugins-addons/", type: "Article", parent: "/development/" },
     { enPath: MUSEUM_ARTICLE_PATH, type: "Article", parent: "/buildtheearth/", editorialArticle: MUSEUM_ARTICLE },
     { enPath: "/search/", type: "WebPage", home: true, noindex: true }
   ];
   for (const project of PROJECTS) {
     pages.push({ enPath: projectPath(project.slug), type: "WebPage", project, parent: "/projects/", ...(project.slug === "iprof-redesign" ? { caseStudy: true } : {}) });
   }
-  for (let page = 1; page <= Math.ceil(FILES.length / PAGE_SIZE); page++) {
-    pages.push({ enPath: galleryPath(page), type: "CollectionPage", galleryPage: page, parent: page > 1 ? "/builds/" : "/projects/" });
-  }
+  pages.push({ enPath: galleryPath(1), type: "CollectionPage", galleryPage: 1, parent: "/projects/" });
   return pages;
 }
 

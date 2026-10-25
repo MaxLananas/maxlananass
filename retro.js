@@ -1,5 +1,5 @@
 /* ==========================================================================
-   retro.js — hit counter, block of the day, MAXAMP (a real chiptune radio
+   retro.js — watching eyes, block-of-the-day colour wheel, MAXAMP (a real chiptune radio
    synthesized with WebAudio), search filter, sparkles. No mp3, no server,
    no framework: just oscillators doing their best in your browser.
    ========================================================================== */
@@ -25,34 +25,111 @@
   }
   function pad(n, len) { n = String(n); while (n.length < len) n = "0" + n; return n; }
 
-  /* ------------------------------------------------------------ counter -- */
-  var hits = store.get("ml_hits", 48213) + 1;
-  store.set("ml_hits", hits);
-  var odo = el("odo");
-  if (odo) odo.innerHTML = pad(hits, 6).split("").map(function (d) { return "<b>" + d + "</b>"; }).join("");
-  var mini = el("odo-mini"); if (mini) mini.textContent = pad(hits, 6);
-  var miniFoot = el("odo-mini-foot"); if (miniFoot) miniFoot.textContent = pad(hits, 6);
-
-  /* ---------------------------------------------------- block of the day -- */
-  var PALETTES = [
-    { name: "sunset terracotta", blocks: [["#9e5b40", "orange terracotta"], ["#c07a52", "terracotta"], ["#e3a06b", "smooth sandstone"], ["#f2c185", "sandstone"], ["#7a4632", "red sand"], ["#5b3a2e", "packed mud"]] },
-    { name: "ocean gradient", blocks: [["#0b2838", "deep slate"], ["#1b4f72", "blue concrete"], ["#2e86c1", "light blue wool"], ["#7fb3d5", "ice"], ["#aed6f1", "packed ice"], ["#d6eaf8", "snow block"]] },
-    { name: "creeper greens", blocks: [["#0e4d0e", "dark oak leaves"], ["#1f6b1f", "mossy cobble"], ["#2e8b2e", "lime wool"], ["#3f9e3f", "creeper head"], ["#59b559", "lime concrete"], ["#79d079", "slime block"]] },
-    { name: "nether commute", blocks: [["#2b1a1a", "blackstone"], ["#6b1d1d", "nether bricks"], ["#a33b3b", "red nether bricks"], ["#d46a6a", "crimson planks"], ["#8c4a2f", "soul sand"], ["#e8b04b", "glowstone"]] },
-    { name: "ender midnight", blocks: [["#12081f", "void"], ["#2a1548", "obsidian"], ["#4b2a7b", "purpur"], ["#7a4fb0", "chorus flower"], ["#b48ce0", "end stone bricks"], ["#e0d0ff", "end rod glow"]] },
-    { name: "wool pastels", blocks: [["#f7d6e0", "pink wool"], ["#ffe8c9", "peach wool"], ["#fff6b0", "butter wool"], ["#d6f5d6", "mint wool"], ["#c9e8ff", "sky wool"], ["#e6d6ff", "lilac wool"]] }
-  ];
+  /* --------------------------------------- block of the day + colour wheel -- */
+  // Real Minecraft 1.21.x block textures + average colours live in
+  // /assets/blocks/ (palette.json). The wheel paints every hue; clicking it
+  // picks the six real blocks closest to that hue.
   var blockBox = el("block-day");
-  if (blockBox) {
+  var wheelCv = el("wheel");
+  var PALETTE = [];   // { n, f, r, g, b, h, s, l }
+  var WHEEL_HUE = (function () {
     var now = new Date();
     var start = new Date(now.getFullYear(), 0, 0);
     var day = Math.floor((now - start) / 86400000);
-    var pal = PALETTES[day % PALETTES.length];
-    blockBox.innerHTML = '<div class="sw-name">' + esc(pal.name) + ' <span class="newflag blink">#' + pad(day % PALETTES.length + 1, 2) + "</span></div>" +
-      pal.blocks.map(function (b) {
-        return '<span class="sw" style="background:' + b[0] + '" title="' + esc(b[1]) + '"></span>';
-      }).join("") +
-      '<div class="swl">' + pal.blocks.map(function (b) { return esc(b[1]); }).join(" · ") + "</div>";
+    return (day * 137.5) % 360;   // golden angle: a different hue every day
+  })();
+
+  function hslToRgb(h, s, l) {
+    h = ((h % 360) + 360) % 360;
+    var c = (1 - Math.abs(2 * l - 1)) * s;
+    var x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    var m = l - c / 2;
+    var t = h < 60 ? [c, x, 0] : h < 120 ? [x, c, 0] : h < 180 ? [0, c, x] : h < 240 ? [0, x, c] : h < 300 ? [x, 0, c] : [c, 0, x];
+    return [Math.round((t[0] + m) * 255), Math.round((t[1] + m) * 255), Math.round((t[2] + m) * 255)];
+  }
+  function rgbToHsl(r, g, b) {
+    r /= 255; g /= 255; b /= 255;
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h = 0, s = 0, l = (max + min) / 2;
+    if (max !== min) {
+      var d = max - min;
+      s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+      if (max === r) h = (g - b) / d + (g < b ? 6 : 0);
+      else if (max === g) h = (b - r) / d + 2;
+      else h = (r - g) / d + 4;
+      h *= 60;
+    }
+    return { h: h, s: s, l: l };
+  }
+  function paintWheel(hue) {
+    if (!wheelCv) return;
+    var ctx2d = wheelCv.getContext("2d");
+    var size = wheelCv.width, c = size / 2, rad = c - 3;
+    var img = ctx2d.createImageData(size, size);
+    for (var y = 0; y < size; y++) {
+      for (var x = 0; x < size; x++) {
+        var dx = x - c + 0.5, dy = y - c + 0.5;
+        var r = Math.sqrt(dx * dx + dy * dy);
+        var o = (y * size + x) * 4;
+        if (r > rad) { img.data[o + 3] = 0; continue; }
+        var a = (Math.atan2(dy, dx) * 180 / Math.PI + 360) % 360;
+        var rgb = hslToRgb(a, Math.min(1, r / rad), 0.5);
+        img.data[o] = rgb[0]; img.data[o + 1] = rgb[1]; img.data[o + 2] = rgb[2]; img.data[o + 3] = 255;
+      }
+    }
+    ctx2d.putImageData(img, 0, 0);
+    // notch marking the active hue
+    var na = (hue - 90) * Math.PI / 180;
+    ctx2d.strokeStyle = "#fff";
+    ctx2d.lineWidth = 2;
+    ctx2d.beginPath();
+    ctx2d.moveTo(c + Math.cos(na) * (rad - 7), c + Math.sin(na) * (rad - 7));
+    ctx2d.lineTo(c + Math.cos(na) * (rad + 1), c + Math.sin(na) * (rad + 1));
+    ctx2d.stroke();
+    ctx2d.strokeStyle = "#000";
+    ctx2d.lineWidth = 1;
+    ctx2d.strokeRect(0.5, 0.5, size - 1, size - 1);
+  }
+  function renderBlocks(hue) {
+    if (!blockBox || !PALETTE.length) return;
+    var dist = function (h) { var d = Math.abs(h - hue) % 360; return d > 180 ? 360 - d : d; };
+    var sorted = PALETTE.slice().sort(function (a, b) { return dist(a.h) - dist(b.h); });
+    var picks = [];
+    for (var i = 0; i < sorted.length && picks.length < 6; i++) {
+      var cand = sorted[i];
+      if (cand.s < 0.06) continue;                       // skip near-grays
+      if (dist(cand.h) > 26) break;
+      if (picks.some(function (p2) { return Math.abs(p2.l - cand.l) < 0.09 && dist2(p2, cand); })) continue;
+      picks.push(cand);
+    }
+    while (picks.length < 6 && picks.length < sorted.length) picks.push(sorted[picks.length + 10] || sorted[picks.length]);
+    function dist2(a, b) { return Math.abs(a.h - b.h) > 2; }
+    blockBox.innerHTML = '<div class="sw-name">hue ' + Math.round(hue) + "° · " + esc(picks.length) + ' real blocks <span class="newflag blink">NEW</span></div>' +
+      '<div class="sw">' + picks.map(function (b) {
+        return '<img class="sw-tex" src="/assets/blocks/' + encodeURIComponent(b.f) + '" width="46" height="46" alt="' + esc(b.n) + '" title="' + esc(b.n) + '" loading="lazy">';
+      }).join("") + "</div>" +
+      '<div class="swl">' + picks.map(function (b) { return esc(b.n); }).join(" · ") + "</div>";
+  }
+  if (blockBox) {
+    blockBox.innerHTML = '<div class="tiny">textures downloading… (415 blocks)</div>';
+    fetch("/assets/blocks/palette.json").then(function (r) { return r.json(); }).then(function (list) {
+      PALETTE = list.map(function (b) {
+        var hsl = rgbToHsl(b.r, b.g, b.b);
+        return { n: b.n, f: b.f, r: b.r, g: b.g, b: b.b, h: hsl.h, s: hsl.s, l: hsl.l };
+      });
+      paintWheel(WHEEL_HUE);
+      renderBlocks(WHEEL_HUE);
+      if (wheelCv) wheelCv.onclick = function (ev) {
+        var rect = wheelCv.getBoundingClientRect();
+        var x = ev.clientX - rect.left - rect.width / 2;
+        var y = ev.clientY - rect.top - rect.height / 2;
+        WHEEL_HUE = (Math.atan2(y, x) * 180 / Math.PI + 360) % 360;
+        paintWheel(WHEEL_HUE);
+        renderBlocks(WHEEL_HUE);
+      };
+    }).catch(function () {
+      blockBox.innerHTML = '<div class="tiny">block textures unavailable offline — try again later!</div>';
+    });
   }
 
   /* ============================================== MAXAMP — chiptune radio -- */
@@ -104,7 +181,19 @@
       this.analyser = this.ctx.createAnalyser();
       this.analyser.fftSize = 64;
       this.master.connect(this.analyser);
+      // small echo for ambience, like a jukebox in an empty mall
+      this.delay = this.ctx.createDelay(1);
+      this.delay.delayTime.value = 0.26;
+      this.fb = this.ctx.createGain();
+      this.fb.gain.value = 0.22;
+      this.wet = this.ctx.createGain();
+      this.wet.gain.value = 0.3;
       this.analyser.connect(this.ctx.destination);
+      this.analyser.connect(this.delay);
+      this.delay.connect(this.fb);
+      this.fb.connect(this.delay);
+      this.delay.connect(this.wet);
+      this.wet.connect(this.ctx.destination);
       var len = this.ctx.sampleRate * 0.5;
       this.noise = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
       var data = this.noise.getChannelData(0);
@@ -172,7 +261,7 @@
     },
     play: function () {
       var c = this.ensure();
-      if (c.state === "suspended") c.resume();
+      if (c.state !== "running") { try { c.resume(); } catch (e) { /* gesture needed */ } }
       if (!this.playing) {
         this.playing = true;
         this.nextTime = c.currentTime + 0.06;
@@ -204,7 +293,12 @@
     },
     paintLcd: function () {
       var lcd = el("wa-track");
-      if (lcd) lcd.textContent = pad(Math.floor(this.elapsed / 60), 2) + ":" + pad(this.elapsed % 60, 2) + "  " + TRACKS[this.track].title;
+      if (!lcd) return;
+      var locked = this.playing && this.ctx && this.ctx.state !== "running";
+      lcd.textContent = (locked ? "!! audio locked - click anywhere !!  " : "") +
+        pad(Math.floor(this.elapsed / 60), 2) + ":" + pad(this.elapsed % 60, 2) + "  " + TRACKS[this.track].title;
+      var w = el("winamp");
+      if (w) w.classList.toggle("locked", !!locked);
     },
     paintList: function () {
       var list = el("wa-list");
@@ -214,6 +308,21 @@
       }, this).join("");
     }
   };
+
+  /* unlock audio on the very first human gesture anywhere on the page:
+     browsers (and sandboxed preview iframes) refuse AudioContext until then */
+  var unlock = function () {
+    try {
+      if (!AMP.ctx) return;
+      if (AMP.ctx.state === "suspended") AMP.ctx.resume();
+    } catch (e) { /* keep trying */ }
+  };
+  document.addEventListener("pointerdown", unlock, true);
+  document.addEventListener("keydown", unlock, true);
+  window.setInterval(function () {
+    if (AMP.playing && AMP.ctx && AMP.ctx.state === "suspended") { AMP.ctx.resume().catch(function () {}); }
+    AMP.paintLcd();
+  }, 1500);
 
   if (el("winamp")) {
     AMP.paintLcd();
@@ -267,6 +376,26 @@
     q.oninput = filter;
     if (q.form) q.form.onsubmit = function (ev) { ev.preventDefault(); filter(); };
     filter();
+  }
+
+  /* ------------------------------------------------- eyes that watch you -- */
+  var pupils = [el("pupil-l"), el("pupil-r")].filter(Boolean);
+  if (pupils.length) {
+    var moveEyes = function (ev) {
+      pupils.forEach(function (pup) {
+        var eye = pup.parentNode;
+        if (!eye) return;
+        var r = eye.getBoundingClientRect();
+        var dx = ev.clientX - (r.left + r.width / 2);
+        var dy = ev.clientY - (r.top + r.height / 2);
+        var d = Math.sqrt(dx * dx + dy * dy) || 1;
+        var max = Math.max(2, r.width * 0.16);
+        var k = Math.min(1, d / 140);
+        pup.style.transform = "translate(" + (dx / d * max * k).toFixed(1) + "px," + (dy / d * max * k).toFixed(1) + "px)";
+      });
+    };
+    document.addEventListener("mousemove", moveEyes, { passive: true });
+    document.addEventListener("touchmove", function (ev) { if (ev.touches[0]) moveEyes(ev.touches[0]); }, { passive: true });
   }
 
   /* ------------------------------------------------------------ sparkles -- */

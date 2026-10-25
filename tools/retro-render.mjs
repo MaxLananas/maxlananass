@@ -5,6 +5,8 @@
    Run: npm run retro:render
    ========================================================================== */
 import { writeFile, mkdir } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import sharp from "sharp";
 import { dirname, resolve } from "node:path";
 import { SITE, PAGE_SIZE, galleryPath, canonical, projectPath } from "../content/site.js";
 import { sitePages } from "../content/pages.js";
@@ -18,8 +20,11 @@ import { MUSEUM_ARTICLE, MUSEUM_ARTICLE_PATH } from "../content/museum-article.j
 import { META } from "../content/projects-i18n.js";
 import { IPROF_STUDY } from "../content/iprof-case-study.js";
 import { dateLabel } from "../content/dates.js";
+import { schemaFor } from "./seo-render.mjs";
+import { helpers as seoHelpers } from "./seo-content.mjs";
 
 const root = resolve(import.meta.dirname, "..");
+const outRoot = process.env.RETRO_OUT ? resolve(process.env.RETRO_OUT) : root;
 const esc = (v = "") => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const bySlug = (slug) => PROJECTS.find((p) => p.slug === slug);
 
@@ -37,26 +42,26 @@ const TR = {
     updates: "updates", older: "older entries…",
     nowPlaying: "maxamp v2.91", currently: "currently",
     curBuilding: "building", curPlaying: "playing", curListening: "listening", curMood: "mood",
-    curBuildingV: "corsica coastlines for BTE France", curPlayingV: "minecraft 1.21.1 (fabric, obviously)", curListeningV: "minecraft volume alpha, again", curMoodV: "caffeinated & blocky",
+    curBuildingV: "centre pompidou, paris (BTE France)", curPlayingV: "minecraft 26.2, obviously", curListeningV: "indochine & théa, on repeat", curMoodV: "in full incomprehension of french politics",
     shoutbox: "shoutbox", shoutSend: "ok", shoutPlaceholder: "say hi…", signGb: "sign my guestbook!",
     welcomeWin: "welcome.txt — notepad", notice: "heads up!!",
-    noticeBody: "this site contains <b>minecraft screenshots</b>, strong opinions about block palettes, animated gifs and zero cookies. it is hand-coded, slightly messy and best enjoyed with a slow connection. if you want my réasumé-style portfolio… this is it. ^^",
+    noticeBody: "warning!! side effects of this site include: sparkles under your cursor, chiptunes in your ears and a sudden urge to place blocks. <b>101 minecraft screenshots</b> inside, zero cookies, zero trackers, zero refunds. welcome home, traveller.",
     journalTitle: "journal", featuredTitle: "featured projects", galleryTitle: "latest builds", viewGallery: "open the full gallery",
     contactTitle: "commissions & contact", processTitle: "how a build happens", faqTitle: "questions people ask",
     powered: "powered by", webring: "« prev · minecraft builders webring · next »", webringNote: "member site #47 · join the ring",
-    footCopy: "© 1997–2026 MaxLananas · no frames were used, only tables", footMade: "hand-coded in notepad at 2am · every commit is a genuine regret",
+    footCopy: "© 1997–2026 MaxLananas", footMade: "hand-coded in notepad at 2am · every commit is a genuine regret",
     footBest: "best viewed at 800×600", footView: "you are visitor",
     statsTitle: "site statistics", statsBuilds: "builds photographed", statsProjects: "projects documented", statsReleases: "mods & tools published", statsLangs: "languages spoken here", statsUptime: "uptime since 1999",
     gbTitle: "guestbook.exe", gbIntro: "please be nice!! guestbook entries are stored in your own browser (this is a static site, we have no server money). sign it, refresh, it stays. magic.",
     gbName: "name", gbUrl: "your site", gbMsg: "message", gbMood: "mood", gbSend: "sign it!", gbThanks: "thanks for signing!! ♥", gbErr: "write something first!!", gbCount: "entries so far", gbNoscript: "the guestbook needs javascript — leave a shout on discord instead!",
-    journalWin: "journal.txt", linksWin: "links.html", linksIntro: "the obligatory links page. cool sites, official profiles and places that shaped this website's look.",
+    journalWin: "journal.txt", linksWin: "links.html", linksIntro: "everywhere i exist online. seven doors, all official, no webrings: pick one and knock.",
     linksOfficial: "official profiles", linksFun: "cool sites & inspiration", linksRetro: "retro web resources",
     mapWin: "sitemap.txt", mapIntro: "every page of this site, listed like it's 1999 and xml sitemaps don't exist yet.",
     mapMain: "main pages", mapProjects: "project files", mapBuilds: "build gallery", mapExtra: "the fun wing",
     searchTitle: "search the site", searchBtn: "find!", searchPlaceholder: "type a block, a build, a mod…",
     newFlag: "new!", download: "download", source: "source code",
     mediaTitle: "media center", mediaLink: "about this video", aboutWin: "aboutme.txt — notepad",
-    blockTitle: "block of the day", blockNote: "palette pulled from my colour obsessions — mixed with", wipTitle: "construction site", wipPct: "overall progress: 69% nice", wip1: "corsica coastline (BTE France) — 68%, waiting on WorldEdit to stop crying", wip2: "jukeboxplus disco UI — 41%, the vinyl texture needs more pixels", wip3: "this website — 99%, forever", journalNote: "this journal is transcribed from real git commits. the embarrassment is authentic.", radioNote: "real chiptunes, synthesized live in your browser by maxamp. no mp3 was harmed.",
+    eyesTitle: "on watch", eyesNote: "this site looks back at you, fondly", wheelHint: "click the colour wheel to remix today's palette", blockTitle: "block of the day", blockNote: "palette pulled from my colour obsessions — mixed with", wipTitle: "construction site", wipPct: "overall progress: 69% nice", wip1: "corsica coastline (BTE France) — 68%, waiting on WorldEdit to stop crying", wip2: "jukeboxplus disco UI — 41%, the vinyl texture needs more pixels", wip3: "this website — 99%, forever", journalNote: "this journal is transcribed from real git commits. the embarrassment is authentic.", radioNote: "why no minecraft ost? c418 & lena raine own those notes — maxamp composes original chiptunes live in your browser instead. no mp3 was harmed, no lawyer was summoned.",
     lastUpdated: "page last watered"
   },
   fr: {
@@ -71,26 +76,26 @@ const TR = {
     updates: "news", older: "entrées plus anciennes…",
     nowPlaying: "maxamp v2.91", currently: "en ce moment",
     curBuilding: "construction", curPlaying: "je joue à", curListening: "j'écoute", curMood: "humeur",
-    curBuildingV: "côtes corses pour BTE France", curPlayingV: "minecraft 1.21.1 (fabric, évidemment)", curListeningV: "minecraft volume alpha, encore", curMoodV: "caféiné & blocky",
+    curBuildingV: "centre pompidou, paris (BTE France)", curPlayingV: "minecraft 26.2, évidemment", curListeningV: "indochine & théa, en boucle", curMoodV: "en pleine incompréhension de la politique française",
     shoutbox: "shoutbox", shoutSend: "ok", shoutPlaceholder: "dis bonjour…", signGb: "signe mon livre d'or !",
     welcomeWin: "bienvenue.txt — bloc-notes", notice: "attention !!",
-    noticeBody: "ce site contient <b>des captures minecraft</b>, des avis très tranchés sur les palettes de blocs, des gifs animés et zéro cookie. codé à la main, un peu fouillis, meilleur avec une connexion lente. si tu cherches un portfolio version cv… c'est ici. ^^",
+    noticeBody: "attention !! effets secondaires de ce site : étincelles sous le curseur, chiptunes dans les oreilles et envie soudaine de poser des blocs. <b>101 captures minecraft</b> à l'intérieur, zéro cookie, zéro tracker, zéro remboursement. bienvenue chez toi, voyageur.",
     journalTitle: "journal", featuredTitle: "projets à la une", galleryTitle: "builds récents", viewGallery: "ouvrir la galerie complète",
     contactTitle: "commandes & contact", processTitle: "comment naît un build", faqTitle: "questions fréquentes",
     powered: "propulsé par", webring: "« préc · webring des builders minecraft · suiv »", webringNote: "site membre n°47 · rejoindre",
-    footCopy: "© 1997–2026 MaxLananas · aucune frame, seulement des tableaux", footMade: "codé à la main dans le bloc-notes à 2h du mat · chaque commit est un regret authentique",
+    footCopy: "© 1997–2026 MaxLananas", footMade: "codé à la main dans le bloc-notes à 2h du mat · chaque commit est un regret authentique",
     footBest: "affiché au mieux en 800×600", footView: "vous êtes le visiteur",
     statsTitle: "statistiques du site", statsBuilds: "builds photographiés", statsProjects: "projets documentés", statsReleases: "mods & outils publiés", statsLangs: "langues parlées ici", statsUptime: "en ligne depuis 1999",
     gbTitle: "livredor.exe", gbIntro: "soyez gentils !! les messages sont gardés dans votre propre navigateur (site statique, pas de sous pour un serveur). signez, rafraîchissez, ça reste. magie.",
     gbName: "pseudo", gbUrl: "ton site", gbMsg: "message", gbMood: "humeur", gbSend: "signer !", gbThanks: "merci pour ta signature !! ♥", gbErr: "écris quelque chose d'abord !!", gbCount: "messages pour l'instant", gbNoscript: "le livre d'or a besoin de javascript — laisse un message sur discord !",
-    journalWin: "journal.txt", linksWin: "liens.html", linksIntro: "la page de liens obligatoire. sites cool, profils officiels et endroits qui ont donné son look à ce site.",
+    journalWin: "journal.txt", linksWin: "liens.html", linksIntro: "partout où j'existe en ligne. sept portes, toutes officielles, aucun webring : choisis-en une et frappe.",
     linksOfficial: "profils officiels", linksFun: "sites cool & inspiration", linksRetro: "ressources web rétro",
     mapWin: "plan.txt", mapIntro: "toutes les pages du site, listées comme en 1999, avant les sitemaps xml.",
     mapMain: "pages principales", mapProjects: "fiches projets", mapBuilds: "galerie de builds", mapExtra: "l'aile fun",
     searchTitle: "chercher sur le site", searchBtn: "trouver !", searchPlaceholder: "un bloc, un build, un mod…",
     newFlag: "nouveau !", download: "télécharger", source: "code source",
     mediaTitle: "centre média", mediaLink: "à propos de cette vidéo", aboutWin: "apropos.txt — bloc-notes",
-    blockTitle: "bloc du jour", blockNote: "palette tirée de mes obsessions de couleurs — mixée avec", wipTitle: "chantier en cours", wipPct: "progression globale : 69 % nice", wip1: "côtes corses (BTE France) — 68 %, on attend que WorldEdit arrête de pleurer", wip2: "jukeboxplus UI disco — 41 %, la texture vinyle réclame plus de pixels", wip3: "ce site — 99 %, pour toujours", journalNote: "ce journal est transcrit depuis de vrais commits git. la gêne est authentique.", radioNote: "vraies chiptunes, synthétisées en direct dans ton navigateur par maxamp. aucun mp3 blessé.",
+    eyesTitle: "je veille", eyesNote: "ce site te regarde aussi, avec tendresse", wheelHint: "clique sur la roue des couleurs pour remixer la palette du jour", blockTitle: "bloc du jour", blockNote: "palette tirée de mes obsessions de couleurs — mixée avec", wipTitle: "chantier en cours", wipPct: "progression globale : 69 % nice", wip1: "côtes corses (BTE France) — 68 %, on attend que WorldEdit arrête de pleurer", wip2: "jukeboxplus UI disco — 41 %, la texture vinyle réclame plus de pixels", wip3: "ce site — 99 %, pour toujours", journalNote: "ce journal est transcrit depuis de vrais commits git. la gêne est authentique.", radioNote: "pourquoi pas l'ost minecraft ? c418 & lena raine possèdent ces notes — maxamp compose des chiptunes originales en direct dans ton navigateur. aucun mp3 blessé, aucun avocat convoqué.",
     lastUpdated: "page arrosée le"
   },
   es: {
@@ -105,33 +110,33 @@ const TR = {
     updates: "noticias", older: "entradas anteriores…",
     nowPlaying: "maxamp v2.91", currently: "ahora mismo",
     curBuilding: "construyendo", curPlaying: "jugando", curListening: "escuchando", curMood: "humor",
-    curBuildingV: "costas de córcega para BTE France", curPlayingV: "minecraft 1.21.1 (fabric, obvio)", curListeningV: "minecraft volume alpha, otra vez", curMoodV: "con café y bloques",
+    curBuildingV: "centre pompidou, parís (BTE France)", curPlayingV: "minecraft 26.2, obvio", curListeningV: "indochine & théa, en bucle", curMoodV: "en plena incomprensión de la política francesa",
     shoutbox: "shoutbox", shoutSend: "ok", shoutPlaceholder: "saluda…", signGb: "¡firma mi libro de visitas!",
     welcomeWin: "bienvenida.txt — bloc de notas", notice: "¡aviso!",
-    noticeBody: "este sitio contiene <b>capturas de minecraft</b>, opiniones muy fuertes sobre paletas de bloques, gifs animados y cero cookies. está hecho a mano, algo desordenado y se disfruta mejor con conexión lenta. si buscas mi portfolio estilo cv… es este. ^^",
+    noticeBody: "¡¡aviso!! efectos secundarios de este sitio: chispas bajo el cursor, chiptunes en los orejas y ganas repentinas de colocar bloques. <b>101 capturas de minecraft</b> dentro, cero cookies, cero rastreadores, cero reembolsos. bienvenido a casa, viajero.",
     journalTitle: "diario", featuredTitle: "proyectos destacados", galleryTitle: "builds recientes", viewGallery: "abrir la galería completa",
     contactTitle: "encargos y contacto", processTitle: "cómo nace un build", faqTitle: "preguntas frecuentes",
     powered: "funciona con", webring: "« ant · webring de builders minecraft · sig »", webringNote: "sitio miembro #47 · únete",
-    footCopy: "© 1997–2026 MaxLananas · sin frames, solo tablas", footMade: "escrito a mano en el bloc de notas a las 2am · cada commit es un arrepentimiento auténtico",
+    footCopy: "© 1997–2026 MaxLananas", footMade: "escrito a mano en el bloc de notas a las 2am · cada commit es un arrepentimiento auténtico",
     footBest: "mejor visto a 800×600", footView: "eres el visitante",
     statsTitle: "estadísticas del sitio", statsBuilds: "builds fotografiados", statsProjects: "proyectos documentados", statsReleases: "mods y herramientas publicadas", statsLangs: "idiomas aquí", statsUptime: "en línea desde 1999",
     gbTitle: "libro.exe", gbIntro: "¡sed majos! los mensajes se guardan en vuestro propio navegador (sitio estático, no hay dinero para servidores). firma, refresca, se queda. magia.",
     gbName: "nombre", gbUrl: "tu sitio", gbMsg: "mensaje", gbMood: "humor", gbSend: "¡firmar!", gbThanks: "¡gracias por firmar!! ♥", gbErr: "¡escribe algo primero!", gbCount: "entradas hasta ahora", gbNoscript: "el libro necesita javascript — ¡deja un saludo en discord!",
-    journalWin: "diario.txt", linksWin: "enlaces.html", linksIntro: "la obligatoria página de enlaces. sitios guays, perfiles oficiales y lugares que dieron su look a esta web.",
+    journalWin: "diario.txt", linksWin: "enlaces.html", linksIntro: "todas partes donde existo en línea. siete puertas, todas oficiales, sin webrings: elige una y llama.",
     linksOfficial: "perfiles oficiales", linksFun: "sitios guays e inspiración", linksRetro: "recursos web retro",
     mapWin: "mapa.txt", mapIntro: "todas las páginas del sitio, listadas como en 1999, antes de los sitemaps xml.",
     mapMain: "páginas principales", mapProjects: "fichas de proyectos", mapBuilds: "galería de builds", mapExtra: "el ala fun",
     searchTitle: "buscar en el sitio", searchBtn: "¡buscar!", searchPlaceholder: "un bloque, un build, un mod…",
     newFlag: "¡nuevo!", download: "descargar", source: "código fuente",
     mediaTitle: "centro de medios", mediaLink: "sobre este vídeo", aboutWin: "sobremi.txt — bloc de notas",
-    blockTitle: "bloque del día", blockNote: "paleta sacada de mis obsesiones de color — mezclada con", wipTitle: "obra en curso", wipPct: "progreso total: 69 % nice", wip1: "costa corsa (BTE France) — 68 %, esperando que WorldEdit deje de llorar", wip2: "jukeboxplus UI disco — 41 %, la textura de vinilo pide más píxeles", wip3: "esta web — 99 %, para siempre", journalNote: "este diario se transcribe desde commits git reales. la vergüenza es auténtica.", radioNote: "chiptunes reales, sintetizadas en vivo en tu navegador por maxamp. ningún mp3 fue herido.",
+    eyesTitle: "vigilando", eyesNote: "este sitio también te mira, con cariño", wheelHint: "haz clic en la rueda de colores para remezclar la paleta del día", blockTitle: "bloque del día", blockNote: "paleta sacada de mis obsesiones de color — mezclada con", wipTitle: "obra en curso", wipPct: "progreso total: 69 % nice", wip1: "costa corsa (BTE France) — 68 %, esperando que WorldEdit deje de llorar", wip2: "jukeboxplus UI disco — 41 %, la textura de vinilo pide más píxeles", wip3: "esta web — 99 %, para siempre", journalNote: "este diario se transcribe desde commits git reales. la vergüenza es auténtica.", radioNote: "¿por qué no el ost de minecraft? c418 y lena raine son dueños de esas notas — maxamp compone chiptunes originales en vivo en tu navegador. ningún mp3 herido, ningún abogado convocado.",
     lastUpdated: "página regada el"
   }
 };
 
 /* ------------------------------------------------------------- journal -- */
 const JOURNAL = [
-  { d: "2026-10-25", h: "cb0a9a7", en: "the guestbook is gone: the spam bots found it in under a week. the 90s were nicer, the bots are modern. shout at the radio instead, it actually plays music now.", fr: "le livre d'or a disparu : les bots de spam l'ont trouvé en moins d'une semaine. les années 90 étaient plus douces, les bots sont modernes. crie vers la radio plutôt, elle joue vraiment de la musique maintenant.", es: "el libro de visitas se fue: los bots de spam lo encontraron en menos de una semana. los 90 eran más amables, los bots son modernos. grítale a la radio, ahora sí suena música." },
+  { d: "2026-10-05", h: "petition", link: "https://greve-petition.pages.dev/", en: "organized a mobilization of 950 students in my lyceum in Guadeloupe: petition site online (600 signatures!), representatives received by the rector and the Region president Ary Chalus, then articles in Guadeloupe 1ère, Canal 10 and Libération. the most enriching thing i ever built — and i have built bridges in minecraft.", fr: "organisé une mobilisation de 950 élèves dans mon lycée en Guadeloupe : site de pétition en ligne (600 signatures !), des représentants reçus par le recteur et le président de Région Ary Chalus, puis des articles dans Guadeloupe 1ère, Canal 10 et Libération. la chose la plus enrichissante que j'aie construite — et j'ai construit des ponts dans minecraft.", es: "organicé una movilización de 950 estudiantes en mi liceo en Guadalupe: sitio de petición en línea (¡600 firmas!), representantes recibidos por el rector y el presidente regional Ary Chalus, y artículos en Guadeloupe 1ère, Canal 10 y Libération. lo más enriquecedor que he construido — y he construido puentes en minecraft." },
   { d: "2026-10-25", h: "6e459e8", en: "redesigned the whole site again!! third time this year. sorry mom, the table layouts were calling me. i hand-rolled a PNG and a GIF encoder for this. my therapist asked me to say hi.", fr: "refonte complète du site, encore !! troisième fois cette année. pardon maman, les tableaux m'appelaient. j'ai codé un encodeur PNG et un encodeur GIF à la main pour ça. ma thérapeute me dit de vous saluer.", es: "¡rediseñé todo el sitio otra vez!! tercera vez este año. perdón mamá, las tablas me llamaban. escribí a mano un codificador PNG y uno GIF para esto. mi terapeuta saluda." },
   { d: "2026-09-30", h: "5189837", link: MUSEUM_ARTICLE_PATH, en: "the Muséum de Toulouse featured our Pont Neuf build!! page published, image metadata polished, tears shed, commit pushed, more tears shed. worth it.", fr: "le Muséum de Toulouse a parlé de notre build du Pont-Neuf !! page publiée, métadonnées images soignées, larmes versées, commit poussé, autres larmes versées. ça valait le coup.", es: "¡el Muséum de Toulouse destacó nuestro build del Pont Neuf!! página publicada, metadatos pulidos, lágrimas derramadas, commit subido, más lágrimas. valió la pena." },
   { d: "2026-09-13", h: "45d5207", en: "spent the day bisecting a horizontal overflow on small screens. the culprit was one (1) tab control. twelve commits of public embarrassment, archived forever in git. do not look at them. look at them.", fr: "journée passée à faire une bissection de débordement horizontal sur petits écrans. le coupable : un (1) onglet. douze commits de gêne publique, archivés pour l'éternité dans git. ne les regardez pas. regardez-les.", es: "día entero haciendo bisect de un desborde horizontal en pantallas pequeñas. el culpable: una (1) pestaña. doce commits de vergüenza pública, archivados para siempre en git. no los miren. mírenlos." },
@@ -188,9 +193,14 @@ function mediaShot(keys, h, cols = 2) {
 function cardRow(p, h) {
   const l = h.lang;
   let visual;
-  if (p.cover || p.icon) {
+  const shot = `/assets/projects/${p.slug}-shot.webp`;
+  if (p.art && existsSync(resolve(root, "." + p.art))) {
+    visual = `<img class="pixel" src="${esc(p.art)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}" loading="lazy" style="width:84px;height:auto;">`;
+  } else if (p.cover || p.icon) {
     const data = mediaData(p.cover || p.icon);
     visual = `<img src="${esc(data.src)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}" loading="lazy" style="width:84px;height:auto;">`;
+  } else if (existsSync(resolve(root, "." + shot))) {
+    visual = `<img src="${esc(shot)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}" loading="lazy" style="width:84px;height:auto;">`;
   } else {
     visual = '<span class="b88 grey">pic soon(tm)</span>';
   }
@@ -203,11 +213,11 @@ const cards = (projects, h) => `<table class="cards">${projects.map((p) => cardR
 function leftRail(h, current) {
   const nav = (path, labelKey) => `<a class="navbtn" href="${esc(h.route(path))}"${current === path ? ' aria-current="page"' : ""}>${esc(h.tr(labelKey))}</a>`;
   return [
-    panel(h.tr("visitors"), `<div class="center"><span class="odo" id="odo"></span><div class="tiny">${esc(h.tr("youAre"))} <span id="odo-mini">??????</span><br>${esc(h.tr("since"))}</div></div>`),
-    panel(h.tr("main"), [nav("/", "navHome"), nav("/about/", "navAbout"), nav("/builds/", "navBuilds"), nav("/projects/", "navProjects"), nav("/journal/", "navJournal"), nav("/guides/minecraft-mods-plugins-addons/", "navGuides"), nav("/sitemap/", "navSitemap")].join("")),
-    panel(h.tr("fun"), [nav("/development/", "funDev"), nav("/guides/minecraft-mods-plugins-addons/", "funGuide"), nav("/projects/nostalgia-ultra/", "funShaders"), nav("/projects/jukeboxplus/", "funJukebox"), nav("/projects/colorflow/", "funColorflow")].join("")),
+    panel(h.tr("eyesTitle"), `<div class="eyes-row"><span class="eye"><i class="pupil" id="pupil-l"></i></span><span class="eye"><i class="pupil" id="pupil-r"></i></span></div><div class="tiny center">${esc(h.tr("eyesNote"))}</div>`),
+    panel(h.tr("main"), [nav("/", "navHome"), nav("/about/", "navAbout"), nav("/builds/", "navBuilds"), nav("/projects/", "navProjects"), nav("/journal/", "navJournal"), nav("/sitemap/", "navSitemap")].join("")),
+    panel(h.tr("fun"), [nav("/development/", "funDev"), nav("/projects/nostalgia-ultra/", "funShaders"), nav("/projects/jukeboxplus/", "funJukebox"), nav("/projects/colorflow/", "funColorflow")].join("")),
     panel(h.tr("shrines"), `<div class="blinkie-row"><img class="pixel" src="/assets/retro/star.gif" alt="" width="21" height="21"><br>${h.link("/buildtheearth/", h.tr("shrineBte"))}<br><img class="pixel" src="/assets/retro/heart.gif" alt="" width="17" height="15"><br>${h.link("/projects/le-mans/", h.tr("shrineLemans"))}<br>${h.link(MUSEUM_ARTICLE_PATH, h.tr("shrineMuseum"))}</div>`),
-    panel(h.tr("other"), [nav("/links/", "navLinks"), nav("/search/", "navSearch"), `<a class="navbtn" href="https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1" target="_blank" rel="noopener">${esc(h.tr("navArchive"))}</a>`, `<a class="navbtn" href="${esc(SITE.discord)}" target="_blank" rel="noopener">discord</a>`].join(""))
+    panel(h.tr("other"), [nav("/links/", "navLinks"), nav("/search/", "navSearch"), `<a class="navbtn" href="${esc(SITE.discord)}" target="_blank" rel="noopener">discord</a>`].join(""))
   ].join("");
 }
 
@@ -229,22 +239,16 @@ function homeBody(page, h) {
   const process = copy(l, k, "process");
   const faq = copy(l, k, "faq");
   return [
-    win(h.tr("welcomeWin"), `<div class="welcome"><div class="ava"><img class="pixel" src="/assets/retro/avatar.png" alt="pixel avatar of MaxLananas" width="96" height="96"></div><div class="txt"><h1 class="pixel">${esc(page.heading)}</h1><p class="tiny">${esc(copy(l, k, "identity"))}</p><p>${fill(copy(l, k, "intro"), { iprof: h.link("/projects/iprof-redesign/", copy(l, k, "introIprof")), bte: h.link("/buildtheearth/", copy(l, k, "introBte")), dev: h.link("/development/", copy(l, k, "introDev")), about: h.link("/about/", copy(l, k, "introAbout")) })}</p></div></div>`),
+    win(h.tr("welcomeWin"), `<div class="welcome"><div class="ava"><img class="photo" src="/assets/retro/avatar.png" alt="MaxLananas" width="112" height="112"></div><div class="txt"><h1 class="pixel">${esc(page.heading)}</h1><p class="tiny">${esc(copy(l, k, "identity"))}</p><p>${fill(copy(l, k, "intro"), { iprof: h.link("/projects/iprof-redesign/", copy(l, k, "introIprof")), bte: h.link("/buildtheearth/", copy(l, k, "introBte")), dev: h.link("/development/", copy(l, k, "introDev")), about: h.link("/about/", copy(l, k, "introAbout")) })}</p></div></div>`),
     `<div class="sunken notice"><b>${esc(h.tr("notice"))}</b> <img class="pixel" src="/assets/retro/construction.gif" alt="" width="88" height="31" style="float:right;margin-left:6px;"> ${h.tr("noticeBody")}</div>`,
     panel(h.tr("journalTitle"), JOURNAL.slice(0, 2).map((e) => `<p><b class="tiny">[${e.d}]</b> ${esc(e[l])} ${e.link ? h.link(e.link, "→") : ""}</p>`).join("") + `<p class="center">${h.link("/journal/", h.tr("older"))}</p>`),
-    panel(h.tr("featuredTitle"), `<p>${esc(copy(l, k, "projectsIntro"))}</p>` + cards(featured, h) + `<p class="center tiny">${h.link("/development/", copy(l, k, "sectionLinksDev"))} · ${h.link(SITE.modrinth, copy(l, k, "sectionLinksModrinth"))}</p>`),
 
-    panel(h.tr("blockTitle"), `<div id="block-day" class="swatches"></div><p class="tiny center">${esc(h.tr("blockNote"))} ${h.link("/projects/colorflow/", "Colorflow")}</p>`),
-    panel(h.tr("wipTitle"), `<div class="pbar"><i></i></div><p class="tiny center">${esc(h.tr("wipPct"))}</p><ul class="pix"><li>${esc(h.tr("wip1"))}</li><li>${esc(h.tr("wip2"))}</li><li>${esc(h.tr("wip3"))}</li></ul><pre class="ascii" aria-hidden="true">
-########
-#@@##@@#
-#@@##@@#
-###@@###
-##@@@@##
-##@##@##
-########</pre>`),
-    panel(h.tr("mediaTitle"), `<figure class="shot" style="margin:2px 0 4px;"><video class="native" controls playsinline preload="none" poster="/${esc(iprofVideo.poster)}" width="${iprofVideo.width}" height="${iprofVideo.height}"><source src="/${esc(iprofVideo.file)}" type="video/mp4"></video><figcaption>${esc(ui(l, "videoTitle"))} · ${h.link("/projects/iprof-redesign/", h.tr("mediaLink"))}</figcaption></figure>`),
-    panel(h.tr("contactTitle"), `<p>${esc(copy(l, k, "contactIntro"))}</p><p class="center"><a class="btn95 primary" href="${esc(SITE.discord)}" target="_blank" rel="noopener">${esc(copy(l, k, "contactCta"))}</a><br><span class="tiny">${esc(copy(l, k, "contactNote"))}</span></p><ul class="pix">${services.map((s) => `<li><b>${esc(s.title)}</b> — ${esc(s.text)}</li>`).join("")}</ul>`),
+
+
+
+    `<div class="center" style="margin:2px 0;"><img class="pixel" src="/assets/retro/sparkle-divider.gif" alt="" width="400" height="20"></div>`,
+    panel(h.tr("blockTitle"), `<div class="wheel-row"><canvas id="wheel" width="110" height="110" title="${esc(h.tr("wheelHint"))}"></canvas><div id="block-day" class="swatches"></div></div><p class="tiny center">${esc(h.tr("wheelHint"))} · ${esc(h.tr("blockNote"))} ${h.link("/projects/colorflow/", "Colorflow")}</p>`),
+    panel(h.tr("contactTitle"), `<p>${esc(copy(l, k, "contactIntro"))}</p><p class="center"><img class="pixel" src="/assets/retro/at.gif" alt="" width="15" height="15"> <a class="btn95 primary" href="${esc(SITE.discord)}" target="_blank" rel="noopener">${esc(copy(l, k, "contactCta"))}</a><br><span class="tiny">${esc(copy(l, k, "contactNote"))}</span></p><ul class="pix">${services.map((s) => `<li><b>${esc(s.title)}</b> — ${esc(s.text)}</li>`).join("")}</ul>`),
     panel(h.tr("processTitle"), `<ol class="pix">${process.map((s) => `<li><b>${esc(s.title)}</b> — ${esc(s.text)}</li>`).join("")}</ol>`),
     panel(h.tr("faqTitle"), faq.map((item) => `<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join("")),
 
@@ -257,8 +261,8 @@ function aboutBody(page, h) {
   const releases = PROJECTS.filter((p) => p.collection === "release").length;
   return win(h.tr("aboutWin"), [
     `<p class="tiny">${esc(c("eyebrow"))}</p>`,
-    `<div class="welcome"><div class="ava"><img class="pixel" src="/assets/retro/avatar.png" alt="" width="96" height="96"></div><div class="txt"><p>${esc(c("p1"))}</p><p>${fill(c("p2"), { strong: "<strong>MaxLananas</strong>" })}</p></div></div>`,
-    panel(h.tr("statsTitle"), `<table class="data"><tbody><tr><th>${esc(h.tr("statsBuilds"))}</th><td>${FILES.length}</td></tr><tr><th>${esc(h.tr("statsProjects"))}</th><td>${PROJECTS.length}</td></tr><tr><th>${esc(h.tr("statsReleases"))}</th><td>${releases}</td></tr><tr><th>${esc(h.tr("statsLangs"))}</th><td>3 (en · fr · es)</td></tr><tr><th>${esc(h.tr("statsUptime"))}</th><td>~27 years, give or take</td></tr></tbody></table>`),
+    `<div class="welcome"><div class="ava"><img class="photo" src="/assets/retro/avatar.png" alt="MaxLananas" width="112" height="112"></div><div class="txt"><p>${esc(c("p1"))}</p><p>${fill(c("p2"), { strong: "<strong>MaxLananas</strong>" })}</p></div></div>`,
+    panel(h.tr("statsTitle"), `<table class="data"><tbody><tr><th>${esc(h.tr("statsBuilds"))}</th><td>${FILES.length}</td></tr><tr><th>${esc(h.tr("statsProjects"))}</th><td>${PROJECTS.length}</td></tr><tr><th>${esc(h.tr("statsReleases"))}</th><td>${releases}</td></tr><tr><th>${esc(h.tr("statsLangs"))}</th><td>3 (en · fr · es)</td></tr></tbody></table>`),
     h2(c("s1Title")) + `<p>${fill(c("s1"), { builds: h.link("/builds/", c("s1Builds")), bte: h.link("/buildtheearth/", c("s1Bte")) })}</p>`,
     h2(c("s2Title")) + `<p>${fill(c("s2a"), { iprof: h.link("/projects/iprof-redesign/", c("s2aIprof")), modrinth: h.link(SITE.modrinth, c("s2aModrinth")) })}</p><p>${fill(c("s2b"), { homegui: h.link("/projects/homegui/", "HomeGUI"), tracebte: h.link("/projects/tracebte/", "TraceBTE"), railway: h.link("/projects/railway-tools-axiom/", "Railway Tools"), pineapple: h.link("/projects/pineappleui/", "PineappleUI") })}</p><p>${fill(c("s2c"), { projects: h.link("/projects/", c("s2cProjects")) })}</p>`,
     h2(c("s3Title")) + `<ul class="pix">${c("s3Items").map((item, i) => `<li>${h.link(profiles[i], item.label, 'target="_blank" rel="noopener"')} : ${esc(item.text)}</li>`).join("")}</ul><p>${fill(c("s3Note"), { process: h.link("/#process", c("s3NoteProcess")), contact: h.link("/#contact", c("s3NoteContact")) })}</p>`,
@@ -272,6 +276,72 @@ function spotlight(h, eager = false) {
   return `<div class="sunken" style="padding:7px;"><table style="width:100%;border-collapse:collapse;"><tr><td style="width:46%;vertical-align:top;padding:0 8px 0 0;"><a href="${esc(h.route(projectPath(p.slug)))}"><img src="${esc(data.src)}" alt="${esc(copy(l, "shared", "spotlightAlt"))}" style="width:100%;height:auto;border:1px solid #5f5b54;"></a></td><td style="vertical-align:top;"><p class="tiny">${esc(copy(l, "shared", "spotlightEyebrow"))}</p><h2 class="pixel">${h.link(projectPath(p.slug), META[l]["/projects/iprof-redesign/"].heading)}</h2><p>${esc(copy(l, "shared", "spotlightCopy"))}</p><p class="tiny">${esc(copy(l, "shared", "spotlightKind"))}<br>${esc(copy(l, "shared", "spotlightVisuals"))}</p><p><a class="btn95 primary" href="${esc(h.route(projectPath(p.slug)))}">${esc(copy(l, "shared", "spotlightCta"))}</a></p><p class="tiny">${esc(copy(l, "shared", "spotlightDisclaimer"))}</p></td></tr></table></div>`;
 }
 
+const np = (slug, collection, kind, repo, art, L, extra = {}) => ({
+  slug, collection, kind, repo, art,
+  name: L.en.name, category: L.en.category, language: L.en.language || "", bte: !!extra.bte,
+  modrinth: extra.modrinth || null, web: extra.web || null,
+  categoryFor: (l) => (L[l] || L.en).category,
+  summaryFor: (l) => (L[l] || L.en).summary,
+  introFor: (l) => (L[l] || L.en).intro,
+  featuresFor: (l) => (L[l] || L.en).features,
+  usageFor: (l) => (L[l] || L.en).usage,
+  limitsFor: (l) => (L[l] || L.en).limits,
+  hasFor: () => false, faqFor: () => [], requirements: "", requirementsFor: () => "",
+  images: null, media: null, video: false, upstream: null, related: [],
+  source: repo ? { url: repo } : null, reviewed: "2026-10-25", published: "2026-10-25", modified: "2026-10-25"
+});
+const NEW_PROJECTS = [
+  np("greve-petition", "interface", "design", null, "/assets/retro/promo-petition.webp", {
+    en: { name: "Grève Pétition 2026", category: "Petition & mobilization website", summary: "The petition site I built for the October 2026 lyceum mobilization in Guadeloupe: 600 signatures, 950 students organized, press coverage across the archipel and beyond.", intro: ["In October 2026, lyceens across Guadeloupe mobilized over heat in classrooms, crumbling buildings, canteens, missing teachers and endless schedules. In my lyceum I organized a mobilization of 950 students and built greve-petition.pages.dev to collect and publish our demands: 600 signatures in a few days.", "Representatives were received by the rector Gabriele Fioni and by Ary Chalus, president of the Regional Council. Guadeloupe 1ère, Canal 10 and Libération covered the movement. Beyond the code, it was an extremely enriching experience in organization, communication with the mairie, the Region, the rectorat — and in getting closer to the students themselves."], features: ["Demands collected and published: heat, buildings, canteen, staffing, schedules", "Signature counter and public support wall", "Press archive: Guadeloupe 1ère, Canal 10, Libération"], usage: "Open the site, read the demands, sign, share. The whole revendication list lives there.", limits: "A personal student initiative; signature counts are as declared by the site; not an official union or institutional platform." },
+    fr: { name: "Grève Pétition 2026", category: "Site de pétition & mobilisation", summary: "Le site de pétition créé pour la mobilisation lycéenne d'octobre 2026 en Guadeloupe : 600 signatures, 950 élèves organisés, une couverture presse dans tout l'archipel et au-delà.", intro: ["En octobre 2026, les lycéens de Guadeloupe se mobilisent : chaleur dans les salles, bâtiments vétustes, restauration, manque de professeurs, emplois du temps à rallonge. Dans mon lycée, j'ai organisé une mobilisation de 950 élèves et construit greve-petition.pages.dev pour porter nos revendications : 600 signatures en quelques jours.", "Des représentants ont été reçus par le recteur Gabriele Fioni et par Ary Chalus, président du conseil régional. Guadeloupe 1ère, Canal 10 et Libération ont couvert le mouvement. Au-delà du code : une expérience extrêmement enrichissante d'organisation, de communication avec la mairie, la Région, le rectorat — et de rapprochement avec les élèves."], features: ["Revendications collectées et publiées : chaleur, bâtiments, cantine, moyens, emplois du temps", "Compteur de signatures et mur de soutien public", "Revue de presse : Guadeloupe 1ère, Canal 10, Libération"], usage: "Ouvrir le site, lire les revendications, signer, partager. Toute la liste des revendications y vit.", limits: "Initiative personnelle lycéenne ; compteur de signatures tel que déclaré par le site ; aucune plateforme syndicale ou institutionnelle officielle." },
+    es: { name: "Grève Pétition 2026", category: "Sitio de petición y movilización", summary: "El sitio de petición que creé para la movilización liceal de octubre de 2026 en Guadalupe: 600 firmas, 950 estudiantes organizados, cobertura de prensa en todo el archipiélago.", intro: ["En octubre de 2026, los liceales de Guadalupe se movilizaron: calor en las aulas, edificios vetustos, cantina, falta de profesores, horarios interminables. En mi liceo organicé una movilización de 950 estudiantes y construí greve-petition.pages.dev: 600 firmas en pocos días.", "Representantes fueron recibidos por el rector Gabriele Fioni y por Ary Chalus, presidente del consejo regional. Guadeloupe 1ère, Canal 10 y Libération cubrieron el movimiento. Más allá del código: una experiencia enormemente enriquecedora de organización y comunicación con la alcaldía, la Región y el rectorado."], features: ["Reivindicaciones recopiladas y publicadas: calor, edificios, cantina, personal, horarios", "Contador de firmas y muro de apoyo público", "Cobertura: Guadeloupe 1ère, Canal 10, Libération"], usage: "Abrir el sitio, leer las reivindicaciones, firmar, compartir.", limits: "Iniciativa personal estudiantil; contador de firmas según el sitio; no es una plataforma oficial." }
+  }, { web: { url: "https://greve-petition.pages.dev/" } }),
+  np("hauteur", "lab", "software", "https://github.com/MaxLananas/Hauteur", null, {
+    en: { name: "Hauteur", category: "Geyser extension", language: "Java", summary: "A Geyser extension that lets Bedrock players build and move at Java-world heights (think Y≈1950 on BuildTheEarth) by shifting the vertical window the client sees as they climb.", intro: ["Bedrock clients cannot display the extreme altitudes of Java worlds like BuildTheEarth. Hauteur shifts the vertical window the Bedrock client sees as the player climbs, so building at Y≈1950 stops being a void stare.", "It is a server-side Geyser extension: Bedrock players get a playable vertical slice of the Java world without touching the Java side."], features: ["Remaps the visible vertical window while climbing", "Works on BuildTheEarth-style altitudes", "No client mod needed on the Bedrock side"], usage: "Drop the extension next to Geyser on the server and let Bedrock builders climb.", limits: "Bedrock-side rendering approximations remain; check the repository for the supported Geyser versions." },
+    fr: { name: "Hauteur", category: "Extension Geyser", language: "Java", summary: "Une extension Geyser qui permet aux joueurs Bedrock de construire aux altitudes Java (Y≈1950 sur BuildTheEarth) en décalant la fenêtre verticale vue par le client.", intro: ["Les clients Bedrock ne peuvent pas afficher les altitudes extrêmes des mondes Java comme BuildTheEarth. Hauteur décale la fenêtre verticale perçue par le client Bedrock pendant la montée.", "Côté serveur uniquement : les Bedrock obtiennent une tranche verticale jouable du monde Java."], features: ["Remappe la fenêtre verticale pendant l'ascension", "Altitudes type BuildTheEarth", "Aucun mod client côté Bedrock"], usage: "Déposer l'extension à côté de Geyser sur le serveur.", limits: "Approximations de rendu Bedrock restantes ; voir le dépôt pour les versions Geyser supportées." },
+    es: { name: "Hauteur", category: "Extensión Geyser", language: "Java", summary: "Una extensión Geyser que permite a jugadores Bedrock construir a alturas Java (Y≈1950 en BuildTheEarth) desplazando la ventana vertical del cliente.", intro: ["Los clientes Bedrock no muestran las altitudes extremas de mundos Java como BuildTheEarth. Hauteur desplaza la ventana vertical que ve el cliente Bedrock al subir.", "Solo lado servidor: los Bedrock obtienen una franja vertical jugable del mundo Java."], features: ["Remapea la ventana vertical al subir", "Altitudes tipo BuildTheEarth", "Sin mod cliente en Bedrock"], usage: "Suelta la extensión junto a Geyser en el servidor.", limits: "Quedan aproximaciones de render Bedrock; consulta el repositorio." }
+  }),
+  np("fawe-butinmods", "lab", "software", "https://github.com/MaxLananas/FAWE-ButInMods", null, {
+    en: { name: "FAWE But In Mods", category: "Fabric mod", language: "Java", summary: "The complete WorldEdit 7.3.17 + FastAsyncWorldEdit command set as a standalone Fabric mod for Minecraft 1.21.10. No plugin, no server software, no client mod, no placeholder commands.", intro: ["Everything you love typing — //stack, //copy, //paste, the whole FAWE grammar — running as a pure Fabric mod on 1.21.10.", "No Paper, no plugin folder, no half-implemented placeholders: the full command set, client-side where it can be, server-side where it must be."], features: ["Full WorldEdit 7.3.17 + FAWE command set", "Standalone Fabric mod, 1.21.10", "No plugin or server software required"], usage: "Put the jar in mods/, open a world, start typing slashes.", limits: "Fabric-only; multiplayer behaviour follows the mod's server/client split documented in the repository." },
+    fr: { name: "FAWE But In Mods", category: "Mod Fabric", language: "Java", summary: "Tout le jeu de commandes WorldEdit 7.3.17 + FastAsyncWorldEdit en mod Fabric autonome pour Minecraft 1.21.10. Sans plugin, sans logiciel serveur, sans commandes factices.", intro: ["Tout ce que tu aimes taper — //stack, //copy, //paste, toute la grammaire FAWE — en pur mod Fabric sur 1.21.10.", "Pas de Paper, pas de dossier plugins, pas de placeholders à moitié implémentés."], features: ["Jeu de commandes WorldEdit 7.3.17 + FAWE complet", "Mod Fabric autonome, 1.21.10", "Aucun plugin ni logiciel serveur requis"], usage: "Le jar dans mods/, ouvrir un monde, taper des slashes.", limits: "Fabric uniquement ; voir le dépôt pour le découpage client/serveur." },
+    es: { name: "FAWE But In Mods", category: "Mod Fabric", language: "Java", summary: "Todo el set de comandos WorldEdit 7.3.17 + FastAsyncWorldEdit como mod Fabric independiente para Minecraft 1.21.10. Sin plugin, sin software de servidor.", intro: ["Todo lo que amas escribir — //stack, //copy, //paste, toda la gramática FAWE — como mod Fabric puro en 1.21.10.", "Sin Paper, sin carpeta de plugins, sin placeholders a medias."], features: ["Set completo de comandos WorldEdit 7.3.17 + FAWE", "Mod Fabric independiente, 1.21.10", "Sin plugin ni software de servidor"], usage: "El jar en mods/, abrir un mundo, escribir slashes.", limits: "Solo Fabric; consulta el repositorio." }
+  }),
+  np("enchantforge", "lab", "software", "https://github.com/MaxLananas/EnchantForge", null, {
+    en: { name: "EnchantForge", category: "Server mod / plugin", language: "Java", summary: "Buff, nerf and ban enchantments with precision: per-enchantment control of levels, costs and availability without gutting the vanilla table.", intro: ["Server owners keep asking for one thing: keep mending but make it cost something, kill frost walker on spawn islands, let level 5 unbreaking exist. EnchantForge is the scalpel.", "Configure per enchantment: max level, anvil and table availability, treasure behaviour."], features: ["Per-enchantment buffs, nerfs and bans", "Table, anvil and treasure channels controlled separately", "Config that survives updates"], usage: "Install, edit the config, reload. Players feel the balance, not the plugin.", limits: "Balance is your responsibility; the mod only obeys the config." },
+    fr: { name: "EnchantForge", category: "Mod / plugin serveur", language: "Java", summary: "Buff, nerf et bannis des enchantements avec précision : contrôle par enchantement des niveaux, coûts et disponibilité, sans massacrer la table vanilla.", intro: ["Les propriétaires de serveur veulent une chose : garder mending mais le faire coûter, virer frost walker des îles de spawn, autoriser unbreaking V. EnchantForge est le scalpel.", "Configuration par enchantement : niveau max, disponibilité table/enclume, trésors."], features: ["Buffs, nerfs et bans par enchantement", "Canaux table, enclume et trésors séparés", "Config qui survit aux mises à jour"], usage: "Installer, éditer la config, recharger.", limits: "L'équilibrage reste ta responsabilité ; le mod obéit à la config." },
+    es: { name: "EnchantForge", category: "Mod / plugin de servidor", language: "Java", summary: "Buffea, nerfea y banea encantamientos con precisión: control por encantamiento de niveles, costes y disponibilidad sin destrozar la tabla vanilla.", intro: ["Los dueños de servidores piden una cosa: mantener mending pero con coste, quitar frost walker del spawn, permitir unbreaking V. EnchantForge es el bisturí.", "Configuración por encantamiento: nivel máximo, tabla/yunque, tesoros."], features: ["Buffs, nerfs y baneos por encantamiento", "Canales de tabla, yunque y tesoros separados", "Config que sobrevive actualizaciones"], usage: "Instalar, editar config, recargar.", limits: "El balance es tu responsabilidad; el mod obedece la config." }
+  }),
+  np("terraplusminus", "reference", "software", "https://github.com/MaxLananas/TerraPlusMinus", null, {
+    en: { name: "TerraPlusMinus (contributions)", category: "BuildTheEarth terrain generation", language: "Java", summary: "My contributions to TerraPlusMinus, the plugin that generates the real Earth inside Minecraft — the terrain backbone of BuildTheEarth servers.", intro: ["TerraPlusMinus turns geographic data into Minecraft terrain: elevation, landcover, buildings and roads streamed into the world at 1:1 scale.", "I contribute fixes and BuildTheEarth-facing improvements to the generator used by BTE servers, including the France projection workflows."], features: ["Real-world terrain generation at 1:1 scale", "Used by BuildTheEarth servers", "Contributions focused on BTE France workflows"], usage: "Server-side plugin; see the repository for dataset setup and version compatibility.", limits: "Upstream project; my role is contributor, not sole author. Dataset licences apply." },
+    fr: { name: "TerraPlusMinus (contributions)", category: "Génération de terrain BuildTheEarth", language: "Java", summary: "Mes contributions à TerraPlusMinus, le plugin qui génère la vraie Terre dans Minecraft — la colonne vertébrale des serveurs BuildTheEarth.", intro: ["TerraPlusMinus transforme des données géographiques en terrain Minecraft : relief, occupation du sol, bâtiments et routes à l'échelle 1:1.", "Je contribue des correctifs et améliorations orientées BuildTheEarth, dont les workflows de projection France."], features: ["Génération de terrain réel à l'échelle 1:1", "Utilisé par les serveurs BuildTheEarth", "Contributions centrées sur BTE France"], usage: "Plugin serveur ; voir le dépôt pour les datasets et compatibilités.", limits: "Projet upstream ; je suis contributeur, pas auteur unique. Licences des datasets applicables." },
+    es: { name: "TerraPlusMinus (contribuciones)", category: "Generación de terreno BuildTheEarth", language: "Java", summary: "Mis contribuciones a TerraPlusMinus, el plugin que genera la Tierra real en Minecraft — la columna vertebral de los servidores BuildTheEarth.", intro: ["TerraPlusMinus convierte datos geográficos en terreno Minecraft: relieve, cobertura, edificios y rutas a escala 1:1.", "Aporto correcciones y mejoras orientadas a BuildTheEarth, incluidos los flujos de proyección de Francia."], features: ["Terreno real a escala 1:1", "Usado por servidores BuildTheEarth", "Contribuciones centradas en BTE France"], usage: "Plugin de servidor; ver repositorio para datasets.", limits: "Proyecto upstream; soy contribuidor, no autor único." }
+  }, { bte: true }),
+  np("bte-france-bot", "reference", "software", "https://github.com/MaxLananas/BTE-France-Bot", null, {
+    en: { name: "BTE France Bot", category: "Discord bot for BTE France", language: "JavaScript", summary: "The Discord bot of the BTE France server: build crew tooling, roles, claims and community glue for the French BuildTheEarth crew.", intro: ["A build crew of dozens needs more than a Minecraft server: claims, plots, roles, reminders, and a place where the meme channel stays separate from the build channel.", "I maintain the bot that keeps the BTE France community running on Discord."], features: ["Build crew tooling: claims, plots, roles", "Community moderation glue", "Maintained for the BTE France server"], usage: "Runs on the BTE France Discord; repository documents the commands and setup.", limits: "Community tooling; not affiliated with the official BuildTheEarth project." },
+    fr: { name: "BTE France Bot", category: "Bot Discord pour BTE France", language: "JavaScript", summary: "Le bot Discord du serveur BTE France : outils d'équipe de build, rôles, claims et colle communautaire pour l'équipe BuildTheEarth française.", intro: ["Une équipe de build de dizaines de personnes a besoin de plus qu'un serveur Minecraft : claims, plots, rôles, rappels, et un salon meme séparé du salon build.", "Je maintiens le bot qui fait tourner la communauté BTE France sur Discord."], features: ["Outils d'équipe : claims, plots, rôles", "Colle de modération communautaire", "Maintenu pour le serveur BTE France"], usage: "Tourne sur le Discord BTE France ; commandes documentées au dépôt.", limits: "Outil communautaire ; sans affiliation officielle BuildTheEarth." },
+    es: { name: "BTE France Bot", category: "Bot Discord para BTE France", language: "JavaScript", summary: "El bot Discord del servidor BTE France: herramientas de equipo de build, roles, claims y pegamento comunitario para el equipo francés de BuildTheEarth.", intro: ["Un equipo de decenas necesita más que un servidor de Minecraft: claims, plots, roles, recordatorios y un canal de memes separado.", "Mantengo el bot que hace funcionar la comunidad BTE France en Discord."], features: ["Herramientas de equipo: claims, plots, roles", "Pegamento de moderación", "Mantenido para BTE France"], usage: "Funciona en el Discord de BTE France; comandos en el repositorio.", limits: "Herramienta comunitaria; sin afiliación oficial." }
+  }, { bte: true })
+];
+const NEW_PAGES = [];
+for (const proj of NEW_PROJECTS) {
+  for (const lang of LANGS) {
+    const L = { en: proj.introFor("en"), fr: proj.introFor("fr"), es: proj.introFor("es") }[lang];
+    NEW_PAGES.push({
+      lang, path: pathFor(lang, `/projects/${proj.slug}/`), enPath: `/projects/${proj.slug}/`, type: "WebPage", project: proj,
+      title: `${proj.name} — ${proj.categoryFor(lang)} | MaxLananas`,
+      description: proj.summaryFor(lang).slice(0, 155),
+      heading: proj.name,
+      alternates: LANGS.map((l) => ({ lang: l, path: pathFor(l, `/projects/${proj.slug}/`) })),
+      published: "2026-10-25", modified: "2026-10-25", reviewed: "2026-10-25"
+    });
+  }
+}
+
+const REF_EXCLUDE = ["bte-distortion-calculator", "bte-france-guidelines", "le-mans"];
+for (const [slug, art] of [["sentinel", "/assets/retro/promo-sentinel.webp"], ["pineappleui", "/assets/retro/promo-pineappleui.webp"]]) {
+  const proj = PROJECTS.find((x) => x.slug === slug);
+  if (proj && !proj.cover && !proj.leadMedia && !proj.icon && existsSync(resolve(root, "." + art))) proj.art = art;
+}
 function projectsHubBody(h) {
   const l = h.lang, k = "/projects/", c = (f) => copy(l, k, f);
   const group = (cols) => PROJECTS.filter((p) => cols.includes(p.collection));
@@ -280,7 +350,7 @@ function projectsHubBody(h) {
     spotlight(h),
     h2(c("modrinthTitle")) + cards(group(["release"]), h) + `<p class="center">${h.link(SITE.modrinth, c("modrinthCta"), 'class="btn95" target="_blank" rel="noopener"')}</p>`,
     h2(c("labTitle")) + `<p>${esc(c("labIntro"))}</p>` + cards(group(["lab"]), h),
-    h2(c("refsTitle")) + `<p>${esc(c("refsIntro"))}</p>` + cards(group(["reference", "build"]), h)
+    h2(c("refsTitle")) + `<p>${esc(c("refsIntro"))}</p>` + cards([...group(["reference", "build"]).filter((p) => !REF_EXCLUDE.includes(p.slug)), ...NEW_PROJECTS.filter((p) => p.collection === "reference")], h)
   ].join("");
 }
 
@@ -289,10 +359,13 @@ function projectBody(page, h) {
   const sourceUrl = p.source?.url || (p.repo && p.revision ? p.repo + "/blob/" + p.revision + "/" + p.evidenceFile : p.repo);
   const primary = p.modrinth ? [p.modrinth, t("launchModrinth")] : p.web && p.launch?.url ? [p.launch.url, t("launchApp")] : p.repo ? [p.repo, t("launchGithub")] : p.source ? [p.source.url, t("launchSource")] : [SITE.discord, t("launchContact")];
   const lead = p.cover || p.leadMedia || p.icon;
-  const figure = lead ? `<figure class="shot"><img src="${esc(mediaData(lead).src)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}"><figcaption>${esc(p.categoryFor(l))}</figcaption></figure>` : "";
+  const shotPath = `/assets/projects/${p.slug}-shot.webp`;
+  const figure = p.art ? `<figure class="shot"><img class="pixel" src="${esc(p.art)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}"><figcaption>${esc(p.categoryFor(l))} · illustration</figcaption></figure>`
+    : lead ? `<figure class="shot"><img src="${esc(mediaData(lead).src)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}"><figcaption>${esc(p.categoryFor(l))}</figcaption></figure>`
+    : existsSync(resolve(root, "." + shotPath)) ? `<figure class="shot"><img src="${esc(shotPath)}" alt="${esc(ui(l, "cardAlt", { name: p.name }))}"><figcaption>${esc(p.categoryFor(l))}</figcaption></figure>` : "";
   const mediaShots = p.media?.length ? h2(t("screenshotsTitle")) + mediaShot(p.media.map((m) => ({ ...m, title: mediaText(l, m, "title", p.name), alt: mediaText(l, m, "alt", p.name) })), h) : "";
   const buildShots = p.images?.length ? h2(p.kind === "build" ? t("sectionShots") : t("sectionExampleBuilds")) + photoTable(p.images.map((name) => FILES.find((f) => f.name === name)), h) : "";
-  const related = p.related?.length ? h2(t("sectionRelated")) + cards(p.related.map(bySlug), h) + `<p class="center tiny">${h.link("/projects/", t("relatedAll"))} · ${h.link(p.bte ? "/buildtheearth/" : "/development/", p.bte ? t("relatedBte") : t("relatedDev"))}</p>` : "";
+  const related = p.related?.length ? h2(t("sectionRelated")) + cards(p.related.map((r) => bySlug(r.slug || r) || r).filter(Boolean), h) + `<p class="center tiny">${h.link("/projects/", t("relatedAll"))} · ${h.link(p.bte ? "/buildtheearth/" : "/development/", p.bte ? t("relatedBte") : t("relatedDev"))}</p>` : "";
   return win(p.name + " — " + (p.kind === "build" ? "build file" : "project file"), [
     figure,
     `<p class="tiny">${esc(p.categoryFor(l))}</p>`,
@@ -327,7 +400,7 @@ function caseStudyBody(page, h) {
     h2(s.deliverablesTitle) + `<p>${esc(s.deliverables)}</p>` + mediaShot(deliverableKeys.map((key, i) => ({ key, title: s.mediaTitles[i] })), h),
     `<figure class="shot"><video class="native" controls playsinline preload="none" poster="/${esc(iprofVideo.poster)}" width="${iprofVideo.width}" height="${iprofVideo.height}"><source src="/${esc(iprofVideo.file)}" type="video/mp4"></video><figcaption>${esc(ui(l, "videoTitle"))} · ${iprofVideo.duration}s · ${iprofVideo.width}×${iprofVideo.height}</figcaption></figure>`,
     `<div class="sunken notice">${h2(s.limitsTitle)}<p>${esc(s.limits)}</p></div>`,
-    h2(s.nextTitle) + `<p>${esc(s.next)}</p><p class="center"><a class="btn95 primary" href="${esc(SITE.discord)}" target="_blank" rel="noopener">${esc(s.contact)}</a> <a class="btn95" href="${esc(h.route("/development/"))}">${esc(s.explore)}</a></p>`
+    h2(s.nextTitle) + `<p>${esc(s.next)}</p><p class="center"><img class="pixel" src="/assets/retro/at.gif" alt="" width="15" height="15"> <a class="btn95 primary" href="${esc(SITE.discord)}" target="_blank" rel="noopener">${esc(s.contact)}</a> <a class="btn95" href="${esc(h.route("/development/"))}">${esc(s.explore)}</a></p>`
   ].join(""));
 }
 
@@ -378,24 +451,16 @@ function museumBody(page, h) {
 }
 
 function galleryBody(page, h) {
-  const l = h.lang, k = "/builds/", c = (f) => copy(l, k, f);
-  const first = (page.galleryPage - 1) * PAGE_SIZE;
-  const items = FILES.slice(first, first + PAGE_SIZE);
-  const total = Math.ceil(FILES.length / PAGE_SIZE);
-  const pager = `<div class="pager">${page.galleryPage > 1 ? h.link(galleryPath(page.galleryPage - 1), "« prev") : ""}${Array.from({ length: total }, (_, i) => i + 1).map((n) => n === page.galleryPage ? `<span aria-current="page">${n}</span>` : h.link(galleryPath(n), String(n))).join("")}${page.galleryPage < total ? h.link(galleryPath(page.galleryPage + 1), "next »") : ""}</div>`;
-  return [
-    `<p>${esc(fill(c("intro1"), { first: first + 1, last: first + items.length, total: FILES.length }))}</p>`,
-    `<p class="tiny">${fill(c("intro2"), { gallery: h.link("/#work", c("intro2Gallery")), lemans: h.link("/projects/le-mans/", c("intro2Lemans")), bte: h.link("/buildtheearth/", c("intro2Bte")) })}</p>`,
-    pager, photoTable(items, h), pager,
-    `<div class="sunken notice">${h2(c("creditsTitle"))}<p>${esc(c("credits1"))}</p><p class="tiny">${fill(c("credits2"), { about: h.link("/about/", c("credits2About")) })}</p></div>`
-  ].join("");
+  const l = h.lang;
+  return `<h1 class="pixel">${esc(page.heading)}</h1><div class="masonry90">${FILES.map((item, idx) => `<a class="pin" href="${esc(originalUrl(item))}" target="_blank" rel="noopener"><img src="${esc(proxyUrl(item, 640))}" alt="${esc(label(l, item, idx))} — MaxLananas (#${idx + 1})" loading="lazy"></a>`).join("")}</div>`;
 }
 
 function searchBody(page, h) {
   const l = h.lang, k = "/search/";
   const index = [
     ...PROJECTS.map((p) => ({ href: projectPath(p.slug), text: `${p.name} ${p.summaryFor(l)}` })),
-    ...FILES.map((f, i) => ({ href: galleryPath(Math.floor(i / PAGE_SIZE) + 1), text: label(l, f, i) }))
+    ...NEW_PROJECTS.map((p) => ({ href: projectPath(p.slug), text: `${p.name} ${p.summaryFor(l)}` })),
+    ...FILES.map((f, i) => ({ href: "/builds/#s" + (i + 1), text: label(l, f, i) }))
   ];
   return [
     `<p>${fill(copy(l, k, "intro"), { projects: h.link("/projects/", copy(l, k, "introProjects")), builds: h.link("/builds/", copy(l, k, "introBuilds")) })}</p>`,
@@ -406,43 +471,59 @@ function searchBody(page, h) {
 }
 
 function journalBody(h) {
-  return win(h.tr("journalWin"), `<ul class="upd">${JOURNAL.map((e) => `<li><b>[${e.d} · ${e.h}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("")}</ul><p class="tiny center">${esc(h.tr("journalNote"))}</p>`);
+  return win(h.tr("journalWin"), `<ul class="upd">${JOURNAL.map((e) => `<li><b>[${e.d} · ${e.h}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("")}</ul>`);
 }
 
 function linksBody(h) {
-  const official = [
-    ["github", SITE.github, "source code, labs and half-finished things"],
-    ["modrinth", SITE.modrinth, "published minecraft mods & plugins"],
-    ["instagram", SITE.instagram, "build photos, vertical format, very 2020s"],
+  const hubs = [
     ["discord", SITE.discord, "commissions, help, random block talk"],
-    ["buildtheearth", SITE.bte, "the 1:1 earth project"],
-    ["bte france", "https://www.btefrance.fr/", "my french build crew"]
+    ["instagram", SITE.instagram, "@maxlananas.builds — build photos"],
+    ["youtube", "https://www.youtube.com/@MaxLananass", "@MaxLananass — builds & timelapses"],
+    ["website", "https://maxlananas.is-a.dev/", "the portfolio, canonical url"],
+    ["modrinth", SITE.modrinth, "published minecraft mods & plugins"],
+    ["github", SITE.github, "source code, labs and half-finished things"],
+    ["tiktok", "https://www.tiktok.com/@maxlananas2", "@maxlananas2 — short vertical builds"]
   ];
-  const fun = [
-    ["neocities", "https://neocities.org/", "where personal homepages went to live forever"],
-    ["the old net", "https://theoldnet.com/", "browse the geocities era like it's still up"],
-    ["webamp", "https://webamp.org/", "winamp in your browser. yes, really"],
-    ["muséum de toulouse", "https://museum.toulouse-metropole.fr/le-museum-de-toulouse-construit-sur-minecraft/", "they wrote about our pont neuf build!!"]
-  ];
-  const retro = [
-    ["minecraft builders webring", "/links/", "member site #47 (this site)"],
-    ["photo archive release", "https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1", "the original 101 screenshots, untouched"]
-  ];
-  const rows = (list) => `<table class="links">${list.map(([name, href, desc]) => `<tr><td class="w"><b>${esc(name)}</b></td><td>${h.link(href, href.replace(/^https?:\/\//, "").slice(0, 44), href.startsWith("http") ? 'target="_blank" rel="noopener"' : "")}<br><span class="tiny">${esc(desc)}</span></td></tr>`).join("")}</table>`;
-  return win(h.tr("linksWin"), `<p>${esc(h.tr("linksIntro"))}</p>` + h2(h.tr("linksOfficial")) + rows(official) + h2(h.tr("linksFun")) + rows(fun) + h2(h.tr("linksRetro")) + rows(retro));
+  return win(h.tr("linksWin"), `<p>${esc(h.tr("linksIntro"))}</p><p class="tiny center"><img class="pixel" src="/assets/retro/click.gif" alt="" width="17" height="15"> click here, like it's 1998 <img class="pixel" src="/assets/retro/click.gif" alt="" width="17" height="15"></p><div class="hub">${hubs.map(([name, href, desc]) => `<a class="hubbtn" href="${esc(href)}" target="_blank" rel="noopener"><b>${esc(name)}</b><span>${esc(desc)}</span><i>${esc(href.replace(/^https?:\/\//, ""))}</i></a>`).join("")}</div>`);
 }
 
 function sitemapBody(h, pages) {
   const l = h.lang;
-  const main = ["/", "/about/", "/projects/", "/buildtheearth/", "/development/", "/guides/minecraft-mods-plugins-addons/", MUSEUM_ARTICLE_PATH, "/builds/"];
-  const extras = ["/journal/", "/links/", "/search/", "/sitemap/"];
+  const main = ["/", "/about/", "/projects/", "/buildtheearth/", "/development/", MUSEUM_ARTICLE_PATH, "/builds/", "/journal/", "/links/", "/search/", "/sitemap/"];
+  const allProjects = [...PROJECTS, ...NEW_PROJECTS].filter((p) => !REF_EXCLUDE.includes(p.slug) || p.collection !== "reference");
   const li = (path) => `<li>${h.link(path, path === "/" ? "home sweet home" : path)}</li>`;
   return win(h.tr("mapWin"), `<p>${esc(h.tr("mapIntro"))}</p>` +
     h2(h.tr("mapMain")) + `<ul class="map">${main.map(li).join("")}</ul>` +
-    h2(h.tr("mapProjects")) + `<ul class="map">${PROJECTS.map((p) => li(projectPath(p.slug))).join("")}</ul>` +
-    h2(h.tr("mapBuilds")) + `<ul class="map">${Array.from({ length: Math.ceil(FILES.length / PAGE_SIZE) }, (_, i) => li(galleryPath(i + 1))).join("")}</ul>` +
-    h2(h.tr("mapExtra")) + `<ul class="map">${extras.map(li).join("")}</ul>` +
-    `<p class="tiny">${pages.filter((p) => p.lang === l).length} pages exist in ${l.toUpperCase()} · languages: ${LANGS.map((x) => h.link(pathFor(x, "/"), x)).join(" · ")}</p>`);
+    h2(h.tr("mapProjects")) + `<ul class="map">${allProjects.map((p) => li(projectPath(p.slug))).join("")}</ul>` +
+    h2(h.tr("mapBuilds")) + `<ul class="map">${li("/builds/")}</ul>` +
+    h2(h.tr("mapExtra")) + `<ul class="map">${LANGS.map((x) => li(pathFor(x, "/"))).map((x, k) => x + `<span class="tiny"> (${LANGS[k]})</span>`).join("")}</ul>` +
+    `<p class="tiny">${pages.filter((p) => p.lang === l && !p.noindex).length} indexable pages in ${l.toUpperCase()} · languages: ${LANGS.map((x) => h.link(pathFor(x, "/"), x)).join(" · ")} · xml: ${h.link("/sitemap.xml", "/sitemap.xml")}</p>`);
+}
+
+function ogImageFor(page) {
+  if (page.project?.art) return page.project.art;
+  if (page.project?.cover) {
+    try { return mediaData(page.project.cover).src; } catch { /* fall through */ }
+  }
+  return "/assets/retro/avatar.png";
+}
+function jsonLdFor(page) {
+  const base = canonical("/");
+  if (page.enPath === "/" && page.lang === "en") {
+    return `<script type="application/ld+json">${JSON.stringify([{ "@context": "https://schema.org" },
+      { "@type": "WebSite", name: "MaxLananas", url: base, description: page.description, inLanguage: "en", publisher: { "@type": "Person", name: "MaxLananas", url: "https://github.com/MaxLananas" }, potentialAction: { "@type": "SearchAction", target: { "@type": "EntryPoint", urlTemplate: canonical("/search/") + "?q={search_term_string}" }, "query-input": "required name=search_term_string" } },
+      { "@type": "Person", name: "MaxLananas", url: "https://github.com/MaxLananas", sameAs: [SITE.github, SITE.modrinth, SITE.instagram, SITE.discord, "https://www.youtube.com/@MaxLananass", "https://www.tiktok.com/@maxlananas2"], knowsAbout: ["Minecraft building", "BuildTheEarth", "modding", "Guadeloupe"], address: { "@type": "PostalAddress", addressRegion: "Guadeloupe", addressCountry: "FR" } }
+    ])}<\/script>`;
+  }
+  const crumbs = [
+    { "@type": "ListItem", position: 1, name: "home", item: base },
+    { "@type": "ListItem", position: 2, name: page.heading || page.title.split(" — ")[0], item: canonical(page.enPath || page.path) }
+  ];
+  const graph = [{ "@type": "BreadcrumbList", itemListElement: crumbs }];
+  if (page.enPath === "/projects/") {
+    graph.push({ "@type": "ItemList", name: "MaxLananas projects", numberOfItems: PROJECTS.length + NEW_PROJECTS.length, itemListElement: [...PROJECTS, ...NEW_PROJECTS].map((p, i) => ({ "@type": "ListItem", position: i + 1, name: p.name, url: canonical(projectPath(p.slug)) })) });
+  }
+  return `<script type="application/ld+json">${JSON.stringify([{ "@context": "https://schema.org" }, ...graph]).replace(/<\//g, "<\\/")}</script>`;
 }
 
 /* ------------------------------------------------------------------ shell -- */
@@ -452,11 +533,26 @@ function head(page, extra = "") {
 <html lang="${page.lang}">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=880">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(page.title)}</title>
 <meta name="description" content="${esc(page.description)}">
 <meta name="generator" content="Microsoft FrontPage 4.0">
 <meta name="author" content="MaxLananas">
+${SITE.verification?.google ? `<meta name="google-site-verification" content="${esc(SITE.verification.google)}">` : ""}
+<meta property="og:site_name" content="${esc(SITE.name)}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="${esc(page.title)}">
+<meta property="og:description" content="${esc(page.description)}">
+<meta property="og:url" content="${canonical(page.path)}">
+<meta property="og:image" content="${canonical(ogImageFor(page))}">
+<meta property="og:image:alt" content="${esc(page.heading || page.title)}">
+<meta property="og:image:width" content="${OG_DIMS.get(ogImageFor(page))?.width || 1200}">
+<meta property="og:image:height" content="${OG_DIMS.get(ogImageFor(page))?.height || 630}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(page.title)}">
+<meta name="twitter:description" content="${esc(page.description)}">
+<meta name="twitter:image" content="${canonical(ogImageFor(page))}">
+<meta name="twitter:image:alt" content="${esc(page.heading || page.title)}">
 <link rel="canonical" href="${canonical(page.path)}">
 ${alternates}<link rel="alternate" hreflang="x-default" href="${canonical((page.alternates || []).find((a) => a.lang === "en")?.path || page.path)}">
 <link rel="icon" href="/favicon.ico">
@@ -466,14 +562,17 @@ ${page.noindex ? '<meta name="robots" content="noindex, follow">' : ""}
 ${extra}</head>`;
 }
 
-function shell(page, body, h) {
+function shell(page, body, h, extra = jsonLdFor(page)) {
+  const picks = [3, 7, 11, 19, 24, 30, 37, 44, 52, 61, 70, 84, 96];
+  const mosaic = picks.map((i) => `<img src="${esc(proxyUrl(FILES[i % FILES.length], 320))}" alt="" loading="lazy">`).join("");
   const langLinks = (page.alternates || []).map((a) => `<a href="${esc(a.path)}">${a.lang === "en" ? "english" : a.lang === "fr" ? "français" : "español"}</a>`).join(" · ");
-  return `${head(page)}
+  return `${head(page, extra)}
 <body>
 <table class="frame" cellspacing="7" cellpadding="0">
 <tr><td colspan="3" class="col-banner">
-  <div class="banner"><div class="banner-logo">MaxLananas</div><div class="banner-note">${esc(h.tr("bannerNote"))}</div></div>
+  <div class="banner"><div class="mosaic">${mosaic}</div><div class="banner-logo">MaxLananas</div></div>
   <div class="marq"><marquee scrollamount="3">${esc(h.tr("marquee"))}</marquee></div>
+  <div class="fire-row"><img class="pixel" src="/assets/retro/fire.gif" alt="" width="432" height="12"></div>
 </td></tr>
 <tr>
   <td class="col-left">${leftRail(h, page.enPath || page.path)}</td>
@@ -484,8 +583,8 @@ function shell(page, body, h) {
   <img class="hr pixel" src="/assets/retro/rainbow-hr.gif" alt="" width="432" height="8">
   <div>${h.link("/", h.tr("navHome"))} · ${h.link("/about/", h.tr("navAbout"))} · ${h.link("/builds/", h.tr("navBuilds"))} · ${h.link("/projects/", h.tr("navProjects"))} · ${h.link("/journal/", h.tr("navJournal"))} · ${h.link("/sitemap/", h.tr("navSitemap"))}</div>
   <div class="tiny" style="margin:4px 0;">${langLinks}</div>
-  <div class="foot-badges"><span class="b88 grey">${esc(h.tr("footBest"))}</span><span class="b88 navy">made with notepad</span><span class="b88 black">no cookies</span></div>
-  <div class="tiny">${esc(h.tr("footCopy"))}<br>${esc(h.tr("footMade"))}<br>${esc(h.tr("footView"))} <span id="odo-mini-foot"></span> · ${esc(h.tr("lastUpdated"))} 10/2026</div>
+  <div class="foot-badges"><span class="b88 grey">${FILES.length} screenshots inside</span><span class="b88 navy">en · fr · es</span><span class="b88 black">no cookies · no trackers</span></div>
+  <div class="tiny">${esc(h.tr("footCopy"))}</div>
 </td></tr>
 </table>
 </body>
@@ -528,12 +627,28 @@ for (const lang of LANGS) {
     });
   }
 }
-const pages = [...all, ...extras];
+const pages = [...all, ...extras, ...NEW_PAGES];
+const OG_DIMS = new Map();
+for (const pg of pages.concat([{ path: "/404.html" }])) {
+  const img = ogImageFor(pg);
+  if (!OG_DIMS.has(img)) {
+    try { OG_DIMS.set(img, await sharp(resolve(root, "." + img)).metadata()); }
+    catch { OG_DIMS.set(img, { width: 1200, height: 630 }); }
+  }
+}
 let written = 0;
 for (const page of pages) {
+  const enRoute0 = page.enPath || page.path.replace(/^\/(fr|es)(?=\/)/, "");
+  if (enRoute0 === "/guides/minecraft-mods-plugins-addons/") continue;
   const h = helpersFor(page.lang);
-  const html = shell(page, bodyFor(page, h, pages), h);
-  const file = resolve(root, pageFile(page.path));
+  let seoScript;
+  try {
+    seoScript = `<script type="application/ld+json">${JSON.stringify(schemaFor(page, pages, seoHelpers(page.path, {}, page.lang))).replace(/<\//g, "<\\/")}</script>`;
+  } catch (e) {
+    seoScript = jsonLdFor(page);
+  }
+  const html = shell(page, bodyFor(page, h, pages), h, seoScript);
+  const file = resolve(outRoot, pageFile(page.path));
   await mkdir(dirname(file), { recursive: true });
   await writeFile(file, html);
   written += 1;
@@ -542,6 +657,12 @@ for (const page of pages) {
 /* 404 — single file at the root, like the old days */
 const notFound = { lang: "en", path: "/404.html", title: copy("en", "notFound", "title"), description: copy("en", "notFound", "description"), alternates: [], noindex: true };
 const h404 = helpersFor("en");
-await writeFile(resolve(root, "404.html"), shell(notFound, win("404 — file not found", `<p class="center"><img class="pixel" src="/assets/retro/construction.gif" alt="" width="88" height="31"></p><h1 class="pixel">${esc(copy("en", "notFound", "heading"))}</h1><p>${esc(copy("en", "notFound", "body"))}</p><p class="center">${h404.link("/", copy("en", "notFound", "home"), 'class="btn95"')} ${h404.link("/projects/", copy("en", "notFound", "projects"), 'class="btn95"')} ${h404.link("/builds/", copy("en", "notFound", "gallery"), 'class="btn95"')}</p>`), h404));
+await writeFile(resolve(outRoot, "404.html"), shell(notFound, win("404 — file not found", `<p class="center"><img class="pixel" src="/assets/retro/construction.gif" alt="" width="88" height="31"></p><h1 class="pixel">${esc(copy("en", "notFound", "heading"))}</h1><p>${esc(copy("en", "notFound", "body"))}</p><p class="center">${h404.link("/", copy("en", "notFound", "home"), 'class="btn95"')} ${h404.link("/projects/", copy("en", "notFound", "projects"), 'class="btn95"')} ${h404.link("/builds/", copy("en", "notFound", "gallery"), 'class="btn95"')}</p>`), h404));
 
-console.log(`retro render: ${written + 1} pages written`);
+/* sitemap.xml — the real one, for the machines */
+const xesc = (v) => String(v).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const indexable = pages.filter((pg) => !pg.noindex && (pg.enPath || pg.path.replace(/^\/(fr|es)(?=\/)/, "")) !== "/guides/minecraft-mods-plugins-addons/");
+const xmlUrls = indexable.map((pg) => `<url><loc>${xesc(canonical(pg.path))}</loc><lastmod>2026-10-25</lastmod>${(pg.alternates || []).map((a) => `<xhtml:link rel="alternate" hreflang="${a.lang}" href="${xesc(canonical(a.path))}"/>`).join("")}</url>`).join("");
+await writeFile(resolve(outRoot, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${xmlUrls}\n</urlset>\n`);
+
+console.log(`retro render: ${written + 1} pages written + sitemap.xml (${indexable.length} urls)`);

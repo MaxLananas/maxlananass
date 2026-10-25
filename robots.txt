@@ -1,19 +1,5 @@
 User-agent: *
 Allow: /
-Disallow: /.git/
-Disallow: /.github/
-Disallow: /node_modules/
-Disallow: /tools/
-Disallow: /tests/
-Disallow: /templates/
-Disallow: /content/
-Disallow: /docs/
-Disallow: /site-pages.json
-Disallow: /site-package.json
-Disallow: /package.json
-Disallow: /package-lock.json
-Disallow: /README.md
+Disallow: /search/
 
-# Keep CSS, JavaScript, images and search pages crawlable; search carries noindex in HTML.
 Sitemap: https://maxlananas.is-a.dev/sitemap.xml
-Sitemap: https://maxlananas.is-a.dev/sitemap-images.xml
