@@ -106,5 +106,9 @@ export const QUERY_MAP = [
   { path: "/articles/toulouse-pont-neuf-minecraft/", cluster: "buildtheearth", intent: "editorial", queries: {
     en: ["Toulouse Pont Neuf Minecraft build Muséum"],
     fr: ["Pont-Neuf Toulouse Minecraft Muséum build"],
-    es: ["Pont Neuf Toulouse Minecraft build Muséum"] } }
+    es: ["Pont Neuf Toulouse Minecraft build Muséum"] } },
+  { path: "/articles/mobilisation-lyceens-guadeloupe-2026/", cluster: "brand", intent: "editorial", queries: {
+    en: ["guadeloupe lyceum mobilization october 2026 petition site"],
+    fr: ["mobilisation lycéenne guadeloupe octobre 2026 site de pétition"],
+    es: ["movilización liceal guadalupe octubre 2026 sitio de petición"] } }
 ];

@@ -732,3 +732,180 @@ table.links td.w { width: 130px; background: #cfccc4; }
   box-shadow: 2px 2px 0 rgba(20,16,10,.4);
   background: #000;
 }
+
+/* ==========================================================================
+   ROUND 5 — « scrapbook chaos »: torn paper, polaroid collage, CRT radio.
+   Inspired by the user's favourite references: russian torn-paper toy site,
+   nonsensical scrapbook humor, and messy overlapping terminal collages.
+   ========================================================================== */
+
+/* kraft desk + dotted notebook background */
+body {
+  background:
+    radial-gradient(rgba(255, 244, 214, 0.16) 1px, transparent 1.6px) 0 0 / 22px 22px,
+    radial-gradient(rgba(60, 30, 0, 0.10) 1px, transparent 1.4px) 11px 7px / 34px 34px,
+    #c08b4f;
+}
+
+/* ------------------------------------------------- panels = torn sheets -- */
+.panel, .win {
+  position: relative;
+  background: #f7f2e6 url("assets/retro/paper-sheet.png") center / 100% 100% no-repeat;
+  border: none;
+  box-shadow: 3px 5px 12px rgba(50, 30, 5, 0.38);
+  padding: 12px 14px 16px;
+  margin: 0 0 18px;
+}
+.panel:nth-of-type(odd)  { transform: rotate(-0.8deg); }
+.panel:nth-of-type(even) { transform: rotate(0.7deg); }
+.win { transform: rotate(0.4deg); }
+.panel::before, .win::before {
+  content: "";
+  position: absolute; top: -11px; left: 50%;
+  width: 96px; height: 24px;
+  background: rgba(236, 214, 130, 0.85);
+  box-shadow: 0 1px 3px rgba(60, 40, 0, 0.35);
+  transform: translateX(-50%) rotate(-2.5deg);
+}
+.panel:nth-of-type(even)::before { transform: translateX(-50%) rotate(2deg); }
+.panel-h {
+  background: none; border: none; box-shadow: none;
+  color: #2b2822; letter-spacing: 0.5px;
+}
+.panel .rule {
+  height: 16px; border: none; box-shadow: none; background: none;
+  background: url("assets/retro/torn-strip.png") center / auto 100% repeat-x;
+  margin: 2px 0 8px;
+}
+
+/* --------------------------------------------- banner = polaroid collage -- */
+.banner { height: 268px; background: #82a9e2; border: none; box-shadow: 3px 5px 12px rgba(50, 30, 5, 0.4); }
+.banner::before {
+  content: ""; position: absolute; z-index: 4; top: 8px; right: 12px;
+  width: 34px; height: 34px; background: url("assets/retro/star.gif") center / contain no-repeat;
+  transform: rotate(12deg);
+}
+.banner::after {
+  content: ""; position: absolute; z-index: 4; bottom: 26px; left: 10px;
+  width: 30px; height: 26px; background: url("assets/retro/heart.gif") center / contain no-repeat;
+  transform: rotate(-10deg);
+}
+.mosaic { display: block; }
+.mosaic img {
+  position: absolute; border: 7px solid #fdfcf7; border-bottom-width: 16px;
+  box-shadow: 4px 5px 10px rgba(20, 15, 5, 0.45); object-fit: cover; filter: none;
+  width: 150px; height: 104px;
+}
+.mosaic img:nth-child(1)  { top: 6px;   left: 8px;   width: 170px; height: 118px; transform: rotate(-6deg); }
+.mosaic img:nth-child(2)  { top: 20px;  left: 168px; width: 128px; height: 92px;  transform: rotate(4deg); }
+.mosaic img:nth-child(3)  { top: 4px;   left: 292px; width: 150px; height: 100px; transform: rotate(-2deg); }
+.mosaic img:nth-child(4)  { top: 14px;  left: 436px; width: 132px; height: 96px;  transform: rotate(7deg); }
+.mosaic img:nth-child(5)  { top: 8px;   left: 566px; width: 158px; height: 110px; transform: rotate(-5deg); }
+.mosaic img:nth-child(6)  { top: 116px; left: 26px;  width: 120px; height: 86px;  transform: rotate(5deg); }
+.mosaic img:nth-child(7)  { top: 128px; left: 140px; width: 148px; height: 100px; transform: rotate(-8deg); }
+.mosaic img:nth-child(8)  { top: 120px; left: 470px; width: 140px; height: 98px;  transform: rotate(3deg); }
+.mosaic img:nth-child(9)  { top: 132px; left: 604px; width: 122px; height: 88px;  transform: rotate(-4deg); }
+.mosaic img:nth-child(10) { top: 176px; left: 60px;  width: 138px; height: 78px;  transform: rotate(-3deg); }
+.mosaic img:nth-child(11) { top: 186px; left: 300px; width: 118px; height: 70px;  transform: rotate(6deg); }
+.mosaic img:nth-child(12) { top: 178px; left: 420px; width: 130px; height: 80px;  transform: rotate(-6deg); }
+.mosaic img:nth-child(13) { top: 190px; left: 560px; width: 148px; height: 72px;  transform: rotate(2deg); }
+.banner-logo {
+  right: auto; bottom: auto; left: 50%; top: 44%;
+  transform: translate(-50%, -50%) rotate(-3deg);
+  background: url("assets/retro/paper-sheet.png") center / 100% 100% no-repeat;
+  color: #20306b; text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.65);
+  padding: 12px 30px; font-size: 44px; z-index: 3;
+}
+
+/* ------------------------------------------- MAXAMP = green CRT terminal -- */
+.winamp {
+  background: #071307; border: 4px ridge #6fa06f;
+  box-shadow: 0 0 0 3px #000, 5px 7px 0 rgba(40, 25, 5, 0.4);
+  transform: rotate(-1deg); color: #a6ffa6;
+}
+.winamp .wa-tbar { background: #123212; color: #c9ffc9; border-bottom: 2px solid #0a1f0a; }
+.wa-howto {
+  background: #0e240e; border: 2px dashed #7fd97f; color: #d6ffd6;
+  font-size: 12px; line-height: 1.35; padding: 7px 8px; margin: 8px 6px;
+}
+.wa-lcd { background: #03150a; color: #8dff9d; border: 2px inset #2e6b2e; }
+.wa-statusline {
+  display: flex; align-items: center; gap: 7px; padding: 5px 8px;
+  font-family: "PixelMono", monospace; font-size: 12px; color: #c9ffc9;
+}
+.wa-led { width: 10px; height: 10px; border-radius: 50%; background: #5a1414; border: 1px solid #000; }
+.winamp.live .wa-led { background: #35e035; animation: ledblink 1s steps(2) infinite; }
+.winamp.locked .wa-led { background: #e0b235; }
+@keyframes ledblink { 50% { opacity: 0.35; } }
+.wa-btns { gap: 6px; }
+.wa-btn {
+  background: #17411a; color: #d9ffd9; border: 3px outset #7fd97f;
+  font-family: "PixelBoard", monospace; font-size: 11px; padding: 5px 8px;
+}
+.wa-btn.wa-big {
+  font-size: 15px; padding: 8px 16px; background: #1d7a1d; color: #f2fff0;
+  animation: bigpulse 1.3s ease-in-out infinite;
+}
+.wa-btn.wa-big.dim { animation: none; background: #17411a; }
+@keyframes bigpulse { 50% { box-shadow: 0 0 0 5px rgba(127, 217, 127, 0.35); } }
+.wa-vol { display: flex; align-items: center; gap: 6px; padding: 4px 8px; color: #a6ffa6; font-size: 11px; }
+.wa-pick { margin: 6px 8px 2px; color: #8dff9d; font-size: 11px; }
+.wa-list { margin: 4px 8px 8px; }
+.wa-list .wa-trk {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  background: #0e240e; color: #c9ffc9; border: 2px outset #2e6b2e;
+  font-family: "PixelMono", monospace; font-size: 12px; padding: 4px 6px; margin: 3px 0;
+}
+.wa-list .wa-trk:hover { background: #17411a; }
+.wa-list .cc0 { color: #6fce6f; font-size: 9px; border: 1px solid #2e6b2e; padding: 0 3px; }
+.wa-credit { color: #6fce6f !important; padding: 0 8px 8px; }
+
+/* -------------------------------------- block of the day: no more chaos -- */
+.wheel-row { display: grid; grid-template-columns: 118px minmax(0, 1fr); gap: 12px; align-items: start; }
+#block-day { min-width: 0; overflow: hidden; }
+.blk-texs { display: flex; flex-wrap: wrap; gap: 5px; margin: 6px 0; }
+.blk-texs .sw-tex { width: 44px; height: 44px; flex: 0 0 auto; }
+#block-day .swl { position: static; line-height: 1.4; word-break: normal; }
+
+/* ------------------------------------------------ polaroid builds & hubs -- */
+.pin { transform: rotate(-1.4deg); border: 8px solid #fdfcf7; border-bottom-width: 20px; background: #fdfcf7; }
+.pin:nth-child(even) { transform: rotate(1.6deg); }
+.pin:nth-child(3n) { transform: rotate(-0.6deg) translateY(4px); }
+.pin:hover { transform: rotate(0deg) scale(1.03); z-index: 2; }
+.hubbtn { background: #f7f2e6 url("assets/retro/paper-sheet.png") center / 100% 100%; border: none; box-shadow: 3px 4px 9px rgba(50, 30, 5, 0.35); transform: rotate(-0.8deg); }
+.hubbtn:nth-child(even) { transform: rotate(0.9deg); }
+
+/* ----------------------------------------------------- nonsense margins -- */
+.col-main > .panel:nth-of-type(2)::after {
+  content: "(le bordel est un choix artistique)";
+  position: absolute; right: -4px; bottom: -16px;
+  font-size: 11px; color: #6d3f0e; transform: rotate(-3deg);
+}
+.col-right > .panel:nth-of-type(1)::after {
+  content: "← lis-moi, c'est important";
+  position: absolute; left: -6px; bottom: -15px;
+  font-size: 11px; color: #6d3f0e; transform: rotate(2.5deg);
+}
+
+/* ---------------------------------------------------------- article page -- */
+.lead { font-size: 15px; line-height: 1.5; background: rgba(255, 255, 255, 0.5); border-left: 5px solid #82a9e2; padding: 8px 10px; }
+.collage-fig { transform: rotate(-1.6deg); background: #fdfcf7; padding: 9px 9px 4px; box-shadow: 4px 5px 10px rgba(50, 30, 5, 0.4); border: none; }
+.collage-fig img { width: 100%; height: auto; }
+.byline { font-style: italic; color: #5c4a2c; }
+
+/* ------------------------------------------------------------ responsive -- */
+@media (max-width: 900px) {
+  .banner { height: auto; padding-bottom: 8px; }
+  .mosaic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; position: static; padding: 6px; }
+  .mosaic img { position: static; width: 100% !important; height: 90px !important; transform: rotate(0); }
+  .mosaic img:nth-child(odd) { transform: rotate(-2deg); }
+  .banner-logo { position: static; transform: rotate(-2deg); display: inline-block; margin: 4px auto 8px; left: auto; top: auto; }
+  .wheel-row { grid-template-columns: 96px minmax(0, 1fr); }
+}
+@media (max-width: 560px) {
+  .panel, .win, .winamp, .hubbtn { transform: none; }
+  .wheel-row { grid-template-columns: 1fr; justify-items: center; }
+  #block-day { width: 100%; }
+  .mosaic { grid-template-columns: repeat(2, 1fr); }
+  .col-main > .panel::after, .col-right > .panel::after { display: none; }
+}

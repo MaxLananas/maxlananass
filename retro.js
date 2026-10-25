@@ -105,8 +105,8 @@
     while (picks.length < 6 && picks.length < sorted.length) picks.push(sorted[picks.length + 10] || sorted[picks.length]);
     function dist2(a, b) { return Math.abs(a.h - b.h) > 2; }
     blockBox.innerHTML = '<div class="sw-name">hue ' + Math.round(hue) + "° · " + esc(picks.length) + ' real blocks <span class="newflag blink">NEW</span></div>' +
-      '<div class="sw">' + picks.map(function (b) {
-        return '<img class="sw-tex" src="/assets/blocks/' + encodeURIComponent(b.f) + '" width="46" height="46" alt="' + esc(b.n) + '" title="' + esc(b.n) + '" loading="lazy">';
+      '<div class="blk-texs">' + picks.map(function (b) {
+        return '<img class="sw-tex" src="/assets/blocks/' + encodeURIComponent(b.f) + '" width="44" height="44" alt="' + esc(b.n) + '" title="' + esc(b.n) + '" loading="lazy">';
       }).join("") + "</div>" +
       '<div class="swl">' + picks.map(function (b) { return esc(b.n); }).join(" · ") + "</div>";
   }
@@ -132,179 +132,99 @@
     });
   }
 
-  /* ============================================== MAXAMP — chiptune radio -- */
-  // Six original loops, scheduled note by note with WebAudio oscillators.
-  var TRACKS = [
-    { title: "corsica coast (chip mix)", bpm: 96, wave: "square", len: 12,
-      lead: ["a4 _ c5 _ e5 _ c5 _ a4 _ c5 _ e5 _ d5 _", "f4 _ a4 _ c5 _ a4 _ f4 _ a4 _ c5 _ a4 _", "c5 _ e5 _ g5 _ e5 _ c5 _ e5 _ g5 _ e5 _", "g4 _ b4 _ d5 _ b4 _ g4 _ b4 _ d5 _ b4 _"],
-      bass: ["a2 _ _ _ a2 _ _ _ a2 _ _ _ a2 _ _ _", "f2 _ _ _ f2 _ _ _ f2 _ _ _ f2 _ _ _", "c3 _ _ _ c3 _ _ _ c3 _ _ _ c3 _ _ _", "g2 _ _ _ g2 _ _ _ g2 _ _ _ g2 _ _ _"],
-      drum: ["K _ h _ S _ h _ K _ h _ S _ h _", "K _ h _ S _ h _ K _ h _ S _ h _", "K _ h _ S _ h _ K _ h _ S _ h _", "K _ h _ S _ h _ K _ h _ S S S S"] },
-    { title: "pont-neuf blues", bpm: 84, wave: "square", len: 12,
-      lead: ["e4 _ g4 _ a4 _ bb4 _ a4 _ g4 _ e4 _ d4 _", "e4 _ g4 _ a4 _ c5 _ a4 _ g4 _ e4 _ _ _", "d4 _ f4 _ g4 _ a4 _ g4 _ f4 _ d4 _ c4 _", "d4 _ f4 _ g4 _ bb4 _ a4 _ _ _ g4 _ _ _"],
-      bass: ["e2 _ e2 _ g2 _ a2 _ bb2 _ b2 _ a2 _ g2 _", "e2 _ e2 _ g2 _ a2 _ b2 _ _ _ b2 _ _ _", "d2 _ d2 _ f2 _ g2 _ a2 _ bb2 _ a2 _ g2 _", "d2 _ d2 _ f2 _ g2 _ a2 _ _ _ a2 _ _ _"],
-      drum: ["K _ _ _ h _ S _ _ _ h _ K _ h _", "K _ _ _ h _ S _ _ _ h _ S S S S"] },
-    { title: "redstone boogie", bpm: 148, wave: "square", len: 10,
-      lead: ["e4 e4 _ e4 g4 _ e4 _ a4 _ g4 _ e4 d4 e4 _", "e4 e4 _ e4 g4 _ a4 _ b4 _ a4 _ g4 _ e4 _", "d4 d4 _ d4 f4 _ d4 _ g4 _ f4 _ d4 c4 d4 _", "b3 _ d4 _ e4 _ g4 _ a4 _ b4 _ a4 g4 f4 e4"],
-      bass: ["e2 _ e2 _ e2 _ e2 _ e2 _ e2 _ e2 _ e2 _", "e2 _ e2 _ e2 _ e2 _ e2 _ e2 _ e2 _ e2 _", "d2 _ d2 _ d2 _ d2 _ d2 _ d2 _ d2 _ d2 _", "b1 _ b1 _ d2 _ d2 _ e2 _ e2 _ e2 _ e2 _"],
-      drum: ["K _ h _ S _ h _ K _ h _ S _ h _", "K _ h _ S _ h _ K _ K _ S S S S"] },
-    { title: "creeper lullaby", bpm: 66, wave: "triangle", len: 10,
-      lead: ["e5 _ _ _ _ _ _ _ b4 _ _ _ _ _ _ _", "c5 _ _ _ _ _ _ _ b4 _ _ _ _ _ _ _", "a4 _ _ _ _ _ _ _ g4 _ _ _ _ _ _ _", "a4 _ _ _ _ _ _ _ e4 _ _ _ _ _ _ _"],
-      bass: ["a2 _ _ _ _ _ _ _ e3 _ _ _ _ _ _ _", "f2 _ _ _ _ _ _ _ c3 _ _ _ _ _ _ _", "d2 _ _ _ _ _ _ _ a2 _ _ _ _ _ _ _", "a2 _ _ _ _ _ _ _ e3 _ _ _ _ _ _ _"],
-      drum: ["K _ _ _ _ _ _ _ h _ _ _ _ _ _ _", "K _ _ _ _ _ _ _ h _ _ _ S _ _ _"] },
-    { title: "shader sunset", bpm: 80, wave: "square", len: 12,
-      lead: ["f4 a4 c5 f5 c5 a4 f4 a4 c5 f5 c5 a4 f4 a4 c5 _", "d4 f4 a4 d5 a4 f4 d4 f4 a4 d5 a4 f4 d4 f4 a4 _", "c4 e4 g4 c5 g4 e4 c4 e4 g4 c5 g4 e4 c4 e4 g4 _", "a3 c4 e4 a4 e4 c4 a3 c4 e4 a4 e4 c4 a3 c4 e4 _"],
-      bass: ["f2 _ _ _ _ _ _ _ f2 _ _ _ _ _ _ _", "d2 _ _ _ _ _ _ _ d2 _ _ _ _ _ _ _", "c2 _ _ _ _ _ _ _ c2 _ _ _ _ _ _ _", "a1 _ _ _ _ _ _ _ a1 _ _ _ _ _ _ _"],
-      drum: ["K _ _ _ h _ _ _ S _ _ _ h _ _ _", "K _ _ _ h _ _ _ S _ _ _ h _ h _"] },
-    { title: "dial-up dreams", bpm: 124, wave: "square", len: 10,
-      lead: ["c5 _ c5 _ _ _ g5 _ _ _ f5 _ e5 _ d5 _", "_ _ c5 _ _ _ g5 _ _ _ a5 _ g5 _ f5 _", "a4 _ a4 _ _ _ e5 _ _ _ d5 _ c5 _ b4 _", "_ _ _ _ c6 _ _ _ _ _ _ _ g5 f5 e5 _"],
-      bass: ["c2 _ c2 _ c2 _ c2 _ g2 _ g2 _ g2 _ g2 _", "a1 _ a1 _ a1 _ a1 _ e2 _ e2 _ e2 _ e2 _", "f2 _ f2 _ f2 _ f2 _ c3 _ c3 _ c3 _ c3 _", "g2 _ g2 _ g2 _ g2 _ g2 _ g2 _ g2 _ g2 _"],
-      drum: ["K S h S K S h S K S h S K S h S", "K S h S K S h S K S h S S S S S"] }
+  /* ====================================== MAXAMP — real royalty-free radio -- */
+  // Six genuine tracks from the CC0-1.0 "Royalty Free Music Pack"
+  // (github.com/effacestudios/Royalty-Free-Music-Pack). No synth, no piracy:
+  // public-domain mp3 files streamed through WebAudio so the EQ still dances.
+  var PLAYLIST = [
+    { f: "/assets/radio/happy-life.mp3", t: "Happy Life" },
+    { f: "/assets/radio/gamer-guy.mp3", t: "Gamer Guy" },
+    { f: "/assets/radio/party-time.mp3", t: "Party Time" },
+    { f: "/assets/radio/science-fiction.mp3", t: "Science Fiction" },
+    { f: "/assets/radio/mysterious.mp3", t: "Mysterious" },
+    { f: "/assets/radio/the-clown.mp3", t: "THE CLOWN" }
   ];
-  var SEMI = { c: 0, d: 2, e: 4, f: 5, g: 7, a: 9, b: 11 };
-  function freq(token) {
-    var m = /^([a-g])([#b]?)(\d)$/.exec(token);
-    if (!m) return 0;
-    var semi = SEMI[m[1]] + (m[2] === "#" ? 1 : m[2] === "b" ? -1 : 0);
-    return 440 * Math.pow(2, (semi - 9) / 12 + (parseInt(m[3], 10) - 4));
-  }
-
   var AMP = {
-    ctx: null, master: null, analyser: null, noise: null,
-    track: store.get("ml_wa", 0) % TRACKS.length,
-    step: 0, bar: 0, nextTime: 0, timer: null, playing: false, elapsed: 0, clock: null,
+    ctx: null, master: null, analyser: null, media: null, audio: null,
+    track: store.get("ml_wa", 0) % PLAYLIST.length,
+    playing: false, wantPlay: false,
     ensure: function () {
       if (this.ctx) return this.ctx;
       var AC = window.AudioContext || window.webkitAudioContext;
       this.ctx = new AC();
       this.master = this.ctx.createGain();
-      this.master.gain.value = 0.5;
+      this.master.gain.value = 0.6;
       this.analyser = this.ctx.createAnalyser();
       this.analyser.fftSize = 64;
       this.master.connect(this.analyser);
-      // small echo for ambience, like a jukebox in an empty mall
-      this.delay = this.ctx.createDelay(1);
-      this.delay.delayTime.value = 0.26;
-      this.fb = this.ctx.createGain();
-      this.fb.gain.value = 0.22;
-      this.wet = this.ctx.createGain();
-      this.wet.gain.value = 0.3;
       this.analyser.connect(this.ctx.destination);
-      this.analyser.connect(this.delay);
-      this.delay.connect(this.fb);
-      this.fb.connect(this.delay);
-      this.delay.connect(this.wet);
+      // small echo, like a jukebox in an empty mall
+      this.delay = this.ctx.createDelay(1);
+      this.delay.delayTime.value = 0.24;
+      this.fb = this.ctx.createGain(); this.fb.gain.value = 0.18;
+      this.wet = this.ctx.createGain(); this.wet.gain.value = 0.25;
+      this.analyser.connect(this.delay); this.delay.connect(this.fb);
+      this.fb.connect(this.delay); this.delay.connect(this.wet);
       this.wet.connect(this.ctx.destination);
-      var len = this.ctx.sampleRate * 0.5;
-      this.noise = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
-      var data = this.noise.getChannelData(0);
-      for (var i = 0; i < len; i++) data[i] = Math.random() * 2 - 1;
+      this.audio = new Audio();
+      this.audio.preload = "metadata";
+      this.media = this.ctx.createMediaElementSource(this.audio);
+      this.media.connect(this.master);
+      var amp = this;
+      this.audio.addEventListener("ended", function () { amp.next(); });
+      this.audio.addEventListener("play", function () { amp.playing = true; amp.paint(); });
+      this.audio.addEventListener("pause", function () { amp.playing = false; amp.paint(); });
+      this.audio.addEventListener("timeupdate", function () { amp.paintLcd(); });
       return this.ctx;
     },
-    voice: function (type, f, t, dur, gain) {
-      var o = this.ctx.createOscillator(), g = this.ctx.createGain();
-      o.type = type; o.frequency.value = f;
-      g.gain.setValueAtTime(gain, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + dur);
-      o.connect(g); g.connect(this.master);
-      o.start(t); o.stop(t + dur + 0.02);
-    },
-    drum: function (kind, t) {
-      var g, src;
-      if (kind === "K") {
-        var o = this.ctx.createOscillator();
-        g = this.ctx.createGain();
-        o.type = "sine";
-        o.frequency.setValueAtTime(150, t);
-        o.frequency.exponentialRampToValueAtTime(42, t + 0.12);
-        g.gain.setValueAtTime(0.55, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + 0.14);
-        o.connect(g); g.connect(this.master);
-        o.start(t); o.stop(t + 0.16);
-      } else {
-        src = this.ctx.createBufferSource();
-        src.buffer = this.noise;
-        var f = this.ctx.createBiquadFilter();
-        f.type = kind === "S" ? "bandpass" : "highpass";
-        f.frequency.value = kind === "S" ? 1800 : 6500;
-        g = this.ctx.createGain();
-        g.gain.setValueAtTime(kind === "S" ? 0.32 : 0.12, t);
-        g.gain.exponentialRampToValueAtTime(0.001, t + (kind === "S" ? 0.13 : 0.045));
-        src.connect(f); f.connect(g); g.connect(this.master);
-        src.start(t); src.stop(t + 0.16);
-      }
-    },
-    scheduleStep: function () {
-      var tr = TRACKS[this.track];
-      var t = this.nextTime;
-      var leadTok = tr.lead[this.bar % tr.lead.length].split(" ")[this.step];
-      var bassTok = tr.bass[this.bar % tr.bass.length].split(" ")[this.step];
-      var drumTok = tr.drum[this.bar % tr.drum.length].split(" ")[this.step];
-      var lf = freq(leadTok || "_");
-      if (lf) this.voice(tr.wave, lf, t, 0.24, 0.16);
-      var bf = freq(bassTok || "_");
-      if (bf) this.voice("triangle", bf, t, 0.3, 0.24);
-      if (drumTok && drumTok !== "_") this.drum(drumTok, t);
-      this.step += 1;
-      if (this.step >= 16) {
-        this.step = 0;
-        this.bar += 1;
-        if (this.bar >= tr.len) { this.bar = 0; this.track = (this.track + 1) % TRACKS.length; store.set("ml_wa", this.track); this.paintList(); }
-      }
-    },
-    pump: function () {
-      var amp = this;
-      var stepDur = 60 / TRACKS[this.track].bpm / 4;
-      while (amp.nextTime < amp.ctx.currentTime + 0.15) {
-        amp.scheduleStep();
-        amp.nextTime += stepDur;
-      }
+    load: function (i) {
+      this.track = ((i % PLAYLIST.length) + PLAYLIST.length) % PLAYLIST.length;
+      store.set("ml_wa", this.track);
+      if (this.audio) this.audio.src = PLAYLIST[this.track].f;
+      this.paintList(); this.paintLcd();
     },
     play: function () {
       var c = this.ensure();
+      this.wantPlay = true;
       if (c.state !== "running") { try { c.resume(); } catch (e) { /* gesture needed */ } }
-      if (!this.playing) {
-        this.playing = true;
-        this.nextTime = c.currentTime + 0.06;
-        var amp = this;
-        this.timer = window.setInterval(function () { amp.pump(); }, 30);
-        this.clock = window.setInterval(function () { amp.elapsed += 1; amp.paintLcd(); }, 1000);
+      if (!this.audio.src || this.audio.src.indexOf(PLAYLIST[this.track].f) === -1) this.load(this.track);
+      var p = this.audio.play();
+      if (p && p.catch) p.catch(function () { AMP.paint(); });
+      this.paint();
+    },
+    pause: function () { this.wantPlay = false; if (this.audio) this.audio.pause(); this.paint(); },
+    stop: function () { this.wantPlay = false; if (this.audio) { this.audio.pause(); this.audio.currentTime = 0; } this.paint(); this.paintLcd(); },
+    next: function () { var was = this.playing || this.wantPlay; this.load(this.track + 1); if (was) this.play(); },
+    select: function (i) { var was = this.playing || this.wantPlay; this.load(i); if (was) this.play(); else this.paint(); },
+    paint: function () {
+      var w = el("winamp");
+      if (!w) return;
+      var st = el("wa-status");
+      var locked = this.wantPlay && this.audio && this.audio.paused;
+      if (st) {
+        st.textContent = locked ? w.getAttribute("data-locked")
+          : this.playing ? w.getAttribute("data-on")
+          : (this.audio && this.audio.currentTime > 0 ? w.getAttribute("data-paused") : w.getAttribute("data-ready"));
       }
-      this.paintList();
-    },
-    pause: function () {
-      this.playing = false;
-      if (this.timer) { window.clearInterval(this.timer); this.timer = null; }
-      if (this.clock) { window.clearInterval(this.clock); this.clock = null; }
-      if (this.ctx) this.ctx.suspend();
-    },
-    stop: function () {
-      this.pause();
-      this.step = 0; this.bar = 0; this.elapsed = 0;
-      this.paintLcd();
-    },
-    select: function (i) {
-      var was = this.playing;
-      this.pause();
-      this.track = i; this.step = 0; this.bar = 0; this.elapsed = 0;
-      store.set("ml_wa", i);
-      if (this.ctx) this.ctx.resume();
-      this.paintLcd(); this.paintList();
-      if (was) this.play();
+      w.classList.toggle("locked", !!locked);
+      w.classList.toggle("live", !!this.playing);
+      var play = el("wa-play");
+      if (play) play.classList.toggle("dim", !!this.playing);
     },
     paintLcd: function () {
       var lcd = el("wa-track");
       if (!lcd) return;
-      var locked = this.playing && this.ctx && this.ctx.state !== "running";
-      lcd.textContent = (locked ? "!! audio locked - click anywhere !!  " : "") +
-        pad(Math.floor(this.elapsed / 60), 2) + ":" + pad(this.elapsed % 60, 2) + "  " + TRACKS[this.track].title;
-      var w = el("winamp");
-      if (w) w.classList.toggle("locked", !!locked);
+      var cur = this.audio ? this.audio.currentTime || 0 : 0;
+      lcd.textContent = pad(Math.floor(cur / 60), 2) + ":" + pad(Math.floor(cur % 60), 2) +
+        "  ►  " + PLAYLIST[this.track].t + "  (" + (this.track + 1) + "/" + PLAYLIST.length + ")";
+      var time = el("wa-time");
+      if (time) time.textContent = pad(Math.floor(cur / 3600), 2) + ":" + pad(Math.floor(cur / 60) % 60, 2) + ":" + pad(Math.floor(cur) % 60, 2);
     },
     paintList: function () {
       var list = el("wa-list");
       if (!list) return;
-      list.innerHTML = TRACKS.map(function (t, i) {
-        return '<li data-i="' + i + '" class="' + (i === this.track ? "on" : "") + '">' + (i + 1) + ". " + esc(t.title) + "</li>";
+      list.innerHTML = PLAYLIST.map(function (t, i) {
+        return '<li><button type="button" class="wa-trk" data-i="' + i + '"><b>' + (i + 1) + ".</b> " + esc(t.t) + ' <span class="cc0">CC0</span>' + (i === this.track ? ' <span class="newflag blink">▶</span>' : "") + "</button></li>";
       }, this).join("");
     }
   };
@@ -313,30 +233,35 @@
      browsers (and sandboxed preview iframes) refuse AudioContext until then */
   var unlock = function () {
     try {
-      if (!AMP.ctx) return;
-      if (AMP.ctx.state === "suspended") AMP.ctx.resume();
+      if (AMP.ctx && AMP.ctx.state === "suspended") AMP.ctx.resume();
+      if (AMP.wantPlay && AMP.audio && AMP.audio.paused) { var q = AMP.audio.play(); if (q && q.catch) q.catch(function () {}); }
     } catch (e) { /* keep trying */ }
   };
   document.addEventListener("pointerdown", unlock, true);
   document.addEventListener("keydown", unlock, true);
   window.setInterval(function () {
-    if (AMP.playing && AMP.ctx && AMP.ctx.state === "suspended") { AMP.ctx.resume().catch(function () {}); }
-    AMP.paintLcd();
-  }, 1500);
+    if (AMP.ctx && AMP.ctx.state === "suspended" && (AMP.playing || AMP.wantPlay)) AMP.ctx.resume().catch(function () {});
+    AMP.paint();
+  }, 1200);
 
   if (el("winamp")) {
-    AMP.paintLcd();
-    AMP.paintList();
+    AMP.load(AMP.track);
+    AMP.paint();
     var bind = function (id, fn) { var b = el(id); if (b) b.onclick = fn; };
-    bind("wa-play", function () { AMP.play(); el("winamp").classList.remove("paused"); el("winamp").classList.add("live"); });
-    bind("wa-pause", function () { AMP.pause(); el("winamp").classList.add("paused"); el("winamp").classList.remove("live"); });
-    bind("wa-stop", function () { AMP.stop(); el("winamp").classList.add("paused"); el("winamp").classList.remove("live"); });
+    bind("wa-play", function () { AMP.play(); });
+    bind("wa-pause", function () { AMP.pause(); });
+    bind("wa-stop", function () { AMP.stop(); });
     var vol = el("wa-vol");
-    if (vol) vol.oninput = function () { if (AMP.master) AMP.master.gain.value = (vol.value / 100) * 0.8; };
+    if (vol) {
+      vol.oninput = function () {
+        if (AMP.master) AMP.master.gain.value = (vol.value / 100) * 1.1;
+        if (AMP.audio) AMP.audio.volume = Math.min(1, 0.3 + (vol.value / 100) * 0.7);
+      };
+    }
     var list = el("wa-list");
     if (list) list.onclick = function (ev) {
-      var li = ev.target.closest("li");
-      if (li) AMP.select(parseInt(li.getAttribute("data-i"), 10));
+      var btn = ev.target.closest("button[data-i]");
+      if (btn) AMP.select(parseInt(btn.getAttribute("data-i"), 10));
     };
     // live EQ from the analyser node
     var bars = document.querySelectorAll(".wa-eq i");
@@ -355,27 +280,6 @@
         bars[i].style.animation = "none";
       }
     })();
-  }
-
-  /* ------------------------------------------------------------- search -- */
-  var q = el("q");
-  var resBox = el("search-results");
-  if (q && resBox) {
-    var items = Array.prototype.slice.call(resBox.getElementsByTagName("li"));
-    var hitsLine = el("searchHits");
-    var filter = function () {
-      var needle = q.value.trim().toLowerCase();
-      var shown = 0;
-      items.forEach(function (li) {
-        var ok = !needle || li.getAttribute("data-text").indexOf(needle) !== -1;
-        li.style.display = ok ? "" : "none";
-        if (ok) shown += 1;
-      });
-      if (hitsLine) hitsLine.textContent = shown + " / " + items.length;
-    };
-    q.oninput = filter;
-    if (q.form) q.form.onsubmit = function (ev) { ev.preventDefault(); filter(); };
-    filter();
   }
 
   /* ------------------------------------------------- eyes that watch you -- */

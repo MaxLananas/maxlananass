@@ -17,6 +17,7 @@ import { FILES, CREDITS } from "../gallery-data.js";
 import { proxyUrl, originalUrl } from "../image-utils.js";
 import { mediaData, mediaText, iprofVideo } from "./project-content.mjs";
 import { MUSEUM_ARTICLE, MUSEUM_ARTICLE_PATH } from "../content/museum-article.js";
+import { MOBILISATION_ARTICLE, MOBILISATION_ARTICLE_PATH } from "../content/mobilisation-article.js";
 import { META } from "../content/projects-i18n.js";
 import { IPROF_STUDY } from "../content/iprof-case-study.js";
 import { dateLabel } from "../content/dates.js";
@@ -61,7 +62,7 @@ const TR = {
     searchTitle: "search the site", searchBtn: "find!", searchPlaceholder: "type a block, a build, a mod…",
     newFlag: "new!", download: "download", source: "source code",
     mediaTitle: "media center", mediaLink: "about this video", aboutWin: "aboutme.txt — notepad",
-    eyesTitle: "on watch", eyesNote: "this site looks back at you, fondly", wheelHint: "click the colour wheel to remix today's palette", blockTitle: "block of the day", blockNote: "palette pulled from my colour obsessions — mixed with", wipTitle: "construction site", wipPct: "overall progress: 69% nice", wip1: "corsica coastline (BTE France) — 68%, waiting on WorldEdit to stop crying", wip2: "jukeboxplus disco UI — 41%, the vinyl texture needs more pixels", wip3: "this website — 99%, forever", journalNote: "this journal is transcribed from real git commits. the embarrassment is authentic.", radioNote: "why no minecraft ost? c418 & lena raine own those notes — maxamp composes original chiptunes live in your browser instead. no mp3 was harmed, no lawyer was summoned.",
+    navMobilisation: "the mobilization article", journalArticleLink: "read the full article: Guadeloupe, October 2026", radioHowto: "how it works: 1) press the big green ▶ button. 2) music plays. that's it. real royalty-free tracks (CC0), no account, no cookies.", radioPick: "or pick a track yourself:", playLabel: "PLAY", pauseLabel: "pause", stopLabel: "stop", volLabel: "volume", radioReady: "READY — press ▶ PLAY", radioOn: "ON AIR", radioPaused: "paused — press ▶ to resume", radioLocked: "audio locked by the browser — click anywhere once", eyesTitle: "on watch", eyesNote: "this site looks back at you, fondly", wheelHint: "click the colour wheel to remix today's palette", blockTitle: "block of the day", blockNote: "palette pulled from my colour obsessions — mixed with", wipTitle: "construction site", wipPct: "overall progress: 69% nice", wip1: "corsica coastline (BTE France) — 68%, waiting on WorldEdit to stop crying", wip2: "jukeboxplus disco UI — 41%, the vinyl texture needs more pixels", wip3: "this website — 99%, forever", journalNote: "this journal is transcribed from real git commits. the embarrassment is authentic.", radioNote: "music: Royalty Free Music Pack by effacestudios — CC0 (public domain). why not the minecraft ost? c418 & lena raine own those notes; we don't steal other people's chords. no lawyer was summoned.",
     lastUpdated: "page last watered"
   },
   fr: {
@@ -95,7 +96,7 @@ const TR = {
     searchTitle: "chercher sur le site", searchBtn: "trouver !", searchPlaceholder: "un bloc, un build, un mod…",
     newFlag: "nouveau !", download: "télécharger", source: "code source",
     mediaTitle: "centre média", mediaLink: "à propos de cette vidéo", aboutWin: "apropos.txt — bloc-notes",
-    eyesTitle: "je veille", eyesNote: "ce site te regarde aussi, avec tendresse", wheelHint: "clique sur la roue des couleurs pour remixer la palette du jour", blockTitle: "bloc du jour", blockNote: "palette tirée de mes obsessions de couleurs — mixée avec", wipTitle: "chantier en cours", wipPct: "progression globale : 69 % nice", wip1: "côtes corses (BTE France) — 68 %, on attend que WorldEdit arrête de pleurer", wip2: "jukeboxplus UI disco — 41 %, la texture vinyle réclame plus de pixels", wip3: "ce site — 99 %, pour toujours", journalNote: "ce journal est transcrit depuis de vrais commits git. la gêne est authentique.", radioNote: "pourquoi pas l'ost minecraft ? c418 & lena raine possèdent ces notes — maxamp compose des chiptunes originales en direct dans ton navigateur. aucun mp3 blessé, aucun avocat convoqué.",
+    navMobilisation: "l'article mobilisation", journalArticleLink: "lire l'article complet : Guadeloupe, octobre 2026", radioHowto: "comment ça marche : 1) appuie sur le gros bouton vert ▶. 2) la musique joue. c'est tout. vraies musiques libres (CC0), sans compte ni cookies.", radioPick: "ou choisis un morceau toi-même :", playLabel: "ÉCOUTER", pauseLabel: "pause", stopLabel: "stop", volLabel: "volume", radioReady: "PRÊT — appuie sur ▶ ÉCOUTER", radioOn: "EN DIRECT", radioPaused: "en pause — appuie sur ▶ pour reprendre", radioLocked: "audio verrouillé par le navigateur — clique une fois n'importe où", eyesTitle: "je veille", eyesNote: "ce site te regarde aussi, avec tendresse", wheelHint: "clique sur la roue des couleurs pour remixer la palette du jour", blockTitle: "bloc du jour", blockNote: "palette tirée de mes obsessions de couleurs — mixée avec", wipTitle: "chantier en cours", wipPct: "progression globale : 69 % nice", wip1: "côtes corses (BTE France) — 68 %, on attend que WorldEdit arrête de pleurer", wip2: "jukeboxplus UI disco — 41 %, la texture vinyle réclame plus de pixels", wip3: "ce site — 99 %, pour toujours", journalNote: "ce journal est transcrit depuis de vrais commits git. la gêne est authentique.", radioNote: "musique : Royalty Free Music Pack d'effacestudios — CC0 (domaine public). pourquoi pas l'ost minecraft ? c418 & lena raine possèdent ces notes ; on ne vole pas les accords des autres. aucun avocat convoqué.",
     lastUpdated: "page arrosée le"
   },
   es: {
@@ -129,7 +130,7 @@ const TR = {
     searchTitle: "buscar en el sitio", searchBtn: "¡buscar!", searchPlaceholder: "un bloque, un build, un mod…",
     newFlag: "¡nuevo!", download: "descargar", source: "código fuente",
     mediaTitle: "centro de medios", mediaLink: "sobre este vídeo", aboutWin: "sobremi.txt — bloc de notas",
-    eyesTitle: "vigilando", eyesNote: "este sitio también te mira, con cariño", wheelHint: "haz clic en la rueda de colores para remezclar la paleta del día", blockTitle: "bloque del día", blockNote: "paleta sacada de mis obsesiones de color — mezclada con", wipTitle: "obra en curso", wipPct: "progreso total: 69 % nice", wip1: "costa corsa (BTE France) — 68 %, esperando que WorldEdit deje de llorar", wip2: "jukeboxplus UI disco — 41 %, la textura de vinilo pide más píxeles", wip3: "esta web — 99 %, para siempre", journalNote: "este diario se transcribe desde commits git reales. la vergüenza es auténtica.", radioNote: "¿por qué no el ost de minecraft? c418 y lena raine son dueños de esas notas — maxamp compone chiptunes originales en vivo en tu navegador. ningún mp3 herido, ningún abogado convocado.",
+    navMobilisation: "el artículo movilización", journalArticleLink: "lee el artículo completo: Guadalupe, octubre 2026", radioHowto: "cómo funciona: 1) pulsa el gran botón verde ▶. 2) suena la música. ya. pistas reales libres (CC0), sin cuenta ni cookies.", radioPick: "o elige una pista tú:", playLabel: "ESCUCHAR", pauseLabel: "pausa", stopLabel: "stop", volLabel: "volumen", radioReady: "LISTO — pulsa ▶ ESCUCHAR", radioOn: "AL AIRE", radioPaused: "en pausa — pulsa ▶ para seguir", radioLocked: "audio bloqueado por el navegador — haz clic una vez en cualquier parte", eyesTitle: "vigilando", eyesNote: "este sitio también te mira, con cariño", wheelHint: "haz clic en la rueda de colores para remezclar la paleta del día", blockTitle: "bloque del día", blockNote: "paleta sacada de mis obsesiones de color — mezclada con", wipTitle: "obra en curso", wipPct: "progreso total: 69 % nice", wip1: "costa corsa (BTE France) — 68 %, esperando que WorldEdit deje de llorar", wip2: "jukeboxplus UI disco — 41 %, la textura de vinilo pide más píxeles", wip3: "esta web — 99 %, para siempre", journalNote: "este diario se transcribe desde commits git reales. la vergüenza es auténtica.", radioNote: "música: Royalty Free Music Pack de effacestudios — CC0 (dominio público). ¿por qué no el ost de minecraft? c418 y lena raine son dueños de esas notas; no robamos acordes ajenos. ningún abogado convocado.",
     lastUpdated: "página regada el"
   }
 };
@@ -217,7 +218,7 @@ function leftRail(h, current) {
     panel(h.tr("main"), [nav("/", "navHome"), nav("/about/", "navAbout"), nav("/builds/", "navBuilds"), nav("/projects/", "navProjects"), nav("/journal/", "navJournal"), nav("/sitemap/", "navSitemap")].join("")),
     panel(h.tr("fun"), [nav("/development/", "funDev"), nav("/projects/nostalgia-ultra/", "funShaders"), nav("/projects/jukeboxplus/", "funJukebox"), nav("/projects/colorflow/", "funColorflow")].join("")),
     panel(h.tr("shrines"), `<div class="blinkie-row"><img class="pixel" src="/assets/retro/star.gif" alt="" width="21" height="21"><br>${h.link("/buildtheearth/", h.tr("shrineBte"))}<br><img class="pixel" src="/assets/retro/heart.gif" alt="" width="17" height="15"><br>${h.link("/projects/le-mans/", h.tr("shrineLemans"))}<br>${h.link(MUSEUM_ARTICLE_PATH, h.tr("shrineMuseum"))}</div>`),
-    panel(h.tr("other"), [nav("/links/", "navLinks"), nav("/search/", "navSearch"), `<a class="navbtn" href="${esc(SITE.discord)}" target="_blank" rel="noopener">discord</a>`].join(""))
+    panel(h.tr("other"), [nav("/links/", "navLinks"), nav("/search/", "navSearch"), nav(MOBILISATION_ARTICLE_PATH, "navMobilisation"), `<a class="navbtn" href="${esc(SITE.discord)}" target="_blank" rel="noopener">discord</a>`].join(""))
   ].join("");
 }
 
@@ -225,7 +226,7 @@ function rightRail(h) {
   const journal = JOURNAL.slice(0, 5).map((e) => `<li><b>[${e.d} · ${e.h}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("");
   return [
     panel(h.tr("updates"), `<ul class="upd">${journal}</ul><p class="center tiny">${h.link("/journal/", h.tr("older"))}</p>`),
-    `<div class="winamp" id="winamp"><div class="wa-tbar"><span>${esc(h.tr("nowPlaying"))}</span><span class="wb"><span>_</span><span>□</span><span>×</span></span></div><div class="wa-body"><div class="wa-lcd"><marquee scrollamount="2"><span id="wa-track">--:--</span></marquee></div><div class="wa-row"><div class="wa-eq"><i></i><i></i><i></i><i></i><i></i></div><div class="wa-time" id="wa-time">00:00:00</div></div><div class="wa-btns"><button class="wa-btn" id="wa-play" type="button">&gt;</button><button class="wa-btn" id="wa-pause" type="button">||</button><button class="wa-btn" id="wa-stop" type="button">[]</button><span class="wa-vol">vol<input type="range" id="wa-vol" min="0" max="100" value="60"></span></div><ul class="wa-list" id="wa-list"></ul><p class="tiny" style="margin:5px 0 0;color:#8f8b83;">${esc(h.tr("radioNote"))}</p></div></div>`,
+    `<div class="winamp" id="winamp" data-ready="${esc(h.tr("radioReady"))}" data-on="${esc(h.tr("radioOn"))}" data-paused="${esc(h.tr("radioPaused"))}" data-locked="${esc(h.tr("radioLocked"))}"><div class="wa-tbar"><span>${esc(h.tr("nowPlaying"))}</span><span class="wb"><span>_</span><span>□</span><span>×</span></span></div><div class="wa-body"><p class="wa-howto">${esc(h.tr("radioHowto"))}</p><div class="wa-lcd"><marquee scrollamount="2"><span id="wa-track">--:--</span></marquee></div><div class="wa-statusline"><span class="wa-led"></span><span id="wa-status"></span></div><div class="wa-row"><div class="wa-eq"><i></i><i></i><i></i><i></i><i></i></div><div class="wa-time" id="wa-time">00:00:00</div></div><div class="wa-btns"><button class="wa-btn wa-big" id="wa-play" type="button">▶ ${esc(h.tr("playLabel"))}</button><button class="wa-btn" id="wa-pause" type="button">❚❚ ${esc(h.tr("pauseLabel"))}</button><button class="wa-btn" id="wa-stop" type="button">■ ${esc(h.tr("stopLabel"))}</button></div><div class="wa-vol"><label for="wa-vol">${esc(h.tr("volLabel"))}</label><input type="range" id="wa-vol" min="0" max="100" value="70"></div><p class="wa-pick">${esc(h.tr("radioPick"))}</p><ul class="wa-list" id="wa-list"></ul><p class="tiny wa-credit">${esc(h.tr("radioNote"))}</p></div></div>`,
     panel(h.tr("currently"), `<div class="cur"><b>${esc(h.tr("curBuilding"))}:</b> ${esc(h.tr("curBuildingV"))}<br><b>${esc(h.tr("curPlaying"))}:</b> ${esc(h.tr("curPlayingV"))}<br><b>${esc(h.tr("curListening"))}:</b> ${esc(h.tr("curListeningV"))}<br><b>${esc(h.tr("curMood"))}:</b> ${esc(h.tr("curMoodV"))}</div>`),
     `<div class="dark"><div class="panel-h"><span class="deco">†</span> awards <span class="deco">†</span></div><div class="rule"></div><div class="center"><span class="b88 rainbow">cool site of the day · self-awarded</span><div class="tiny" style="margin-top:5px;">this award belongs to me because i gave it to myself ★</div></div></div>`
   ].join("");
@@ -450,6 +451,21 @@ function museumBody(page, h) {
   ].join("");
 }
 
+function mobBody(page, h) {
+  const l = h.lang, A = MOBILISATION_ARTICLE[l], img = MOBILISATION_ARTICLE.image;
+  const fig = `<figure class="shot collage-fig"><img src="${esc(img.src)}" alt="${esc(page.heading)}" width="${img.width}" height="${img.height}" loading="lazy"><figcaption>${esc(A.illustrationNote)}</figcaption></figure>`;
+  const timeline = `<h2 class="pixel">${esc({ en: "the timeline", fr: "la chronologie", es: "la cronología" }[l])}</h2><table class="data"><tbody>${A.timeline.map(([d, t]) => `<tr><th><time datetime="${d}">${d}</time></th><td>${esc(t)}</td></tr>`).join("")}</tbody></table>`;
+  const press = `<h2 class="pixel">${esc({ en: "press & sources", fr: "presse & sources", es: "prensa y fuentes" }[l])}</h2><ul class="pix">${A.press.map(([lb, url]) => `<li>${h.link(url, lb, 'target="_blank" rel="noopener noreferrer"')}</li>`).join("")}<li>${h.link("/projects/greve-petition/", { en: "the petition project file on this site", fr: "la fiche projet de la pétition sur ce site", es: "la ficha del proyecto de la petición" }[l])}</li></ul>`;
+  return [
+    `<h1 class="pixel">${esc(page.heading)}</h1>`,
+    `<p class="byline">${fill(A.byline, { date: `<time datetime="${page.published}">${dateLabel(page.published, l)}</time>` })}</p>`,
+    fig,
+    `<p class="lead">${esc(A.intro)}</p>`,
+    A.sections.map((sec) => h2(sec.title) + sec.paragraphs.map((pp) => `<p>${esc(pp)}</p>`).join("")).join(""),
+    timeline, press
+  ].join("");
+}
+
 function galleryBody(page, h) {
   const l = h.lang;
   return `<h1 class="pixel">${esc(page.heading)}</h1><div class="masonry90">${FILES.map((item, idx) => `<a class="pin" href="${esc(originalUrl(item))}" target="_blank" rel="noopener"><img src="${esc(proxyUrl(item, 640))}" alt="${esc(label(l, item, idx))} — MaxLananas (#${idx + 1})" loading="lazy"></a>`).join("")}</div>`;
@@ -489,7 +505,7 @@ function linksBody(h) {
 
 function sitemapBody(h, pages) {
   const l = h.lang;
-  const main = ["/", "/about/", "/projects/", "/buildtheearth/", "/development/", MUSEUM_ARTICLE_PATH, "/builds/", "/journal/", "/links/", "/search/", "/sitemap/"];
+  const main = ["/", "/about/", "/projects/", "/buildtheearth/", "/development/", MUSEUM_ARTICLE_PATH, MOBILISATION_ARTICLE_PATH, "/builds/", "/journal/", "/links/", "/search/", "/sitemap/"];
   const allProjects = [...PROJECTS, ...NEW_PROJECTS].filter((p) => !REF_EXCLUDE.includes(p.slug) || p.collection !== "reference");
   const li = (path) => `<li>${h.link(path, path === "/" ? "home sweet home" : path)}</li>`;
   return win(h.tr("mapWin"), `<p>${esc(h.tr("mapIntro"))}</p>` +
@@ -607,6 +623,7 @@ function bodyFor(page, h, allPages) {
   if (en === "/projects/") return projectsHubBody(h);
   if (en === "/buildtheearth/") return bteBody(h);
   if (en === "/development/") return devBody(h);
+  if (page.editorialArticle === MOBILISATION_ARTICLE) return mobBody(page, h);
   if (page.editorialArticle) return museumBody(page, h);
   if (page.type === "Article") return guideBody(page, h);
   if (page.galleryPage) return galleryBody(page, h);

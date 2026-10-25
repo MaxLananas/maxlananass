@@ -29,6 +29,7 @@ export const META = {
     "/projects/le-mans/": { title: "Le Mans Minecraft builds — BTE France portfolio", heading: "Le Mans Minecraft builds", description: "Selected Le Mans Minecraft screenshots from MaxLananas’s portfolio: circuit and wider views, BuildTheEarth France credits and original files." },
     "/projects/riptide/": { title: "Riptide — free Minecraft schematic converter", heading: "Riptide — Minecraft schematic converter", description: "Riptide by MaxLananas converts Minecraft schematics across 34 versions, from b1.8.1 to 26.2, in the browser. Free, no account, files deleted in 15 minutes." },
     "/articles/toulouse-pont-neuf-minecraft/": { title: "My Toulouse Pont Neuf build featured by the Muséum", heading: "My Toulouse Pont Neuf build featured by the Muséum", description: "The Muséum de Toulouse’s Minecraft feature includes my Pont Neuf build. See the image, credits and details of the BuildTheEarth France project." },
+    "/articles/mobilisation-lyceens-guadeloupe-2026/": { title: "Guadeloupe 2026: the mobilization I coded", heading: "Guadeloupe, October 2026: the mobilization I coded", description: "The full story of the October 2026 lyceum mobilization in Guadeloupe: 950 students, 600 signatures, the petition site, the rectorat and the press archive." },
   },
   fr: {
     "/": { title: "MaxLananas — builder Minecraft, développeur & projets", heading: "MaxLananas", description: "Constructions Minecraft, contributions BuildTheEarth, mods, plugins et outils de développement par MaxLananas. Projets, captures et dépôts sources." },
@@ -60,6 +61,7 @@ export const META = {
     "/projects/le-mans/": { title: "Builds Minecraft du Mans — portfolio BTE France", heading: "Builds Minecraft du Mans", description: "Captures Minecraft du Mans sélectionnées dans le portfolio de MaxLananas : vue du circuit et vues larges, crédits BuildTheEarth France et images originales." },
     "/projects/riptide/": { title: "Riptide — convertisseur de schematics Minecraft gratuit", heading: "Riptide — convertisseur de schematics Minecraft", description: "Riptide convertit vos builds Minecraft entre 34 versions, de b1.8.1 à 26.2, dans le navigateur. Gratuit, sans compte, fichiers supprimés sous 15 minutes." },
     "/articles/toulouse-pont-neuf-minecraft/": { title: "Mon Pont-Neuf de Toulouse mis en avant par le Muséum", heading: "Mon Pont-Neuf de Toulouse mis en avant par le Muséum", description: "L’article Minecraft du Muséum de Toulouse présente mon build du Pont-Neuf. Retrouvez la photo, les crédits et le contexte du projet BuildTheEarth France." },
+    "/articles/mobilisation-lyceens-guadeloupe-2026/": { title: "Guadeloupe 2026 : la mobilisation que j'ai codée", heading: "Guadeloupe, octobre 2026 : la mobilisation que j'ai codée", description: "Toute l'histoire de la mobilisation lycéenne d'octobre 2026 en Guadeloupe : 950 élèves, 600 signatures, le site de pétition, le rectorat, la revue de presse." },
   },
   es: {
     "/": { title: "MaxLananas — builder de Minecraft, desarrollador y proyectos", heading: "MaxLananas", description: "Construcciones de Minecraft, contribuciones a BuildTheEarth, mods, plugins y herramientas de desarrollo de MaxLananas. Proyectos, capturas y repositorios." },
@@ -91,6 +93,7 @@ export const META = {
     "/projects/le-mans/": { title: "Builds de Minecraft de Le Mans — portfolio BTE", heading: "Builds de Minecraft de Le Mans", description: "Capturas de Minecraft de Le Mans seleccionadas del portfolio de MaxLananas: vista del circuito y vistas amplias, con créditos de BuildTheEarth France." },
     "/projects/riptide/": { title: "Riptide — conversor de schematics de Minecraft gratis", heading: "Riptide — conversor de schematics de Minecraft", description: "Riptide convierte tus builds de Minecraft entre 34 versiones, de b1.8.1 a 26.2, en el navegador. Gratis, sin cuenta y archivos borrados en 15 minutos." },
     "/articles/toulouse-pont-neuf-minecraft/": { title: "El Muséum destaca mi build del Pont Neuf de Toulouse", heading: "El Muséum destaca mi build del Pont Neuf de Toulouse", description: "El artículo Minecraft del Muséum de Toulouse incluye mi build del Pont Neuf. Consulta la imagen, los créditos y el contexto de BuildTheEarth France." },
+    "/articles/mobilisation-lyceens-guadeloupe-2026/": { title: "Guadalupe 2026: la movilización que codifiqué", heading: "Guadalupe, octubre 2026: la movilización que codifiqué", description: "Toda la historia de la movilización liceal de octubre de 2026 en Guadalupe: 950 estudiantes, 600 firmas, el sitio de la petición, el rectorado y la prensa." },
   }
 };
 
