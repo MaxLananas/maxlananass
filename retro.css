@@ -909,3 +909,126 @@ body {
   .mosaic { grid-template-columns: repeat(2, 1fr); }
   .col-main > .panel::after, .col-right > .panel::after { display: none; }
 }
+
+/* ==========================================================================
+   ROUND 6 — « editorial brutalism × green terminal »: DAZED-style condensed
+   type, spray-blurred red wordmark, edge-to-edge photo strips, red scribbles,
+   crumpled paper, all framed in a sage-green browser chrome on matrix dark.
+   ========================================================================== */
+.ed-body {
+  background:
+    radial-gradient(rgba(90, 255, 90, 0.09) 1px, transparent 1.5px) 0 0 / 26px 26px,
+    repeating-linear-gradient(0deg, rgba(90, 255, 90, 0.045) 0 1px, transparent 1px 8px),
+    #060b06 !important;
+}
+.ed-body a { color: #c4120c; }
+.ed-body.inner table.frame {
+  background: #f1efe9 url("assets/retro/paper-crumple.jpg") center / 1000px auto repeat-y;
+  box-shadow: 0 0 0 1px #000, 10px 12px 0 rgba(232, 22, 15, 0.4);
+}
+.ed-body.inner td.col-left, .ed-body.inner td.col-main, .ed-body.inner td.col-right { background: transparent; }
+
+/* ------------------------------------------------------ browser chrome -- */
+.chrome { max-width: 1080px; margin: 14px auto 0; font-family: "PixelMono", monospace; }
+.chrome-tabs { display: flex; align-items: flex-end; gap: 4px; background: #6f876f; padding: 8px 10px 0; border-radius: 10px 10px 0 0; }
+.chrome-tab { background: #8fa58f; color: #16221a; font-size: 12px; padding: 7px 22px; border-radius: 8px 8px 0 0; }
+.chrome-tab.on { background: #b9c4b1; font-weight: 700; }
+.chrome-dots { margin-left: auto; display: flex; gap: 6px; padding: 0 6px 8px; }
+.chrome-dots i { width: 12px; height: 12px; border-radius: 50%; background: #e8e4da; }
+.chrome-dots i:nth-child(2) { background: #b7c2ae; }
+.chrome-dots i:nth-child(3) { background: #233423; }
+.chrome-url { display: flex; align-items: center; gap: 10px; background: #8fa58f; padding: 8px 12px; color: #16221a; }
+.chrome-ar { font-size: 15px; letter-spacing: 4px; }
+.chrome-bar { flex: 1; background: #0c120c; color: #9dff9d; font-size: 12px; padding: 6px 10px; border-radius: 4px; overflow: hidden; white-space: nowrap; }
+.chrome-x { letter-spacing: 6px; }
+
+/* ---------------------------------------------------------- paper page -- */
+.ed-page {
+  max-width: 1080px; margin: 0 auto; background: #f1efe9 url("assets/retro/paper-crumple.jpg") center / 1000px auto repeat-y;
+  box-shadow: 0 0 0 1px #000, 10px 12px 0 rgba(232, 22, 15, 0.4);
+  padding-bottom: 46px; position: relative; overflow: hidden;
+}
+.ed-foot { max-width: 1080px; margin: 0 auto; background: #f1efe9 url("assets/retro/paper-crumple.jpg") center / 1000px auto; padding: 20px 4vw 34px; text-align: center; box-shadow: 0 0 0 1px #000; }
+
+/* ------------------------------------------------------------- masthead -- */
+.ed-masthead { position: relative; padding: 10px 3vw 0; }
+.ed-spray {
+  font-family: Impact, "Arial Narrow Bold", "Haettenschweiler", sans-serif;
+  font-size: 17vw; line-height: 0.78; letter-spacing: -0.015em; text-transform: uppercase;
+  color: #e8160f; filter: blur(13px); opacity: 0.9; text-align: center; user-select: none;
+}
+.ed-name {
+  font-family: Impact, "Arial Narrow Bold", "Haettenschweiler", sans-serif;
+  font-size: 8.4vw; line-height: 0.85; text-transform: uppercase; color: #0c0c0c;
+  margin-top: -6.5vw; position: relative; letter-spacing: -0.01em;
+}
+.ed-nav { display: flex; flex-wrap: wrap; gap: 4px 18px; justify-content: space-between; border-top: 1px solid #101010; border-bottom: 1px solid #101010; margin-top: 10px; padding: 7px 2px; }
+.ed-nav a { color: #101010 !important; text-decoration: none; font-size: 10px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; }
+.ed-nav a:hover { color: #e8160f !important; }
+
+/* ----------------------------------------------------------------- hero -- */
+.ed-hero { display: grid; grid-template-columns: 46% 54%; gap: 0 3vw; padding: 16px 3vw 0; align-items: start; }
+.ed-hero-photo { position: relative; }
+.ed-hero-photo img { width: 100%; height: 430px; object-fit: cover; display: block; filter: saturate(0.92) contrast(1.04); }
+.ed-hero-photo .scrib-loop { position: absolute; left: 22%; bottom: -46px; width: 46%; }
+.ed-kicker { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #8b8b88; margin: 6px 0 10px; }
+.ed-h1 {
+  font-family: Impact, "Arial Narrow Bold", "Haettenschweiler", sans-serif;
+  font-size: clamp(36px, 5.6vw, 78px); line-height: 0.94; text-transform: uppercase;
+  color: #0c0c0c; margin: 0 0 16px; letter-spacing: -0.005em;
+}
+.ed-stand { font-family: "Arial Narrow", "Liberation Sans Narrow", Impact, sans-serif; font-weight: 700; font-size: 18px; line-height: 1.22; color: #a29f9a; margin: 0 0 18px; }
+.ed-hero-text { position: relative; padding-bottom: 30px; }
+.ed-hero-text .scrib-x { position: absolute; right: 4%; bottom: -6px; width: 62px; transform: rotate(9deg); }
+.ed-more { font-size: 12px; font-weight: 800; letter-spacing: 0.42em; text-transform: uppercase; }
+.ed-more a { color: #e8160f !important; text-decoration: none; }
+.ed-more a:hover { text-decoration: line-through; }
+.ed-more.big { font-size: 17px; letter-spacing: 0.5em; }
+.scrib { pointer-events: none; }
+
+/* ------------------------------------------------------------ photo strip -- */
+.ed-strip { display: grid; grid-template-columns: 1.35fr 0.95fr 1.2fr 0.8fr; margin: 34px 0 8px; }
+.ed-strip img { width: 100%; height: 270px; object-fit: cover; display: block; }
+.ed-strip .ed-s2 { height: 330px; margin-top: -60px; }
+.ed-strip .ed-s3 { filter: grayscale(1) sepia(1) hue-rotate(55deg) saturate(2.6) brightness(0.95) contrast(1.12); }
+.ed-strip .ed-s4 { height: 230px; margin-top: 40px; }
+
+/* ----------------------------------------------------------------- grid -- */
+.ed-grid { display: grid; grid-template-columns: 1.15fr 1fr 0.8fr; gap: 3vw; padding: 30px 3vw 6px; align-items: start; }
+.ed-h2 { font-family: Impact, "Arial Narrow Bold", sans-serif; font-size: 25px; text-transform: uppercase; color: #0c0c0c; margin: 0 0 10px; letter-spacing: 0.01em; }
+.ed-cell { position: relative; }
+.ed-term .winamp { transform: rotate(-0.6deg); }
+.ed-eyes .eyes-row { justify-content: flex-start; }
+
+/* ----------------------------------------------------------------- rows -- */
+.ed-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 3.4vw; padding: 30px 3vw 0; align-items: start; }
+.ed-rowtext { position: relative; }
+.ed-rowtext .upd { font-size: 13px; }
+.ed-art .scrib-x { position: absolute; right: 2%; bottom: -14px; width: 74px; transform: rotate(-7deg); }
+.ed-row { display: grid; grid-template-columns: 128px 1fr; gap: 16px; padding: 14px 0; border-top: 1px solid #141414; text-decoration: none; }
+.ed-row img { width: 128px; height: 96px; object-fit: cover; display: block; }
+.ed-row h3 { font-family: Impact, "Arial Narrow Bold", sans-serif; font-size: 21px; text-transform: uppercase; color: #0c0c0c; margin: 0 0 6px; }
+.ed-row .ed-stand { font-size: 14px; margin-bottom: 6px; }
+.ed-term-aside {
+  background: #071307; color: #9dff9d; font-family: "PixelMono", monospace; font-size: 12.5px; line-height: 1.5;
+  padding: 16px 18px; box-shadow: 8px 9px 0 rgba(232, 22, 15, 0.55); transform: rotate(-1.1deg);
+}
+.ed-term-aside p { margin: 0 0 6px; }
+.ed-term-aside .ta-h { color: #ff5f45; font-weight: 700; border-bottom: 1px dashed #2e6b2e; padding-bottom: 6px; margin-bottom: 10px; }
+.ed-term-aside .ta-sign { color: #6fce6f; font-style: italic; }
+
+/* ------------------------------------------------------------ responsive -- */
+@media (max-width: 900px) {
+  .ed-hero, .ed-rows, .ed-grid { grid-template-columns: 1fr; }
+  .ed-strip { grid-template-columns: 1fr 1fr; }
+  .ed-strip .ed-s2, .ed-strip .ed-s4 { height: 240px; margin-top: 0; }
+  .ed-hero-photo img { height: 300px; }
+  .ed-name { margin-top: -8vw; }
+}
+@media (max-width: 560px) {
+  .ed-spray { font-size: 24vw; filter: blur(9px); }
+  .ed-name { font-size: 13vw; margin-top: -9vw; }
+  .ed-strip { grid-template-columns: 1fr; }
+  .ed-row { grid-template-columns: 96px 1fr; }
+  .ed-row img { width: 96px; height: 74px; }
+}
