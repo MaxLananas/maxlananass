@@ -8,11 +8,11 @@ Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://gi
 
 ## Frontend rétro (refonte d’octobre 2026)
 
-Le site publié est maintenant une **page personnelle façon 1999–2003** : colonnes en tableaux, bordures biseautées, fond tiled, polices pixel, compteur de visites, livre d’or, shoutbox, lecteur « MAXAMP », gifs animés et curseurs personnalisés. Toutes les URLs, contenus et langues précédents sont conservés (118 pages : en/fr/es + journal, livre d’or, liens et plan du site).
+Le site publié est maintenant une **page personnelle façon 1999–2003** : colonnes en tableaux, bordures biseautées, fond tiled, polices pixel, compteur de visites, radio chiptune « MAXAMP » réellement fonctionnelle (synthèse WebAudio, 6 boucles originales), bloc du jour, chantier en cours, gifs animés et curseurs personnalisés. Toutes les URLs, contenus et langues précédents sont conservés (115 pages : en/fr/es + journal, liens et plan du site).
 
 - Rendu : `npm run retro:render` (`tools/retro-render.mjs`) régénère toutes les pages HTML depuis les mêmes sources éditoriales (`content/`, `gallery-data.js`) ; ne pas modifier les snapshots à la main.
 - Assets pixel : `npm run retro:assets` (`tools/retro-assets.mjs`) réencode tuiles de fond, curseurs `.png` et gifs animés (encodeurs PNG/GIF maison, sans dépendance).
-- Feuille de style : `retro.css` · comportements visiteur (livre d’or local, compteur, MAXAMP, sparkles) : `retro.js`.
+- Feuille de style : `retro.css` · comportements visiteur (compteur, radio MAXAMP, bloc du jour, recherche, sparkles) : `retro.js`.
 - Polices pixel vendues avec le site : `assets/fonts/retro/` (Press Start 2P, VT323, UnifrakturMaguntia — SIL Open Font License).
 - Aperçu local : `python3 -m http.server 8080` à la racine, ou `npm run retro:dev`.
 

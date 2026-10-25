@@ -26,7 +26,7 @@ const bySlug = (slug) => PROJECTS.find((p) => p.slug === slug);
 /* ------------------------------------------------- trilingual chrome copy -- */
 const TR = {
   en: {
-    marquee: "★ welcome to my little corner of the web!! ★ minecraft builds, mods & interface experiments ★ sign my guestbook before you leave ★ new screenshots every month ★",
+    marquee: "★ welcome to my little corner of the web!! ★ minecraft builds, mods & interface experiments ★ crank the maxamp radio before you leave ★ new screenshots every month ★",
     bannerNote: "screenshots belong to their builders & crews — credits below",
     visitors: "visitor count", youAre: "you are number", since: "counting since the dial-up days",
     main: "main", fun: "fun stuff", shrines: "shrines", other: "other",
@@ -44,7 +44,7 @@ const TR = {
     journalTitle: "journal", featuredTitle: "featured projects", galleryTitle: "latest builds", viewGallery: "open the full gallery",
     contactTitle: "commissions & contact", processTitle: "how a build happens", faqTitle: "questions people ask",
     powered: "powered by", webring: "« prev · minecraft builders webring · next »", webringNote: "member site #47 · join the ring",
-    footCopy: "© 1997–2026 MaxLananas · no frames were used, only tables", footMade: "hand-coded in notepad at 2am · guestbook entries belong to their authors",
+    footCopy: "© 1997–2026 MaxLananas · no frames were used, only tables", footMade: "hand-coded in notepad at 2am · every commit is a genuine regret",
     footBest: "best viewed at 800×600", footView: "you are visitor",
     statsTitle: "site statistics", statsBuilds: "builds photographed", statsProjects: "projects documented", statsReleases: "mods & tools published", statsLangs: "languages spoken here", statsUptime: "uptime since 1999",
     gbTitle: "guestbook.exe", gbIntro: "please be nice!! guestbook entries are stored in your own browser (this is a static site, we have no server money). sign it, refresh, it stays. magic.",
@@ -56,10 +56,11 @@ const TR = {
     searchTitle: "search the site", searchBtn: "find!", searchPlaceholder: "type a block, a build, a mod…",
     newFlag: "new!", download: "download", source: "source code",
     mediaTitle: "media center", mediaLink: "about this video", aboutWin: "aboutme.txt — notepad",
+    blockTitle: "block of the day", blockNote: "palette pulled from my colour obsessions — mixed with", wipTitle: "construction site", wipPct: "overall progress: 69% nice", wip1: "corsica coastline (BTE France) — 68%, waiting on WorldEdit to stop crying", wip2: "jukeboxplus disco UI — 41%, the vinyl texture needs more pixels", wip3: "this website — 99%, forever", journalNote: "this journal is transcribed from real git commits. the embarrassment is authentic.", radioNote: "real chiptunes, synthesized live in your browser by maxamp. no mp3 was harmed.",
     lastUpdated: "page last watered"
   },
   fr: {
-    marquee: "★ bienvenue dans mon petit coin du web !! ★ builds minecraft, mods & expériences d'interface ★ signe mon livre d'or avant de partir ★ nouvelles captures chaque mois ★",
+    marquee: "★ bienvenue dans mon petit coin du web !! ★ builds minecraft, mods & expériences d'interface ★ monte le son de la radio maxamp avant de partir ★ nouvelles captures chaque mois ★",
     bannerNote: "les captures appartiennent à leurs constructeurs — crédits plus bas",
     visitors: "compteur de visites", youAre: "vous êtes le n°", since: "compte depuis l'époque du modem",
     main: "principal", fun: "coin fun", shrines: "shrines", other: "autre",
@@ -77,7 +78,7 @@ const TR = {
     journalTitle: "journal", featuredTitle: "projets à la une", galleryTitle: "builds récents", viewGallery: "ouvrir la galerie complète",
     contactTitle: "commandes & contact", processTitle: "comment naît un build", faqTitle: "questions fréquentes",
     powered: "propulsé par", webring: "« préc · webring des builders minecraft · suiv »", webringNote: "site membre n°47 · rejoindre",
-    footCopy: "© 1997–2026 MaxLananas · aucune frame, seulement des tableaux", footMade: "codé à la main dans le bloc-notes à 2h du mat · les messages appartiennent à leurs auteurs",
+    footCopy: "© 1997–2026 MaxLananas · aucune frame, seulement des tableaux", footMade: "codé à la main dans le bloc-notes à 2h du mat · chaque commit est un regret authentique",
     footBest: "affiché au mieux en 800×600", footView: "vous êtes le visiteur",
     statsTitle: "statistiques du site", statsBuilds: "builds photographiés", statsProjects: "projets documentés", statsReleases: "mods & outils publiés", statsLangs: "langues parlées ici", statsUptime: "en ligne depuis 1999",
     gbTitle: "livredor.exe", gbIntro: "soyez gentils !! les messages sont gardés dans votre propre navigateur (site statique, pas de sous pour un serveur). signez, rafraîchissez, ça reste. magie.",
@@ -89,10 +90,11 @@ const TR = {
     searchTitle: "chercher sur le site", searchBtn: "trouver !", searchPlaceholder: "un bloc, un build, un mod…",
     newFlag: "nouveau !", download: "télécharger", source: "code source",
     mediaTitle: "centre média", mediaLink: "à propos de cette vidéo", aboutWin: "apropos.txt — bloc-notes",
+    blockTitle: "bloc du jour", blockNote: "palette tirée de mes obsessions de couleurs — mixée avec", wipTitle: "chantier en cours", wipPct: "progression globale : 69 % nice", wip1: "côtes corses (BTE France) — 68 %, on attend que WorldEdit arrête de pleurer", wip2: "jukeboxplus UI disco — 41 %, la texture vinyle réclame plus de pixels", wip3: "ce site — 99 %, pour toujours", journalNote: "ce journal est transcrit depuis de vrais commits git. la gêne est authentique.", radioNote: "vraies chiptunes, synthétisées en direct dans ton navigateur par maxamp. aucun mp3 blessé.",
     lastUpdated: "page arrosée le"
   },
   es: {
-    marquee: "★ ¡bienvenido a mi rinconcito de la web!! ★ builds de minecraft, mods y experimentos de interfaz ★ firma mi libro de visitas antes de irte ★ capturas nuevas cada mes ★",
+    marquee: "★ ¡bienvenido a mi rinconcito de la web!! ★ builds de minecraft, mods y experimentos de interfaz ★ súbele a la radio maxamp antes de irte ★ capturas nuevas cada mes ★",
     bannerNote: "las capturas pertenecen a sus constructores — créditos abajo",
     visitors: "contador de visitas", youAre: "eres el número", since: "contando desde la época del módem",
     main: "principal", fun: "cosas fun", shrines: "shrines", other: "otro",
@@ -110,7 +112,7 @@ const TR = {
     journalTitle: "diario", featuredTitle: "proyectos destacados", galleryTitle: "builds recientes", viewGallery: "abrir la galería completa",
     contactTitle: "encargos y contacto", processTitle: "cómo nace un build", faqTitle: "preguntas frecuentes",
     powered: "funciona con", webring: "« ant · webring de builders minecraft · sig »", webringNote: "sitio miembro #47 · únete",
-    footCopy: "© 1997–2026 MaxLananas · sin frames, solo tablas", footMade: "escrito a mano en el bloc de notas a las 2am · las entradas pertenecen a sus autores",
+    footCopy: "© 1997–2026 MaxLananas · sin frames, solo tablas", footMade: "escrito a mano en el bloc de notas a las 2am · cada commit es un arrepentimiento auténtico",
     footBest: "mejor visto a 800×600", footView: "eres el visitante",
     statsTitle: "estadísticas del sitio", statsBuilds: "builds fotografiados", statsProjects: "proyectos documentados", statsReleases: "mods y herramientas publicadas", statsLangs: "idiomas aquí", statsUptime: "en línea desde 1999",
     gbTitle: "libro.exe", gbIntro: "¡sed majos! los mensajes se guardan en vuestro propio navegador (sitio estático, no hay dinero para servidores). firma, refresca, se queda. magia.",
@@ -122,20 +124,24 @@ const TR = {
     searchTitle: "buscar en el sitio", searchBtn: "¡buscar!", searchPlaceholder: "un bloque, un build, un mod…",
     newFlag: "¡nuevo!", download: "descargar", source: "código fuente",
     mediaTitle: "centro de medios", mediaLink: "sobre este vídeo", aboutWin: "sobremi.txt — bloc de notas",
+    blockTitle: "bloque del día", blockNote: "paleta sacada de mis obsesiones de color — mezclada con", wipTitle: "obra en curso", wipPct: "progreso total: 69 % nice", wip1: "costa corsa (BTE France) — 68 %, esperando que WorldEdit deje de llorar", wip2: "jukeboxplus UI disco — 41 %, la textura de vinilo pide más píxeles", wip3: "esta web — 99 %, para siempre", journalNote: "este diario se transcribe desde commits git reales. la vergüenza es auténtica.", radioNote: "chiptunes reales, sintetizadas en vivo en tu navegador por maxamp. ningún mp3 fue herido.",
     lastUpdated: "página regada el"
   }
 };
 
 /* ------------------------------------------------------------- journal -- */
 const JOURNAL = [
-  { d: "2026-10-24", link: "/builds/", en: "uploaded the autumn screenshot batch — the gallery just passed 100 photos. the corsica coastline shots are my favourite of the year.", fr: "mise en ligne de la fournée de captures d'automne — la galerie passe les 100 photos. les captures des côtes corses sont mes préférées de l'année.", es: "subí el lote de capturas de otoño — la galería pasó las 100 fotos. las capturas de la costa corsa son mis favoritas del año." },
-  { d: "2026-10-25", en: "redesigned the whole site again!! third time this year. sorry mum, the table layouts were calling me.", fr: "refonte complète du site, encore !! troisième fois cette année. pardon maman, les tableaux m'appelaient.", es: "¡rediseñé todo el sitio otra vez!! tercera vez este año. perdón mamá, las tablas me llamaban." },
-  { d: "2026-09-13", link: "/projects/iprof-redesign/", en: "published the iProf redesign case study: 11 presentation visuals plus a short walkthrough video, all with design notes.", fr: "publication de l'étude de cas de la refonte iProf : 11 visuels de présentation et une courte vidéo, avec notes de conception.", es: "publiqué el caso de estudio del rediseño de iProf: 11 visuales de presentación y un vídeo corto, con notas de diseño." },
-  { d: "2026-09-20", link: MUSEUM_ARTICLE_PATH, en: "the Muséum de Toulouse wrote about our Pont Neuf build!! my reproduction appears at the end of their article. still not over it.", fr: "le Muséum de Toulouse a écrit sur notre build du Pont-Neuf !! ma reproduction apparaît à la fin de leur article. je m'en remets pas.", es: "¡el Muséum de Toulouse escribió sobre nuestro build del Pont Neuf!! mi recreación aparece al final de su artículo. aún no me lo creo." },
-  { d: "2026-07-19", link: "/projects/le-mans/", en: "the 10-builder collaboration build got featured in a certain very large youtube video. the le mans page now has the whole story.", fr: "le build collaboratif à 10 constructeurs est passé dans une certaine très grosse vidéo youtube. la page le mans raconte tout.", es: "el build colaborativo de 10 constructores salió en un cierto vídeo enorme de youtube. la página de le mans cuenta todo." },
-  { d: "2026-06-30", link: "/development/", en: "software lab cleaned up: SENTINEL, MaxOS, PineappleUI and Riptide now have proper pages instead of my old readme dumps.", fr: "labo logiciel rangé : SENTINEL, MaxOS, PineappleUI et Riptide ont de vraies pages au lieu de mes vieux readmes.", es: "lab de software ordenado: SENTINEL, MaxOS, PineappleUI y Riptide tienen páginas propias en vez de mis viejos readmes." },
-  { d: "2026-05-11", link: "/guides/minecraft-mods-plugins-addons/", en: "wrote the mod vs plugin vs addon guide after answering the same discord question for the 40th time.", fr: "rédaction du guide mod vs plugin vs addon après avoir répondu 40 fois à la même question sur discord.", es: "escribí la guía mod vs plugin vs addon tras responder la misma pregunta de discord por 40ª vez." },
-  { d: "2026-01-04", en: "happy new year!! goal for the site: one journal entry per month. let's see how that goes.", fr: "bonne année !! objectif du site : une entrée de journal par mois. on verra bien.", es: "¡feliz año nuevo!! propósito del sitio: una entrada de diario al mes. ya veremos." }
+  { d: "2026-10-25", h: "cb0a9a7", en: "the guestbook is gone: the spam bots found it in under a week. the 90s were nicer, the bots are modern. shout at the radio instead, it actually plays music now.", fr: "le livre d'or a disparu : les bots de spam l'ont trouvé en moins d'une semaine. les années 90 étaient plus douces, les bots sont modernes. crie vers la radio plutôt, elle joue vraiment de la musique maintenant.", es: "el libro de visitas se fue: los bots de spam lo encontraron en menos de una semana. los 90 eran más amables, los bots son modernos. grítale a la radio, ahora sí suena música." },
+  { d: "2026-10-25", h: "6e459e8", en: "redesigned the whole site again!! third time this year. sorry mom, the table layouts were calling me. i hand-rolled a PNG and a GIF encoder for this. my therapist asked me to say hi.", fr: "refonte complète du site, encore !! troisième fois cette année. pardon maman, les tableaux m'appelaient. j'ai codé un encodeur PNG et un encodeur GIF à la main pour ça. ma thérapeute me dit de vous saluer.", es: "¡rediseñé todo el sitio otra vez!! tercera vez este año. perdón mamá, las tablas me llamaban. escribí a mano un codificador PNG y uno GIF para esto. mi terapeuta saluda." },
+  { d: "2026-09-30", h: "5189837", link: MUSEUM_ARTICLE_PATH, en: "the Muséum de Toulouse featured our Pont Neuf build!! page published, image metadata polished, tears shed, commit pushed, more tears shed. worth it.", fr: "le Muséum de Toulouse a parlé de notre build du Pont-Neuf !! page publiée, métadonnées images soignées, larmes versées, commit poussé, autres larmes versées. ça valait le coup.", es: "¡el Muséum de Toulouse destacó nuestro build del Pont Neuf!! página publicada, metadatos pulidos, lágrimas derramadas, commit subido, más lágrimas. valió la pena." },
+  { d: "2026-09-13", h: "45d5207", en: "spent the day bisecting a horizontal overflow on small screens. the culprit was one (1) tab control. twelve commits of public embarrassment, archived forever in git. do not look at them. look at them.", fr: "journée passée à faire une bissection de débordement horizontal sur petits écrans. le coupable : un (1) onglet. douze commits de gêne publique, archivés pour l'éternité dans git. ne les regardez pas. regardez-les.", es: "día entero haciendo bisect de un desborde horizontal en pantallas pequeñas. el culpable: una (1) pestaña. doce commits de vergüenza pública, archivados para siempre en git. no los miren. mírenlos." },
+  { d: "2026-09-13", h: "36d0e42", link: "/projects/riptide/", en: "Riptide went trilingual and the SEO program now compiles. yes, « the SEO program compiles » is a real sentence in my life now. no, i will not explain it at dinner.", fr: "Riptide est passé trilingue et le programme SEO compile désormais. oui, « le programme SEO compile » est une vraie phrase dans ma vie maintenant. non, je ne l'expliquerai pas au dîner.", es: "Riptide ahora es trilingüe y el programa SEO compila. sí, «el programa SEO compila» es una frase real en mi vida. no, no lo explicaré en la cena." },
+  { d: "2026-09-08", h: "fa594d6", en: "the build now validates encoded media signatures, not just dimensions. every image shows its papers at the border before entering dist/. customs is strict but fair.", fr: "le build valide maintenant les signatures des médias encodés, pas seulement les dimensions. chaque image présente ses papiers à la frontière avant d'entrer dans dist/. la douane est stricte mais juste.", es: "el build ahora valida firmas de medios codificados, no solo dimensiones. cada imagen muestra sus papeles en la frontera antes de entrar a dist/. la aduana es estricta pero justa." },
+  { d: "2026-09-07", h: "c5a752b", link: "/projects/iprof-redesign/", en: "remuxed the iProf walkthrough video without re-encoding: 8 MB of H.264 handled like a vintage wine, bottle never opened. native player shipped, preload none, dignity intact.", fr: "remuxage de la vidéo iProf sans réencodage : 8 Mo de H.264 traités comme un grand cru, bouteille jamais ouverte. lecteur natif livré, preload none, dignité intacte.", es: "remux del vídeo de iProf sin recodificar: 8 MB de H.264 tratados como un vino de guarda, botella nunca abierta. lector nativo listo, preload none, dignidad intacta." },
+  { d: "2026-09-07", h: "cfaac07", en: "the iProf redesign became the featured project: eleven visuals, zero invented KPIs, one very honest disclaimer. interface work finally has a home that isn't a readme.", fr: "la refonte iProf est devenue le projet vedette : onze visuels, zéro KPI inventé, un avertissement très honnête. le travail d'interface a enfin une maison qui n'est pas un readme.", es: "el rediseño de iProf pasó a proyecto destacado: once visuales, cero KPI inventados, un aviso muy honesto. el trabajo de interfaz por fin tiene casa que no es un readme." },
+  { d: "2026-07-21", h: "e2b54fe", en: "committed « Update index.html » twelve times in one single day. TWELVE. the twelfth one was the good one. sorry mom, it was 3am and the pixels wouldn't align.", fr: "douze commits « Update index.html » dans la même journée. DOUZE. le douzième était le bon. pardon maman, il était 3h et les pixels ne voulaient pas s'aligner.", es: "doce commits «Update index.html» en un solo día. DOCE. el duodécimo era el bueno. perdón mamá, eran las 3am y los píxeles no se alineaban." },
+  { d: "2026-07-21", h: "0354ac5", en: "created sw.js. the service worker has been caching our regrets offline ever since, and it refuses to let go. unsubscribe at your own risk.", fr: "création de sw.js. le service worker met nos regrets en cache hors-ligne depuis ce jour, et refuse de lâcher l'affaire. désinscription à vos risques et périls.", es: "creé sw.js. el service worker guarda nuestros regrets en caché sin conexión desde entonces, y no suelta. date de baja bajo tu propio riesgo." },
+  { d: "2026-07-21", h: "f6e914b", en: "manifest.json entered the chat: the site is now « installable », which means the browser keeps asking to put it on the home screen. we are a real app now. someone call the press.", fr: "manifest.json est entré dans le chat : le site est désormais « installable », ce qui signifie que le navigateur supplie de le mettre sur l'écran d'accueil. on est une vraie app maintenant. appelez la presse.", es: "manifest.json entró al chat: el sitio ya es «instalable», o sea el navegador ruega ponerlo en la pantalla de inicio. ya somos una app de verdad. llamen a la prensa." }
 ];
 
 /* ---------------------------------------------------------------- helpers -- */
@@ -193,27 +199,12 @@ function cardRow(p, h) {
 }
 const cards = (projects, h) => `<table class="cards">${projects.map((p) => cardRow(p, h)).join("")}</table>`;
 
-function badges(h) {
-  const b = [
-    ["navy", "made with notepad &amp; tables", "#"],
-    ["grey", "best viewed at 800×600", "#"],
-    ["green", "netscape now!", "https://theoldnet.com/"],
-    ["black", "y2k compliant", "#"],
-    ["rainbow", "powered by minecraft blocks", "https://www.minecraft.net/"],
-    ["red", "bte france builder", "https://www.btefrance.fr/"],
-    ["black", "no cookies · no trackers", "#"],
-    ["navy", "geocities forever", "https://neocities.org/"],
-    ["green", "maxamp inside", "#winamp"]
-  ];
-  return `<div class="badges">${b.map(([cls, text, href]) => `<a class="b88 ${cls}" href="${esc(href)}"${href.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${text}</a>`).join("")}</div>`;
-}
-
 /* ------------------------------------------------------------------ rails -- */
 function leftRail(h, current) {
   const nav = (path, labelKey) => `<a class="navbtn" href="${esc(h.route(path))}"${current === path ? ' aria-current="page"' : ""}>${esc(h.tr(labelKey))}</a>`;
   return [
     panel(h.tr("visitors"), `<div class="center"><span class="odo" id="odo"></span><div class="tiny">${esc(h.tr("youAre"))} <span id="odo-mini">??????</span><br>${esc(h.tr("since"))}</div></div>`),
-    panel(h.tr("main"), [nav("/", "navHome"), nav("/about/", "navAbout"), nav("/builds/", "navBuilds"), nav("/projects/", "navProjects"), nav("/journal/", "navJournal"), nav("/guides/minecraft-mods-plugins-addons/", "navGuides"), nav("/guestbook/", "navGuestbook"), nav("/sitemap/", "navSitemap")].join("")),
+    panel(h.tr("main"), [nav("/", "navHome"), nav("/about/", "navAbout"), nav("/builds/", "navBuilds"), nav("/projects/", "navProjects"), nav("/journal/", "navJournal"), nav("/guides/minecraft-mods-plugins-addons/", "navGuides"), nav("/sitemap/", "navSitemap")].join("")),
     panel(h.tr("fun"), [nav("/development/", "funDev"), nav("/guides/minecraft-mods-plugins-addons/", "funGuide"), nav("/projects/nostalgia-ultra/", "funShaders"), nav("/projects/jukeboxplus/", "funJukebox"), nav("/projects/colorflow/", "funColorflow")].join("")),
     panel(h.tr("shrines"), `<div class="blinkie-row"><img class="pixel" src="/assets/retro/star.gif" alt="" width="21" height="21"><br>${h.link("/buildtheearth/", h.tr("shrineBte"))}<br><img class="pixel" src="/assets/retro/heart.gif" alt="" width="17" height="15"><br>${h.link("/projects/le-mans/", h.tr("shrineLemans"))}<br>${h.link(MUSEUM_ARTICLE_PATH, h.tr("shrineMuseum"))}</div>`),
     panel(h.tr("other"), [nav("/links/", "navLinks"), nav("/search/", "navSearch"), `<a class="navbtn" href="https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1" target="_blank" rel="noopener">${esc(h.tr("navArchive"))}</a>`, `<a class="navbtn" href="${esc(SITE.discord)}" target="_blank" rel="noopener">discord</a>`].join(""))
@@ -221,11 +212,10 @@ function leftRail(h, current) {
 }
 
 function rightRail(h) {
-  const journal = JOURNAL.slice(0, 4).map((e) => `<li><b>${e.d}</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("");
+  const journal = JOURNAL.slice(0, 5).map((e) => `<li><b>[${e.d} · ${e.h}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("");
   return [
-    `<div class="dark"><div class="panel-h"><span class="deco">†</span> ${esc(h.tr("shoutbox"))} <span class="deco">†</span></div><div class="rule"></div><div id="shout-list"></div><form id="shout-form"><input type="text" id="shout-msg" maxlength="140" placeholder="${esc(h.tr("shoutPlaceholder"))}"> <button class="btn95" type="submit">${esc(h.tr("shoutSend"))}</button></form><p class="tiny center">${h.link("/guestbook/", h.tr("signGb"))}</p></div>`,
     panel(h.tr("updates"), `<ul class="upd">${journal}</ul><p class="center tiny">${h.link("/journal/", h.tr("older"))}</p>`),
-    `<div class="winamp" id="winamp"><div class="wa-tbar"><span>${esc(h.tr("nowPlaying"))}</span><span class="wb"><span>_</span><span>□</span><span>×</span></span></div><div class="wa-body"><div class="wa-lcd"><marquee scrollamount="2"><span id="wa-track">--:--</span></marquee></div><div class="wa-row"><div class="wa-eq"><i></i><i></i><i></i><i></i><i></i></div><div class="wa-time" id="wa-time">00:00:00</div></div><div class="wa-btns"><button class="wa-btn" id="wa-play" type="button">&gt;</button><button class="wa-btn" id="wa-pause" type="button">||</button><button class="wa-btn" id="wa-stop" type="button">[]</button></div><ul class="wa-list" id="wa-list"></ul></div></div>`,
+    `<div class="winamp" id="winamp"><div class="wa-tbar"><span>${esc(h.tr("nowPlaying"))}</span><span class="wb"><span>_</span><span>□</span><span>×</span></span></div><div class="wa-body"><div class="wa-lcd"><marquee scrollamount="2"><span id="wa-track">--:--</span></marquee></div><div class="wa-row"><div class="wa-eq"><i></i><i></i><i></i><i></i><i></i></div><div class="wa-time" id="wa-time">00:00:00</div></div><div class="wa-btns"><button class="wa-btn" id="wa-play" type="button">&gt;</button><button class="wa-btn" id="wa-pause" type="button">||</button><button class="wa-btn" id="wa-stop" type="button">[]</button><span class="wa-vol">vol<input type="range" id="wa-vol" min="0" max="100" value="60"></span></div><ul class="wa-list" id="wa-list"></ul><p class="tiny" style="margin:5px 0 0;color:#8f8b83;">${esc(h.tr("radioNote"))}</p></div></div>`,
     panel(h.tr("currently"), `<div class="cur"><b>${esc(h.tr("curBuilding"))}:</b> ${esc(h.tr("curBuildingV"))}<br><b>${esc(h.tr("curPlaying"))}:</b> ${esc(h.tr("curPlayingV"))}<br><b>${esc(h.tr("curListening"))}:</b> ${esc(h.tr("curListeningV"))}<br><b>${esc(h.tr("curMood"))}:</b> ${esc(h.tr("curMoodV"))}</div>`),
     `<div class="dark"><div class="panel-h"><span class="deco">†</span> awards <span class="deco">†</span></div><div class="rule"></div><div class="center"><span class="b88 rainbow">cool site of the day · self-awarded</span><div class="tiny" style="margin-top:5px;">this award belongs to me because i gave it to myself ★</div></div></div>`
   ].join("");
@@ -241,14 +231,23 @@ function homeBody(page, h) {
   return [
     win(h.tr("welcomeWin"), `<div class="welcome"><div class="ava"><img class="pixel" src="/assets/retro/avatar.png" alt="pixel avatar of MaxLananas" width="96" height="96"></div><div class="txt"><h1 class="pixel">${esc(page.heading)}</h1><p class="tiny">${esc(copy(l, k, "identity"))}</p><p>${fill(copy(l, k, "intro"), { iprof: h.link("/projects/iprof-redesign/", copy(l, k, "introIprof")), bte: h.link("/buildtheearth/", copy(l, k, "introBte")), dev: h.link("/development/", copy(l, k, "introDev")), about: h.link("/about/", copy(l, k, "introAbout")) })}</p></div></div>`),
     `<div class="sunken notice"><b>${esc(h.tr("notice"))}</b> <img class="pixel" src="/assets/retro/construction.gif" alt="" width="88" height="31" style="float:right;margin-left:6px;"> ${h.tr("noticeBody")}</div>`,
-    panel(h.tr("journalTitle"), JOURNAL.slice(0, 2).map((e) => `<p><b class="tiny">[${e.d}]</b> ${esc(e[l])} ${e.link ? h.link(e.link, "→") : ""}</p>`).join("") + `<p class="center">${h.link("/journal/", h.tr("older"))} · ${h.link("/guestbook/", h.tr("signGb"))}</p>`),
+    panel(h.tr("journalTitle"), JOURNAL.slice(0, 2).map((e) => `<p><b class="tiny">[${e.d}]</b> ${esc(e[l])} ${e.link ? h.link(e.link, "→") : ""}</p>`).join("") + `<p class="center">${h.link("/journal/", h.tr("older"))}</p>`),
     panel(h.tr("featuredTitle"), `<p>${esc(copy(l, k, "projectsIntro"))}</p>` + cards(featured, h) + `<p class="center tiny">${h.link("/development/", copy(l, k, "sectionLinksDev"))} · ${h.link(SITE.modrinth, copy(l, k, "sectionLinksModrinth"))}</p>`),
-    panel(h.tr("galleryTitle"), photoTable(FILES.slice(0, 6), h) + `<p class="center">${h.link("/builds/", h.tr("viewGallery"), 'class="btn95"')} <span class="tiny">${esc(fill(copy(l, k, "catalogBrowse"), { total: FILES.length }))}</span></p>`),
+
+    panel(h.tr("blockTitle"), `<div id="block-day" class="swatches"></div><p class="tiny center">${esc(h.tr("blockNote"))} ${h.link("/projects/colorflow/", "Colorflow")}</p>`),
+    panel(h.tr("wipTitle"), `<div class="pbar"><i></i></div><p class="tiny center">${esc(h.tr("wipPct"))}</p><ul class="pix"><li>${esc(h.tr("wip1"))}</li><li>${esc(h.tr("wip2"))}</li><li>${esc(h.tr("wip3"))}</li></ul><pre class="ascii" aria-hidden="true">
+########
+#@@##@@#
+#@@##@@#
+###@@###
+##@@@@##
+##@##@##
+########</pre>`),
     panel(h.tr("mediaTitle"), `<figure class="shot" style="margin:2px 0 4px;"><video class="native" controls playsinline preload="none" poster="/${esc(iprofVideo.poster)}" width="${iprofVideo.width}" height="${iprofVideo.height}"><source src="/${esc(iprofVideo.file)}" type="video/mp4"></video><figcaption>${esc(ui(l, "videoTitle"))} · ${h.link("/projects/iprof-redesign/", h.tr("mediaLink"))}</figcaption></figure>`),
     panel(h.tr("contactTitle"), `<p>${esc(copy(l, k, "contactIntro"))}</p><p class="center"><a class="btn95 primary" href="${esc(SITE.discord)}" target="_blank" rel="noopener">${esc(copy(l, k, "contactCta"))}</a><br><span class="tiny">${esc(copy(l, k, "contactNote"))}</span></p><ul class="pix">${services.map((s) => `<li><b>${esc(s.title)}</b> — ${esc(s.text)}</li>`).join("")}</ul>`),
     panel(h.tr("processTitle"), `<ol class="pix">${process.map((s) => `<li><b>${esc(s.title)}</b> — ${esc(s.text)}</li>`).join("")}</ol>`),
     panel(h.tr("faqTitle"), faq.map((item) => `<details><summary>${esc(item.q)}</summary><p>${esc(item.a)}</p></details>`).join("")),
-    panel(h.tr("powered"), badges(h) + `<div class="sunken webring">${h.link("/links/", h.tr("webring"))}<br><span class="tiny">${esc(h.tr("webringNote"))}</span></div>`)
+
   ].join("");
 }
 
@@ -406,18 +405,8 @@ function searchBody(page, h) {
   ].join("");
 }
 
-function guestbookBody(h) {
-  const moods = ["happy", "chill", "silly", "sad", "wow"];
-  return win(h.tr("gbTitle"), [
-    `<p>${esc(h.tr("gbIntro"))}</p>`,
-    `<form id="gb-form"><table class="ft"><tr><th>${esc(h.tr("gbName"))}</th><td><input type="text" id="gb-name" maxlength="40"></td></tr><tr><th>${esc(h.tr("gbUrl"))}</th><td><input type="url" id="gb-url" maxlength="120" placeholder="https://"></td></tr><tr><th>${esc(h.tr("gbMood"))}</th><td><select id="gb-mood">${moods.map((m) => `<option value="${m}">${m}</option>`).join("")}</select></td></tr><tr><th>${esc(h.tr("gbMsg"))}</th><td><textarea id="gb-msg" rows="4" maxlength="600"></textarea></td></tr><tr><th></th><td><button class="btn95 primary" type="submit">${esc(h.tr("gbSend"))}</button> <span id="gb-thanks" class="tiny" data-ok="${esc(h.tr("gbThanks"))}" data-err="${esc(h.tr("gbErr"))}"></span></td></tr></table></form>`,
-    `<p class="tiny"><span id="gb-count">?</span> ${esc(h.tr("gbCount"))} · <noscript>${esc(h.tr("gbNoscript"))}</noscript></p>`,
-    `<table class="gb" id="gb-list"></table>`
-  ].join(""));
-}
-
 function journalBody(h) {
-  return win(h.tr("journalWin"), `<ul class="upd">${JOURNAL.map((e) => `<li><b>[${e.d}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("")}</ul><p class="center">${h.link("/guestbook/", h.tr("signGb"), 'class="btn95"')}</p>`);
+  return win(h.tr("journalWin"), `<ul class="upd">${JOURNAL.map((e) => `<li><b>[${e.d} · ${e.h}]</b>${esc(e[h.lang])} ${e.link ? h.link(e.link, "→") : ""}</li>`).join("")}</ul><p class="tiny center">${esc(h.tr("journalNote"))}</p>`);
 }
 
 function linksBody(h) {
@@ -446,7 +435,7 @@ function linksBody(h) {
 function sitemapBody(h, pages) {
   const l = h.lang;
   const main = ["/", "/about/", "/projects/", "/buildtheearth/", "/development/", "/guides/minecraft-mods-plugins-addons/", MUSEUM_ARTICLE_PATH, "/builds/"];
-  const extras = ["/journal/", "/guestbook/", "/links/", "/search/", "/sitemap/"];
+  const extras = ["/journal/", "/links/", "/search/", "/sitemap/"];
   const li = (path) => `<li>${h.link(path, path === "/" ? "home sweet home" : path)}</li>`;
   return win(h.tr("mapWin"), `<p>${esc(h.tr("mapIntro"))}</p>` +
     h2(h.tr("mapMain")) + `<ul class="map">${main.map(li).join("")}</ul>` +
@@ -493,7 +482,7 @@ function shell(page, body, h) {
 </tr>
 <tr><td colspan="3" class="col-foot">
   <img class="hr pixel" src="/assets/retro/rainbow-hr.gif" alt="" width="432" height="8">
-  <div>${h.link("/", h.tr("navHome"))} · ${h.link("/about/", h.tr("navAbout"))} · ${h.link("/builds/", h.tr("navBuilds"))} · ${h.link("/projects/", h.tr("navProjects"))} · ${h.link("/journal/", h.tr("navJournal"))} · ${h.link("/guestbook/", h.tr("navGuestbook"))} · ${h.link("/sitemap/", h.tr("navSitemap"))}</div>
+  <div>${h.link("/", h.tr("navHome"))} · ${h.link("/about/", h.tr("navAbout"))} · ${h.link("/builds/", h.tr("navBuilds"))} · ${h.link("/projects/", h.tr("navProjects"))} · ${h.link("/journal/", h.tr("navJournal"))} · ${h.link("/sitemap/", h.tr("navSitemap"))}</div>
   <div class="tiny" style="margin:4px 0;">${langLinks}</div>
   <div class="foot-badges"><span class="b88 grey">${esc(h.tr("footBest"))}</span><span class="b88 navy">made with notepad</span><span class="b88 black">no cookies</span></div>
   <div class="tiny">${esc(h.tr("footCopy"))}<br>${esc(h.tr("footMade"))}<br>${esc(h.tr("footView"))} <span id="odo-mini-foot"></span> · ${esc(h.tr("lastUpdated"))} 10/2026</div>
@@ -509,7 +498,6 @@ const pageFile = (path) => path === "/" ? "index.html" : path.replace(/^\//, "")
 function bodyFor(page, h, allPages) {
   const en = page.enPath || page.path.replace(/^\/(fr|es)(?=\/)/, "");
   if (en === "/journal/") return journalBody(h);
-  if (en === "/guestbook/") return guestbookBody(h);
   if (en === "/links/") return linksBody(h);
   if (en === "/sitemap/") return sitemapBody(h, allPages);
   if (page.home && !page.noindex) return homeBody(page, h);
@@ -529,12 +517,12 @@ function bodyFor(page, h, allPages) {
 const all = sitePages();
 const extras = [];
 for (const lang of LANGS) {
-  for (const path of ["/journal/", "/guestbook/", "/links/", "/sitemap/"]) {
+  for (const path of ["/journal/", "/links/", "/sitemap/"]) {
     extras.push({
       lang, path: pathFor(lang, path), enPath: path, type: "WebPage",
-      title: `${TR[lang][{ "/journal/": "journalWin", "/guestbook/": "gbTitle", "/links/": "linksWin", "/sitemap/": "mapWin" }[path]].replace(/\.exe|\.txt|\.html/, "")} | MaxLananas`,
-      description: TR[lang][{ "/journal/": "journalWin", "/guestbook/": "gbIntro", "/links/": "linksIntro", "/sitemap/": "mapIntro" }[path]].slice(0, 155),
-      heading: TR[lang][{ "/journal/": "journalTitle", "/guestbook/": "gbTitle", "/links/": "linksWin", "/sitemap/": "mapWin" }[path]],
+      title: `${TR[lang][{ "/journal/": "journalWin", "/links/": "linksWin", "/sitemap/": "mapWin" }[path]].replace(/\.exe|\.txt|\.html/, "")} | MaxLananas`,
+      description: TR[lang][{ "/journal/": "journalWin", "/links/": "linksIntro", "/sitemap/": "mapIntro" }[path]].slice(0, 155),
+      heading: TR[lang][{ "/journal/": "journalTitle", "/links/": "linksWin", "/sitemap/": "mapWin" }[path]],
       alternates: LANGS.map((l) => ({ lang: l, path: pathFor(l, path) })),
       published: "2026-10-25", modified: "2026-10-25", reviewed: "2026-10-25"
     });
