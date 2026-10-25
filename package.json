@@ -16,7 +16,10 @@
     "seo:render": "node tools/prepare-static.mjs && node tools/seo-render.mjs",
     "seo:check": "node tools/seo-check.mjs",
     "seo:diff": "node tools/seo-diff.mjs",
-    "seo:live": "node tools/verify-live.mjs"
+    "seo:live": "node tools/verify-live.mjs",
+    "retro:assets": "node tools/retro-assets.mjs",
+    "retro:render": "node tools/retro-render.mjs",
+    "retro:dev": "node tools/retro-render.mjs && node tools/serve.mjs --preview"
   },
   "engines": {
     "node": ">=22"

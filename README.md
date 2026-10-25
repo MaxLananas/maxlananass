@@ -6,6 +6,18 @@ Portfolio statique, sans framework ni dépendance JavaScript côté visiteur. Le
 
 Les originaux restent dans la release [`Asset-Portfolio / images-v1`](https://github.com/MaxLananas/Asset-Portfolio/releases/tag/images-v1). Aucun original n’est modifié, supprimé, déplacé ou ajouté au dépôt du site.
 
+## Frontend rétro (refonte d’octobre 2026)
+
+Le site publié est maintenant une **page personnelle façon 1999–2003** : colonnes en tableaux, bordures biseautées, fond tiled, polices pixel, compteur de visites, livre d’or, shoutbox, lecteur « MAXAMP », gifs animés et curseurs personnalisés. Toutes les URLs, contenus et langues précédents sont conservés (118 pages : en/fr/es + journal, livre d’or, liens et plan du site).
+
+- Rendu : `npm run retro:render` (`tools/retro-render.mjs`) régénère toutes les pages HTML depuis les mêmes sources éditoriales (`content/`, `gallery-data.js`) ; ne pas modifier les snapshots à la main.
+- Assets pixel : `npm run retro:assets` (`tools/retro-assets.mjs`) réencode tuiles de fond, curseurs `.png` et gifs animés (encodeurs PNG/GIF maison, sans dépendance).
+- Feuille de style : `retro.css` · comportements visiteur (livre d’or local, compteur, MAXAMP, sparkles) : `retro.js`.
+- Polices pixel vendues avec le site : `assets/fonts/retro/` (Press Start 2P, VT323, UnifrakturMaguntia — SIL Open Font License).
+- Aperçu local : `python3 -m http.server 8080` à la racine, ou `npm run retro:dev`.
+
+Le pipeline SEO précédent (`tools/seo-render.mjs`, `style.css`, `script.js`, tests Playwright) reste dans le dépôt comme historique et outillage documentaire, mais **n’est plus la source du HTML publié** : ses contrôles (`seo:diff`, `seo:check`, `test:browser`) décrivent l’ancien design et ne correspondent plus aux snapshots rétro. Les sources éditoriales, elles, restent partagées.
+
 ## Architecture SEO et contenu
 
 Le site comprend maintenant **102 pages statiques (99 indexables)** : 34 parcours déclinés à 100 % en anglais, français et espagnol — profil MaxLananas, étude de cas iProf, catalogue de projets, rubriques BuildTheEarth et développement, vingt fiches de projets et collections, un guide technique, une page 404 trilingue et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.
