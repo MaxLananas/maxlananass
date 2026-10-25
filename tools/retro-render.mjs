@@ -599,9 +599,9 @@ ${SITE.verification?.google ? `<meta name="google-site-verification" content="${
 <link rel="canonical" href="${canonical(page.path)}">
 ${alternates}<link rel="alternate" hreflang="x-default" href="${canonical((page.alternates || []).find((a) => a.lang === "en")?.path || page.path)}">
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="/retro.css">
+<link rel="stylesheet" href="/retro.css?v=6">
 ${page.noindex ? '<meta name="robots" content="noindex, follow">' : ""}
-<script src="/retro.js" defer></script>
+<script src="/retro.js?v=6" defer></script>
 ${extra}</head>`;
 }
 
