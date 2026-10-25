@@ -55,7 +55,7 @@ const TR = {
     mapMain: "main pages", mapProjects: "project files", mapBuilds: "build gallery", mapExtra: "the fun wing",
     searchTitle: "search the site", searchBtn: "find!", searchPlaceholder: "type a block, a build, a mod…",
     newFlag: "new!", download: "download", source: "source code",
-    mediaTitle: "media center", mediaLink: "about this video",
+    mediaTitle: "media center", mediaLink: "about this video", aboutWin: "aboutme.txt — notepad",
     lastUpdated: "page last watered"
   },
   fr: {
@@ -88,7 +88,7 @@ const TR = {
     mapMain: "pages principales", mapProjects: "fiches projets", mapBuilds: "galerie de builds", mapExtra: "l'aile fun",
     searchTitle: "chercher sur le site", searchBtn: "trouver !", searchPlaceholder: "un bloc, un build, un mod…",
     newFlag: "nouveau !", download: "télécharger", source: "code source",
-    mediaTitle: "centre média", mediaLink: "à propos de cette vidéo",
+    mediaTitle: "centre média", mediaLink: "à propos de cette vidéo", aboutWin: "apropos.txt — bloc-notes",
     lastUpdated: "page arrosée le"
   },
   es: {
@@ -121,7 +121,7 @@ const TR = {
     mapMain: "páginas principales", mapProjects: "fichas de proyectos", mapBuilds: "galería de builds", mapExtra: "el ala fun",
     searchTitle: "buscar en el sitio", searchBtn: "¡buscar!", searchPlaceholder: "un bloque, un build, un mod…",
     newFlag: "¡nuevo!", download: "descargar", source: "código fuente",
-    mediaTitle: "centro de medios", mediaLink: "sobre este vídeo",
+    mediaTitle: "centro de medios", mediaLink: "sobre este vídeo", aboutWin: "sobremi.txt — bloc de notas",
     lastUpdated: "página regada el"
   }
 };
@@ -256,7 +256,7 @@ function aboutBody(page, h) {
   const l = h.lang, k = "/about/", c = (f) => copy(l, k, f);
   const profiles = [SITE.github, SITE.modrinth, SITE.instagram, SITE.discord];
   const releases = PROJECTS.filter((p) => p.collection === "release").length;
-  return win("about me — " + h.tr("navAbout"), [
+  return win(h.tr("aboutWin"), [
     `<p class="tiny">${esc(c("eyebrow"))}</p>`,
     `<div class="welcome"><div class="ava"><img class="pixel" src="/assets/retro/avatar.png" alt="" width="96" height="96"></div><div class="txt"><p>${esc(c("p1"))}</p><p>${fill(c("p2"), { strong: "<strong>MaxLananas</strong>" })}</p></div></div>`,
     panel(h.tr("statsTitle"), `<table class="data"><tbody><tr><th>${esc(h.tr("statsBuilds"))}</th><td>${FILES.length}</td></tr><tr><th>${esc(h.tr("statsProjects"))}</th><td>${PROJECTS.length}</td></tr><tr><th>${esc(h.tr("statsReleases"))}</th><td>${releases}</td></tr><tr><th>${esc(h.tr("statsLangs"))}</th><td>3 (en · fr · es)</td></tr><tr><th>${esc(h.tr("statsUptime"))}</th><td>~27 years, give or take</td></tr></tbody></table>`),
@@ -496,7 +496,7 @@ function shell(page, body, h) {
   <div>${h.link("/", h.tr("navHome"))} · ${h.link("/about/", h.tr("navAbout"))} · ${h.link("/builds/", h.tr("navBuilds"))} · ${h.link("/projects/", h.tr("navProjects"))} · ${h.link("/journal/", h.tr("navJournal"))} · ${h.link("/guestbook/", h.tr("navGuestbook"))} · ${h.link("/sitemap/", h.tr("navSitemap"))}</div>
   <div class="tiny" style="margin:4px 0;">${langLinks}</div>
   <div class="foot-badges"><span class="b88 grey">${esc(h.tr("footBest"))}</span><span class="b88 navy">made with notepad</span><span class="b88 black">no cookies</span></div>
-  <div class="tiny">${esc(h.tr("footCopy"))}<br>${esc(h.tr("footMade"))}<br>${esc(h.tr("footView"))} <span id="odo-mini-foot"></span> · ${esc(h.tr("lastUpdated"))} ${new Date().toISOString().slice(0, 10)}</div>
+  <div class="tiny">${esc(h.tr("footCopy"))}<br>${esc(h.tr("footMade"))}<br>${esc(h.tr("footView"))} <span id="odo-mini-foot"></span> · ${esc(h.tr("lastUpdated"))} 10/2026</div>
 </td></tr>
 </table>
 </body>

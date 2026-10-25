@@ -18,6 +18,8 @@ Le site publié est maintenant une **page personnelle façon 1999–2003** : col
 
 Le pipeline SEO précédent (`tools/seo-render.mjs`, `style.css`, `script.js`, tests Playwright) reste dans le dépôt comme historique et outillage documentaire, mais **n’est plus la source du HTML publié** : ses contrôles (`seo:diff`, `seo:check`, `test:browser`) décrivent l’ancien design et ne correspondent plus aux snapshots rétro. Les sources éditoriales, elles, restent partagées.
 
+> ⚠️ Publication : le mode **Pages → Deploy from a branch** (mode actuel) publie le site rétro tel quel. Le parcours GitHub Actions (`tools/build.mjs` + `writeSeo`) reconstruit encore l’ancien design : ne pas l’utiliser pour publier avant d’avoir porté ce pipeline sur `tools/retro-render.mjs`.
+
 ## Architecture SEO et contenu
 
 Le site comprend maintenant **102 pages statiques (99 indexables)** : 34 parcours déclinés à 100 % en anglais, français et espagnol — profil MaxLananas, étude de cas iProf, catalogue de projets, rubriques BuildTheEarth et développement, vingt fiches de projets et collections, un guide technique, une page 404 trilingue et une galerie paginée contenant les 101 screenshots. Le contenu essentiel est disponible sans JavaScript ; la galerie interactive reste en place.

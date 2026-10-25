@@ -182,20 +182,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run check
-      - name: Comparer le HTML rendu au HTML publié dans le dépôt
-        run: npm run seo:diff
-      - run: npm run seo:check
+      - name: Comparer le rendu rétro aux snapshots HTML publiés
+        run: |
+          npm run retro:render
+          git diff --exit-code -- '*.html'
       - run: npm test
-      - run: npx playwright install --with-deps chromium firefox webkit
-      - run: npm run test:browser
-      - name: Conserver les diagnostics en cas d’échec
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: browser-test-failures-${{ github.run_attempt }}
-          path: test-results/
-          if-no-files-found: ignore
-          retention-days: 7
 
   build:
     name: Préparer et valider le véritable site
